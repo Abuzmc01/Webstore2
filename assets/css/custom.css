@@ -32,3 +32,28 @@
 .section-title {
   text-shadow: 0 0 12px rgba(210, 180, 140, 0.25);
 }
+/* ========== ANIMASI GLOW BERDENYUT ========== */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 14px rgba(210, 180, 140, 0.2),
+                0 0 30px rgba(210, 180, 140, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(210, 180, 140, 0.45),
+                0 0 45px rgba(210, 180, 140, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 14px rgba(210, 180, 140, 0.2),
+                0 0 30px rgba(210, 180, 140, 0.1);
+  }
+}
+
+/* Terapkan ke tombol utama */
+.btn-primary {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Efek denyut halus untuk logo */
+.navbar-brand img {
+  animation: glowPulse 5s ease-in-out infinite;
+  }
