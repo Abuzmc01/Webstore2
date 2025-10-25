@@ -229,3 +229,45 @@ footer {
   opacity: 1;
   transform: translateY(0);
   }
+/* ====== FROSTED GLASS EFFECT ====== */
+
+/* Navbar transparan bergaya kaca */
+.navbar {
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Frosted card (produk) */
+.card {
+  background: rgba(30, 30, 30, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* Tambahan glow lembut di tombol */
+.btn, .btn-outline {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 16px rgba(210, 180, 140, 0.2);
+}
+
+.btn:hover, .btn-outline:hover {
+  box-shadow: 0 0 22px rgba(210, 180, 140, 0.4);
+}
