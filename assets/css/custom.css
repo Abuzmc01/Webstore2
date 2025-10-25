@@ -38,3 +38,22 @@ body { background: var(--background); color: var(--light); font-family: 'Poppins
 
 /* Smooth scroll and hover effects */ html { scroll-behavior: smooth; } a, button, .btn, .nav-link { transition: all 0.3s ease; }
 
+/* --- Fix untuk ikon SVG dan gambar --- */
+svg, img {
+  filter: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Kembalikan ukuran SVG normal */
+svg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+/* Hapus efek glow berlebih di beberapa SVG */
+.features-box svg {
+  filter: none;
+  transition: none;
+}
