@@ -1,176 +1,95 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MineIDHost Store</title>
-
-    <!-- Fonts & Bootstrap -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/custom.css" />
-
-    <!-- Animasi Fade & Parallax -->
-    <style>
-      html { scroll-behavior: smooth; }
-
-      .fade-in {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      }
-      .fade-in.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .parallax {
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
-        z-index: 1;
-      }
-
-      .parallax::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: -1;
-      }
-    </style>
-
-    <script defer src="assets/js/custom.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script defer src="assets/js/main.js"></script>
   </head>
-
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm fade-in">
+    <!-- NAVBAR -->
+    <header class="navbar">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-          <img src="assets/img/logo.png" alt="MineIDHost Logo" height="40" class="me-2" />
-          <span class="fw-bold text-uppercase">MineIDHost Store</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
-            <li class="nav-item"><a class="nav-link" href="#produk">Produk</a></li>
-            <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
-            <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+        <h1 class="logo">MineIDHost Store</h1>
+        <nav>
+          <ul>
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#kontak">Kontak</a></li>
           </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header id="home" class="vh-100 d-flex align-items-center justify-content-center text-center text-light parallax" style="background-image:url('assets/img/banner.jpg')">
-      <div class="container fade-in">
-        <h1 class="display-4 fw-bold mb-3">Solusi Hosting Cepat & Aman</h1>
-        <p class="lead mb-4">Tingkatkan performa website kamu dengan layanan premium dari MineIDHost Store.</p>
-        <a href="#produk" class="btn btn-primary btn-lg px-4 py-2">Lihat Produk</a>
+        </nav>
       </div>
     </header>
 
-    <!-- Produk Section -->
-    <section id="produk" class="py-5 bg-dark text-light fade-in">
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="overlay"></div>
+      <div class="content fade-in">
+        <h2>Solusi Hosting Terbaik untuk Bisnis Digital</h2>
+        <p>Performa tinggi, harga terjangkau, dan dukungan profesional.</p>
+        <a href="#produk" class="btn">Lihat Produk</a>
+      </div>
+    </section>
+
+    <!-- PRODUK -->
+    <section id="produk" class="produk section">
       <div class="container">
-        <div class="text-center mb-5">
-          <h2 class="fw-bold text-uppercase" style="color:var(--primary)">Produk Unggulan</h2>
-          <p class="text-muted">Pilih layanan terbaik sesuai kebutuhan Anda</p>
-        </div>
-
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="card bg-black border-0 shadow-sm h-100">
-              <img src="https://picsum.photos/400/250?1" class="card-img-top" alt="Starter" />
-              <div class="card-body">
-                <h5 class="card-title text-white">Hosting Starter</h5>
-                <p class="card-text text-muted">Cocok untuk website pribadi dan UMKM.</p>
-                <a href="#" class="btn btn-outline-light w-100">Beli Sekarang</a>
-              </div>
-            </div>
+        <h2 class="section-title">Produk Unggulan</h2>
+        <div class="produk-grid">
+          <div class="card fade-in">
+            <img src="https://picsum.photos/400/260?1" alt="Starter" />
+            <h3>Paket Starter</h3>
+            <p>Hosting hemat untuk website pribadi dan UMKM.</p>
+            <a href="#" class="btn-outline">Beli Sekarang</a>
           </div>
-
-          <div class="col-md-4">
-            <div class="card bg-black border-0 shadow-sm h-100">
-              <img src="https://picsum.photos/400/250?2" class="card-img-top" alt="Pro" />
-              <div class="card-body">
-                <h5 class="card-title text-white">Hosting Pro</h5>
-                <p class="card-text text-muted">Performa tinggi untuk bisnis berkembang.</p>
-                <a href="#" class="btn btn-outline-light w-100">Beli Sekarang</a>
-              </div>
-            </div>
+          <div class="card fade-in">
+            <img src="https://picsum.photos/400/260?2" alt="Pro" />
+            <h3>Paket Pro</h3>
+            <p>Performa tinggi untuk bisnis dan e-commerce.</p>
+            <a href="#" class="btn-outline">Beli Sekarang</a>
           </div>
-
-          <div class="col-md-4">
-            <div class="card bg-black border-0 shadow-sm h-100">
-              <img src="https://picsum.photos/400/250?3" class="card-img-top" alt="Enterprise" />
-              <div class="card-body">
-                <h5 class="card-title text-white">Hosting Enterprise</h5>
-                <p class="card-text text-muted">Server dedicated & SLA premium.</p>
-                <a href="#" class="btn btn-outline-light w-100">Beli Sekarang</a>
-              </div>
-            </div>
+          <div class="card fade-in">
+            <img src="https://picsum.photos/400/260?3" alt="Enterprise" />
+            <h3>Paket Enterprise</h3>
+            <p>Server dedicated & SLA premium untuk perusahaan besar.</p>
+            <a href="#" class="btn-outline">Beli Sekarang</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Tentang Section -->
-    <section id="tentang" class="py-5 text-light bg-black fade-in">
-      <div class="container text-center">
-        <h2 class="fw-bold mb-3 text-uppercase" style="color:var(--primary)">Tentang Kami</h2>
-        <p class="lead text-muted mx-auto" style="max-width:800px;">MineIDHost Store berdedikasi memberikan layanan hosting cepat, aman, dan terjangkau dengan teknologi terkini untuk mendukung bisnis digital di Indonesia.</p>
+    <!-- TENTANG -->
+    <section id="tentang" class="tentang section fade-in">
+      <div class="container">
+        <h2 class="section-title">Tentang Kami</h2>
+        <p>
+          MineIDHost Store menyediakan layanan hosting cepat, aman, dan
+          terpercaya dengan teknologi modern untuk mendukung pertumbuhan bisnis
+          digital di Indonesia.
+        </p>
       </div>
     </section>
 
-    <!-- Kontak -->
-    <section id="kontak" class="py-5 bg-dark text-light fade-in">
-      <div class="container text-center">
-        <h2 class="fw-bold text-uppercase mb-3" style="color:var(--primary)">Hubungi Kami</h2>
-        <form class="mx-auto" style="max-width:600px;">
-          <input type="text" class="form-control mb-3" placeholder="Nama" required />
-          <input type="email" class="form-control mb-3" placeholder="Email" required />
-          <textarea class="form-control mb-3" rows="4" placeholder="Pesan" required></textarea>
-          <button class="btn btn-primary w-100 py-2">Kirim Pesan</button>
+    <!-- KONTAK -->
+    <section id="kontak" class="kontak section fade-in">
+      <div class="container">
+        <h2 class="section-title">Hubungi Kami</h2>
+        <form>
+          <input type="text" placeholder="Nama" required />
+          <input type="email" placeholder="Email" required />
+          <textarea placeholder="Pesan" rows="4" required></textarea>
+          <button type="submit" class="btn">Kirim Pesan</button>
         </form>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="text-center py-4 bg-black text-muted fade-in">
-      <p>&copy; 2025 MineIDHost Store. All Rights Reserved.</p>
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 MineIDHost Store — Semua hak dilindungi.</p>
+      </div>
     </footer>
-
-    <script>
-      // Fade-in
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add("show");
-          });
-        },
-        { threshold: 0.15 }
-      );
-      document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
-
-      // Parallax Scroll
-      window.addEventListener("scroll", () => {
-        const parallax = document.querySelector(".parallax");
-        if (parallax) {
-          const offset = window.pageYOffset;
-          parallax.style.backgroundPositionY = offset * 0.5 + "px";
-        }
-      });
-    </script>
-
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
