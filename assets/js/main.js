@@ -13,3 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   elements.forEach((el) => observer.observe(el));
 });
+// Navbar transparan berubah saat scroll
+window.addEventListener("scroll", () => {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 80) navbar.classList.add("scrolled");
+  else navbar.classList.remove("scrolled");
+});
