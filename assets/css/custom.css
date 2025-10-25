@@ -2,39 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-:root {
-    /* 🎨 Warna dasar tema */
-    --background: #0a0a0a; /* Hitam premium */
-    --background-rgba: rgba(10, 10, 10, 0.4);
-    --dark: #0f0f0f; /* Lapisan hitam dalam */
-    --dark-rgba: rgba(15, 15, 15, 0.85);
-    --light-dark: #1a1a1a; /* Abu gelap lembut */
-
-    /* 🌈 Teks dan warna umum */
-    --white: #ffffff;
-    --light: #cccccc;
-    --gray: #777777;
-
-    /* 🔥 Warna utama (merah gelap elegan) */
-    --red: #b3001b;
-    --pink: #c70620; /* variasi merah lebih terang */
-    --accent: #b3001b;
-    --accent-glow: rgba(179, 0, 27, 0.4);
-
-    /* ✨ Gradasi dan efek premium */
-    --gradient-primary: linear-gradient(135deg, #1a0000 0%, #3a0b0b 50%, #b3001b 100%);
-    --gradient-dark: linear-gradient(180deg, #0a0a0a 0%, #1a0000 100%);
-    --gradient-glow: radial-gradient(circle at top left, rgba(179, 0, 27, 0.3), transparent 70%);
-    --gradient-hover: linear-gradient(135deg, #b3001b 0%, #c70620 100%);
-
-    /* 🟡 Warna sekunder elegan */
-    --yellow: #d4b014;  /* Emas lembut */
-    --orange: #b3471b;  /* Oranye tua */
-    --purple: #5c2e7e;  /* Ungu gelap mewah */
-    --green: #207a54;   /* Hijau tua alami */
-
-    /* 🔴 Warna khusus tambahan */
-    --discord-color: #8b0000; /* Merah tua elegan */
+    --background: #141627;
+    --background-rgba: rgba(20, 22, 39, .4);
+    --dark: #1c1f37;
+    --dark-rgba: rgba(28, 31, 55, .8);
+    --light-dark: #252a43;
+    --white: #fff;
+    --light: #cdcfe3;
+    --gray: #6d708a;
+    --blue: #0195f4;
+    --green: #20bf6c;
+    --red: #fd5c65;
+    --pink: #fd5c65;
+    --yellow: #fed230;
+    --orange: #fb8230;
+    --purple: #a75eea;
+    --discord-color: #698EFF;
 }
 
 body {
@@ -81,14 +64,13 @@ body {
 }
 
 .btn-warning {
-background-color: var(--yellow);
-border: 1px solid var(--yellow);
+    background-color: var(--yellow);
+    border: 1px solid var(--yellow);
 }
 
 .btn-danger {
-background-color: var(--red);
-border: 1px solid var(--red);
-
+    background-color: var(--red);
+    border: 1px solid var(--red);
 }
 
 .form-control {
