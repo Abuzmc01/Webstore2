@@ -1,5 +1,5 @@
 /* ===============================
-   MineIDHost Red-Black Elegant Glow Theme (Full Rebuild)
+   MineIDHost Red-Black Elegant Glow Theme (Final Fix - Keep SVG Size)
    =============================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
@@ -109,8 +109,10 @@ body {
 }
 .features-box svg {
   transition: all 0.4s ease;
+  filter: drop-shadow(0 0 6px transparent);
 }
 .features-box:hover svg {
+  filter: drop-shadow(0 0 10px var(--accent-glow));
   transform: scale(1.05);
 }
 
@@ -167,40 +169,11 @@ a, button, .btn, .nav-link {
 }
 
 /* ===============================
-   FIX PATCH: SVG & Image Distortion
+   KEEP ORIGINAL SVG & IMAGE SIZE
    =============================== */
-.features-box svg,
-.card svg,
-.hero_box img,
-.features-box img,
-.navbar-brand img {
-  width: auto !important;
-  height: auto !important;
-  max-width: 54px !important;
-  max-height: 54px !important;
-  object-fit: contain !important;
+svg, img {
   filter: none !important;
   transform: none !important;
   box-shadow: none !important;
-}
-.features-box:hover svg,
-.card:hover svg {
-  transform: none !important;
-  filter: none !important;
-}
-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  filter: none !important;
-  transform: none !important;
-}
-svg {
-  filter: none !important;
-}
-.dropdown-item img,
-.navbar img {
-  width: 40px !important;
-  height: 40px !important;
-  filter: none !important;
+  object-fit: unset !important;
 }
