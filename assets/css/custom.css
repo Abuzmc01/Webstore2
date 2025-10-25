@@ -1,59 +1,206 @@
-/* =============================== MineIDHost Red-Black Elegant Glow Theme Structure unchanged — visual overhaul only =============================== */
+/* ===============================
+   MineIDHost Red-Black Elegant Glow Theme (Full Rebuild)
+   =============================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-:root { --background: linear-gradient(180deg, #0a0a0a 0%, #1a0000 100%); --dark: #0f0f0f; --dark-rgba: rgba(15, 15, 15, 0.9); --light-dark: #1a1a1a; --white: #fff; --light: #ccc; --gray: #777; --accent: #b3001b; /* red dark elegant */ --accent-glow: rgba(179, 0, 27, 0.4); }
+:root {
+  --background: linear-gradient(180deg, #0a0a0a 0%, #1a0000 100%);
+  --dark: #0f0f0f;
+  --dark-rgba: rgba(15, 15, 15, 0.9);
+  --light-dark: #1a1a1a;
+  --white: #fff;
+  --light: #ccc;
+  --gray: #777;
+  --accent: #b3001b; /* red dark elegant */
+  --accent-glow: rgba(179, 0, 27, 0.4);
+}
 
-body { background: var(--background); color: var(--light); font-family: 'Poppins', sans-serif; transition: background 0.5s ease, color 0.5s ease; }
+body {
+  background: var(--background);
+  color: var(--light);
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.5s ease, color 0.5s ease;
+}
 
-/* =============================== Navbar =============================== */ .navbar-dark { background: transparent; transition: all 0.5s ease; box-shadow: 0 0 15px transparent; }
+/* ===============================
+   Navbar
+   =============================== */
+.navbar-dark {
+  background: transparent;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 15px transparent;
+}
+.fixed-top.scrolled {
+  background: var(--dark-rgba);
+  box-shadow: 0 0 20px var(--accent-glow);
+  backdrop-filter: blur(12px);
+}
+.navbar-dark .navbar-brand span:last-child {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+.navbar .nav-link {
+  color: var(--white);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+.navbar .nav-link:hover {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+.navbar .btn {
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 12px transparent;
+}
+.navbar .btn:hover {
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: scale(1.05);
+}
 
-.fixed-top.scrolled { background: var(--dark-rgba); box-shadow: 0 0 20px var(--accent-glow); backdrop-filter: blur(12px); }
+/* ===============================
+   Hero Section
+   =============================== */
+.hero_section .hero_content h2 {
+  color: var(--white);
+  text-shadow: 0 0 12px var(--accent-glow);
+  animation: fadeUp 1.2s ease both;
+}
+.hero_section .hero_content p {
+  color: var(--light);
+  animation: fadeUp 1.6s ease both;
+}
+.hero_section .btn-main {
+  background: var(--accent);
+  border: none;
+  box-shadow: 0 0 18px transparent;
+  transition: all 0.4s ease;
+}
+.hero_section .btn-main:hover {
+  box-shadow: 0 0 25px var(--accent-glow);
+  background: #c70620;
+  transform: translateY(-2px);
+}
 
-.navbar-dark .navbar-brand span:last-child { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+@keyframes fadeUp {
+  0% {opacity: 0; transform: translateY(20px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
 
-.navbar .nav-link { color: var(--white); transition: color 0.4s ease, text-shadow 0.4s ease; } .navbar .nav-link:hover { color: var(--accent); text-shadow: 0 0 8px var(--accent-glow); }
+/* ===============================
+   Cards & Boxes
+   =============================== */
+.card, .hero_box, .features-box {
+  background: var(--light-dark);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 12px transparent;
+}
+.card:hover, .hero_box:hover, .features-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+.features-box h2 {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+.features-box svg {
+  transition: all 0.4s ease;
+}
+.features-box:hover svg {
+  transform: scale(1.05);
+}
 
-.navbar .btn { background: var(--accent); color: var(--white); border: none; transition: all 0.4s ease; box-shadow: 0 0 12px transparent; } .navbar .btn:hover { box-shadow: 0 0 16px var(--accent-glow); transform: scale(1.05); }
+/* ===============================
+   Buttons & Links
+   =============================== */
+.btn, .dropdown-item {
+  transition: all 0.4s ease;
+}
+.btn:hover, .dropdown-item:hover {
+  color: var(--white) !important;
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent-glow);
+  transform: translateY(-1px);
+}
 
-/* =============================== Hero Section =============================== */ .hero_section .hero_content h2 { color: var(--white); text-shadow: 0 0 12px var(--accent-glow); animation: fadeUp 1.2s ease both; } .hero_section .hero_content p { color: var(--light); animation: fadeUp 1.6s ease both; } .hero_section .btn-main { background: var(--accent); border: none; box-shadow: 0 0 18px transparent; transition: all 0.4s ease; } .hero_section .btn-main:hover { box-shadow: 0 0 25px var(--accent-glow); background: #c70620; transform: translateY(-2px); }
+/* ===============================
+   Animations for appearance
+   =============================== */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
 
-@keyframes fadeUp { 0% {opacity: 0; transform: translateY(20px);} 100% {opacity: 1; transform: translateY(0);} }
+/* ===============================
+   Glow borders on key UI elements
+   =============================== */
+.hero_box.active, .dropdown-menu, .card:hover {
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
 
-/* =============================== Cards & Boxes =============================== */ .card, .hero_box, .features-box { background: var(--light-dark); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; transition: all 0.4s ease; box-shadow: 0 0 12px transparent; }
+/* ===============================
+   Footer / General Elements
+   =============================== */
+footer {
+  background: var(--dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--light);
+  text-align: center;
+  padding: 30px 0;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
 
-.card:hover, .hero_box:hover, .features-box:hover { transform: translateY(-5px); box-shadow: 0 0 20px var(--accent-glow); }
+/* Smooth scroll and hover effects */
+html {
+  scroll-behavior: smooth;
+}
+a, button, .btn, .nav-link {
+  transition: all 0.3s ease;
+}
 
-.features-box h2 { color: var(--accent); text-shadow: 0 0 8px var(--accent-glow); }
-
-.features-box svg { filter: drop-shadow(0 0 8px var(--accent-glow)); transition: all 0.4s ease; } .features-box:hover svg { transform: scale(1.05); filter: drop-shadow(0 0 12px var(--accent-glow)); }
-
-/* =============================== Buttons & Links =============================== */ .btn, .dropdown-item { transition: all 0.4s ease; } .btn:hover, .dropdown-item:hover { color: var(--white) !important; background: var(--accent); box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-1px); }
-
-/* =============================== Animations for appearance =============================== */ .fade-in { animation: fadeIn 1s ease forwards; } @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-
-/* =============================== Glow borders on key UI elements =============================== */ .hero_box.active, .dropdown-menu, .card:hover { border: 1px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
-
-/* =============================== Footer / General Elements =============================== */ footer { background: var(--dark); border-top: 1px solid rgba(255, 255, 255, 0.1); color: var(--light); text-align: center; padding: 30px 0; box-shadow: 0 0 20px var(--accent-glow); }
-
-/* Smooth scroll and hover effects */ html { scroll-behavior: smooth; } a, button, .btn, .nav-link { transition: all 0.3s ease; }
-
-/* --- Fix untuk ikon SVG dan gambar --- */
-svg, img {
+/* ===============================
+   FIX PATCH: SVG & Image Distortion
+   =============================== */
+.features-box svg,
+.card svg,
+.hero_box img,
+.features-box img,
+.navbar-brand img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 54px !important;
+  max-height: 54px !important;
+  object-fit: contain !important;
   filter: none !important;
   transform: none !important;
   box-shadow: none !important;
 }
-
-/* Kembalikan ukuran SVG normal */
-svg {
-  width: auto;
-  height: auto;
-  max-width: 100%;
+.features-box:hover svg,
+.card:hover svg {
+  transform: none !important;
+  filter: none !important;
 }
-
-/* Hapus efek glow berlebih di beberapa SVG */
-.features-box svg {
-  filter: none;
-  transition: none;
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: none !important;
+  transform: none !important;
+}
+svg {
+  filter: none !important;
+}
+.dropdown-item img,
+.navbar img {
+  width: 40px !important;
+  height: 40px !important;
+  filter: none !important;
 }
