@@ -35,3 +35,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 });
+// Fade animation on scroll
+window.addEventListener("scroll", () => {
+  document.querySelectorAll(".fade-up").forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+});
+
+// Parallax background movement
+window.addEventListener("scroll", () => {
+  const parallax = document.querySelector(".parallax");
+  if (parallax) {
+    const offset = window.scrollY * 0.3;
+    parallax.style.backgroundPositionY = offset + "px";
+  }
+});
