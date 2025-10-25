@@ -1,12 +1,19 @@
+/* ================================
+   MineIDHost Store - Raznar Style
+   HTML + CSS + JS Only
+================================ */
+
 :root {
   --bg: #0f0f0f;
-  --card: #1a1a1a;
-  --text: #f5f5f5;
-  --muted: #b0b0b0;
-  --primary: #ff4b4b; /* merah semi */
-  --accent: #ff6666;
+  --section: #161616;
+  --card: #1e1e1e;
+  --text: #f8f8f8;
+  --muted: #b8b8b8;
+  --primary: #d6b26a; /* gold tan like Raznar */
+  --accent: #e0c98f;
 }
 
+/* GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,41 +21,59 @@
 }
 
 body {
+  font-family: "Poppins", sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
   line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* CONTAINER */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
 }
 
 /* NAVBAR */
 .navbar {
   position: fixed;
-  width: 100%;
   top: 0;
-  background: rgba(10, 10, 10, 0.8);
+  width: 100%;
+  z-index: 100;
+  background: rgba(15, 15, 15, 0.4);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(20, 20, 20, 0.9);
 }
 
 .navbar .container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 1rem 5%;
+  align-items: center;
+  padding: 1rem 0;
 }
 
 .logo {
-  font-size: 1.3rem;
   font-weight: 700;
+  font-size: 1.4rem;
   color: var(--primary);
+  letter-spacing: 0.5px;
 }
 
 .navbar ul {
   display: flex;
-  gap: 1.2rem;
   list-style: none;
+  gap: 1.5rem;
 }
 
 .navbar a {
@@ -62,31 +87,31 @@ body {
   color: var(--primary);
 }
 
-/* HERO */
+/* HERO SECTION */
 .hero {
   height: 100vh;
-  background: url("https://picsum.photos/1600/900?blur") center/cover no-repeat;
+  background: url("https://picsum.photos/1920/1080?blur") center/cover no-repeat;
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
 .hero .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.hero .content {
+.hero-content {
   position: relative;
-  max-width: 600px;
   z-index: 2;
+  max-width: 700px;
 }
 
-.hero h2 {
-  font-size: 2.2rem;
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
   color: var(--text);
 }
@@ -97,10 +122,10 @@ body {
 }
 
 .btn {
+  display: inline-block;
   background: var(--primary);
   color: #000;
-  padding: 0.75rem 1.5rem;
-  border: none;
+  padding: 0.8rem 1.8rem;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
@@ -112,65 +137,105 @@ body {
   transform: translateY(-3px);
 }
 
-/* SECTION */
+/* SECTION BASE */
 .section {
-  padding: 100px 5%;
+  padding: 100px 0;
+  background: var(--section);
 }
 
 .section-title {
   text-align: center;
   font-size: 1.8rem;
   color: var(--primary);
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
+  position: relative;
 }
 
-/* PRODUK GRID */
+.section-title::after {
+  content: "";
+  width: 60px;
+  height: 3px;
+  background: var(--primary);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 3px;
+}
+
+/* LAYANAN */
+.layanan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: var(--card);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card h3 {
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  border-color: var(--primary);
+}
+
+/* PRODUK */
 .produk-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
-.card {
+.produk-card {
   background: var(--card);
   border-radius: 12px;
   overflow: hidden;
-  text-align: center;
-  padding-bottom: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.card img {
+.produk-card img {
   width: 100%;
-  display: block;
-  height: 220px;
+  height: 200px;
   object-fit: cover;
 }
 
-.card h3 {
-  color: var(--text);
-  margin: 1rem 0 0.5rem 0;
+.produk-info {
+  padding: 1.5rem;
+  text-align: center;
 }
 
-.card p {
+.produk-info h3 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.produk-info p {
   color: var(--muted);
-  padding: 0 1rem;
   margin-bottom: 1rem;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-}
-
 .btn-outline {
-  display: inline-block;
-  padding: 0.6rem 1.3rem;
   border: 2px solid var(--primary);
-  border-radius: 8px;
   color: var(--primary);
-  font-weight: 600;
+  padding: 0.6rem 1.3rem;
+  border-radius: 8px;
   text-decoration: none;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
@@ -179,14 +244,38 @@ body {
   color: #000;
 }
 
-/* TENTANG & KONTAK */
-#tentang p {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-  color: var(--muted);
+/* TESTIMONI */
+.slider {
+  position: relative;
+  overflow: hidden;
 }
 
+.slide {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.8s ease;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.slide.active {
+  opacity: 1;
+  position: relative;
+}
+
+.slide p {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.slide h4 {
+  color: var(--primary);
+}
+
+/* FORM KONTAK */
 form {
   max-width: 600px;
   margin: 0 auto;
@@ -196,12 +285,11 @@ form {
 }
 
 input, textarea {
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  color: var(--text);
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 0.75rem;
-  resize: none;
+  color: var(--text);
+  padding: 0.8rem;
   font-family: inherit;
 }
 
@@ -213,87 +301,64 @@ input:focus, textarea:focus {
 /* FOOTER */
 footer {
   background: #0a0a0a;
+  padding: 3rem 0 1rem;
   text-align: center;
-  padding: 1.5rem;
   color: var(--muted);
-  font-size: 0.9rem;
+}
+
+.footer-content {
+  margin-bottom: 1rem;
+}
+
+.footer-content h3 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.social-links a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--primary);
+}
+
+.copy {
+  font-size: 0.85rem;
+  margin-top: 1.5rem;
+  color: var(--muted);
 }
 
 /* ANIMASI */
 .fade-in {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition: all 0.8s ease-out;
 }
+
 .fade-in.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .navbar ul {
+    gap: 1rem;
   }
-/* ====== FROSTED GLASS EFFECT ====== */
-
-/* Navbar transparan bergaya kaca */
-.navbar {
-  background: rgba(10, 10, 10, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background 0.3s ease, backdrop-filter 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: rgba(15, 15, 15, 0.8);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-/* Frosted card (produk) */
-.card {
-  background: rgba(30, 30, 30, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-}
-
-/* Tambahan glow lembut di tombol */
-.btn, .btn-outline {
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 0 16px rgba(210, 180, 140, 0.2);
-}
-
-.btn:hover, .btn-outline:hover {
-  box-shadow: 0 0 22px rgba(210, 180, 140, 0.4);
-}
-.social svg {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.social {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 75, 75, 0.1);
-}
-
-.social:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 25px rgba(255, 75, 75, 0.3);
-  opacity: 0.95;
+  .hero h1 {
+    font-size: 1.8rem;
   }
+  .section {
+    padding: 70px 0;
+  }
+}
