@@ -425,18 +425,16 @@
 
 <!-- HIGH -->
 <div id="high" class="tab-pane fade show active">
-  <div class="row justify-content-center">
-
-    <!-- HIGH VIDEO SECTION -->
-<div class="video-box fade-up">
-  <video class="video-preview" autoplay muted loop playsinline>
-    <source src="assets/videos/lokasi.mp4" type="video/mp4">
-    Browser kamu tidak mendukung video tag.
-  </video>
-  <h2 class="video-title">High Performance Infrastructure</h2>
-  <p class="premium-desc">Server kami menggunakan prosesor AMD generasi terbaru, penyimpanan NVMe tercepat, dan jaringan ultra-low latency. Dirancang untuk performa tinggi tanpa kompromi.</p>
-</div>
-    </div>
+  <div class="video-box">
+    <video class="video-preview" autoplay loop muted playsinline>
+      <source src="assets/videos/lokasi.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+    <h2 class="video-title">High Performance Infrastructure</h2>
+    <p class="video-desc">
+      Server kami didukung prosesor AMD generasi terbaru dengan performa luar biasa,
+      memastikan kecepatan tinggi dan stabilitas maksimal untuk semua pengguna.
+    </p>
   </div>
 </div>
 
@@ -711,63 +709,66 @@
     opacity: 1;
     transform: translateY(0);
   }
-/* ====== VIDEO STYLE (untuk tab HIGH) ====== */
+	
+/* ===== VIDEO STYLE (untuk tab HIGH) ===== */
 .video-box {
   position: relative;
-  margin: 30px auto;
+  margin: 20px auto;
   background: radial-gradient(circle at center, #0d0d0d, #000);
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
-  max-width: 1000px;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.25);
+  max-width: 920px;
   overflow: hidden;
-  animation: fadeInGlow 1.2s ease forwards;
+  animation: fadeInGlow 1s ease forwards;
 }
 
+/* Ukuran video pas & glow smooth */
 .video-preview {
   width: 100%;
-  height: 420px;
+  height: 320px;
   border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
   display: block;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
   transition: all 0.4s ease-in-out;
 }
 
 .video-preview:hover {
   transform: scale(1.02);
-  box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 45px rgba(255, 0, 0, 0.6);
 }
 
+/* Judul dan deskripsi di bawah video */
 .video-title {
   color: #ff2d2d;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
-  margin-top: 20px;
+  margin-top: 18px;
   text-align: center;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
 }
 
-.premium-desc {
+.video-desc {
   color: #ccc;
   font-size: 15px;
   line-height: 1.6;
-  max-width: 700px;
-  margin: 10px auto 0;
   text-align: center;
+  max-width: 720px;
+  margin: 8px auto 0;
 }
 
-/* Efek animasi fade-in + glow */
+/* Animasi glow halus */
 @keyframes fadeInGlow {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(25px);
     box-shadow: 0 0 0 rgba(255, 0, 0, 0);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
   }
 }
 </style>
