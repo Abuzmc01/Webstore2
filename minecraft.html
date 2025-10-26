@@ -384,31 +384,45 @@
 
 <!-- MEDIUM -->
 <div id="medium" class="tab-pane fade show active">
+  <div class="container py-5">
+    <div class="row justify-content-center">
 
-  <!-- Gambar Showcase Full Width -->
-  <section class="software-showcase">
+      <!-- Gambar 1 -->
+      <div class="col-lg-10 col-md-12 mb-4">
+        <div class="image-card">
+          <img src="assets/images/slider_images/minecraft.png" alt="Minecraft" class="img-fluid">
+        </div>
+      </div>
 
-    <div class="showcase-item" style="background: linear-gradient(180deg, #0a0a0a, #000);">
-      <img src="assets/images/slider_images/minecraft.png" alt="Minecraft Showcase" class="showcase-img">
+      <!-- Gambar 2 -->
+      <div class="col-lg-10 col-md-12 mb-4">
+        <div class="image-card">
+          <img src="assets/images/slider_images/modelengine.png" alt="Model Engine" class="img-fluid">
+        </div>
+      </div>
+
+      <!-- Gambar 3 -->
+      <div class="col-lg-10 col-md-12 mb-4">
+        <div class="image-card">
+          <img src="assets/images/slider_images/ryzen7950x.png" alt="Ryzen 9 7950X" class="img-fluid">
+        </div>
+      </div>
+
+      <!-- Gambar 4 -->
+      <div class="col-lg-10 col-md-12 mb-4">
+        <div class="image-card">
+          <img src="assets/images/slider_images/epyc9654.png" alt="EPYC 9654" class="img-fluid">
+        </div>
+      </div>
+
+      <!-- Gambar 5 -->
+      <div class="col-lg-10 col-md-12 mb-4">
+        <div class="image-card">
+          <img src="assets/images/slider_images/ryzen9.png" alt="Ryzen 9" class="img-fluid">
+        </div>
+      </div>
     </div>
-
-    <div class="showcase-item" style="background: linear-gradient(180deg, #0b0b0b, #070707);">
-      <img src="assets/images/slider_images/fivem.png" alt="Model Engine Showcase" class="showcase-img">
-    </div>
-
-    <div class="showcase-item" style="background: linear-gradient(180deg, #0a0a0a, #080808);">
-      <img src="assets/images/slider_images/terria.png" alt="Ryzen 9 7950X Showcase" class="showcase-img">
-    </div>
-
-    <div class="showcase-item" style="background: linear-gradient(180deg, #080808, #060606);">
-      <img src="assets/images/slider_images/ark.png" alt="AMD EPYC Showcase" class="showcase-img">
-    </div>
-
-    <div class="showcase-item" style="background: linear-gradient(180deg, #000, #0a0000);">
-      <img src="assets/images/slider_images/valheim.png" alt="Ryzen 7 Showcase" class="showcase-img">
-    </div>
-	  
-  </section>
+  </div>
 </div>
 
 <!-- HIGH -->
@@ -479,6 +493,44 @@
 
 <!-- STYLE -->
 <style>
+.image-card {
+  background: #0c0c0c;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px rgba(255, 0, 0, 0.7);
+}
+
+.image-card img {
+  border-radius: 15px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* 🔥 Fade-in animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.fade-up:nth-child(1) { animation-delay: 0.1s; }
+.fade-up:nth-child(2) { animation-delay: 0.2s; }
+.fade-up:nth-child(3) { animation-delay: 0.3s; }
+.fade-up:nth-child(4) { animation-delay: 0.4s; }
+.fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 /* ======= CARD PREMIUM ======= */
 .premium-card {
   background: linear-gradient(180deg, #141414, #0d0d0d);
