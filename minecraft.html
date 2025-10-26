@@ -721,151 +721,224 @@ document.addEventListener("DOMContentLoaded", () => {
   elements.forEach(el => observer.observe(el));
 });
 </script>
-<!-- ======= DISCORD BAR ======= -->
-<div class="discord-banner py-3">
+<!-- ======= DISCORD INVITE BAR ======= -->
+<div class="discord-banner">
   <div class="container d-flex flex-wrap justify-content-between align-items-center">
-    <p class="mb-0 text-white">
-      🎮 Bergabunglah dengan server Discord kami untuk berita eksklusif, pembaruan & hadiah!
-    </p>
-    <a href="https://dsc.gg/mineidhost" class="discord-btn">Join Discord</a>
+    <div class="d-flex align-items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#ff1e1e" viewBox="0 0 512 512">
+        <path d="M132.6 327.5c95.3 37.2 176.5 44.5 268.4-13.5-18.8 27.9-66.7 41.8-66.7 41.8l23.9 29.6c30.6 0 60.6-8.8 86.6-25.6 20.2-13.5 31.6-36.7 29.3-61-4-41.4-13.8-81.9-29-120.6-19.2-50.5-65.3-85.6-118.9-90.6l-5.4 5.4c61.6 17.5 92.3 44.8 93 45.8-94.7-47.8-206.5-48.5-301.8-2 0 0 30.3-30 97.3-45.8l-4-4c-7.1 0-13.8.7-20.9 1.7-49.5 8.4-90.9 42.4-108.8 89.3-15.5 40.4-25.6 82.9-29.3 126-2 22.9 8.8 45.5 27.6 58.6 24.9 16.5 54.6 25.3 84.5 25.3l24.3-30c-45.4-13.5-64-40.4-64.3-41.4l8.6 4.4c5.1 2.6 10.4 5 15.7 7.1z"/>
+      </svg>
+      <p class="mb-0 text-white">
+        Bergabunglah dengan server <strong>Discord</strong> kami untuk berita eksklusif, pembaruan & hadiah spesial!
+      </p>
+    </div>
+    <a href="https://dsc.gg/mineidhost" class="discord-btn">
+      <i class="fab fa-discord"></i> Join Discord
+    </a>
   </div>
 </div>
 
 <!-- ======= FOOTER ======= -->
-<footer class="footer-section pt-6 pb-4">
+<footer class="footer-section">
   <div class="container">
-    <div class="row">
+    <div class="row gy-4">
       <div class="col-lg-4">
         <h3 class="footer-logo">
           <span class="white">MineID</span><span class="red">Host</span>
         </h3>
-        <p>Mendampingi bisnis dan individu untuk tumbuh, terlindungi, dan siap bersaing dengan solusi teknologi terbaik.</p>
-        <p class="copy">&copy; 2025 MineIDHost. All Rights Reserved.</p>
+        <p class="footer-desc">Mendampingi bisnis dan individu untuk tumbuh, terlindungi, dan siap bersaing dengan solusi teknologi terbaik.</p>
+        <p class="footer-copy">&copy; 2025 MineIDHost. All Rights Reserved.</p>
       </div>
+
       <div class="col-lg-8">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-6">
             <h4>Services</h4>
-            <ul>
-              <li><a href="minecraft.html">Minecraft Hosting</a></li>
-              <li><a href="ark.html">VPS Epyc Zen2 Series</a></li>
-              <li><a href="csgo.html">VPS Epyc Zen3 Series</a></li>
-              <li><a href="valheim.html">VPS Epyc Zen4 Series</a></li>
-              <li><a href="fivem.html">VPS Ryzen Zen5 Series</a></li>
-              <li><a href="rust.html">Pterodactyl Service</a></li>
-              <li><a href="terraria.html">Minecraft Models</a></li>
+            <ul class="footer-list">
+              <li><a href="#">Minecraft Hosting</a></li>
+              <li><a href="#">VPS Epyc Zen2</a></li>
+              <li><a href="#">VPS Epyc Zen3</a></li>
+              <li><a href="#">VPS Epyc Zen4</a></li>
+              <li><a href="#">VPS Ryzen Zen5</a></li>
+              <li><a href="#">Pterodactyl Service</a></li>
             </ul>
           </div>
-          <div class="col-lg-3">
+
+          <div class="col-lg-3 col-6">
             <h4>Support</h4>
-            <ul>
+            <ul class="footer-list">
               <li><a href="#">Knowledgebase</a></li>
               <li><a href="#">Server Status</a></li>
               <li><a href="#">Client Area</a></li>
               <li><a href="https://dsc.gg/mineidhost">Discord</a></li>
             </ul>
           </div>
-          <div class="col-lg-3">
+
+          <div class="col-lg-3 col-6">
             <h4>Company</h4>
-            <ul>
-              <li><a href="about-us.html">About Us</a></li>
-              <li><a href="blog.html">Blog</a></li>
+            <ul class="footer-list">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Blog</a></li>
               <li><a href="#">Contact Us</a></li>
-              <li><a href="partners.html">Partners</a></li>
+              <li><a href="#">Partners</a></li>
             </ul>
           </div>
-          <div class="col-lg-3">
+
+          <div class="col-lg-3 col-6">
             <h4>Legal</h4>
-            <ul>
-              <li><a href="terms-of-service.html">Terms of Service</a></li>
-              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <ul class="footer-list">
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
       </div>
-    </div>	
+    </div>
+
+    <!-- Lokasi Server dan Aktivasi Info -->
+    <div class="text-center mt-4 text-light small fade-in">
+      🌍 Server berlokasi di <span style="color:#ff3b3b;">Singapura</span> | ⚡ Aktivasi otomatis <span style="color:#ff3b3b;">1–5 menit</span> setelah pembelian | 🛡️ Anti-DDoS Protection
+    </div>
+
+    <!-- Pembayaran -->
+    <div class="payment-section text-center mt-4 fade-in">
+      <h5 class="text-light mb-3">💳 Metode Pembayaran Kami</h5>
+      <div class="payment-logos">
+        <img src="assets/images/payments/dana.png" alt="DANA">
+        <img src="assets/images/payments/ovo.png" alt="OVO">
+        <img src="assets/images/payments/gopay.png" alt="GoPay">
+        <img src="assets/images/payments/qris.png" alt="QRIS">
+        <img src="assets/images/payments/alfamart.png" alt="Alfamart">
+      </div>
+    </div>
   </div>
   <div class="footer-glow-line"></div>
 </footer>
 
-<!-- ======= STYLE ONLY ======= -->
+<!-- ======= SOCIAL MEDIA BAR ======= -->
+<div class="footer-social-bar fade-in">
+  <div class="container text-center">
+    <div class="social-icons">
+      <a href="https://wa.me/6281234567890" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://dsc.gg/mineidhost" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+      <a href="https://www.tiktok.com/@mineidhost" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.instagram.com/mineidhost" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:support@mineidhost.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ======= STYLE ======= -->
 <style>
 .discord-banner {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  background: #0b0b0b;
   color: #fff;
-  text-align: center;
+  padding: 18px 0;
   font-weight: 500;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 1.05rem;
+  text-align: center;
+  position: relative;
 }
+.discord-banner::before,
+.discord-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff1e1e, transparent);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+.discord-banner::before { top: 0; }
+.discord-banner::after { bottom: 0; }
+
 .discord-btn {
   background: #fff;
   color: #ff1e1e;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 8px 18px;
   font-weight: 600;
   text-decoration: none;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .discord-btn:hover {
   background: #ff1e1e;
   color: #fff;
-  box-shadow: 0 0 12px rgba(255, 40, 40, 0.7);
+  box-shadow: 0 0 15px rgba(255, 50, 50, 0.9);
 }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 .footer-section {
   background: #0a0a0a;
   color: #ccc;
   padding: 70px 0 40px;
+  border-top: 2px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 -10px 30px rgba(255, 0, 0, 0.2);
   position: relative;
-  border-top: 2px solid rgba(255, 0, 0, 0.2);
 }
-.footer-section h4 {
-  color: #ff3b3b;
-  font-weight: 600;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  font-size: 1rem;
-}
-.footer-logo {
-  font-weight: 800;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-}
-.footer-logo .white { color: #fff; }
-.footer-logo .red { color: #ff1e1e; }
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
-.footer-section ul li { margin-bottom: 8px; }
-.footer-section ul li a {
-  color: #ccc;
-  text-decoration: none;
-  transition: 0.3s;
-}
-.footer-section ul li a:hover {
-  color: #ff3b3b;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
-}
-.footer-glow-line {
+.footer-section::before,
+.footer-section::after {
+  content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, #ff0000, transparent);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
-  animation: laserGlow 4s infinite linear;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,0,0,0.5), rgba(255,0,0,0.1));
+  box-shadow: 0 0 15px rgba(255,0,0,0.6);
 }
-@keyframes laserGlow {
-  0%,100% { opacity: 0.5; transform: scaleX(0.9); }
-  50% { opacity: 1; transform: scaleX(1); }
+.footer-section::before { left: 0; }
+.footer-section::after { right: 0; }
+
+.payment-section img {
+  height: 38px;
+  margin: 0 10px;
+  opacity: 0.9;
+  transition: 0.3s;
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3));
+}
+.payment-section img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.7));
+}
+
+.footer-social-bar {
+  background: #0b0b0b;
+  border-top: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 -5px 25px rgba(255, 0, 0, 0.25);
+  padding: 15px 0;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+.social-icons a {
+  color: #ccc;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+.social-icons a:hover {
+  color: #ff1e1e;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Animasi Fade-in */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.4s ease-in-out forwards;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 </style>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </footer>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
