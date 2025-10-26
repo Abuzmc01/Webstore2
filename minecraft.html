@@ -264,18 +264,20 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
 
 <!-- STYLE -->
+<style>
 /* ======= CARD PREMIUM ======= */
 .premium-card {
   background: linear-gradient(180deg, #141414, #0d0d0d);
   border-radius: 14px;
   color: #fff;
-  border: 1px solid #2a0000;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.35);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
+  border: 1px solid #1f1f1f;
   transition: all 0.3s ease;
   padding: 20px;
   max-width: 320px;
@@ -284,45 +286,33 @@
   overflow: hidden;
 }
 .premium-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 50px rgba(255, 40, 40, 0.85);
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 40, 40, 0.6);
 }
 
-/* ======= STRONG BREATHING GLOW ======= */
+/* ======= BREATHING GLOW ======= */
 @keyframes breathingGlow {
-  0% {
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4),
-                0 0 45px rgba(255, 20, 20, 0.3),
-                inset 0 0 10px rgba(255, 0, 0, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 60px rgba(255, 30, 30, 0.9),
-                0 0 90px rgba(255, 0, 0, 0.7),
-                inset 0 0 20px rgba(255, 50, 50, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4),
-                0 0 45px rgba(255, 20, 20, 0.3),
-                inset 0 0 10px rgba(255, 0, 0, 0.2);
-  }
+  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
+  50% { box-shadow: 0 0 35px rgba(255, 50, 50, 0.6); }
+  100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
 }
 .glow-animate {
-  animation: breathingGlow 3.5s ease-in-out infinite;
+  animation: breathingGlow 3s ease-in-out infinite;
 }
 
-/* ======= GAMBAR ======= */
+/* ======= GAMBAR DI ATAS CARD ======= */
 .plan-icon-top {
   width: 70px;
   height: 70px;
   border-radius: 10px;
   margin: 10px auto;
   display: block;
-  box-shadow: 0 0 25px rgba(255, 40, 40, 0.8);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
-/* ======= TEKS ======= */
+/* ======= TEKS & HARGA ======= */
 .premium-title {
-  color: #ff2a2a;
+  color: #ff3b3b;
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 8px;
@@ -332,7 +322,7 @@
   margin-bottom: 10px;
 }
 .premium-price del {
-  color: #ff6f6f;
+  color: #ff8888;
   font-size: 0.9rem;
   margin-right: 5px;
 }
@@ -345,13 +335,11 @@
   text-align: left;
   font-size: 0.9rem;
 }
-.premium-list li {
-  margin: 6px 0;
-}
+.premium-list li { margin: 6px 0; }
 
 /* ======= BUTTON ======= */
 .premium-btn {
-  background: linear-gradient(90deg, #ff0000, #ff3b3b);
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
   border: none;
   border-radius: 10px;
   color: white;
@@ -363,12 +351,24 @@
   font-size: 0.95rem;
 }
 .premium-btn:hover {
-  background: linear-gradient(90deg, #ff3b3b, #ff0000);
-  box-shadow: 0 0 35px rgba(255, 30, 30, 0.9);
+  background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
+  box-shadow: 0 0 15px rgba(255, 40, 40, 0.8);
   transform: translateY(-2px);
 }
 
-/* ======= TAB BUTTONS ======= */
+/* ======= TAB FADE ANIMATION ======= */
+.fade-container .tab-pane {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: all 0.6s ease-in-out;
+}
+.fade-container .tab-pane.show.active {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 0 25px rgba(255, 40, 40, 0.4);
+}
+
+/* ======= TAB BUTTON STYLE ======= */
 .btn-swicher .nav-link {
   color: #ccc;
   background: #111;
@@ -378,24 +378,14 @@
 }
 .btn-swicher .nav-link.active {
   color: #fff;
-  background: linear-gradient(90deg, #ff0000, #ff3b3b);
-  box-shadow: 0 0 20px rgba(255, 40, 40, 0.8);
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  box-shadow: 0 0 15px rgba(255, 40, 40, 0.6);
 }
 .btn-swicher .nav-link:hover {
   color: #fff;
-  box-shadow: 0 0 15px rgba(255, 40, 40, 0.7);
+  box-shadow: 0 0 10px rgba(255, 40, 40, 0.5);
 }
-
-/* ======= TAB FADE EFFECT ======= */
-.fade-container .tab-pane {
-  opacity: 0;
-  transform: scale(0.98);
-  transition: all 0.6s ease-in-out;
-}
-.fade-container .tab-pane.show.active {
-  opacity: 1;
-  transform: scale(1);
-}    
+</style>
 	<!-- Panel -->
 	<div class="panel py-6">
 		<div class="container">
