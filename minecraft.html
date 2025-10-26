@@ -228,24 +228,55 @@
             </ul>
             <div class="tab-content">
             	<!-- Basic-Performance -->
-            	<div id="budget" class="tab-pane">
-            		<div class="row">
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 1</h2>
-            					</div>
-            					<style>
+<div id="budget" class="tab-pane">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6">
+      <div class="card mc-card mb-4 text-center premium-card">
+        <!-- Gambar di atas seperti Raznar -->
+        <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
+             alt="Minecraft Block"
+             class="img-fluid mb-3 mt-3"
+             style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
+
+        <!-- Header -->
+        <div class="card-header py-3 border-0 bg-transparent">
+          <h2 class="premium-title mb-0">Basic 1</h2>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body">
+          <div class="premium-price">
+            <del>Rp 30.000</del>
+            Rp 25.000 / Bln
+          </div>
+
+          <ul class="premium-list">
+            <li>💾 4GB DDR4</li>
+            <li>💽 20GB NVMe SSD</li>
+            <li>⚙️ AMD Epyc 7002</li>
+            <li>⚙️ Intel Xeon SkyLake</li>
+            <li>🧠 4vCPU Cores</li>
+          </ul>
+
+          <div class="mt-4">
+            <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS -->
+<style>
 .premium-card {
   background: linear-gradient(180deg, #141414, #0d0d0d);
   border-radius: 20px;
-  padding: 25px;
   color: #fff;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.25);
   border: 1px solid #1f1f1f;
+  transition: all 0.3s ease;
+  padding: 15px;
 }
 
 .premium-card:hover {
@@ -256,12 +287,12 @@
 .premium-title {
   color: #ff4d4d;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-size: 1.6rem;
 }
 
 .premium-price {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin-bottom: 15px;
 }
 
@@ -291,36 +322,17 @@
   font-weight: 500;
   padding: 10px 25px;
   transition: 0.3s;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .premium-btn:hover {
   background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
-  box-shadow: 0 0 15px rgba(255, 40, 40, 0.8);
+  box-shadow: 0 0 20px rgba(255, 40, 40, 0.8);
+  transform: translateY(-2px);
 }
 </style>
-
-<!-- CARD BODY -->
-<div class="card-body premium-card">
-  <h2 class="premium-title">Basic 1</h2>
-
-  <div class="premium-price">
-    <del>Rp 30.000</del>
-    Rp 25.000 / Bln
-  </div>
-
-  <ul class="premium-list">
-    <li>💾 4GB DDR4</li>
-    <li>💽 20GB NVMe SSD</li>
-    <li>⚙️ AMD Epyc 7002</li>
-    <li>⚙️ Intel Xeon SkyLake</li>
-    <li>🧠 4vCPU Cores</li>
-  </ul>
-
-  <div class="mt-4">
-    <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-  </div>
-</div>
-				        </div>
+			            </div>
             			<div class="col-lg-4 col-md-4">
             				<div class="card mc-card mb-4 text-center">
             					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
