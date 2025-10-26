@@ -132,14 +132,14 @@
 		</div>
 	</div>
 </nav>
-<!-- ======= HERO SECTION ======= -->
+<!-- ======= HERO SECTION (PREMIUM RED DARK) ======= -->
 <div class="hero_section pb-5">
   <div class="swiper heroSwiper">
     <div class="swiper-wrapper">
       
       <!-- SLIDE 1 -->
       <div class="swiper-slide hero-slide" style="background: url('assets/images/bg/datacenter-dark.jpg') center/cover no-repeat;">
-        <div class="overlay-gradient"></div>
+        <div class="hero-overlay"></div>
         <div class="container h-100">
           <div class="row align-items-center h-100">
             <div class="col-lg-6">
@@ -147,8 +147,8 @@
                 <h2 class="mb-3"><span class="highlight">Minecraft</span> Hosting</h2>
                 <p class="mb-4">Dapatkan server Minecraft cepat & stabil dengan dukungan teknis 24/7. Nikmati pengalaman bermain bebas lag, performa tinggi, dan keamanan kelas enterprise.</p>
                 <div class="hero_plans">
-                  <span class="starting_at">Start from</span>
-                  <h3 class="price mb-4">6.000 <span class="ms-2">/GB</span></h3>
+                  <span class="starting_at">Mulai dari</span>
+                  <h3 class="price mb-4"><span class="red">6.000</span> <span class="ms-2">/GB</span></h3>
                   <a href="https://dsc.gg/mineidhost" class="btn btn-premium">Order Sekarang</a>
                 </div>
               </div>
@@ -159,16 +159,16 @@
 
       <!-- SLIDE 2 -->
       <div class="swiper-slide hero-slide" style="background: url('assets/images/bg/server-rack.jpg') center/cover no-repeat;">
-        <div class="overlay-gradient"></div>
+        <div class="hero-overlay"></div>
         <div class="container h-100">
           <div class="row align-items-center h-100">
             <div class="col-lg-6">
               <div class="hero_content fade-in-up">
                 <h2 class="mb-3">VPS <span class="highlight">Epyc Zen4</span> Series</h2>
-                <p class="mb-4">Performa tinggi dengan prosesor AMD EPYC Zen4 — dirancang untuk workload berat, hosting skala besar, dan efisiensi daya optimal.</p>
+                <p class="mb-4">Performa tinggi dengan prosesor AMD EPYC Zen4 — ideal untuk workload berat, hosting skala besar, dan efisiensi daya optimal.</p>
                 <div class="hero_plans">
-                  <span class="starting_at">Start from</span>
-                  <h3 class="price mb-4">12.000 <span class="ms-2">/GB</span></h3>
+                  <span class="starting_at">Mulai dari</span>
+                  <h3 class="price mb-4"><span class="red">12.000</span> <span class="ms-2">/GB</span></h3>
                   <a href="https://dsc.gg/mineidhost" class="btn btn-premium">Order Sekarang</a>
                 </div>
               </div>
@@ -179,16 +179,16 @@
 
       <!-- SLIDE 3 -->
       <div class="swiper-slide hero-slide" style="background: url('assets/images/bg/datacenter-red.jpg') center/cover no-repeat;">
-        <div class="overlay-gradient"></div>
+        <div class="hero-overlay"></div>
         <div class="container h-100">
           <div class="row align-items-center h-100">
             <div class="col-lg-6">
               <div class="hero_content fade-in-up">
                 <h2 class="mb-3">Ryzen™9 <span class="highlight">Zen5</span> VPS</h2>
-                <p class="mb-4">Nikmati teknologi 3D V-Cache dengan performa hingga 34% lebih cepat dari kompetitor. Solusi sempurna untuk game dan server berat.</p>
+                <p class="mb-4">Nikmati teknologi 3D V-Cache dengan performa hingga 34% lebih cepat — solusi sempurna untuk server berat & gaming profesional.</p>
                 <div class="hero_plans">
-                  <span class="starting_at">Start from</span>
-                  <h3 class="price mb-4">15.000 <span class="ms-2">/GB</span></h3>
+                  <span class="starting_at">Mulai dari</span>
+                  <h3 class="price mb-4"><span class="red">15.000</span> <span class="ms-2">/GB</span></h3>
                   <a href="https://dsc.gg/mineidhost" class="btn btn-premium">Order Sekarang</a>
                 </div>
               </div>
@@ -196,9 +196,85 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
+
+<!-- ======= HERO STYLE ======= -->
+<style>
+.hero_section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide {
+  position: relative;
+  height: 100vh;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.6), rgba(0,0,0,0.9));
+  backdrop-filter: blur(2px);
+}
+
+.hero_content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  animation: fadeInUp 1.2s ease both;
+}
+
+.hero_content h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+}
+.hero_content .highlight {
+  color: #ff1e1e;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+.hero_content p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.hero_plans .price {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.hero_plans .red {
+  color: #ff1e1e;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+}
+
+.btn-premium {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 0 15px rgba(255, 50, 50, 0.6);
+  transition: 0.3s;
+}
+.btn-premium:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+  transform: translateY(-3px);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 	
 <!-- ======= TEKS BERJALAN PREMIUM ======= -->
 <div class="marquee-wrapper fade-in">
