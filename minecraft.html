@@ -185,191 +185,217 @@
 	<!-- Plans -->
 	<div class="plans py-5">
   <div class="container-fluid container-custom">
+
+    <!-- Switcher Tab -->
     <ul id="swicherPlans" class="btn-swicher text-center nav nav-pills d-flex justify-content-center mb-5" data-bs-tabs="tabs">
       <li class="nav-item">
         <a href="#budget" class="nav-link active" data-bs-toggle="tab">Basic-Performance</a>
       </li>
       <li class="nav-item">
-        <a href="#premium" class="nav-link" data-bs-toggle="tab">Medium-Performance</a>
+        <a href="#medium" class="nav-link" data-bs-toggle="tab">Medium-Performance</a>
       </li>
       <li class="nav-item">
-        <a href="#vip" class="nav-link" data-bs-toggle="tab">High-Performance</a>
+        <a href="#high" class="nav-link" data-bs-toggle="tab">High-Performance</a>
       </li>
     </ul>
 
-    <div class="tab-content">
-      <!-- BASIC PERFORMANCE -->
+    <!-- TAB CONTENT -->
+    <div class="tab-content fade-container">
+
+      <!-- BASIC -->
       <div id="budget" class="tab-pane fade show active">
         <div class="row justify-content-center">
-          <!-- Basic 1 -->
           <div class="col-lg-4 col-md-6">
-            <div class="card premium-card text-center mb-4">
+            <div class="card mc-card text-center premium-card glow-animate">
               <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
-                   alt="Minecraft Block"
-                   class="img-fluid mb-3 mt-3"
-                   style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
-              <div class="card-header py-3 border-0 bg-transparent">
-                <h2 class="premium-title mb-0">Basic 1</h2>
-              </div>
-              <div class="card-body">
-                <div class="premium-price">
-                  <del>Rp 30.000</del>
-                  Rp 25.000 / Bln
-                </div>
-                <ul class="premium-list">
-                  <li>💾 4GB DDR4</li>
-                  <li>💽 20GB NVMe SSD</li>
-                  <li>⚙️ AMD Epyc 7002</li>
-                  <li>⚙️ Intel Xeon SkyLake</li>
-                  <li>🧠 4vCPU Cores</li>
-                </ul>
-                <div class="mt-4">
-                  <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Basic 2 -->
-          <div class="col-lg-4 col-md-6">
-            <div class="card premium-card text-center mb-4">
-              <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
-                   class="img-fluid mb-3 mt-3"
-                   style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
-              <div class="card-header py-3 border-0 bg-transparent">
-                <h2 class="premium-title mb-0">Basic 2</h2>
-              </div>
-              <div class="card-body">
-                <div class="premium-price">
-                  <del>Rp 55.000</del>
-                  Rp 48.000 / Bln
-                </div>
-                <ul class="premium-list">
-                  <li>💾 8GB DDR4</li>
-                  <li>💽 40GB NVMe SSD</li>
-                  <li>⚙️ AMD Epyc 7002</li>
-                  <li>⚙️ Intel Xeon SkyLake</li>
-                  <li>🧠 4vCPU Cores</li>
-                </ul>
-                <div class="mt-4">
-                  <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Basic 3 -->
-          <div class="col-lg-4 col-md-6">
-            <div class="card premium-card text-center mb-4">
-              <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
-                   class="img-fluid mb-3 mt-3"
-                   style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
-              <div class="card-header py-3 border-0 bg-transparent">
-                <h2 class="premium-title mb-0">Basic 3</h2>
-              </div>
-              <div class="card-body">
-                <div class="premium-price">
-                  <del>Rp 75.000</del>
-                  Rp 69.000 / Bln
-                </div>
-                <ul class="premium-list">
-                  <li>💾 10GB DDR4</li>
-                  <li>💽 60GB NVMe SSD</li>
-                  <li>⚙️ AMD Epyc 7002</li>
-                  <li>⚙️ Intel Xeon SkyLake</li>
-                  <li>🧠 4vCPU Cores</li>
-                </ul>
-                <div class="mt-4">
-                  <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-                </div>
-              </div>
+                   alt="Minecraft Block" class="img-fluid plan-icon-top">
+              <h2 class="premium-title">Basic 1</h2>
+              <div class="premium-price"><del>Rp 30.000</del> Rp 25.000 / Bln</div>
+              <ul class="premium-list">
+                <li>💾 4GB DDR4</li>
+                <li>💽 20GB NVMe SSD</li>
+                <li>⚙️ AMD Epyc 7002</li>
+                <li>🧠 4vCPU Cores</li>
+              </ul>
+              <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- MEDIUM PERFORMANCE -->
-      <div id="premium" class="tab-pane fade">
-        <div class="row">
-          <!-- biarkan card original-mu di sini -->
+      <!-- MEDIUM -->
+      <div id="medium" class="tab-pane fade">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6">
+            <div class="card mc-card text-center premium-card glow-animate">
+              <img src="assets/images/slider_images/amd1.png"
+                   alt="AMD EPYC" class="img-fluid plan-icon-top">
+              <h2 class="premium-title">Medium 1</h2>
+              <div class="premium-price"><del>Rp 40.000</del> Rp 35.000 / Bln</div>
+              <ul class="premium-list">
+                <li>💾 6GB DDR4</li>
+                <li>💽 30GB NVMe SSD</li>
+                <li>⚙️ AMD Epyc 7003</li>
+                <li>🧠 6vCPU Cores</li>
+              </ul>
+              <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- HIGH PERFORMANCE -->
-      <div id="vip" class="tab-pane fade">
-        <div class="row">
-          <!-- biarkan card original-mu di sini -->
+      <!-- HIGH -->
+      <div id="high" class="tab-pane fade">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6">
+            <div class="card mc-card text-center premium-card glow-animate">
+              <img src="assets/images/slider_images/ark.png"
+                   alt="High Performance" class="img-fluid plan-icon-top">
+              <h2 class="premium-title">High 1</h2>
+              <div class="premium-price"><del>Rp 70.000</del> Rp 55.000 / Bln</div>
+              <ul class="premium-list">
+                <li>💾 8GB DDR4</li>
+                <li>💽 50GB NVMe SSD</li>
+                <li>⚙️ AMD Genoa 9654</li>
+                <li>🧠 8vCPU Cores</li>
+              </ul>
+              <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Tambahkan CSS -->
-<style>
+<!-- STYLE -->
+/* ======= CARD PREMIUM ======= */
 .premium-card {
   background: linear-gradient(180deg, #141414, #0d0d0d);
-  border-radius: 20px;
+  border-radius: 14px;
   color: #fff;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.25);
-  border: 1px solid #1f1f1f;
+  border: 1px solid #2a0000;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.35);
   transition: all 0.3s ease;
-  padding: 15px;
+  padding: 20px;
+  max-width: 320px;
+  margin: 0 auto 25px;
+  position: relative;
+  overflow: hidden;
 }
-
 .premium-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 35px rgba(255, 50, 50, 0.6);
+  box-shadow: 0 0 50px rgba(255, 40, 40, 0.85);
 }
 
+/* ======= STRONG BREATHING GLOW ======= */
+@keyframes breathingGlow {
+  0% {
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4),
+                0 0 45px rgba(255, 20, 20, 0.3),
+                inset 0 0 10px rgba(255, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(255, 30, 30, 0.9),
+                0 0 90px rgba(255, 0, 0, 0.7),
+                inset 0 0 20px rgba(255, 50, 50, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4),
+                0 0 45px rgba(255, 20, 20, 0.3),
+                inset 0 0 10px rgba(255, 0, 0, 0.2);
+  }
+}
+.glow-animate {
+  animation: breathingGlow 3.5s ease-in-out infinite;
+}
+
+/* ======= GAMBAR ======= */
+.plan-icon-top {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  margin: 10px auto;
+  display: block;
+  box-shadow: 0 0 25px rgba(255, 40, 40, 0.8);
+}
+
+/* ======= TEKS ======= */
 .premium-title {
-  color: #ff4d4d;
+  color: #ff2a2a;
   font-weight: 600;
-  margin-bottom: 10px;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
 }
-
 .premium-price {
-  font-size: 1.4rem;
-  margin-bottom: 15px;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
-
 .premium-price del {
-  color: #ff8888;
-  font-size: 1rem;
-  margin-right: 6px;
+  color: #ff6f6f;
+  font-size: 0.9rem;
+  margin-right: 5px;
 }
 
+/* ======= LIST ======= */
 .premium-list {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
+  margin: 15px 0;
   text-align: left;
+  font-size: 0.9rem;
 }
-
 .premium-list li {
-  margin: 8px 0;
-  font-size: 0.95rem;
+  margin: 6px 0;
 }
 
+/* ======= BUTTON ======= */
 .premium-btn {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  background: linear-gradient(90deg, #ff0000, #ff3b3b);
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   color: white;
   font-weight: 500;
-  padding: 10px 25px;
+  padding: 8px 20px;
   transition: 0.3s;
   text-decoration: none;
   display: inline-block;
+  font-size: 0.95rem;
 }
-
 .premium-btn:hover {
-  background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
-  box-shadow: 0 0 20px rgba(255, 40, 40, 0.8);
+  background: linear-gradient(90deg, #ff3b3b, #ff0000);
+  box-shadow: 0 0 35px rgba(255, 30, 30, 0.9);
   transform: translateY(-2px);
 }
-</style>
+
+/* ======= TAB BUTTONS ======= */
+.btn-swicher .nav-link {
+  color: #ccc;
+  background: #111;
+  border-radius: 10px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+.btn-swicher .nav-link.active {
+  color: #fff;
+  background: linear-gradient(90deg, #ff0000, #ff3b3b);
+  box-shadow: 0 0 20px rgba(255, 40, 40, 0.8);
+}
+.btn-swicher .nav-link:hover {
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 40, 40, 0.7);
+}
+
+/* ======= TAB FADE EFFECT ======= */
+.fade-container .tab-pane {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: all 0.6s ease-in-out;
+}
+.fade-container .tab-pane.show.active {
+  opacity: 1;
+  transform: scale(1);
+}    
 	<!-- Panel -->
 	<div class="panel py-6">
 		<div class="container">
