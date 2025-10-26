@@ -505,22 +505,29 @@
   filter: invert(48%) sepia(93%) saturate(2990%) hue-rotate(340deg) brightness(103%) contrast(101%);
 }
 </style>
-<!-- ====== PANEL & ANTI-DDOS SECTION ====== -->
+<!-- ====== PANEL & ANTI-DDOS SECTION (FULL TEXT VERSION) ====== -->
 <section class="feature-section py-6 fade-section">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-6 mb-4 mb-lg-0 fade-left">
-        <img src="assets/images/panel_game/picture.svg" alt="Control Panel" class="img-fluid rounded-4 shadow-panel glow-pulse">
-      </div>
-      <div class="col-lg-6 fade-right">
+      <div class="col-lg-6 fade-left">
         <div class="feature-content">
           <h2 class="glow-text">Powerful Control Panel</h2>
-          <p>Kelola server kamu dengan mudah lewat tools intuitif dan monitoring real-time yang dirancang untuk performa optimal.</p>
+          <p>Kelola server kamu dengan mudah melalui panel kontrol yang intuitif, cepat, dan modern. Dirancang khusus untuk performa tinggi dengan tampilan elegan.</p>
           <ul class="feature-list">
-            <li>Mudah digunakan dan ramah pengguna</li>
-            <li>Performa cepat & aman, dilengkapi anti-DDoS besar</li>
-            <li>Plugin pra-instal & pengaturan otomatis</li>
+            <li>Mudah digunakan dan stabil untuk semua pengguna</li>
+            <li>Kecepatan tinggi dan keamanan tingkat lanjut</li>
+            <li>Plugin pra-instal dan pengaturan otomatis</li>
           </ul>
+          <div class="info-box">
+            <p>🌍 Lokasi Server: <span>Singapura</span></p>
+            <p>⚡ Proses Aktivasi: <span>1–5 Menit setelah Pembelian</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center fade-right">
+        <div class="text-box glow-pulse">
+          <h3>📊 Panel Intuitif</h3>
+          <p>Akses semua pengaturan server dengan mudah. Monitoring real-time, file manager cepat, dan restart otomatis langsung dari browser.</p>
         </div>
       </div>
     </div>
@@ -530,14 +537,25 @@
 <section class="feature-section dark py-6 fade-section">
   <div class="container">
     <div class="row align-items-center flex-lg-row-reverse">
-      <div class="col-lg-6 mb-4 mb-lg-0 fade-right">
-        <img src="assets/images/panel_game/security.svg" alt="Anti DDoS Protection" class="img-fluid rounded-4 shadow-panel glow-pulse">
-      </div>
       <div class="col-lg-6 fade-left">
         <div class="feature-content">
           <h2 class="glow-text">Anti-DDoS Protection</h2>
-          <p>Kami menyediakan deteksi dan mitigasi DDoS secara real-time untuk menjaga server kamu tetap online tanpa gangguan.</p>
-          <p>Server kami dilengkapi perlindungan hingga <strong>1.6 Tbit/s</strong>, memastikan permainanmu selalu stabil 24/7.</p>
+          <p>Kami melindungi server kamu dari serangan berbahaya menggunakan sistem deteksi dan mitigasi real-time yang dioptimalkan untuk game hosting.</p>
+          <ul class="feature-list">
+            <li>Perlindungan hingga 1.6 Tbit/s</li>
+            <li>Mitigasi otomatis tanpa downtime</li>
+            <li>Stabil dan aman 24/7</li>
+          </ul>
+          <div class="info-box">
+            <p>🕒 Uptime Terjamin: <span>99.9%</span></p>
+            <p>🔒 Perlindungan Aktif: <span>Setiap Detik</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center fade-right">
+        <div class="text-box glow-pulse">
+          <h3>🛡️ Perlindungan Maksimal</h3>
+          <p>Server kamu tetap online tanpa gangguan. Sistem filtering pintar kami memastikan stabilitas jaringan meskipun terjadi serangan besar.</p>
         </div>
       </div>
     </div>
@@ -546,38 +564,41 @@
 
 <!-- ====== INLINE CSS ====== -->
 <style>
-/* ======= FEATURE SECTION ======= */
+/* ======= SECTION ======= */
 .feature-section {
   background-color: #0b0b0b;
-  padding: 100px 0;
   color: #fff;
+  padding: 100px 0;
+  border-top: 1px solid rgba(255, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.25);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
+  position: relative;
 }
+.feature-section::before,
+.feature-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,0,0,0.5), rgba(255,0,0,0.1));
+  box-shadow: 0 0 15px rgba(255,0,0,0.6);
+}
+.feature-section::before { left: 0; }
+.feature-section::after { right: 0; }
 .feature-section.dark {
-  background-color: #101010;
+  background-color: #111;
 }
 
 /* ======= TITLE ======= */
-.feature-content h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-}
 .glow-text {
   color: #ff2e2e;
-  text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
   animation: pulseGlow 3.5s infinite ease-in-out;
-}
-.feature-content h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, #ff1e1e, #a00000);
-  margin-top: 10px;
-  border-radius: 2px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 /* ======= PARAGRAPH ======= */
@@ -607,25 +628,58 @@
   top: 0;
 }
 
-/* ======= IMAGE ======= */
-.shadow-panel {
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ======= INFO BOX ======= */
+.info-box {
+  background: rgba(255, 0, 0, 0.08);
+  border-left: 3px solid #ff3333;
+  padding: 10px 15px;
+  margin-top: 20px;
+  border-radius: 6px;
 }
-.shadow-panel:hover {
+.info-box p {
+  margin: 0;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+.info-box span {
+  color: #ff5555;
+  font-weight: 600;
+}
+
+/* ======= TEXT BOX ======= */
+.text-box {
+  background: linear-gradient(180deg, #141414, #0d0d0d);
+  border-radius: 14px;
+  padding: 25px;
+  margin: 0 auto;
+  max-width: 360px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+  border: 1px solid #1f1f1f;
+  transition: 0.3s ease;
+}
+.text-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.55);
 }
-.glow-pulse {
-  animation: redBreathing 4s infinite ease-in-out;
+.text-box h3 {
+  color: #ff3b3b;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.text-box p {
+  font-size: 0.95rem;
+  color: #ccc;
 }
 
 /* ======= ANIMATIONS ======= */
+.glow-pulse {
+  animation: redBreathing 4s infinite ease-in-out;
+}
 @keyframes redBreathing {
-  0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.25); }
-  50% { box-shadow: 0 0 45px rgba(255, 0, 0, 0.6); }
-  100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.25); }
+  0% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.25); }
+  50% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.6); }
+  100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.25); }
 }
 @keyframes pulseGlow {
   0% { text-shadow: 0 0 8px rgba(255, 0, 0, 0.6); color: #ff2e2e; }
@@ -633,39 +687,24 @@
   100% { text-shadow: 0 0 8px rgba(255, 0, 0, 0.6); color: #ff2e2e; }
 }
 
-/* ======= SCROLL FADE ======= */
-.fade-section {
+/* ======= FADE EFFECT ======= */
+.fade-section, .fade-left, .fade-right {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.fade-section.visible {
+.fade-section.visible, .fade-left.visible, .fade-right.visible {
   opacity: 1;
-  transform: translateY(0);
-}
-.fade-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.fade-right {
-  opacity: 0;
-  transform: translateX(50px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.fade-left.visible, .fade-right.visible {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translate(0);
 }
 
 /* ======= RESPONSIVE ======= */
 @media (max-width: 768px) {
-  .feature-content {
+  .feature-content, .text-box {
     text-align: center;
   }
-  .feature-content h2::after {
-    margin-left: auto;
-    margin-right: auto;
+  .info-box {
+    text-align: center;
   }
 }
 </style>
@@ -674,7 +713,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const elements = document.querySelectorAll('.fade-section, .fade-left, .fade-right');
-  const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
