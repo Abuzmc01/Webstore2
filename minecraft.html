@@ -424,66 +424,17 @@
 </div>
 
 <!-- HIGH -->
-<div id="high" class="tab-pane fade">
+<div id="high" class="tab-pane fade show active">
   <div class="row justify-content-center">
 
-    <!-- HIGH 1 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="High Performance" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">High 4GB Hosting</h2>
-        <div class="premium-price">12.000 IDR / GB</div>
-        <ul class="premium-list">
-          <li>💾 4GB RAM DDR5</li>
-          <li>🌀 3vCPU Cores</li>
-          <li>💽 30GB NVMe SSD</li>
-          <li>⚙️ AMD Ryzen™ 7950X</li>
-          <li>💎 Uptime 99.99%</li>
-          <li>🛡️ Anti Lag & DDoS Protection</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-      </div>
-    </div>
-
-    <!-- HIGH 2 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="High Performance" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">High 6GB Hosting</h2>
-        <div class="premium-price">18.000 IDR / 6GB</div>
-        <ul class="premium-list">
-          <li>💾 6GB RAM DDR5</li>
-          <li>🌀 4vCPU Cores</li>
-          <li>💽 50GB NVMe SSD</li>
-          <li>⚙️ AMD Ryzen™ 9950X3D</li>
-          <li>💎 Uptime 100%</li>
-          <li>🔥 Prioritas Support 24/7</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-      </div>
-    </div>
-
-    <!-- HIGH 3 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="High Performance" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">High 8GB Hosting</h2>
-        <div class="premium-price">24.000 IDR / 8GB</div>
-        <ul class="premium-list">
-          <li>💾 8GB RAM DDR5</li>
-          <li>🌀 6vCPU Cores</li>
-          <li>💽 70GB NVMe SSD</li>
-          <li>⚙️ AMD Ryzen™ 9950X3D</li>
-          <li>💎 Uptime 100%</li>
-          <li>🛡️ DDoS & AntiLag</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-      </div>
-    </div>
-  </div>
+    <!-- HIGH VIDEO SECTION -->
+<div class="video-box fade-up">
+  <video class="video-preview" autoplay muted loop playsinline>
+    <source src="assets/videos/lokasi.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video tag.
+  </video>
+  <h2 class="video-title">High Performance Infrastructure</h2>
+  <p class="premium-desc">Server kami menggunakan prosesor AMD generasi terbaru, penyimpanan NVMe tercepat, dan jaringan ultra-low latency. Dirancang untuk performa tinggi tanpa kompromi.</p>
 </div>
     </div>
   </div>
@@ -759,6 +710,64 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+/* ====== VIDEO STYLE (untuk tab HIGH) ====== */
+.video-box {
+  position: relative;
+  margin: 30px auto;
+  background: radial-gradient(circle at center, #0d0d0d, #000);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+  max-width: 1000px;
+  overflow: hidden;
+  animation: fadeInGlow 1.2s ease forwards;
+}
+
+.video-preview {
+  width: 100%;
+  height: 420px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+  display: block;
+  transition: all 0.4s ease-in-out;
+}
+
+.video-preview:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+}
+
+.video-title {
+  color: #ff2d2d;
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 20px;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}
+
+.premium-desc {
+  color: #ccc;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 10px auto 0;
+  text-align: center;
+}
+
+/* Efek animasi fade-in + glow */
+@keyframes fadeInGlow {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
   }
 }
 </style>
