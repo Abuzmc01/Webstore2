@@ -385,41 +385,39 @@
 <!-- MEDIUM -->
 <div id="medium" class="tab-pane fade show active">
   <div class="container py-5">
-    <div class="row justify-content-center">
 
-      <!-- Gambar 1 -->
-      <div class="col-lg-10 col-md-12 mb-4">
-        <div class="image-card">
-          <img src="assets/images/slider_images/minecraft.png" alt="Minecraft" class="img-fluid">
-        </div>
+    <!-- Kotak 1 -->
+    <div class="image-section fade-up">
+      <div class="image-box">
+        <img src="assets/images/slider_images/minecraft.png" alt="Minecraft" class="img-fluid">
       </div>
+    </div>
 
-      <!-- Gambar 2 -->
-      <div class="col-lg-10 col-md-12 mb-4">
-        <div class="image-card">
-          <img src="assets/images/slider_images/fivem.png" alt="Model Engine" class="img-fluid">
-        </div>
+    <!-- Kotak 2 -->
+    <div class="image-section fade-up">
+      <div class="image-box">
+        <img src="assets/images/slider_images/fivem.png" alt="Model Engine" class="img-fluid">
       </div>
+    </div>
 
-      <!-- Gambar 3 -->
-      <div class="col-lg-10 col-md-12 mb-4">
-        <div class="image-card">
-          <img src="assets/images/slider_images/rust.png" alt="Ryzen 9 7950X" class="img-fluid">
-        </div>
+    <!-- Kotak 3 -->
+    <div class="image-section fade-up">
+      <div class="image-box">
+        <img src="assets/images/slider_images/palworld.png" alt="Ryzen 9" class="img-fluid">
       </div>
+    </div>
 
-      <!-- Gambar 4 -->
-      <div class="col-lg-10 col-md-12 mb-4">
-        <div class="image-card">
-          <img src="assets/images/slider_images/ark.png" alt="EPYC 9654" class="img-fluid">
-        </div>
+    <!-- Kotak 4 -->
+    <div class="image-section fade-up">
+      <div class="image-box">
+        <img src="assets/images/slider_images/ark.png" alt="EPYC 9654" class="img-fluid">
       </div>
+    </div>
 
-      <!-- Gambar 5 -->
-      <div class="col-lg-10 col-md-12 mb-4">
-        <div class="image-card">
-          <img src="assets/images/slider_images/palworld.png" alt="Ryzen 9" class="img-fluid">
-        </div>
+    <!-- Kotak 5 -->
+    <div class="image-section fade-up">
+      <div class="image-box">
+        <img src="assets/images/slider_images/rust.png" alt="Ryzen 7950X" class="img-fluid">
       </div>
     </div>
   </div>
@@ -719,6 +717,49 @@
 }
 .navbar-toggler-icon {
   filter: invert(48%) sepia(93%) saturate(2990%) hue-rotate(340deg) brightness(103%) contrast(101%);
+}
+/* Setiap kotak punya latar dan jarak sendiri */
+.image-section {
+  background: linear-gradient(145deg, #0d0d0d, #151515);
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 35px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.image-section:hover {
+  box-shadow: 0 0 45px rgba(255, 0, 0, 0.8);
+  transform: translateY(-5px);
+}
+
+/* Gambar di dalam kotak */
+.image-box img {
+  border-radius: 12px;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Animasi fade-up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.fade-up:nth-child(1) { animation-delay: 0.1s; }
+.fade-up:nth-child(2) { animation-delay: 0.2s; }
+.fade-up:nth-child(3) { animation-delay: 0.3s; }
+.fade-up:nth-child(4) { animation-delay: 0.4s; }
+.fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 <!-- ====== PANEL & ANTI-DDOS SECTION (FULL TEXT VERSION) ====== -->
