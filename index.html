@@ -521,7 +521,94 @@
 		</div>
 	</div>
 	<!-- End Features -->
+    <!-- ======= STYLE & ANIMATION ======= -->
+<style>
+.features {
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+  color: #fff;
+  overflow: hidden;
+}
 
+.features .title h4 {
+  color: #ff2b2b;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+  font-weight: 700;
+}
+
+.features .title p {
+  color: #c7c7c7;
+}
+
+.features-box {
+  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.features-box:hover {
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+  transform: translateY(-5px);
+  border-color: rgba(255, 0, 0, 0.6);
+}
+
+.features-box svg {
+  fill: #ff3b3b;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.6));
+  transition: 0.3s ease;
+}
+
+.features-box:hover svg {
+  fill: #ff5555;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.8));
+}
+
+.features-box h2 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+.features-box p {
+  color: #d5d5d5;
+  font-size: 0.95rem;
+}
+
+/* === Animasi Fade Up === */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- ======= SCROLL ANIMATION SCRIPT ======= -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const elements = document.querySelectorAll(".fade-up");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  
+  elements.forEach(el => observer.observe(el));
+});
+</script>
 	<!-- Game Selector -->
 	<div class="game-selector position-relative py-6">
 		<div class="container">
