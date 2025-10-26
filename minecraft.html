@@ -183,91 +183,129 @@
     </div>
 
 	<!-- Plans -->
-	<div class="plans mc-plans py-5">
-		<div class="container">
-			<div class="row d-flex align-items-center justify-content-end mb-4">
-				<div class="col-md-12 row align-items-center justify-content-end">
-					<!-- Currency Dropdown -->
-					<div class="dropdown">
-						<button class="btn dropdown-toggle" type="button" id="currencyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-							Select Currency
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="currencyDropdown">
-							<li><a class="dropdown-item currency-option" data-currency="USD" href="minecraft.html#">$ Dollar</a></li>
-							<li><a class="dropdown-item currency-option" data-currency="GBP" href="minecraft.html#">£ Euro</a></li>
-							<li><a class="dropdown-item currency-option" data-currency="IDR" href="minecraft.html#">Rp Indonesia</a></li>
-						</ul>
-					</div>
+	<div class="plans py-5">
+  <div class="container-fluid container-custom">
+    <ul id="swicherPlans" class="btn-swicher text-center nav nav-pills d-flex justify-content-center mb-5" data-bs-tabs="tabs">
+      <li class="nav-item">
+        <a href="#budget" class="nav-link active" data-bs-toggle="tab">Basic-Performance</a>
+      </li>
+      <li class="nav-item">
+        <a href="#premium" class="nav-link" data-bs-toggle="tab">Medium-Performance</a>
+      </li>
+      <li class="nav-item">
+        <a href="#vip" class="nav-link" data-bs-toggle="tab">High-Performance</a>
+      </li>
+    </ul>
 
-					<!-- Location Dropdown -->
-					<div class="dropdown">
-						<button class="btn dropdown-toggle" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-							Select Location
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="locationDropdown">
-							<li><a class="dropdown-item location-option" data-location="usa" href="minecraft.html#"><img src="assets/images/country/unitedstates.svg" alt="USA"> United States</a></li>
-							<li><a class="dropdown-item location-option" data-location="germany" href="minecraft.html#"><img src="assets/images/country/germany.svg" alt="DE"> Malaysia</a></li>
-							<li><a class="dropdown-item location-option" data-location="france" href="minecraft.html#"><img src="assets/images/country/france.svg" alt="FR"> Singapore</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>		
-		</nav>
-     	<div class="plans py-5">
-		<div class="container-fluid container-custom">
-			<ul id="swicherPlans" class="btn-swicher text-center nav nav-pills d-flex justify-content-center mb-5" data-bs-tabs="tabs">
-                <li class="nav-item">
-                    <a href="minecraft.html#budget" class="nav-link show active" data-bs-toggle="tab">Basic-Perfomance</a>
-                </li>
-                <li class="nav-item">
-                    <a href="minecraft.html#premium" class="nav-link" data-bs-toggle="tab">Medium-Perfomance</a>
-				</li>
-				<li class="nav-item">
-                    <a href="minecraft.html#vip" class="nav-link" data-bs-toggle="tab">High-Perfomance</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-            	<!-- Basic-Performance -->
-<div id="budget" class="tab-pane">
-  <div class="row justify-content-center">
-    <div class="col-lg-4 col-md-6">
-      <div class="card mc-card mb-4 text-center premium-card">
-        <!-- Gambar di atas seperti Raznar -->
-        <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
-             alt="Minecraft Block"
-             class="img-fluid mb-3 mt-3"
-             style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
+    <div class="tab-content">
+      <!-- BASIC PERFORMANCE -->
+      <div id="budget" class="tab-pane fade show active">
+        <div class="row justify-content-center">
+          <!-- Basic 1 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="card premium-card text-center mb-4">
+              <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
+                   alt="Minecraft Block"
+                   class="img-fluid mb-3 mt-3"
+                   style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
+              <div class="card-header py-3 border-0 bg-transparent">
+                <h2 class="premium-title mb-0">Basic 1</h2>
+              </div>
+              <div class="card-body">
+                <div class="premium-price">
+                  <del>Rp 30.000</del>
+                  Rp 25.000 / Bln
+                </div>
+                <ul class="premium-list">
+                  <li>💾 4GB DDR4</li>
+                  <li>💽 20GB NVMe SSD</li>
+                  <li>⚙️ AMD Epyc 7002</li>
+                  <li>⚙️ Intel Xeon SkyLake</li>
+                  <li>🧠 4vCPU Cores</li>
+                </ul>
+                <div class="mt-4">
+                  <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <!-- Header -->
-        <div class="card-header py-3 border-0 bg-transparent">
-          <h2 class="premium-title mb-0">Basic 1</h2>
+          <!-- Basic 2 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="card premium-card text-center mb-4">
+              <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
+                   class="img-fluid mb-3 mt-3"
+                   style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
+              <div class="card-header py-3 border-0 bg-transparent">
+                <h2 class="premium-title mb-0">Basic 2</h2>
+              </div>
+              <div class="card-body">
+                <div class="premium-price">
+                  <del>Rp 55.000</del>
+                  Rp 48.000 / Bln
+                </div>
+                <ul class="premium-list">
+                  <li>💾 8GB DDR4</li>
+                  <li>💽 40GB NVMe SSD</li>
+                  <li>⚙️ AMD Epyc 7002</li>
+                  <li>⚙️ Intel Xeon SkyLake</li>
+                  <li>🧠 4vCPU Cores</li>
+                </ul>
+                <div class="mt-4">
+                  <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Basic 3 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="card premium-card text-center mb-4">
+              <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5f/Grass_Block_JE6_BE3.png"
+                   class="img-fluid mb-3 mt-3"
+                   style="width: 90px; height: 90px; margin: 0 auto; border-radius: 12px;">
+              <div class="card-header py-3 border-0 bg-transparent">
+                <h2 class="premium-title mb-0">Basic 3</h2>
+              </div>
+              <div class="card-body">
+                <div class="premium-price">
+                  <del>Rp 75.000</del>
+                  Rp 69.000 / Bln
+                </div>
+                <ul class="premium-list">
+                  <li>💾 10GB DDR4</li>
+                  <li>💽 60GB NVMe SSD</li>
+                  <li>⚙️ AMD Epyc 7002</li>
+                  <li>⚙️ Intel Xeon SkyLake</li>
+                  <li>🧠 4vCPU Cores</li>
+                </ul>
+                <div class="mt-4">
+                  <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Body -->
-        <div class="card-body">
-          <div class="premium-price">
-            <del>Rp 30.000</del>
-            Rp 25.000 / Bln
-          </div>
+      <!-- MEDIUM PERFORMANCE -->
+      <div id="premium" class="tab-pane fade">
+        <div class="row">
+          <!-- biarkan card original-mu di sini -->
+        </div>
+      </div>
 
-          <ul class="premium-list">
-            <li>💾 4GB DDR4</li>
-            <li>💽 20GB NVMe SSD</li>
-            <li>⚙️ AMD Epyc 7002</li>
-            <li>⚙️ Intel Xeon SkyLake</li>
-            <li>🧠 4vCPU Cores</li>
-          </ul>
-
-          <div class="mt-4">
-            <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
-          </div>
+      <!-- HIGH PERFORMANCE -->
+      <div id="vip" class="tab-pane fade">
+        <div class="row">
+          <!-- biarkan card original-mu di sini -->
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CSS -->
+<!-- Tambahkan CSS -->
 <style>
 .premium-card {
   background: linear-gradient(180deg, #141414, #0d0d0d);
@@ -332,428 +370,6 @@
   transform: translateY(-2px);
 }
 </style>
-			            </div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 2</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 8GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 40GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 48.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-									</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 3</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 10GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 60GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 69.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 4</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 12GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 60GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 80.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 5</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 16GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 80GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-            							<li><i class="fad fa-chart-network"></i> 8vCPU Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 99.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 6</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 16GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 120GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-            							<li><i class="fad fa-chart-network"></i> 16vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 120.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Basic 7</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 24GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 150GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-            							<li><i class="fad fa-chart-network"></i> 8vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 160.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Two</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 32GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 250GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7002</li>
-										<li><i class="fad fa-microchip"></i> Intel Xeon SkyLake</li>
-										<li><i class="fad fa-chart-network"></i> Extra Port 19132/25565</li>
-            							<li><i class="fad fa-chart-network"></i> 16vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 250.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-				<!-- Medium Performance -->
-            	<div id="premium" class="tab-pane">
-            		<div class="row">
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan One</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 1GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 5GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-										<li><i class="fad fa-microchip"></i> AMD Epyc 7F72 </li>
-            							<li><i class="fad fa-chart-network"></i> 1vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 10.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Two</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 2GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 10GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-										<li><i class="fad fa-microchip"></i> AMD Epyc 7F72 </li>
-            							<li><i class="fad fa-chart-network"></i> 2vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 20.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Three</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 4GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 20GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-										<li><i class="fad fa-microchip"></i> AMD Epyc 7F72 </li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 39.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Four</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 8GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 40GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 80.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Five</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 10GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 50GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-										<li><i class="fad fa-microchip"></i> AMD Epyc 7F72 </li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 99.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Six</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 12GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 60GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-										<li><i class="fad fa-microchip"></i> AMD Epyc 7F72 </li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 120.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-								    </div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/amd1.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">Plan Six</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 16GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 80GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Epyc 7003</li>
-										<li><i class="fad fa-microchip"></i> AMD Epyc 7F72 </li>
-            							<li><i class="fad fa-chart-network"></i> 8vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 130.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-            	<!-- Hight Perfomance -->
-            	<div id="vip" class="tab-pane">
-            		<div class="row">
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/ark.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">High 1</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 4GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 30GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Genoa 9654</li>
-										<li><i class="fad fa-microchip"></i> Intel Core i9-11000</li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 55.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/ark.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">High 2</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 8GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 90GB NVMe SSD</li>
-            							<li><i class="fad fa-microchip"></i> AMD Genoa 9654</li>
-										<li><i class="fad fa-microchip"></i> Intel Core i9-11000</li>
-										<li><i class="fad fa-chart-network"></i> 8TB Bandwith</li>
-            							<li><i class="fad fa-chart-network"></i> 4vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 109.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/ark.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">High 3</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 16GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 150GB NVMe SSD</li>
-										<li><i class="fad fa-microchip"></i> AMD Genoa 9654</li>
-            							<li><i class="fad fa-microchip"></i> Intel Core i9-11000</li>
-										<li><i class="fad fa-chart-network"></i> Extra Port 19132/25565</li>
-										<li><i class="fad fa-chart-network"></i> 8TB Bandwith</li>
-            							<li><i class="fad fa-chart-network"></i> 8vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 180.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/ark.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">High 4</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 24GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 170GB NVMe SSD</li>
-										<li><i class="fad fa-microchip"></i> AMD Genoa 9654 </li>
-            							<li><i class="fad fa-microchip"></i> Intel Core i9-11000</li>
-										<li><i class="fad fa-chart-network"></i> Extra Port 19132/25565</li>
-										<li><i class="fad fa-chart-network"></i> 8TB Bandwith</li>
-            							<li><i class="fad fa-chart-network"></i> 16vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 350.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            			<div class="col-lg-4 col-md-4">
-            				<div class="card mc-card mb-4 text-center">
-            					<img src="assets/images/slider_images/ark.png" class="img-fluid plan-icons">
-            					<div class="card-header py-4">
-            						<h2 class="mb-0">High 5</h2>
-            					</div>
-            					<div class="card-body">
-            						<ul class="list-unstyled">
-            							<li><i class="fad fa-memory"></i> 32GB DDR4</li>
-            							<li><i class="fad fa-hdd"></i> 350GB NVMe SSD</li>
-										<li><i class="fad fa-microchip"></i> AMD Genoa 9654</li>
-            							<li><i class="fad fa-microchip"></i> Intel Core i9-11000</li>
-										<li><i class="fad fa-chart-network"></i> Extra Port 19132/25565</li>
-										<li><i class="fad fa-chart-network"></i> Unlimited Traffic</li>
-            							<li><i class="fad fa-chart-network"></i> 16vCpu Cores</li>
-										<li><i class="fad fa-chart-beteork"></i> 550.000IDR/Bulan</li>
-            						</ul>
-            						<div class="mt-4">
-            							<a href="https://dsc.gg/mineidhost" class="btn btn-primary order-link">Order Now</a>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-            </div>
-		</div>
-	</div>
 	<!-- Panel -->
 	<div class="panel py-6">
 		<div class="container">
