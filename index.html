@@ -1021,25 +1021,28 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <!-- ======= END WORLD MAP SECTION ======= -->
-<!-- PANEL -->
+<!-- ======= PANEL SECTION ======= -->
 <div class="panel py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
   <div class="container">
     <div class="row d-flex justify-content-between align-items-center">
 
       <!-- BAGIAN GAMBAR / LAPTOP -->
       <div class="col-md-6 d-flex justify-content-center">
-        <div class="laptop fade-in-up" style="position:relative; transition:all 0.4s ease; border-radius:20px; overflow:hidden; box-shadow:0 0 25px rgba(255,0,0,0.3); border:2px solid rgba(255,0,0,0.4); background:rgba(30,0,0,0.5); max-width:600px;">
-          <div class="laptop__screen" style="width:100%; border-radius:15px; overflow:hidden;">
+        <div class="laptop fade-in-up" 
+             style="position:relative; transition:all 0.4s ease; border-radius:20px; overflow:hidden;
+             box-shadow:0 0 25px rgba(255,0,0,0.3); border:2px solid rgba(255,0,0,0.4);
+             background:rgba(30,0,0,0.5); max-width:850px; aspect-ratio:2120/1192;">
+          <div class="laptop__screen" style="width:100%; height:100%; border-radius:15px; overflow:hidden;">
             <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-              <div class="carousel-inner">
+              <div class="carousel-inner" style="height:100%;">
                 <div class="carousel-item active">
-                  <img class="img-fluid" src="assets/images/header/vps.png" alt="Dashboard">
+                  <img class="img-fluid w-100 h-100" src="assets/images/laptop.png" alt="Dashboard" style="object-fit:cover;">
                 </div>
                 <div class="carousel-item">
-                  <img class="img-fluid" src="assets/images/header/vps.png" alt="Plugins">
+                  <img class="img-fluid w-100 h-100" src="assets/images/laptop.png" alt="Plugins" style="object-fit:cover;">
                 </div>
                 <div class="carousel-item">
-                  <img class="img-fluid" src="assets/images/header/vps.png" alt="Mods">
+                  <img class="img-fluid w-100 h-100" src="assets/images/laptop.png" alt="Mods" style="object-fit:cover;">
                 </div>
               </div>
             </div>
@@ -1085,8 +1088,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
 </div>
-<!-- END PANEL -->
-
+<!-- ======= END PANEL SECTION ======= -->
 <!-- ANIMASI & STYLE -->
 <style>
 .laptop:hover {
