@@ -154,3 +154,101 @@ body {
 
 /* === SCROLL FADE JS SUPPORT === */
 .fade-visible { opacity: 1 !important; transform: translateY(0) !important; }
+
+/* === FIX HERO & HEADER IMAGE RESPONSIVE (MINEIDHOST STYLE) === */
+
+/* Hero Section - fix ukuran, glow, dan overlay */
+.hero_section .swiper-slide {
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  height: auto !important;
+  min-height: 650px; /* Default desktop */
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+}
+
+.hero_section .swiper-slide::before,
+.hero_section .swiper-slide::after {
+  z-index: 1 !important;
+  pointer-events: none;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+
+.hero_section .hero_content {
+  position: relative;
+  z-index: 3;
+}
+
+/* Header Section - fix background image dan efek */
+.header {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+  border-radius: 0 0 12px 12px;
+  position: relative;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%);
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.header h1,
+.header p {
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive Height */
+@media (max-width: 1200px) {
+  .hero_section .swiper-slide {
+    min-height: 550px;
+  }
+  .header {
+    height: 360px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero_section .swiper-slide {
+    min-height: 500px;
+  }
+  .header {
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero_section .swiper-slide {
+    min-height: 440px;
+  }
+  .header {
+    height: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero_section .swiper-slide {
+    min-height: 360px;
+  }
+  .header {
+    height: 250px;
+  }
+}
