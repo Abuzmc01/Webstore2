@@ -350,341 +350,123 @@
   </div>
 </div>
 
-<!-- STYLE -->
+<!-- ======= COMPACT CLEAN STYLE ======= -->
 <style>
-/* ======= CARD PREMIUM ======= */
-.premium-card {
-  background: linear-gradient(180deg, #141414, #0d0d0d);
-  border-radius: 14px;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
-  border: 1px solid #1f1f1f;
-  transition: all 0.3s ease;
-  padding: 20px;
-  max-width: 320px;
-  margin: 0 auto 25px;
-  position: relative;
-  overflow: hidden;
-}
-.premium-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(255, 40, 40, 0.6);
-}
+/* === GLOBAL === */
+body { background: #000; color: #fff; font-family: 'Poppins', sans-serif; }
+a { text-decoration: none; }
 
-/* ======= BREATHING GLOW ======= */
-@keyframes breathingGlow {
-  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
-  50% { box-shadow: 0 0 35px rgba(255, 50, 50, 0.6); }
-  100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
-}
-.glow-animate {
-  animation: breathingGlow 3s ease-in-out infinite;
-}
-
-/* ======= GAMBAR DI ATAS CARD ======= */
-.plan-icon-top {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  margin: 10px auto;
-  display: block;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-}
-
-/* ======= TEKS & HARGA ======= */
-.premium-title {
-  color: #ff3b3b;
-  font-weight: 600;
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-}
-.premium-price {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-.premium-price del {
-  color: #ff8888;
-  font-size: 0.9rem;
-  margin-right: 5px;
-}
-
-/* ======= LIST ======= */
-.premium-list {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0;
-  text-align: left;
-  font-size: 0.9rem;
-}
-.premium-list li { margin: 6px 0; }
-
-/* ======= BUTTON ======= */
-.premium-btn {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: 500;
-  padding: 8px 20px;
-  transition: 0.3s;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 0.95rem;
-}
-.premium-btn:hover {
-  background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
-  box-shadow: 0 0 15px rgba(255, 40, 40, 0.8);
-  transform: translateY(-2px);
-}
-
-/* ======= TAB FADE ANIMATION ======= */
-.fade-container .tab-pane {
-  opacity: 0;
-  transform: scale(0.98);
-  transition: all 0.6s ease-in-out;
-}
-.fade-container .tab-pane.show.active {
-  opacity: 1;
-  transform: scale(1);
-  box-shadow: 0 0 25px rgba(255, 40, 40, 0.4);
-}
-
-/* ======= TAB BUTTON STYLE ======= */
-.btn-swicher .nav-link {
-  color: #fff;
-  background: linear-gradient(180deg, #141414, #0d0d0d);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  border-radius: 10px;
-  margin: 0 6px;
-  padding: 10px 24px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
-}
-
-.btn-swicher .nav-link:hover {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-  transform: translateY(-2px);
-}
-
-.btn-swicher .nav-link.active {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  color: #fff !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-  border: 1px solid rgba(255, 0, 0, 0.6);
-  transform: translateY(-2px);
-}
-
-/* === FIX WARNA AKTIF BIRU PADA TAB PREMIUM === */
-#swicherPlans .premium-btn {
-  color: #fff !important;
-  background: linear-gradient(180deg, #141414, #0d0d0d);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  border-radius: 10px;
-  margin: 0 6px;
-  padding: 10px 24px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
-}
-
-#swicherPlans .premium-btn:hover,
-#swicherPlans .premium-btn.active,
-#swicherPlans .premium-btn:focus,
-#swicherPlans .nav-link.active,
-#swicherPlans .nav-link:focus {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255, 0, 0, 0.6) !important;
-  transform: translateY(-2px);
-}
-
-/* Hilangkan efek biru default dari Bootstrap nav-pills */
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-  background-color: transparent !important;
-  color: inherit !important;
-  box-shadow: none !important;
-}
-/* ======= NAVBAR PREMIUM RED ======= */
+/* === NAVBAR === */
 .navbar {
   background: linear-gradient(180deg, #0b0b0b, #141414);
-  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.1);
-  transition: all 0.4s ease;
+  border-bottom: 1px solid rgba(255,0,0,0.2);
+  box-shadow: 0 0 25px rgba(255,0,0,0.1);
+  transition: .3s;
 }
-
+.navbar:hover { box-shadow: 0 0 30px rgba(255,0,0,0.4); }
 .navbar-brand {
   color: #ff2a2a !important;
   font-weight: 700;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
-  transition: all 0.3s ease;
+  text-shadow: 0 0 10px rgba(255,0,0,0.6);
 }
-
-.navbar-brand:hover {
-  color: #ffffff !important;
-  text-shadow: 0 0 20px rgba(255, 0, 0, 1);
-}
-
-/* ======= NAV LINK ======= */
+.navbar-brand:hover { color:#fff!important; text-shadow:0 0 20px rgba(255,0,0,1); }
 .navbar .nav-link {
-  color: #e0e0e0 !important;
-  font-weight: 500;
-  padding: 10px 18px;
-  transition: all 0.3s ease;
-  position: relative;
+  color:#e0e0e0!important; font-weight:500; padding:10px 18px; transition:.3s;
 }
-
-.navbar .nav-link:hover {
-  color: #ff4d4d !important;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-}
-
-/* ======= ACTIVE STATE ======= */
+.navbar .nav-link:hover { color:#ff4d4d!important; text-shadow:0 0 10px rgba(255,0,0,0.8); }
 .navbar .nav-link.active {
-  color: #ffffff !important;
-  text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+  color:#fff!important; text-shadow:0 0 15px rgba(255,0,0,0.9);
 }
-
 .navbar .nav-link.active::after {
-  content: "";
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff0000, #ff3b3b);
-  border-radius: 4px;
-  transform: translateX(-50%);
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+  content:""; position:absolute; bottom:2px; left:50%; width:50%; height:2px;
+  background:linear-gradient(90deg,#ff0000,#ff3b3b);
+  box-shadow:0 0 12px rgba(255,0,0,0.8); border-radius:4px; transform:translateX(-50%);
 }
-
-/* ======= NAVBAR HOVER GLOW ======= */
-.navbar:hover {
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 0, 0, 0.4);
-}
-
-/* ======= TOGGLER (untuk mobile) ======= */
-.navbar-toggler {
-  border-color: rgba(255, 0, 0, 0.4);
-}
+.navbar-toggler { border-color:rgba(255,0,0,0.4); }
 .navbar-toggler-icon {
   filter: invert(48%) sepia(93%) saturate(2990%) hue-rotate(340deg) brightness(103%) contrast(101%);
 }
-/* Setiap kotak punya latar dan jarak sendiri */
+
+/* === CARD PREMIUM === */
+.premium-card {
+  background:linear-gradient(180deg,#141414,#0d0d0d);
+  border:1px solid #1f1f1f; border-radius:14px; padding:20px; color:#fff;
+  box-shadow:0 0 15px rgba(255,0,0,0.25);
+  transition:.3s; overflow:hidden; max-width:320px; margin:0 auto 25px;
+}
+.premium-card:hover { transform:translateY(-5px); box-shadow:0 0 25px rgba(255,40,40,0.6); }
+
+.glow-animate { animation:breathingGlow 3s ease-in-out infinite; }
+@keyframes breathingGlow {
+  0%,100%{box-shadow:0 0 15px rgba(255,0,0,0.25);}
+  50%{box-shadow:0 0 35px rgba(255,50,50,0.6);}
+}
+
+/* === ICON & TEXT === */
+.plan-icon-top {
+  width:70px;height:70px;margin:10px auto;display:block;border-radius:10px;
+  box-shadow:0 0 10px rgba(255,0,0,0.3);
+}
+.premium-title { color:#ff3b3b;font-weight:600;font-size:1.3rem;margin-bottom:8px; }
+.premium-price { font-size:1.1rem;margin-bottom:10px; }
+.premium-price del { color:#ff8888;font-size:.9rem;margin-right:5px; }
+.premium-list { list-style:none;padding:0;margin:15px 0;text-align:left;font-size:.9rem; }
+.premium-list li { margin:6px 0; }
+
+/* === BUTTON === */
+.premium-btn {
+  background:linear-gradient(90deg,#ff1e1e,#ff4b2b);
+  border:none;border-radius:10px;color:#fff;font-weight:500;
+  padding:8px 20px;transition:.3s;font-size:.95rem;
+}
+.premium-btn:hover {
+  background:linear-gradient(90deg,#ff4b2b,#ff1e1e);
+  box-shadow:0 0 15px rgba(255,40,40,0.8);transform:translateY(-2px);
+}
+
+/* === TAB STYLE === */
+.btn-swicher .nav-link {
+  color:#fff;background:linear-gradient(180deg,#141414,#0d0d0d);
+  border:1px solid rgba(255,0,0,0.3);border-radius:10px;
+  margin:0 6px;padding:10px 24px;transition:.3s;
+  box-shadow:0 0 15px rgba(255,0,0,0.25);
+}
+.btn-swicher .nav-link:hover,
+.btn-swicher .nav-link.active {
+  background:linear-gradient(90deg,#ff1e1e,#ff4b2b)!important;
+  box-shadow:0 0 20px rgba(255,0,0,0.6); color:#fff!important;
+  border:1px solid rgba(255,0,0,0.6); transform:translateY(-2px);
+}
+
+/* === IMAGE BOX / HIGH SECTION === */
 .image-section {
-  background: linear-gradient(145deg, #0d0d0d, #151515);
-  border-radius: 18px;
-  padding: 25px;
-  margin-bottom: 35px;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-  transition: all 0.3s ease;
+  background:linear-gradient(145deg,#0d0d0d,#151515);
+  border-radius:18px;padding:25px;margin-bottom:35px;
+  box-shadow:0 0 30px rgba(255,0,0,0.4);transition:.3s;
 }
-
-.image-section:hover {
-  box-shadow: 0 0 45px rgba(255, 0, 0, 0.8);
-  transform: translateY(-5px);
-}
-
-/* Gambar di dalam kotak */
+.image-section:hover { box-shadow:0 0 45px rgba(255,0,0,0.8);transform:translateY(-5px); }
 .image-box img {
-  border-radius: 12px;
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
+  border-radius:12px;width:100%;object-fit:cover;display:block;
+  box-shadow:0 0 15px rgba(255,0,0,0.3);
 }
 
-/* Animasi fade-up */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 0.8s ease forwards;
-}
-
-.fade-up:nth-child(1) { animation-delay: 0.1s; }
-.fade-up:nth-child(2) { animation-delay: 0.2s; }
-.fade-up:nth-child(3) { animation-delay: 0.3s; }
-.fade-up:nth-child(4) { animation-delay: 0.4s; }
-.fade-up:nth-child(5) { animation-delay: 0.5s; }
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* === HIGH IMAGE STYLE (Refined Premium Look) === */
-.image-box {
-  background: radial-gradient(circle at center, #0a0a0a, #000);
-  border-radius: 14px;
-  padding: 25px;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 40px;
-}
-
-.image-box:hover {
-  box-shadow: 0 0 40px rgba(255, 0, 0, 0.45);
-  transform: scale(1.02);
-}
-
-/* === Gambar dengan bingkai === */
-.image-frame {
-  border: 3px solid #111;
-  border-radius: 12px;
-  padding: 8px;
-  background: linear-gradient(145deg, #000, #111);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-  display: inline-block;
-  transition: 0.3s ease;
-}
-
-.image-frame:hover {
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
-}
-
-.high-img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-/* === Teks di atas gambar === */
+/* === TEXT OVER IMAGE === */
 .image-title {
-  color: #fff;
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 0 0 12px rgba(255, 0, 0, 0.8), 0 0 25px rgba(255, 0, 0, 0.6);
+  color:#fff;font-size:28px;font-weight:800;text-transform:uppercase;
+  text-shadow:0 0 12px rgba(255,0,0,0.8),0 0 25px rgba(255,0,0,0.6);
+}
+.image-desc {
+  color:#ccc;font-size:16px;line-height:1.7;text-align:center;
+  background:rgba(0,0,0,0.4);padding:15px 20px;border-radius:10px;
+  border:1px solid rgba(255,0,0,0.15);
+  box-shadow:inset 0 0 15px rgba(255,0,0,0.2);max-width:700px;margin:20px auto 0;
 }
 
-/* === Deskripsi di bawah gambar === */
-.image-desc {
-  color: #ccc;
-  font-size: 16px;
-  line-height: 1.7;
-  text-align: center;
-  max-width: 700px;
-  margin: 20px auto 0;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 15px 20px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 0, 0, 0.15);
-  box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.2);
-}
+/* === ANIMATION === */
+.fade-up { opacity:0; transform:translateY(30px); animation:fadeUp .8s ease forwards; }
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 </style>
+<!-- ======= END COMPACT CLEAN STYLE ======= -->
 		
 <!-- ====== PANEL & ANTI-DDOS SECTION (FULL TEXT VERSION) ====== -->
 <section class="feature-section py-6 fade-section">
