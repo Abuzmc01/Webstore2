@@ -50,20 +50,7 @@
 	<style>.header{background:url("assets/images/Hero/game.jpg") no-repeat center center;}</style>
 </head>
 <body>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const fadeEls = document.querySelectorAll(".fade-in-up");
-  const obs = new IntersectionObserver((entries, obsr) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("visible");
-        obsr.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  fadeEls.forEach(el => obs.observe(el));
-});
-</script>	
+
 <!-- Navbar -->			
 <!-- Navigation -->									
 <nav id="navbar_top" class="navbar navbar-dark navbar-expand-lg fixed-top" style="background: rgba(0, 0, 0, 0.9); box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);">
