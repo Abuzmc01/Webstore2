@@ -1132,45 +1132,77 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 
     <!-- AUTO MARQUEE REVIEW -->
-    <div class="review-marquee">
+    <div class="review-marquee fade-in-up">
       <div class="review-track">
-        <!-- Card 1 -->
-        <div class="card review-card">
-          <div class="card-body">
-            <h3>Layanan Luar Biasa</h3>
-            <p>Server stabil dan cepat! Support sangat responsif dan membantu menyelesaikan masalah. Highly recommended!</p>
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="mb-0">NxzyStore</p>
+        <!-- SET 1 -->
+        <div class="review-cards">
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Layanan Luar Biasa</h3>
+              <p>Server stabil dan cepat! Support sangat responsif dan membantu menyelesaikan masalah. Highly recommended!</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">NxzyStore</p>
+            </div>
+          </div>
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Pelayanan Prima</h3>
+              <p>Hosting cepat, aman, dan sangat stabil. Tim supportnya ramah dan sigap dalam membantu.</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">DenzyMC</p>
+            </div>
+          </div>
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Pengalaman Hebat</h3>
+              <p>Support luar biasa dan server performa tinggi. Gak pernah lag meski traffic ramai!</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">Odysida</p>
+            </div>
+          </div>
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Sangat Direkomendasikan</h3>
+              <p>Hosting berkualitas tinggi, cepat, aman, dan dukungan pelanggan terbaik.</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">Alice Johnson</p>
+            </div>
           </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="card review-card">
-          <div class="card-body">
-            <h3>Pelayanan Prima</h3>
-            <p>Hosting cepat, aman, dan sangat stabil. Tim supportnya ramah dan sigap dalam membantu.</p>
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="mb-0">DenzyMC</p>
+        <!-- SET 2 (duplicate for seamless loop) -->
+        <div class="review-cards">
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Layanan Luar Biasa</h3>
+              <p>Server stabil dan cepat! Support sangat responsif dan membantu menyelesaikan masalah. Highly recommended!</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">NxzyStore</p>
+            </div>
           </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card review-card">
-          <div class="card-body">
-            <h3>Pengalaman Hebat</h3>
-            <p>Support luar biasa dan server performa tinggi. Gak pernah lag meski traffic ramai!</p>
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="mb-0">Odysida</p>
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Pelayanan Prima</h3>
+              <p>Hosting cepat, aman, dan sangat stabil. Tim supportnya ramah dan sigap dalam membantu.</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">DenzyMC</p>
+            </div>
           </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card review-card">
-          <div class="card-body">
-            <h3>Sangat Direkomendasikan</h3>
-            <p>Hosting berkualitas tinggi, cepat, aman, dan dukungan pelanggan terbaik.</p>
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="mb-0">Alice Johnson</p>
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Pengalaman Hebat</h3>
+              <p>Support luar biasa dan server performa tinggi. Gak pernah lag meski traffic ramai!</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">Odysida</p>
+            </div>
+          </div>
+          <div class="card review-card fade-in-up">
+            <div class="card-body">
+              <h3>Sangat Direkomendasikan</h3>
+              <p>Hosting berkualitas tinggi, cepat, aman, dan dukungan pelanggan terbaik.</p>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p class="mb-0">Alice Johnson</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1180,7 +1212,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="reviews_footer text-center fade-in-up" style="margin-top:40px;">
       <h3 class="mb-1" style="color:#fff;">All reviews verified by</h3>
       <a href="https://www.trustpilot.com/" target="_blank">
-        <!-- SVG Trustpilot diganti ke versi merah glow -->
         <svg xmlns="http://www.w3.org/2000/svg" width="160" height="35" viewBox="0 0 200 40" style="filter:drop-shadow(0 0 8px rgba(255,0,0,0.8));">
           <text x="0" y="28" font-size="26" font-family="Poppins, sans-serif" fill="#ff1e1e" font-weight="700">
             Trustpilot
@@ -1203,22 +1234,25 @@ document.addEventListener("DOMContentLoaded", () => {
 .review-track {
   display: flex;
   width: max-content;
-  animation: scrollReviews 25s linear infinite;
+  animation: scrollReviews 40s linear infinite;
+}
+.review-cards {
+  display: flex;
 }
 .review-card {
   flex: 0 0 300px;
-  background: rgba(20,20,20,0.85);
-  border: 1px solid rgba(255,0,0,0.3);
+  background: rgba(15,15,15,0.9);
+  border: 1px solid rgba(255,0,0,0.4);
   border-radius: 15px;
   margin-right: 25px;
   padding: 20px;
   color: #ccc;
-  box-shadow: 0 0 15px rgba(255,0,0,0.25);
+  box-shadow: 0 0 15px rgba(255,0,0,0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .review-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(255,0,0,0.6);
+  box-shadow: 0 0 25px rgba(255,0,0,0.7);
   border-color: rgba(255,0,0,0.6);
 }
 .review-card h3 {
@@ -1228,141 +1262,19 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 .stars {
   color: #ff1e1e;
-<!-- ======= REVIEW SECTION ======= -->
-<div class="review py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
-  <div class="container">
-    <div class="title text-center mb-5 fade-in-up">
-      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">
-        Pendapat Mereka Tentang Kami
-      </h4>
-      <p style="color:#ccc;">Anda dapat memposting atau melihat ulasan pelanggan kami</p>
-    </div>
-
-    <!-- AUTO MARQUEE REVIEW -->
-    <div class="review-marquee">
-      <div class="review-track">
-        <!-- Ulangi dua kali agar animasi looping halus -->
-        <div class="review-set">
-          <!-- Card 1 -->
-          <div class="card review-card">
-            <div class="card-body">
-              <h3>Layanan Luar Biasa</h3>
-              <p>Server stabil dan cepat! Support sangat responsif dan membantu menyelesaikan masalah. Highly recommended!</p>
-              <div class="stars">⭐⭐⭐⭐⭐</div>
-              <p class="mb-0">NxzyStore</p>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="card review-card">
-            <div class="card-body">
-              <h3>Pelayanan Prima</h3>
-              <p>Hosting cepat, aman, dan sangat stabil. Tim supportnya ramah dan sigap dalam membantu.</p>
-              <div class="stars">⭐⭐⭐⭐⭐</div>
-              <p class="mb-0">DenzyMC</p>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="card review-card">
-            <div class="card-body">
-              <h3>Pengalaman Hebat</h3>
-              <p>Support luar biasa dan server performa tinggi. Gak pernah lag meski traffic ramai!</p>
-              <div class="stars">⭐⭐⭐⭐⭐</div>
-              <p class="mb-0">Odysida</p>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="card review-card">
-            <div class="card-body">
-              <h3>Sangat Direkomendasikan</h3>
-              <p>Hosting berkualitas tinggi, cepat, aman, dan dukungan pelanggan terbaik.</p>
-              <div class="stars">⭐⭐⭐⭐⭐</div>
-              <p class="mb-0">Alice Johnson</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Duplikat untuk looping mulus -->
-        <div class="review-set clone"></div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="reviews_footer text-center fade-in-up" style="margin-top:40px;">
-      <h3 class="mb-1" style="color:#fff;">All reviews verified by</h3>
-      <a href="https://www.trustpilot.com/" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" width="160" height="35" viewBox="0 0 200 40" style="filter:drop-shadow(0 0 8px rgba(255,0,0,0.8));">
-          <text x="0" y="28" font-size="26" font-family="Poppins, sans-serif" fill="#ff1e1e" font-weight="700">
-            Trustpilot
-          </text>
-          <polygon points="190,5 195,20 180,12 200,12 185,20" fill="#ff1e1e"/>
-        </svg>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- ======= REVIEW CSS & ANIMASI ======= -->
-<style>
-.review-marquee {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  padding: 10px 0;
-}
-
-.review-track {
-  display: flex;
-  animation: scrollReviews 40s linear infinite;
-}
-
-.review-set {
-  display: flex;
-  gap: 25px;
-}
-.clone {
-  animation: none;
-}
-
-.review-card {
-  flex: 0 0 300px;
-  background: rgba(25, 0, 0, 0.9);
-  border: 1px solid rgba(255,0,0,0.4);
-  border-radius: 15px;
-  padding: 20px;
-  color: #ddd;
-  box-shadow: 0 0 20px rgba(255,0,0,0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.review-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(255,0,0,0.6);
-  border-color: rgba(255,0,0,0.7);
-}
-.review-card h3 {
-  color: #ff1e1e;
-  font-weight: 600;
-  text-shadow: 0 0 8px rgba(255,0,0,0.6);
-}
-.stars {
-  color: #ff1e1e;
   text-shadow: 0 0 10px rgba(255,0,0,0.8);
   font-size: 18px;
 }
-
-/* Animasi scroll tanpa jeda */
 @keyframes scrollReviews {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* Efek muncul saat scroll */
+/* Efek Fade-in Up */
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 1s ease, transform 1s ease;
 }
 .fade-in-up.visible {
   opacity: 1;
@@ -1370,30 +1282,23 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 </style>
 
-<!-- JS: Animasi muncul & kloning konten -->
+<!-- JS: Animasi muncul saat scroll -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Efek fade-in
   const fadeEls = document.querySelectorAll(".fade-in-up");
   const obs = new IntersectionObserver((entries, obsr) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add("visible");
-        obsr.unobserve(e.target);
       }
     });
   }, { threshold: 0.2 });
   fadeEls.forEach(el => obs.observe(el));
-
-  // Duplikasi otomatis isi review agar loop mulus
-  const reviewSet = document.querySelector(".review-set");
-  const clone = reviewSet.cloneNode(true);
-  document.querySelector(".review-track").appendChild(clone);
 });
 </script>
 <!-- ======= END REVIEW SECTION ======= -->
 <!-- ======= FOOTER ======= -->
-<footer class="footer-section">
+<footer class="footer-section fade-in-up">
   <div class="container">
     <div class="row gy-4">
       <div class="col-lg-4">
@@ -1451,12 +1356,12 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 
     <!-- Lokasi Server dan Aktivasi Info -->
-    <div class="text-center mt-4 text-light small fade-in">
+    <div class="text-center mt-4 text-light small fade-in-up">
       🌍 Server berlokasi di <span style="color:#ff3b3b;">Singapura</span> | ⚡ Aktivasi otomatis <span style="color:#ff3b3b;">1–5 menit</span> setelah pembelian | 🛡️ Anti-DDoS Protection
     </div>
 
     <!-- Pembayaran -->
-    <div class="payment-section text-center mt-4 fade-in">
+    <div class="payment-section text-center mt-4 fade-in-up">
       <h5 class="text-light mb-3">💳 Metode Pembayaran Kami</h5>
       <div class="payment-logos">
         <img src="assets/images/payments/dana.png" alt="DANA">
@@ -1471,7 +1376,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </footer>
 
 <!-- ======= SOCIAL MEDIA BAR ======= -->
-<div class="footer-social-bar fade-in">
+<div class="footer-social-bar fade-in-up">
   <div class="container text-center">
     <div class="social-icons">
       <a href="https://wa.me/6281234567890" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
@@ -1483,7 +1388,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </div>
 
-<!-- ======= STYLE ======= -->
+<!-- ======= STYLE & ANIMASI ======= -->
 <style>
 .discord-banner {
   background: #0b0b0b;
@@ -1582,31 +1487,46 @@ document.addEventListener("DOMContentLoaded", () => {
   transform: translateY(-2px);
 }
 
-/* Animasi Fade-in */
-.fade-in {
+/* Animasi muncul saat scroll */
+.fade-in-up {
   opacity: 0;
-  animation: fadeIn 1.4s ease-in-out forwards;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(15px); }
-  100% { opacity: 1; transform: translateY(0); }
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
-<!-- Font Awesome Icons -->
+
+<!-- ======= SCRIPT ======= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeEls = document.querySelectorAll(".fade-in-up");
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => observer.observe(el));
+});
+</script>
+
+<!-- ======= FONT AWESOME & LIBRARY ======= -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  integrity="sha512-M9N1fGdXc7rSnkZC6XjI6g5RXUq1Q4E8K2cU1v7ijPBxywq9qp+8G4J0qU3p1u3M7VgqzXxOdpTjM2yQ7+K/5Q=="
   crossorigin="anonymous"
-  referrerpolicy="no-referrer"
 />
-</footer>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/custom.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script> 
-    <script src="assets/js/slider.js"></script>
-	<script src="assets/js/game-selector.js"></script>
-	<script src="assets/js/reviews.js"></script>
+<script src="assets/js/swiper-bundle.min.js"></script> 
+<script src="assets/js/slider.js"></script>
+<script src="assets/js/game-selector.js"></script>
+<script src="assets/js/reviews.js"></script>
 </body>
 </html>
