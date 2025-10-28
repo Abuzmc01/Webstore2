@@ -553,27 +553,52 @@
   <div class="glow-bg"></div>
 </div>
 
-<!-- CSS Animasi -->
+<!-- CSS ANIMASI & GLOW -->
 <style>
+.features-box {
+  position: relative;
+  background-color: #0a0a0a;
+  border: 2px solid rgba(255, 0, 0, 0.6);
+  border-radius: 15px;
+  color: #fff;
+  padding: 25px;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  z-index: 2;
+}
+
 .features-box:hover {
   transform: translateY(-8px);
   box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
   border-color: rgba(255,0,0,0.7);
 }
-.glow-bg {
-  position:absolute;
-  top:-100px;
-  left:-100px;
-  width:300%;
-  height:300%;
-  background:radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
+
+/* Glow background efek di belakang box */
+.features-box::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
   animation: pulseGlow 6s infinite alternate;
-  z-index:1;
+  z-index: 1;
 }
 @keyframes pulseGlow {
   from {opacity: 0.25;}
   to {opacity: 0.6;}
 }
+
+/* SVG biar nggak rusak warnanya */
+.features-box svg,
+.features-box svg * {
+  fill: currentColor !important;
+  stroke: none !important;
+  z-index: 2;
+}
+
+/* Animasi muncul dari bawah saat scroll */
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
@@ -585,15 +610,15 @@
 }
 </style>
 
-<!-- JS Scroll Animation -->
+<!-- JS SCROLL ANIMASI -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const fadeElements = document.querySelectorAll(".fade-in-up");
+  const fadeElements = document.querySelectorAll(".features-box");
 
   const appearOnScroll = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
+        entry.target.classList.add("visible", "fade-in-up");
         observer.unobserve(entry.target);
       }
     });
