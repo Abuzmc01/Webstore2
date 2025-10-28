@@ -10,7 +10,6 @@
     --white: #fff;
     --light: #cdcfe3;
     --gray: #6d708a;
-    --blue: #0195f4;
     --green: #20bf6c;
     --red: #fd5c65;
     --pink: #fd5c65;
@@ -1555,4 +1554,75 @@ footer ul a:hover {
 .blog-content {
     background-color: var(--light-dark);
     border-radius: .75rem;
+}
+/* === FIX COLOR SCHEME MINEIDHOST RED PREMIUM === */
+:root {
+  --blue: #ff2a2a; /* Ganti semua biru jadi merah utama */
+  --discord-color: #ff4b4b; /* Discord tetap merah muda sedikit lebih terang */
+}
+
+/* Efek tombol dan hover */
+.btn-primary,
+.btn-main,
+.btn-warning,
+.btn-danger,
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  background-color: #ff2a2a !important;
+  border-color: #ff2a2a !important;
+  color: #fff !important;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.35);
+}
+
+/* Hover efek lembut */
+.btn-primary:hover,
+.btn-main:hover,
+.navbar .nav-link:hover {
+  background-color: #ff3b3b !important;
+  box-shadow: 0 0 25px rgba(255, 50, 50, 0.6);
+}
+
+/* Review & icon warna */
+.review .card .stars .trustpilot-star,
+.review .card .user,
+.plans .card ul li svg,
+.panel .panel_content ul li svg {
+  fill: #ff3b3b !important;
+  color: #ff3b3b !important;
+}
+
+/* Discord Section */
+.discord-label {
+  background-color: #ff3b3b !important;
+}
+.discord-label .btn {
+  background: #fff;
+  color: #ff2a2a;
+}
+.discord-label .btn:hover {
+  background: #ff2a2a;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+/* Footer line & hover */
+footer h4::before {
+  background: #ff2a2a !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+footer ul a:hover::before {
+  background: #ff3b3b !important;
+}
+footer ul a:hover {
+  color: #ff4b4b !important;
+}
+
+/* Navbar client area dropdown */
+#panel,
+.dropdown-menu-panel .dropdown-item:hover {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  color: #fff !important;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
 }
