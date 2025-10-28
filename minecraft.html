@@ -184,86 +184,92 @@
 }
 </style>
 <!-- ======= END NAVBAR ======= -->
-<!-- ======= HERO SECTION (Minecraft Fixed) ======= -->
-<div class="header" style="
-  position: relative;
+<!-- ======= HERO SECTION (Match index.html) ======= -->
+<section id="hero" class="hero d-flex align-items-center" style="
   background: url('assets/images/header/minecraft-bg.jpg') center/cover no-repeat;
-  color: #fff;
-  padding: 180px 0 140px;
+  position: relative;
   overflow: hidden;
-  border-bottom: 2px solid rgba(255,0,0,0.3);
-  box-shadow: 0 0 35px rgba(255,0,0,0.3);
 ">
-  <!-- Overlay gelap + glow merah -->
+  <!-- Overlay hitam premium -->
   <div style="
     position:absolute;
     inset:0;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.8), rgba(0,0,0,0.95));
-    z-index:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.95) 100%);
+    z-index:1;
   "></div>
 
-  <!-- Glow premium merah di pinggir -->
-  <div class="glow-effect"></div>
+  <!-- Glow efek merah -->
+  <div class="hero-glow"></div>
 
-  <div class="container position-relative" style="z-index:2;">
-    <div class="row d-flex justify-content-start align-items-center h-100">
-      <div class="col-lg-10 fade-in-up">
-        <h1 style="
+  <div class="container position-relative text-start" style="z-index:2;">
+    <div class="row align-items-center">
+      <div class="col-lg-10">
+        <h1 class="fade-in-up" style="
           color:#ff1e1e;
+          text-shadow:0 0 18px rgba(255,0,0,0.8),0 0 25px rgba(255,0,0,0.6);
           font-weight:800;
           font-size:3rem;
-          text-shadow:0 0 18px rgba(255,0,0,0.8), 0 0 25px rgba(255,0,0,0.6);
         ">
           Game Hosting
         </h1>
-        <p style="
+        <p class="fade-in-up" style="
           color:#ccc;
           font-size:1.1rem;
           max-width:800px;
           text-shadow:0 0 8px rgba(255,0,0,0.4);
         ">
-          Kelas Performa Tinggi, MineIDHost menawarkan performa terbaik dengan pemilihan Treads tinggi yang berfokus pada prosessor multi core, menggunakan AMD EPYC Gen2 hingga Gen4.
+          Kelas Performa Tinggi, MineIDHost menawarkan performa terbaik dengan pemilihan Treads tinggi
+          yang berfokus pada prosessor multi-core — menggunakan AMD EPYC Gen2 hingga Gen4.
         </p>
-        <p style="
+        <p class="fade-in-up" style="
           color:#ccc;
           font-size:1.1rem;
           max-width:800px;
           text-shadow:0 0 8px rgba(255,0,0,0.4);
         ">
-          Dengan performa tangguh ini, server kamu mampu menanggung beban berat dan tetap stabil. Direkomendasikan untuk game server yang butuh performa tinggi tanpa kompromi!
+          Dengan performa tangguh ini, server kamu mampu menanggung beban berat dan tetap stabil.
+          Direkomendasikan untuk game server yang butuh performa tinggi tanpa kompromi!
         </p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ======= HERO STYLE ======= -->
+<!-- ======= HERO STYLES ======= -->
 <style>
-/* Efek glow pinggiran */
-.glow-effect::before,
-.glow-effect::after {
+.hero {
+  height: 100vh;
+  min-height: 600px;
+  border-bottom: 2px solid rgba(255,0,0,0.3);
+  box-shadow: 0 0 40px rgba(255,0,0,0.25);
+}
+
+/* Glow pinggir merah lembut */
+.hero-glow::before,
+.hero-glow::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
+  filter: blur(90px);
+  opacity: 0.45;
+  z-index: 0;
 }
-.glow-effect::before {
-  top: -100px;
-  left: -80px;
-  width: 250px;
-  height: 250px;
+.hero-glow::before {
+  top: -120px;
+  left: -120px;
+  width: 260px;
+  height: 260px;
   background: radial-gradient(circle, rgba(255,0,0,0.4), transparent 70%);
 }
-.glow-effect::after {
-  bottom: -120px;
-  right: -100px;
+.hero-glow::after {
+  bottom: -150px;
+  right: -150px;
   width: 300px;
   height: 300px;
   background: radial-gradient(circle, rgba(255,0,0,0.35), transparent 70%);
 }
 
-/* Animasi muncul saat scroll */
+/* Animasi fade-in sama seperti index.html */
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
@@ -275,7 +281,7 @@
 }
 </style>
 
-<!-- JS Animasi Scroll -->
+<!-- ======= HERO ANIMATION JS ======= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const fadeEls = document.querySelectorAll(".fade-in-up");
@@ -286,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
         obsr.unobserve(e.target);
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.15 });
   fadeEls.forEach(el => obs.observe(el));
 });
 </script>
