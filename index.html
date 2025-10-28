@@ -471,7 +471,7 @@
   }
 }
 	</style>
-<!-- ======= FEATURES SECTION ======= -->
+<!-- SECTION: FEATURES SCROLL ANIMATION -->
 <div class="features py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
   <div class="container position-relative" style="z-index: 2;">
     <div class="title text-center mb-5 fade-in-up">
@@ -553,7 +553,7 @@
   <div class="glow-bg"></div>
 </div>
 
-<!-- ===== CSS Animasi ===== -->
+<!-- ==== CSS + SCRIPT untuk animasi scroll + border glow merah ==== -->
 <style>
 .features-box {
   background: rgba(20,20,20,0.85);
@@ -561,62 +561,56 @@
   border-radius: 15px;
   padding: 25px;
   text-align: center;
-  transition: 0.4s;
-  box-shadow: 0 0 10px rgba(255,0,0,0.2);
+  transition: all 0.4s ease;
+  box-shadow: 0 0 15px rgba(255,0,0,0.2);
 }
 .features-box h2 {
   color: #ff1e1e;
   font-weight: 600;
+  text-shadow: 0 0 8px rgba(255,0,0,0.7);
 }
 .features-box p {
   color: #aaa;
 }
 .features-box:hover {
   transform: translateY(-8px);
-  box-shadow: 0 0 25px rgba(255,0,0,0.6);
+  box-shadow: 0 0 30px rgba(255,0,0,0.7);
   border-color: rgba(255,0,0,0.7);
 }
-.glow-bg {
-  position: absolute;
-  top: -100px;
-  left: -100px;
-  width: 300%;
-  height: 300%;
-  background: radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
-  animation: pulseGlow 6s infinite alternate;
-  z-index: 1;
-}
-@keyframes pulseGlow {
-  from {opacity: 0.25;}
-  to {opacity: 0.6;}
-}
-
-/* Scroll Animation */
 .fade-on-scroll {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.8s ease-out;
+  transition: all 0.9s ease-out;
 }
 .fade-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
+.glow-bg {
+  position:absolute;
+  top:-100px;
+  left:-100px;
+  width:300%;
+  height:300%;
+  background:radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
+  animation: pulseGlow 6s infinite alternate;
+  z-index:1;
+}
+@keyframes pulseGlow {
+  from {opacity: 0.25;}
+  to {opacity: 0.6;}
+}
 </style>
 
-<!-- ===== JS Scroll Trigger ===== -->
 <script>
-  // Efek fade muncul saat di scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.25 });
-
-  document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
 </script>
-<!-- ===== END FEATURES SECTION ===== -->
+<!-- END SECTION: FEATURES SCROLL ANIMATION -->
 <!-- Game Selector -->
 <div class="game-selector-section">
   <style>
@@ -742,10 +736,10 @@
       <div class="swiper-slide">
         <div class="card mb-4">
           <div class="card-img">
-            <img src="assets/images/slider_images/minecraft.png" class="card-img-top" alt="Terraria Game">
+            <img src="assets/images/slider_images/palworld.png" class="card-img-top" alt="Terraria Game">
           </div>
           <div class="card-body">
-            <h4 class="mb-0">Minecraft Service</h4>
+            <h4 class="mb-0">Palworld</h4>
             <p class="mb-0">Game <b>Support</b></p>
           </div>
         </div>
@@ -754,10 +748,10 @@
       <div class="swiper-slide">
         <div class="card mb-4">
           <div class="card-img">
-            <img src="assets/images/slider_images/fivem.png" class="card-img-top" alt="FiveM Game">
+            <img src="assets/images/slider_images/minecraft.png" class="card-img-top" alt="FiveM Game">
           </div>
           <div class="card-body">
-            <h4 class="mb-0">Fivem Service</h4>
+            <h4 class="mb-0">Minecraft</h4>
             <p class="mb-0">Game <b>Support</b></p>
           </div>
         </div>
@@ -766,10 +760,10 @@
       <div class="swiper-slide">
         <div class="card mb-4">
           <div class="card-img">
-            <img src="assets/images/slider_images/rust.png" class="card-img-top" alt="Valheim Game">
+            <img src="assets/images/slider_images/Fivem.png" class="card-img-top" alt="Valheim Game">
           </div>
           <div class="card-body">
-            <h4 class="mb-0">Rust Service</h4>
+            <h4 class="mb-0">Fivem</h4>
             <p class="mb-0">Game <b>Support</b></p>
           </div>
         </div>
@@ -778,10 +772,10 @@
       <div class="swiper-slide">
         <div class="card mb-4">
           <div class="card-img">
-            <img src="assets/images/slider_images/ark.png" class="card-img-top" alt="CS:GO Game">
+            <img src="assets/images/slider_images/rust.png" class="card-img-top" alt="CS:GO Game">
           </div>
           <div class="card-body">
-            <h4 class="mb-0">Ark Service</h4>
+            <h4 class="mb-0">Rust</h4>
             <p class="mb-0">Game <b>Support</b></p>
           </div>
         </div>
@@ -790,10 +784,10 @@
       <div class="swiper-slide">
         <div class="card mb-4">
           <div class="card-img">
-            <img src="assets/images/slider_images/palworld.png" class="card-img-top" alt="ARK Survival Game">
+            <img src="assets/images/slider_images/ark.png" class="card-img-top" alt="ARK Survival Game">
           </div>
           <div class="card-body">
-            <h4 class="mb-0">Palworld Service</h4>
+            <h4 class="mb-0">ARK Survival</h4>
             <p class="mb-0">Game <b>Support</b></p>
           </div>
         </div>
