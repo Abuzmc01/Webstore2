@@ -136,39 +136,6 @@
   color: #ff1e1e !important;
   text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
 }
-/* ---- Override warna biru yang tersisa ---- */
-.nav-pills .nav-link.active,
-.nav-pills .nav-link.active:hover,
-.nav-pills .show > .nav-link,
-.btn-check:checked + .btn,
-.btn.active,
-.btn:focus,
-.btn:active,
-.btn:visited {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  border: 1px solid rgba(255, 0, 0, 0.6) !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
-  color: #fff !important;
-}
-
-/* Hilangkan outline biru default pada focus */
-:focus {
-  outline: none !important;
-  box-shadow: 0 0 12px rgba(255,0,0,0.6) !important;
-}
-
-/* Pastikan tombol / link yang mungkin punya warna biru di hover atau active juga diubah */
-a.btn:hover, a.btn:active, a.btn:focus,
-button.btn:hover, button.btn:active, button.btn:focus {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  color: #fff !important;
-}
-
-/* Pengaturan untuk drop-shadow / glow biru di gambar utama */
-.image-box img, .image-section img {
-  filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7)) !important;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
-}
 /* Dropdown Style */
 .dropdown-menu {
   background: rgba(10, 10, 10, 0.95);
@@ -217,18 +184,113 @@ button.btn:hover, button.btn:active, button.btn:focus {
 }
 </style>
 <!-- ======= END NAVBAR ======= -->
-	<!-- Header -->
-	<div class="header">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-start align-items-center h-100">
-                <div class="col-lg-12 mt-5">
-                    <h1>Game Hosting</h2>
-                    <p>Kelas Performa Tinggi,MineIDHost menawarkan performa terbaik dengan pemilihan Treads tinggi yang berfokus pada prosessor multi core, dengan Prosesor AMD Epyc Gen2 sampai generasi ke 4.</p>
-                    <p>Dengan ini hosting kalian,mampu menerima beban berat dan pengerjaan tugas dalam satu waktu,sangat rekomendasi untuk mendukung game server anda!</p>
-                </div>
-            </div>
-        </div>
+<!-- ======= HERO SECTION (Minecraft Fixed) ======= -->
+<div class="header" style="
+  position: relative;
+  background: url('assets/images/header/minecraft-bg.jpg') center/cover no-repeat;
+  color: #fff;
+  padding: 180px 0 140px;
+  overflow: hidden;
+  border-bottom: 2px solid rgba(255,0,0,0.3);
+  box-shadow: 0 0 35px rgba(255,0,0,0.3);
+">
+  <!-- Overlay gelap + glow merah -->
+  <div style="
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.8), rgba(0,0,0,0.95));
+    z-index:0;
+  "></div>
+
+  <!-- Glow premium merah di pinggir -->
+  <div class="glow-effect"></div>
+
+  <div class="container position-relative" style="z-index:2;">
+    <div class="row d-flex justify-content-start align-items-center h-100">
+      <div class="col-lg-10 fade-in-up">
+        <h1 style="
+          color:#ff1e1e;
+          font-weight:800;
+          font-size:3rem;
+          text-shadow:0 0 18px rgba(255,0,0,0.8), 0 0 25px rgba(255,0,0,0.6);
+        ">
+          Game Hosting
+        </h1>
+        <p style="
+          color:#ccc;
+          font-size:1.1rem;
+          max-width:800px;
+          text-shadow:0 0 8px rgba(255,0,0,0.4);
+        ">
+          Kelas Performa Tinggi, MineIDHost menawarkan performa terbaik dengan pemilihan Treads tinggi yang berfokus pada prosessor multi core, menggunakan AMD EPYC Gen2 hingga Gen4.
+        </p>
+        <p style="
+          color:#ccc;
+          font-size:1.1rem;
+          max-width:800px;
+          text-shadow:0 0 8px rgba(255,0,0,0.4);
+        ">
+          Dengan performa tangguh ini, server kamu mampu menanggung beban berat dan tetap stabil. Direkomendasikan untuk game server yang butuh performa tinggi tanpa kompromi!
+        </p>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- ======= HERO STYLE ======= -->
+<style>
+/* Efek glow pinggiran */
+.glow-effect::before,
+.glow-effect::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+.glow-effect::before {
+  top: -100px;
+  left: -80px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255,0,0,0.4), transparent 70%);
+}
+.glow-effect::after {
+  bottom: -120px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,0,0,0.35), transparent 70%);
+}
+
+/* Animasi muncul saat scroll */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- JS Animasi Scroll -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeEls = document.querySelectorAll(".fade-in-up");
+  const obs = new IntersectionObserver((entries, obsr) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        obsr.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => obs.observe(el));
+});
+</script>
+<!-- ======= END HERO SECTION ======= -->
 
 	<!-- Plans -->
 	<div class="plans py-5">
