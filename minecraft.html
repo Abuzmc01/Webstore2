@@ -183,12 +183,13 @@
   }
 }
 </style>
-<!-- ======= END NAVBAR ======= -->
-<!-- ======= HERO SECTION (Match index.html) ======= -->
+<!-- ======= END NAVBAR ====== -->
+<!-- ======= HERO SECTION (Red Premium Compact) ======= -->
 <section id="hero" class="hero d-flex align-items-center" style="
-  background: url('assets/images/Hero/game.jpg') center/cover no-repeat;
+  background: url('assets/images/header/minecraft-bg.jpg') center/cover no-repeat;
   position: relative;
   overflow: hidden;
+  height: 580px;
 ">
   <!-- Overlay hitam premium -->
   <div style="
@@ -206,73 +207,73 @@
       <div class="col-lg-10">
         <h1 class="fade-in-up" style="
           color:#ff1e1e;
-          text-shadow:0 0 18px rgba(255,0,0,0.8),0 0 25px rgba(255,0,0,0.6);
+          text-shadow:0 0 15px rgba(255,0,0,0.8);
           font-weight:800;
-          font-size:3rem;
+          font-size:2.6rem;
+          margin-bottom:15px;
         ">
           Game Hosting
         </h1>
         <p class="fade-in-up" style="
           color:#ccc;
-          font-size:1.1rem;
-          max-width:800px;
-          text-shadow:0 0 8px rgba(255,0,0,0.4);
+          font-size:1rem;
+          max-width:750px;
+          text-shadow:0 0 6px rgba(255,0,0,0.4);
+          margin-bottom:10px;
         ">
-          Kelas Performa Tinggi, MineIDHost menawarkan performa terbaik dengan pemilihan Treads tinggi
-          yang berfokus pada prosessor multi-core — menggunakan AMD EPYC Gen2 hingga Gen4.
+          Kelas Performa Tinggi — MineIDHost menawarkan performa terbaik dengan pemilihan Threads tinggi
+          berfokus pada prosesor multi-core AMD EPYC Gen2 hingga Gen4.
         </p>
         <p class="fade-in-up" style="
           color:#ccc;
-          font-size:1.1rem;
-          max-width:800px;
-          text-shadow:0 0 8px rgba(255,0,0,0.4);
+          font-size:1rem;
+          max-width:750px;
+          text-shadow:0 0 6px rgba(255,0,0,0.4);
         ">
-          Dengan performa tangguh ini, server kamu mampu menanggung beban berat dan tetap stabil.
-          Direkomendasikan untuk game server yang butuh performa tinggi tanpa kompromi!
+          Dengan kekuatan ini, server kamu siap menanggung beban berat dan tetap stabil.
+          Rekomendasi terbaik untuk game server performa tinggi!
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======= HERO STYLES ======= -->
+<!-- ======= HERO STYLE ======= -->
 <style>
 .hero {
-  height: 100vh;
-  min-height: 600px;
   border-bottom: 2px solid rgba(255,0,0,0.3);
-  box-shadow: 0 0 40px rgba(255,0,0,0.25);
+  box-shadow: 0 0 30px rgba(255,0,0,0.25);
 }
 
-/* Glow pinggir merah lembut */
+/* Glow pinggir merah */
 .hero-glow::before,
 .hero-glow::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(80px);
   opacity: 0.45;
   z-index: 0;
 }
 .hero-glow::before {
-  top: -120px;
-  left: -120px;
-  width: 260px;
-  height: 260px;
+  top: -100px;
+  left: -100px;
+  width: 220px;
+  height: 220px;
   background: radial-gradient(circle, rgba(255,0,0,0.4), transparent 70%);
 }
 .hero-glow::after {
-  bottom: -150px;
-  right: -150px;
-  width: 300px;
-  height: 300px;
+  bottom: -120px;
+  right: -120px;
+  width: 250px;
+  height: 250px;
   background: radial-gradient(circle, rgba(255,0,0,0.35), transparent 70%);
 }
 
-/* Animasi fade-in sama seperti index.html */
+/* Animasi fade-in */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(25px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .fade-in-up.visible {
@@ -281,7 +282,7 @@
 }
 </style>
 
-<!-- ======= HERO ANIMATION JS ======= -->
+<!-- ======= HERO SCROLL ANIMATION ======= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const fadeEls = document.querySelectorAll(".fade-in-up");
