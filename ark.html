@@ -644,14 +644,12 @@
   box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.2);
 }
 </style>
-
-<!-- === OS Types (Infinite Auto Scroll - MineIDHost Style) === -->
+<!-- === OS Types (Auto Scroll Premium Red Style) === -->
 <style>
   .os {
-    background-color: #0d0d0d;
+    background-color: #000;
     padding: 5rem 0;
     overflow: hidden;
-    position: relative;
   }
 
   .os .title h4,
@@ -659,32 +657,35 @@
     color: #fff;
   }
 
-  /* Container untuk dua baris item agar looping halus */
-  .os-slider {
+  /* === SCROLLER CONTAINER === */
+  .os-scroller {
     display: flex;
-    align-items: center;
-    gap: 100px;
     width: max-content;
-    animation: scrollRight 35s linear infinite;
+    animation: scrollOS 18s linear infinite;
   }
 
-  /* Duplicate baris agar looping seamless */
-  .os-slider-wrapper {
-    display: flex;
-    width: 200%;
+  @keyframes scrollOS {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
+  /* === OS ITEM === */
   .os-item {
     text-align: center;
-    flex: 0 0 auto;
-    transition: transform 0.4s ease, filter 0.4s ease;
+    margin: 0 60px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
 
   .os-item svg {
     width: 100px;
     height: 100px;
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.4));
     transition: all 0.3s ease;
-    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.4));
   }
 
   .os-item h3 {
@@ -694,61 +695,32 @@
   }
 
   .os-item:hover svg {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.9));
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 50px rgba(255, 0, 0, 0.9));
   }
 
   .os-item:hover h3 {
     color: #ff4040;
   }
 
-  /* Warna masing-masing OS */
+  /* === CUSTOM COLOR FIX === */
   .os .debian path {
     fill: #ff4d6d !important;
   }
+
   .os .ubuntu circle,
   .os .ubuntu path {
     fill: #ff5c33 !important;
   }
+
   .os .windows polygon {
     fill: #b30000 !important;
   }
+
   .os svg g polygon,
   .os svg g rect,
   .os svg g path {
     fill: #ff3333 !important;
-  }
-
-  /* Animasi scroll */
-  @keyframes scrollRight {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  /* Gradient kiri-kanan biar halus */
-  .os::before,
-  .os::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 120px;
-    height: 100%;
-    z-index: 5;
-    pointer-events: none;
-  }
-
-  .os::before {
-    left: 0;
-    background: linear-gradient(to right, #0d0d0d 0%, transparent 100%);
-  }
-
-  .os::after {
-    right: 0;
-    background: linear-gradient(to left, #0d0d0d 0%, transparent 100%);
   }
 
   @media (max-width: 768px) {
@@ -756,8 +728,14 @@
       width: 70px;
       height: 70px;
     }
+    .os-item {
+      margin: 0 40px;
+    }
     .os-item h3 {
       font-size: 0.9rem;
+    }
+    .os-scroller {
+      animation-duration: 8s;
     }
   }
 </style>
@@ -769,10 +747,10 @@
       <p>Pilih jenis OS VPS Anda</p>
     </div>
 
-    <!-- Wrapper untuk efek infinite scroll -->
-    <div class="os-slider-wrapper">
-      <div class="os-slider">
-        <!-- CentOS -->
+    <!-- === SCROLLING WRAPPER === -->
+    <div class="os-wrapper">
+      <div class="os-scroller">
+        <!-- LOOP isi 2x agar animasi mulus -->
         <div class="os-item">
           <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(-17.935 -428.95)">
@@ -787,7 +765,6 @@
           <h3>CentOS</h3>
         </div>
 
-        <!-- Debian -->
         <div class="os-item">
           <svg class="debian" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -796,7 +773,6 @@
           <h3>Debian</h3>
         </div>
 
-        <!-- Ubuntu -->
         <div class="os-item">
           <svg class="ubuntu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <circle cx="54.674" cy="256" r="53.333" />
@@ -808,7 +784,6 @@
           <h3>Ubuntu</h3>
         </div>
 
-        <!-- Windows -->
         <div class="os-item">
           <svg class="windows" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 488">
             <polygon points="0.144,254.608 0.16,420.52 199.496,447.824 199.336,255.888" />
@@ -819,12 +794,12 @@
           <h3>Windows</h3>
         </div>
 
-        <!-- Duplicate untuk looping -->
-        <div class="os-item"><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512"><g transform="translate(-17.935 -428.95)"><g transform="translate(128.57)"><polygon points="123.45 685.18 10.432 796.48 -102.59 685.18 10.432 573.87"></polygon><polygon points="146.99 662.38 35.665 550.36 146.99 438.36 258.32 550.36"></polygon></g></g></svg><h3>CentOS</h3></div>
+        <!-- Duplikasi agar scroll looping mulus -->
+        <div class="os-item"><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512"><g transform="translate(-17.935 -428.95)"><g transform="translate(128.57)"><polygon points="123.45 685.18 10.432 796.48 -102.59 685.18 10.432 573.87"></polygon></g></g></svg><h3>CentOS</h3></div>
       </div>
     </div>
   </div>
-</div>		
+</div>
 	<!-- ======= PANEL SECTION ======= -->
 <div class="panel py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
   <div class="container">
