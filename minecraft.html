@@ -373,10 +373,13 @@
 
 /* ======= BREATHING GLOW ======= */
 @keyframes breathingGlow {
-  0%,100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
+  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
   50% { box-shadow: 0 0 35px rgba(255, 50, 50, 0.6); }
+  100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
 }
-.glow-animate { animation: breathingGlow 3s ease-in-out infinite; }
+.glow-animate {
+  animation: breathingGlow 3s ease-in-out infinite;
+}
 
 /* ======= GAMBAR DI ATAS CARD ======= */
 .plan-icon-top {
@@ -475,18 +478,42 @@
   transform: translateY(-2px);
 }
 
-/* ======= FIX BOOTSTRAP BLUE ACTIVE ======= */
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link,
-.btn-check:checked + .btn,
-.btn.active, .btn:active, .show > .btn.dropdown-toggle {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  border: 1px solid rgba(255, 0, 0, 0.6) !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
+/* === FIX WARNA AKTIF BIRU PADA TAB PREMIUM === */
+#swicherPlans .premium-btn {
   color: #fff !important;
+  background: linear-gradient(180deg, #141414, #0d0d0d);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  margin: 0 6px;
+  padding: 10px 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
 }
 
-/* ======= NAVBAR ======= */
+#swicherPlans .premium-btn:hover,
+#swicherPlans .premium-btn.active,
+#swicherPlans .premium-btn:focus,
+#swicherPlans .nav-link.active,
+#swicherPlans .nav-link:focus {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 0, 0, 0.6) !important;
+  transform: translateY(-2px);
+}
+
+/* Hilangkan efek biru default dari Bootstrap nav-pills */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+/* ======= NAVBAR PREMIUM RED ======= */
 .navbar {
   background: linear-gradient(180deg, #0b0b0b, #141414);
   border-bottom: 1px solid rgba(255, 0, 0, 0.2);
@@ -507,6 +534,7 @@
   text-shadow: 0 0 20px rgba(255, 0, 0, 1);
 }
 
+/* ======= NAV LINK ======= */
 .navbar .nav-link {
   color: #e0e0e0 !important;
   font-weight: 500;
@@ -520,6 +548,7 @@
   text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
 }
 
+/* ======= ACTIVE STATE ======= */
 .navbar .nav-link.active {
   color: #ffffff !important;
   text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
@@ -538,18 +567,21 @@
   box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
+/* ======= NAVBAR HOVER GLOW ======= */
 .navbar:hover {
   box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
   border-bottom: 1px solid rgba(255, 0, 0, 0.4);
 }
 
-/* TOGGLER */
-.navbar-toggler { border-color: rgba(255, 0, 0, 0.4); }
+/* ======= TOGGLER (untuk mobile) ======= */
+.navbar-toggler {
+  border-color: rgba(255, 0, 0, 0.4);
+}
 .navbar-toggler-icon {
   filter: invert(48%) sepia(93%) saturate(2990%) hue-rotate(340deg) brightness(103%) contrast(101%);
 }
 
-/* === IMAGE & GLOW === */
+/* ======= IMAGE SECTION ======= */
 .image-section {
   background: linear-gradient(145deg, #0d0d0d, #151515);
   border-radius: 18px;
@@ -562,13 +594,69 @@
   box-shadow: 0 0 45px rgba(255, 0, 0, 0.8);
   transform: translateY(-5px);
 }
+
+/* ======= IMAGE BOX ======= */
 .image-box img {
   border-radius: 12px;
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-  filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
+}
+
+/* ======= ANIMASI FADE-UP ======= */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+.fade-up:nth-child(1) { animation-delay: 0.1s; }
+.fade-up:nth-child(2) { animation-delay: 0.2s; }
+.fade-up:nth-child(3) { animation-delay: 0.3s; }
+.fade-up:nth-child(4) { animation-delay: 0.4s; }
+.fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === HIGH IMAGE STYLE === */
+.image-box {
+  background: radial-gradient(circle at center, #0a0a0a, #000);
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 40px;
+}
+.image-box:hover {
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.45);
+  transform: scale(1.02);
+}
+
+/* === Gambar dengan bingkai === */
+.image-frame {
+  border: 3px solid #111;
+  border-radius: 12px;
+  padding: 8px;
+  background: linear-gradient(145deg, #000, #111);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  display: inline-block;
+  transition: 0.3s ease;
+}
+.image-frame:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+/* === HIGH IMAGE === */
+.high-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* === Teks di atas gambar === */
