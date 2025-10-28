@@ -352,6 +352,40 @@
 
 <!-- STYLE FIX -->
 <style>
+/* ---- Override warna biru yang tersisa ---- */
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.active:hover,
+.nav-pills .show > .nav-link,
+.btn-check:checked + .btn,
+.btn.active,
+.btn:focus,
+.btn:active,
+.btn:visited {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
+  border: 1px solid rgba(255, 0, 0, 0.6) !important;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
+  color: #fff !important;
+}
+
+/* Hilangkan outline biru default pada focus */
+:focus {
+  outline: none !important;
+  box-shadow: 0 0 12px rgba(255,0,0,0.6) !important;
+}
+
+/* Pastikan tombol / link yang mungkin punya warna biru di hover atau active juga diubah */
+a.btn:hover, a.btn:active, a.btn:focus,
+button.btn:hover, button.btn:active, button.btn:focus {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
+  color: #fff !important;
+}
+
+/* Pengaturan untuk drop-shadow / glow biru di gambar utama */
+.image-box img, .image-section img {
+  filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7)) !important;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
+}
+
 /* ======= CARD PREMIUM ======= */
 .premium-card {
   background: linear-gradient(180deg, #141414, #0d0d0d);
