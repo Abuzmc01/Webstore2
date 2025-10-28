@@ -1,4 +1,4 @@
-/* DinoNode HTML Template */
+/* MineIDHost HTML Template */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
@@ -10,14 +10,16 @@
     --white: #fff;
     --light: #ccc;
     --gray: #6d708a;
-    --blue: #fd5c65; /* diganti ke merah tema lama */
+
+    /* 🔥 Warna merah dominan (pekat tapi elegan) */
+    --blue: #b30000; /* dulu biru, sekarang merah gelap */
     --green: #20bf6c;
-    --red: #fd5c65;
-    --pink: #fd5c65;
+    --red: #d10000; /* merah utama */
+    --pink: #ff4d4d; /* merah terang lembut */
     --yellow: #fed230;
     --orange: #fb8230;
     --purple: #a75eea;
-    --discord-color: #ff4040;
+    --discord-color: #ff1a1a; /* merah sedikit neon untuk efek glow */
 }
 body {
     background: var(--background);
