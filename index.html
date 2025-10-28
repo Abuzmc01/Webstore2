@@ -1298,6 +1298,179 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <!-- ======= END REVIEW SECTION ======= -->
+<!-- ======= FAQ SECTION ======= -->
+<section class="faq-section py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
+  <div class="container">
+    <div class="title text-center mb-5 fade-in-up">
+      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">
+        Pertanyaan yang Sering Diajukan
+      </h4>
+      <p style="color:#ccc;">Berikut beberapa pertanyaan umum seputar layanan kami</p>
+    </div>
+
+    <div class="faq-wrapper fade-in-up">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Bagaimana cara membeli layanan di MineIDHost?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Anda dapat membeli layanan langsung melalui website kami. Setelah melakukan pembayaran, sistem kami akan otomatis mengaktifkan server dalam waktu 1–5 menit.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Apakah Jenis  perlindungan DDoS Yang diPakai MineIDHost?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Ya kami menggunakan Jenis DDOS Protection,Perangkat Keras Arbor dan Juniper: Digunakan untuk mendeteksi dan memitigasi serangan DDoS secara otomatis .</p>
+		  <p>Penyaringan Lalu Lintas: Melakukan penyaringan terhadap pola serangan yang dikenal, seperti DNS reflection, NTP reflection, dan UDP floods pada port 80 .</p>
+		  <p>Deteksi Dinamis: Sistem dapat mengenali pola serangan berdasarkan jumlah lalu lintas atau jumlah paket, serta membedakan jenis serangan untuk mitigasi yang lebih tepat .</p>
+		  <p>Perlindungan ini aktif secara default untuk semua server mineidhost, termasuk VPS, tanpa biaya tambahan .</p>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Berapa lama proses aktivasi layanan setelah pembayaran?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Aktivasi Hosting Game dilakukan secara otomatis dalam 1–5 menit,Dan vps memiliki Estimasi 1×24Jam setelah sistem kami menerima pembayaran Anda.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Bagaimana cara menghubungi tim support?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Anda dapat menghubungi kami melalui WhatsApp, Discord, atau Email di halaman kontak. Tim kami tersedia 24/7 untuk membantu Anda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FAQ CSS ======= -->
+<style>
+.faq-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-item {
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  background: rgba(20,20,20,0.85);
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.faq-item:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+  border-color: rgba(255, 0, 0, 0.6);
+}
+.faq-question {
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 15px 20px;
+  text-align: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.faq-question:hover {
+  color: #ff1e1e;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+}
+.faq-icon {
+  font-size: 22px;
+  color: #ff1e1e;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  animation: glowPulse 1.6s infinite alternate;
+  transition: transform 0.3s ease;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  color: #ccc;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 0 20px;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.faq-answer.open {
+  padding: 15px 20px 20px;
+}
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* Glow pulse merah */
+@keyframes glowPulse {
+  from {
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+  to {
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.9), 0 0 25px rgba(255, 0, 0, 0.8);
+  }
+}
+
+/* Scroll Animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- ======= FAQ JS ======= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Animasi scroll muncul
+  const fadeEls = document.querySelectorAll(".fade-in-up");
+  const obs = new IntersectionObserver((entries, obsr) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        obsr.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => obs.observe(el));
+
+  // FAQ interaktif
+  const faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach(item => {
+    const btn = item.querySelector(".faq-question");
+    btn.addEventListener("click", () => {
+      item.classList.toggle("active");
+    });
+  });
+});
+</script>
+<!-- ======= END FAQ SECTION ======= -->
 <!-- ======= FOOTER ======= -->
 <footer class="footer-section fade-in-up">
   <div class="container">
