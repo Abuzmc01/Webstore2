@@ -40,251 +40,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Minecraft Hosting | MineIDHost</title>
+	<title>MineIDHost</title>
 	<link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
-	<style>
-.header {
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("assets/images/header/minecraft.png") no-repeat center center;
-  background-size: cover;
-  color: #fff;
-}
+</head>
+<body>	
+	
+<!-- Navbar -->			
+<!-- Navigation -->									
+<nav id="navbar_top" class="navbar navbar-dark navbar-expand-lg fixed-top" style="background: rgba(0, 0, 0, 0.9); box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img class="img-fluid" src="assets/images/logo.svg" alt="MineIDHost Logo" style="height: 45px; filter: drop-shadow(0 0 8px rgba(255,0,0,0.8));">
+      <span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
+    </a>
 
-/* ===== NAVBAR ===== */
-.navbar {
-  background-color: #0b0b0b !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-  border-bottom: 2px solid rgba(255, 0, 0, 0.4);
-}
-.navbar-brand span {
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(255,0,0,0.5);
-}
-.navbar-nav .nav-link {
-  color: #ddd !important;
-  transition: all 0.3s ease;
-}
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-  color: #ff1e1e !important;
-  text-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dinoNavbar" aria-controls="dinoNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-/* ===== DROPDOWN ===== */
-.dropdown-menu {
-  background-color: #111;
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-}
-.dropdown-item {
-  color: #ccc;
-  transition: all 0.3s ease;
-}
-.dropdown-item:hover {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: #ff1e1e;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-}
+    <div class="collapse navbar-collapse" id="dinoNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="minecraft.html">Game Hosting</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">VPS Services</a>
+          <ul class="dropdown-menu dropdown-large dropdown-menu-end">
+            <div class="row p-2">
+              <div class="col-md-6">
+                <ul class="list-unstyled mb-0">
+                  <li><a class="dropdown-item" href="ark.html">VPS Kvm</a></li>
+                  <li><a class="dropdown-item" href="csgo.html">VPS Cloud</a></li>
+                  <li><a class="dropdown-item" href="valheim.html">Dedicated Sedver</a></li>
+                </ul>
+              </div>
+            </div>
+          </ul>
+        </li>
 
-/* ===== BUTTON CLIENT AREA ===== */
-.btn {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Other Product</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Petrodactyl Services</a></li>
+            <li><a class="dropdown-item" href="#">Minecraft Models</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Important</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Partners</a></li>
+            <li><a class="dropdown-item" href="#">Terms of Services</a></li>
+            <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+            <li><a class="dropdown-item" href="#">FAQ</a></li>
+          </ul>
+        </li>
+
+        <!-- Client Area -->
+        <li class="nav-item">
+          <div class="dropdown text-center">
+            <a class="btn dropdown-toggle" id="panel" data-bs-toggle="dropdown" aria-expanded="false">
+              Client Area
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-panel" aria-labelledby="panel">
+              <a class="dropdown-item" href="https://dsc.gg/mineidhost">Client Area <span class="d-block">Billing & Support</span></a>
+              <a class="dropdown-item" href="https://panel.mineidhost.icu">Game Panel <span class="d-block">Game Management</span></a>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+	
+<!-- ======= NAVBAR STYLE ======= -->
+<style>
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  letter-spacing: 0.5px;
   transition: 0.3s;
 }
-.btn:hover {
-  background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ff1e1e !important;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
 }
 
-/* ===== HEADER TEXT ===== */
-.header h1 {
-  font-weight: 800;
+/* Dropdown Style */
+.dropdown-menu {
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  border-radius: 10px;
+}
+.dropdown-item {
+  color: #ccc !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.dropdown-item:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff1e1e !important;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/* Client Area Button */
+#panel.btn {
+  background: linear-gradient(90deg, #ff0000, #a10000);
   color: #fff;
-  text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-}
-.header p {
-  color: #ccc;
-  font-size: 1.1rem;
-  line-height: 1.7;
-}
-
-/* ===== NAVBAR TOGGLER ===== */
-.navbar-toggler {
-  border-color: rgba(255, 0, 0, 0.6);
-}
-.navbar-toggler-icon {
-  filter: drop-shadow(0 0 4px rgba(255, 0, 0, 0.6));
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 992px) {
-  .navbar {
-    background-color: #000 !important;
-  }
-  .dropdown-menu {
-    background-color: #111;
-  }
-}
-</style>
-</head>
-<body>
-	
-	<!-- Navbar -->
-	<!-- Navigation -->
-<nav id="navbar_top" class="navbar navbar-dark navbar-expand-lg fixed-top">
-		<div class="container">
-		<a class="navbar-brand" href="index.html">
-			<img class="img-fluid" src="assets/images/logo.svg" alt="DinoNode Logo">
-			<span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
-		</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dinoNavbar" aria-controls="dinoNavbar" aria-expanded="false" aria-label="Toggle navigation">
-	      	<span class="navbar-toggler-icon"></span>
-	    </button>
-		<div class="collapse navbar-collapse" id="dinoNavbar">
-		    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-		        <li class="nav-item">
-		          	<a class="nav-link" href="index.html">Home</a>
-		        </li>
-		        <li class="nav-item">
-		          	<a class="nav-link" href="minecraft.html">Minecraft Hosting</a>
-				</li> 
-		        <li class="nav-item dropdown">
-		          	<a class="nav-link dropdown-toggle" href="index.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            	VPS HOSTING
-		          	</a>
-		          	<ul class="dropdown-menu dropdown-large dropdown-menu-end">
-		          		<div class="row">
-							<div class="col-md-6">
-								<ul class="list-unstyled">
-									<li>
-										<a class="dropdown-item" href="ark.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/ark.png" class="rounded" alt="ARK Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Rome | Zen2 Series</h4>
-													<p class="mb-0">Starting at <b>6000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-					            	<li>
-										<a class="dropdown-item" href="csgo.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/csgo.png" class="rounded" alt="CS:GO Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Milan | Zen3 Series</h4>
-													<p class="mb-0">Starting at <b>10.000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="valheim.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/valheim.png" class="rounded" alt="Valheim Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Genoa | Zen4 Series</h4>
-													<p class="mb-0">Starting at <b>12.000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-6">
-								<ul class="list-unstyled">
-									<li>
-										<a class="dropdown-item" href="fivem.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/fivem.png" class="rounded" alt="FiveM Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Ryzen9 | Zen5 Series</h4>
-													<p class="mb-0">Starting at <b>15.000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-		          	</ul>
-		        </li>
-		        <li class="nav-item dropdown">
-		          	<a class="nav-link dropdown-toggle" href="csgo.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            	Other Product
-		          	</a>
-		          	<ul class="dropdown-menu dropdown-menu-end">
-		            	<li><a class="dropdown-item" href="vps-hosting.html">Petrodactyl Service</a></li>
-		            	<li><a class="dropdown-item" href="discord-hosting.html">Minecraft Models</a></li>
-		          	</ul>
-		        </li>
-		        <li class="nav-item dropdown">
-		          	<a class="nav-link dropdown-toggle" href="csgo.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            	Important
-		          	</a>
-		          	<ul class="dropdown-menu dropdown-menu-end">
-		            	<li><a class="dropdown-item" href="partners.html">Partners</a></li>
-		            	<li><a class="dropdown-item" href="csgo.html#">Contact</a></li>
-		            	<li><a class="dropdown-item" href="terms-of-service.html">Terms of Service</a></li>
-		            	<li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
-		          	</ul>
-		        </li>
-		        <li class="nav-item">
-  <div class="dropdown text-center">
-    <a class="btn dropdown-toggle client-btn" id="panel" data-bs-toggle="dropdown" aria-expanded="false">
-      Client Area
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-panel" aria-labelledby="panel">
-      <a class="dropdown-item" href="https://dsc.gg/mineidhost">									
-        Client Area <span class="d-block">Billing &amp; Support</span>
-      </a>
-      <a class="dropdown-item" href="https://panel.mineidhost.icu">									
-        Game Panel <span class="d-block">Game Management</span>
-      </a>
-    </ul>
-  </div>
-</li>
-
-<style>
-.client-btn {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
-  color: #fff !important;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 8px 18px;
   font-weight: 600;
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
   transition: all 0.3s ease;
 }
-.client-btn:hover, .client-btn:focus {
-  background: linear-gradient(90deg, #ff0000, #cc0000);
-  box-shadow: 0 0 20px rgba(255, 50, 50, 0.9);
-  transform: scale(1.03);
+#panel.btn:hover {
+  background: linear-gradient(90deg, #a10000, #ff0000);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
 }
-.dropdown-menu-panel {
-  background-color: #111;
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-}
-.dropdown-menu-panel .dropdown-item {
-  color: #fff;
-}
-.dropdown-menu-panel .dropdown-item:hover {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: #ff4b2b;
+
+/* Responsif Glow on Mobile */
+@media (max-width: 991px) {
+  .navbar-dark .navbar-nav .nav-link {
+    text-align: center;
+    padding: 10px;
+  }
+  #panel.btn {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 </style>
-</div>
-</div>
-</nav>
+<!-- ======= END NAVBAR ======= -->
 	<!-- Header -->
 	<div class="header">
         <div class="container h-100">
