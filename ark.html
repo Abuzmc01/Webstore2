@@ -645,22 +645,30 @@
 }
 </style>
 
-<!-- === OS Types (MineIDHost Style - Red Glow Edition) === -->
+<!-- === OS Types (MineIDHost Style - Slide Glow Edition) === -->
 <style>
   .os {
     background-color: #0d0d0d;
     padding: 5rem 0;
+    overflow: hidden;
   }
 
   .os .col-lg-3 {
-    transition: all 0.4s ease;
+    transition: all 0.6s ease;
     position: relative;
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  .os .col-lg-3.show {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .os svg {
     width: 90px;
     height: 90px;
-    transition: all 0.4s ease;
+    transition: all 0.5s ease;
     filter: drop-shadow(0 0 10px rgba(255, 50, 50, 0.3));
   }
 
@@ -670,18 +678,16 @@
     transition: color 0.3s ease;
   }
 
-  /* Hover animasi tiap OS */
   .os .col-lg-3:hover svg {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 25px rgba(255, 40, 40, 0.7));
-    animation: osPulse 1.5s infinite ease-in-out;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8));
   }
 
   .os .col-lg-3:hover h3 {
     color: #ff4040;
   }
 
-  /* Warna tiap OS agar nyatu dengan tema merah */
+  /* Warna tiap OS */
   .os .debian path {
     fill: #ff4d6d !important;
   }
@@ -691,8 +697,7 @@
     fill: #ff5c33 !important;
   }
 
-  .os .windows polygon,
-  .os .windows polyline {
+  .os .windows polygon {
     fill: #b30000 !important;
   }
 
@@ -702,31 +707,37 @@
     fill: #ff3333 !important;
   }
 
-  /* Animasi glow lembut */
+  /* Animasi berurutan */
+  .os .col-lg-3.show:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+
+  .os .col-lg-3.show:nth-child(2) {
+    transition-delay: 0.3s;
+  }
+
+  .os .col-lg-3.show:nth-child(3) {
+    transition-delay: 0.5s;
+  }
+
+  .os .col-lg-3.show:nth-child(4) {
+    transition-delay: 0.7s;
+  }
+
   @keyframes osPulse {
     0% {
-      transform: scale(1);
       filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.2));
     }
     50% {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6));
+      filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.7));
     }
     100% {
-      transform: scale(1);
       filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.2));
     }
   }
 
-  /* Efek fade-in saat scroll */
-  .os .col-lg-3 {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  .os .col-lg-3.show {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s ease;
+  .os .col-lg-3.show svg {
+    animation: osPulse 2s infinite ease-in-out;
   }
 </style>
 
@@ -755,8 +766,8 @@
 
       <div class="col-lg-3 text-center">
         <!-- Debian -->
-        <svg class="debian" enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg class="debian" enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512"
+          xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
           <path
             d="m325.62 501.58c-154.98 6.498-288.78-129.43-274.71-285.54 12.089-134.18 154.12-240.51 285.08-195.4 108.88 37.504 169.11 183.08 90.087 276.23-31.309 36.906-80.176 58.087-128.72 52.902-62.999-6.728-113.73-63.897-109.08-128.07 3.154-43.56 35.444-81.28 78.646-89.648 24.704-4.785 63.242 0.312 77.096 24.127 5.993 10.302 1.432 23.488-12.364 21.443-5.184-0.769-10.299-7.481-14.596-9.822-9.661-5.262-20.867-8.256-31.088-7.597-35.563 2.291-59.659 33.14-60.177 66.017 3.176 77.702 91.837 98.046 144.37 55.292 46.777-38.065 46.631-104.71 13.707-151.49-42.537-60.439-121.64-68.488-183.91-36.535-67.998 34.892-100.5 109.56-90.508 182.52 9.577 69.936 52.304 131.86 113.38 166.88 23.753 13.621 49.666 22.785 76.587 27.612 8.092 1.451 25.258 0.188 32.211 4.844 10.983 7.357 8.807 25.67-6.008 26.229z" />
         </svg>
@@ -792,7 +803,7 @@
 </div>
 
 <script>
-  // Efek fade-in saat scroll
+  // Animasi slide dari kiri saat muncul di viewport
   const osCards = document.querySelectorAll('.os .col-lg-3');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -801,7 +812,7 @@
   }, { threshold: 0.2 });
   osCards.forEach(card => observer.observe(card));
 </script>
-
+		
 	<!-- ======= PANEL SECTION ======= -->
 <div class="panel py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
   <div class="container">
