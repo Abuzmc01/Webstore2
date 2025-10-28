@@ -547,43 +547,152 @@
           <h2 style="color:#ff1e1e; font-weight:600;">Highly Reviewed</h2>
           <p style="color:#aaa;">Pelanggan menilai kami 4.9/5 karena kecepatan, stabilitas, dan pelayanan terbaik.</p>
         </div>
+<!-- ======= FEATURES SECTION ======= -->
+<div class="features py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="title text-center mb-5 fade-in-up">
+      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">
+        Fitur yang Anda layak dapatkan
+      </h4>
+      <p style="color:#ccc;">Ada manfaat pada hosting kami yang dapat Anda lihat beberapa</p>
+    </div>
+
+    <div class="row">
+      <!-- BOX 1 -->
+      <div class="col-md-4 mb-4 fade-on-scroll">
+        <div class="features-box">
+          <svg height="54" width="54" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+            <path d="m49.03 6c.552 0 1-.447 1-1s-.448-1-1-1h-.01c-.552 0-.994.447-.994 1s.452 1 1.004 1z"/>
+            <path d="m15 64h34c2.757 0 5-2.243 5-5v-54c0-2.757-2.243-5-5-5h-34c-2.757 0-5 2.243-5 5v54c0 2.757 2.243 5 5 5z"/>
+          </svg>
+          <h2>SSD Storage</h2>
+          <p>Server game kami menggunakan teknologi SSD terbaru dan tercepat yang tersedia.</p>
+        </div>
+      </div>
+
+      <!-- BOX 2 -->
+      <div class="col-md-4 mb-4 fade-on-scroll">
+        <div class="features-box">
+          <svg height="54" width="54" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+            <path d="M32 2a30 30 0 1030 30A30 30 0 0032 2zm0 56A26 26 0 1158 32 26 26 0 0132 58z"/>
+          </svg>
+          <h2>DDoS Protection</h2>
+          <p>Semua server game dilindungi dari berbagai serangan DDoS melalui PoP penyaringan global.</p>
+        </div>
+      </div>
+
+      <!-- BOX 3 -->
+      <div class="col-md-4 mb-4 fade-on-scroll">
+        <div class="features-box">
+          <svg height="54" width="54" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+            <path d="M48 16H16a4 4 0 00-4 4v24a4 4 0 004 4h32a4 4 0 004-4V20a4 4 0 00-4-4zM16 42V22h32v20z"/>
+          </svg>
+          <h2>Instant Setup</h2>
+          <p>Server game Anda akan disiapkan dalam hitungan detik setelah pembayaran, sangat cepat.</p>
+        </div>
+      </div>
+
+      <!-- BOX 4 -->
+      <div class="col-md-4 mb-4 fade-on-scroll">
+        <div class="features-box">
+          <svg height="54" width="54" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+            <circle cx="27" cy="27" r="25"/>
+          </svg>
+          <h2>Fast Processor</h2>
+          <p>Didukung CPU AMD Ryzen & EPYC terbaru dengan performa tinggi untuk workload berat.</p>
+        </div>
+      </div>
+
+      <!-- BOX 5 -->
+      <div class="col-md-4 mb-4 fade-on-scroll">
+        <div class="features-box">
+          <svg height="54" width="54" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+            <rect x="10" y="10" width="44" height="44" rx="8"/>
+          </svg>
+          <h2>Support 24/7</h2>
+          <p>Dukungan teknis profesional tersedia 24 jam untuk membantu Anda setiap saat.</p>
+        </div>
+      </div>
+
+      <!-- BOX 6 -->
+      <div class="col-md-4 mb-4 fade-on-scroll">
+        <div class="features-box">
+          <svg height="54" width="54" xmlns="http://www.w3.org/2000/svg" class="mb-3">
+            <path d="M2 10h50v34H2z"/>
+          </svg>
+          <h2>Highly Reviewed</h2>
+          <p>Pelanggan menilai kami 4.9/5 karena kecepatan, stabilitas, dan pelayanan terbaik.</p>
+        </div>
       </div>
     </div>
   </div>
   <div class="glow-bg"></div>
 </div>
 
-<!-- CSS Animasi -->
+<!-- ===== CSS Animasi ===== -->
 <style>
+.features-box {
+  background: rgba(20,20,20,0.85);
+  border: 1px solid rgba(255,0,0,0.3);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  transition: 0.4s;
+  box-shadow: 0 0 10px rgba(255,0,0,0.2);
+}
+.features-box h2 {
+  color: #ff1e1e;
+  font-weight: 600;
+}
+.features-box p {
+  color: #aaa;
+}
 .features-box:hover {
   transform: translateY(-8px);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 25px rgba(255,0,0,0.6);
   border-color: rgba(255,0,0,0.7);
 }
 .glow-bg {
-  position:absolute;
-  top:-100px;
-  left:-100px;
-  width:300%;
-  height:300%;
-  background:radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
   animation: pulseGlow 6s infinite alternate;
-  z-index:1;
+  z-index: 1;
 }
 @keyframes pulseGlow {
   from {opacity: 0.25;}
   to {opacity: 0.6;}
 }
-.fade-in-up {
+
+/* Scroll Animation */
+.fade-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease forwards;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
 }
-@keyframes fadeInUp {
-  to {opacity: 1; transform: translateY(0);}
+.fade-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
-<!-- ======= END FEATURES SECTION ======= -->
+
+<!-- ===== JS Scroll Trigger ===== -->
+<script>
+  // Efek fade muncul saat di scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+</script>
+<!-- ===== END FEATURES SECTION ===== -->
 <!-- Game Selector -->
 <div class="game-selector-section">
   <style>
@@ -702,7 +811,6 @@
   </style>
 
   <h2 class="section-title">Game yang Didukung oleh MineIDHost</h2>
-  <p>Software dan egg dari game server yabg kami dunkung</p>
 
   <div class="swiper gameSwiper">
     <div class="swiper-wrapper">
@@ -758,10 +866,10 @@
       <div class="swiper-slide">
         <div class="card mb-4">
           <div class="card-img">
-            <img src="assets/images/slider_images/palworl.png" class="card-img-top" alt="ARK Survival Game">
+            <img src="assets/images/slider_images/palworld.png" class="card-img-top" alt="ARK Survival Game">
           </div>
           <div class="card-body">
-            <h4 class="mb-0">Parworld Service</h4>
+            <h4 class="mb-0">Palworld Service</h4>
             <p class="mb-0">Game <b>Support</b></p>
           </div>
         </div>
