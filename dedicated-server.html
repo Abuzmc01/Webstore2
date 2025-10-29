@@ -156,382 +156,432 @@
             </div>
         </div>
     </div>	
-	
-<!-- ======= DEDICATED SERVER CALCULATOR (Paste di bawah Plans section) ======= -->
-<section id="dedicatedCalc" class="py-6" style="background:transparent;">
+
+<!-- ======= DEDICATED PLANS (ready-to-paste) ======= -->
+<section id="dedicated-plans" class="py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); overflow:hidden;">
   <div class="container">
-    <div class="title text-center mb-4 fade-in-up">
-      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">
-        Dedicated Server - Kalkulator Harga
-      </h4>
-      <p style="color:#ccc;">Rancang servermu — pilih CPU, RAM, storage, dan region. Harga otomatis terhitung (IDR / USD / EUR).</p>
+    <div class="title text-center mb-4">
+      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">Dedicated Server — Pilih & Kustom</h4>
+      <p style="color:#ccc;">Kategori CPU, konfigurasi custom, region & proteksi DDoS — hitung harga otomatis</p>
     </div>
 
-    <div class="card" style="background:linear-gradient(180deg,#0b0b0b,#111); border:1px solid rgba(255,0,0,0.12); box-shadow:0 8px 40px rgba(255,0,0,0.06); padding:20px;">
-      <div class="row g-4">
+    <!-- Controls: Category + Currency + Region -->
+    <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+      <div class="btn-group" role="group" aria-label="categories">
+        <button class="btn btn-sm btn-outline-light active cat-btn" data-cat="epyc">AMD Epyc</button>
+        <button class="btn btn-sm btn-outline-light cat-btn" data-cat="ryzen">AMD Ryzen</button>
+        <button class="btn btn-sm btn-outline-light cat-btn" data-cat="intel">Intel</button>
+        <button class="btn btn-sm btn-outline-light cat-btn" data-cat="custom">Custom</button>
+      </div>
 
-        <!-- LEFT: Options -->
-        <div class="col-lg-7">
+      <div class="ms-auto d-flex gap-2 align-items-center">
+        <label style="color:#ccc; margin-bottom:0;">Currency</label>
+        <select id="currencySelect" class="form-select form-select-sm" style="width:auto;">
+          <option value="IDR" selected>IDR</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
 
-          <!-- Currency & Region -->
-          <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-            <label style="color:#ddd; min-width:110px;">Mata Uang</label>
-            <select id="currencySelect" class="form-control" style="width:140px;">
-              <option value="IDR">IDR</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-            </select>
+        <label style="color:#ccc; margin-bottom:0; margin-left:10px;">Region</label>
+        <select id="regionSelect" class="form-select form-select-sm" style="width:auto;">
+          <option value="sg" selected>Singapore</option>
+          <option value="id">Indonesia</option>
+          <option value="us">United States</option>
+          <option value="de">Germany</option>
+          <option value="fi">Finland</option>
+        </select>
+      </div>
+    </div>
 
-            <label style="color:#ddd; min-width:110px; margin-left:18px;">Region</label>
-            <select id="regionSelect" class="form-control" style="width:180px;">
-              <option value="SG">Singapore</option>
-              <option value="ID">Indonesia</option>
-              <option value="US">United States</option>
-              <option value="DE">Germany</option>
-              <option value="FI">Finland</option>
-            </select>
-          </div>
-
-          <!-- CPU presets + custom cores -->
-          <div class="mb-3">
-            <label class="form-label" style="color:#ccc;">Pilih CPU (preset) atau Custom cores</label>
-            <div class="d-flex flex-wrap gap-2 mb-2" id="cpuPresets">
-              <!-- Preset buttons injected by JS -->
+    <!-- Horizontal scroll area -->
+    <div class="plans-track-wrapper" style="overflow:hidden; position:relative;">
+      <div id="plansTrack" class="plans-track" style="display:flex; gap:18px; padding-bottom:6px; overflow-x:auto; scroll-behavior:smooth;">
+        <!-- Cards inserted here by HTML (static examples) -->
+        <!-- We'll include a few preset plans for each category -->
+        <!-- Epyc -->
+        <div class="plan-card" data-cat="epyc" data-base="500000" style="min-width:340px;">
+          <div class="card p-3" style="background:linear-gradient(180deg,#0d0d0d,#0a0a0a); border:1px solid rgba(255,0,0,0.15); box-shadow:0 6px 22px rgba(255,0,0,0.06);">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <strong style="color:#fff">EPYC Gen2 - Starter</strong>
+              <span class="badge" style="background:#ff1e1e;color:#fff">Popular</span>
             </div>
-            <div class="d-flex gap-2 align-items-center">
-              <label style="color:#ccc; width:120px; margin-bottom:0;">Custom cores</label>
-              <input id="customCores" type="number" class="form-control" min="1" max="32" value="4" style="width:110px;">
-              <small style="color:#999; margin-left:10px;">(1 - 32 cores)</small>
+            <div class="mb-2" style="color:#ccc; font-size:13px;">
+              4 vCPU • 8 GB RAM • 120 GB NVMe • 10 TB BW
             </div>
-          </div>
-
-          <!-- RAM -->
-          <div class="mb-3">
-            <label class="form-label" style="color:#ccc;">RAM (GB)</label>
-            <div class="d-flex gap-3 align-items-center">
-              <input id="ramRange" type="range" min="8" max="256" step="8" value="8" style="flex:1;">
-              <div style="width:80px; text-align:center; color:#fff; font-weight:600;" id="ramValue">8 GB</div>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="500000">Pilih</button>
             </div>
-          </div>
-
-          <!-- Storage -->
-          <div class="mb-3">
-            <label class="form-label" style="color:#ccc;">Storage NVMe (GB)</label>
-            <div class="d-flex gap-3 align-items-center">
-              <input id="storageRange" type="range" min="50" max="2000" step="10" value="120" style="flex:1;">
-              <div style="width:100px; text-align:center; color:#fff; font-weight:600;" id="storageValue">120 GB</div>
-            </div>
-          </div>
-
-          <!-- Bandwidth -->
-          <div class="mb-3">
-            <label class="form-label" style="color:#ccc;">Bandwidth (TB)</label>
-            <div class="d-flex gap-3 align-items-center">
-              <input id="bwRange" type="range" min="1" max="50" step="1" value="4" style="flex:1;">
-              <div style="width:80px; text-align:center; color:#fff; font-weight:600;" id="bwValue">4 TB</div>
-            </div>
-          </div>
-
-          <!-- DDoS -->
-          <div class="mb-3">
-            <label class="form-label" style="color:#ccc;">Pilihan DDoS Protection</label>
-            <div class="d-flex gap-2 flex-wrap">
-              <label class="btn btn-sm" style="background:#111; border:1px solid rgba(255,255,255,0.04); color:#ccc;">
-                <input type="radio" name="ddos" value="basic" checked> Basic (Gratis)
-              </label>
-              <label class="btn btn-sm" style="background:#111; border:1px solid rgba(255,255,255,0.04); color:#ccc;">
-                <input type="radio" name="ddos" value="advanced"> Advanced (+Rp20.000)
-              </label>
-              <label class="btn btn-sm" style="background:#111; border:1px solid rgba(255,255,255,0.04); color:#ccc;">
-                <input type="radio" name="ddos" value="premium"> Premium (+Rp50.000)
-              </label>
-            </div>
-          </div>
-
-          <!-- Custom Plan quick fields (min price) -->
-          <div class="mb-3">
-            <label class="form-label" style="color:#ccc;">Minimal Harga (opsional)</label>
-            <div class="d-flex gap-2 align-items-center">
-              <input id="minPriceInput" type="number" class="form-control" placeholder="Masukkan minimal IDR (contoh: 500000)" style="width:220px;">
-              <small style="color:#999;">(fikstif, hanya untuk filter/tampilan)</small>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- RIGHT: Summary -->
-        <div class="col-lg-5">
-          <div style="background:linear-gradient(180deg,#0e0e0e,#0b0b0b); border-radius:12px; padding:18px; border:1px solid rgba(255,0,0,0.08);">
-            <h5 style="color:#ff1e1e; margin-bottom:12px;">Ringkasan & Harga</h5>
-            <div style="color:#ccc; font-size:14px; margin-bottom:10px;">
-              <div><strong>CPU:</strong> <span id="summaryCpu">-</span></div>
-              <div><strong>RAM:</strong> <span id="summaryRam">-</span></div>
-              <div><strong>Storage:</strong> <span id="summaryStorage">-</span></div>
-              <div><strong>Bandwidth:</strong> <span id="summaryBw">-</span></div>
-              <div><strong>Region:</strong> <span id="summaryRegion">-</span></div>
-              <div><strong>DDoS:</strong> <span id="summaryDdos">-</span></div>
-            </div>
-
-            <hr style="border-color: rgba(255,255,255,0.04)">
-
-            <div style="display:flex; justify-content:space-between; color:#bbb; margin-bottom:6px;">
-              <div>Subtotal (komponen)</div>
-              <div id="subtotalText">Rp0</div>
-            </div>
-            <div style="display:flex; justify-content:space-between; color:#bbb; margin-bottom:6px;">
-              <div>DDoS fee</div>
-              <div id="ddosFeeText">Rp0</div>
-            </div>
-            <div style="display:flex; justify-content:space-between; color:#fff; font-weight:700; font-size:18px;">
-              <div>Total</div>
-              <div id="totalText">Rp0</div>
-            </div>
-
-            <div style="margin-top:14px;">
-              <button id="addToCartBtn" class="premium-btn" style="width:100%; padding:12px; font-weight:700;">Add to Cart</button>
-            </div>
-
-            <div style="margin-top:10px; color:#999; font-size:13px;">
-              <div>Konversi: <span id="rateInfo">1 USD = 16,000 IDR | 1 EUR = 17,000 IDR</span></div>
-            </div>
+            <small style="color:#999">Region: Singapore</small>
           </div>
         </div>
 
-      </div> <!-- row -->
-    </div> <!-- card -->
+        <div class="plan-card" data-cat="epyc" data-base="900000" style="min-width:340px;">
+          <div class="card p-3" style="background:linear-gradient(180deg,#0d0d0d,#0a0a0a); border:1px solid rgba(255,0,0,0.15);">
+            <strong style="color:#fff">EPYC Gen3 - Pro</strong>
+            <div style="color:#ccc; font-size:13px;">8 vCPU • 16 GB RAM • 240 GB NVMe • 20 TB BW</div>
+            <div class="d-flex align-items-center justify-content-between mt-2">
+              <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="900000">Pilih</button>
+            </div>
+            <small style="color:#999">Region: Singapore</small>
+          </div>
+        </div>
 
-    <div style="height:18px;"></div>
+        <!-- Ryzen -->
+        <div class="plan-card" data-cat="ryzen" data-base="400000" style="min-width:340px;">
+          <div class="card p-3" style="background:linear-gradient(180deg,#0d0d0d,#0a0a0a); border:1px solid rgba(255,0,0,0.12);">
+            <strong style="color:#fff">Ryzen7 5800X</strong>
+            <div style="color:#ccc; font-size:13px;">4 vCPU • 8 GB RAM • 120 GB NVMe • 6 TB BW</div>
+            <div class="d-flex align-items-center justify-content-between mt-2">
+              <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="400000">Pilih</button>
+            </div>
+            <small style="color:#999">Region: Indonesia</small>
+          </div>
+        </div>
 
+        <!-- Intel -->
+        <div class="plan-card" data-cat="intel" data-base="700000" style="min-width:340px;">
+          <div class="card p-3" style="background:linear-gradient(180deg,#0d0d0d,#0a0a0a); border:1px solid rgba(255,0,0,0.12);">
+            <strong style="color:#fff">Xeon E5-2699</strong>
+            <div style="color:#ccc; font-size:13px;">8 vCPU • 16 GB RAM • 240 GB NVMe • 8 TB BW</div>
+            <div class="d-flex align-items-center justify-content-between mt-2">
+              <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="700000">Pilih</button>
+            </div>
+            <small style="color:#999">Region: Indonesia</small>
+          </div>
+        </div>
+
+        <!-- Custom starter (opens custom builder) -->
+        <div class="plan-card" data-cat="custom" style="min-width:340px;">
+          <div class="card p-3" style="background:linear-gradient(180deg,#0d0d0d,#0a0a0a); border:1px solid rgba(255,0,0,0.12);">
+            <strong style="color:#fff">Custom Builder</strong>
+            <div style="color:#ccc; font-size:13px;">Kustom RAM, CPU, Storage, GPU, DDOS</div>
+            <div class="d-flex align-items-center justify-content-between mt-2">
+              <div style="font-size:18px; color:#ff3b3b; font-weight:700;">--</div>
+              <button class="btn btn-sm open-custom btn-outline-light">Buka</button>
+            </div>
+            <small style="color:#999">Sesuaikan kebutuhanmu</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BUILDER PANEL (hidden, slide down) -->
+    <div id="customBuilder" style="display:none; margin-top:20px;">
+      <div class="card p-3" style="background:linear-gradient(180deg,#0f0f0f,#070707); border:1px solid rgba(255,0,0,0.12);">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label" style="color:#fff">CPU Model</label>
+            <select id="cpuModel" class="form-select form-select-sm">
+              <optgroup label="Ryzen">
+                <option>AMD Ryzen 5 3500X</option>
+                <option>AMD Ryzen 5 5600X</option>
+                <option>AMD Ryzen 7 5800H</option>
+                <option>AMD Ryzen 7 5700G + GPU RadeonVega 8</option>
+                <option>AMD Ryzen 9 3900X</option>
+                <option>AMD Ryzen 9 7900 5ghz + GPU NVIDIA RTX 3050</option>
+                <option>AMD Ryzen 9 7950X</option>
+                <option>AMD Ryzen 9 9950X</option>
+                <option>AMD Ryzen 9 9950X3D</option>
+                <option>AMD Ryzen Threadripper 3990X</option>
+              </optgroup>
+              <optgroup label="Intel / Xeon">
+                <option>Intel Xeon E5-2699</option>
+                <option>Intel Core i7 6700K</option>
+                <option>Intel Xeon Gold 6230N</option>
+              </optgroup>
+              <option value="custom">-- Generic / Custom --</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label" style="color:#fff">Cores</label>
+            <input id="cpuCores" class="form-control form-control-sm" type="number" min="1" max="32" value="4">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label" style="color:#fff">RAM (GB)</label>
+            <input id="ramSize" class="form-control form-control-sm" type="number" min="8" max="256" step="8" value="8">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label" style="color:#fff">Storage (GB)</label>
+            <input id="diskSize" class="form-control form-control-sm" type="number" min="20" max="2000" value="120">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" style="color:#fff">GPU (optional)</label>
+            <select id="gpuSelect" class="form-select form-select-sm">
+              <option value="none" selected>Tidak ada</option>
+              <option value="rtx3050">NVIDIA RTX 3050 (+)</option>
+              <option value="vega8">Radeon Vega 8 (integrated)</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" style="color:#fff">Bandwidth (TB)</label>
+            <select id="bwSelect" class="form-select form-select-sm">
+              <option value="2">2 TB</option>
+              <option value="4" selected>4 TB</option>
+              <option value="8">8 TB</option>
+              <option value="unlimited">Unlimited</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" style="color:#fff">Pilih DDoS</label>
+            <select id="ddosSelect" class="form-select form-select-sm">
+              <option value="basic">Basic (included)</option>
+              <option value="arbor">Arbor (recommended) +50.000</option>
+              <option value="juniper">Juniper +70.000</option>
+              <option value="premium">Premium (Arbor+Juniper) +120.000</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" style="color:#fff">Billing Cycle</label>
+            <select id="billingCycle" class="form-select form-select-sm">
+              <option value="1" selected>Monthly</option>
+              <option value="3">3 Months (10% off)</option>
+              <option value="6">6 Months (30% off)</option>
+              <option value="12">12 Months (50% off)</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" style="color:#fff">Currency Rate (editable)</label>
+            <div class="d-flex gap-2">
+              <input id="rateUSD" class="form-control form-control-sm" value="15000" type="number" />
+              <input id="rateEUR" class="form-control form-control-sm" value="16500" type="number" />
+              <small class="text-muted" style="color:#999">IDR per USD/EUR</small>
+            </div>
+          </div>
+
+          <div class="col-12 d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <strong style="color:#fff">Estimated price:</strong>
+              <div style="font-size:20px; color:#ff3b3b; font-weight:700;" id="estimatedPrice">--</div>
+              <small style="color:#999">Harga akan berubah sesuai region/cycle/ddos</small>
+            </div>
+            <div>
+              <button id="addToCart" class="btn btn-sm btn-outline-light">Tambahkan</button>
+              <button id="closeBuilder" class="btn btn-sm btn-light" style="background:#ff1e1e;color:#fff;border:1px solid rgba(255,0,0,0.6)">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- small note -->
+    <div class="mt-3" style="color:#bbb; font-size:13px;">
+      Semua harga di atas adalah estimasi. Gunakan custom builder untuk konfigurasi khusus. Mata uang dan rate dapat diedit.
+    </div>
   </div>
 </section>
 
-<!-- ======= CSS (scoped) ======= -->
+<!-- ======= CSS (inline untuk siap tempel) ======= -->
 <style>
-  /* keep scope limited to #dedicatedCalc to avoid overriding global styles */
-  #dedicatedCalc .form-control { background:#0f0f0f; border:1px solid rgba(255,255,255,0.04); color:#eee; }
-  #dedicatedCalc .premium-btn { background:linear-gradient(90deg,#ff1e1e,#ff4b2b); color:#fff; border:none; box-shadow:0 6px 18px rgba(255,0,0,0.18); }
-  #dedicatedCalc .premium-btn:hover { transform:translateY(-2px); }
-  #dedicatedCalc .btn { background:#111; color:#ddd; border:1px solid rgba(255,255,255,0.04); }
-  #dedicatedCalc .card { background:transparent; border:none; }
-  #dedicatedCalc input[type="range"]::-webkit-slider-thumb { background:#ff1e1e; border: none; height:16px; width:16px; border-radius:50%; box-shadow:0 0 8px rgba(255,0,0,0.5); }
-  #dedicatedCalc label { font-weight:600; }
-  #dedicatedCalc .btn-sm input { margin-right:6px; }
-  #dedicatedCalc .title h4, #dedicatedCalc .title p { text-align:center; }
-  /* responsive tweaks */
-  @media (max-width: 768px) {
-    #dedicatedCalc .row { gap:12px; }
+  /* compact theme - merah */
+  #dedicated-plans .plan-card .card { border-radius:12px; }
+  .plans-track::-webkit-scrollbar { height:10px; }
+  .plans-track::-webkit-scrollbar-thumb { background: rgba(255,30,30,0.6); border-radius:10px; }
+  .plans-track { -webkit-overflow-scrolling: touch; padding:12px 6px; }
+  .plan-card { flex:0 0 auto; }
+  .plan-choose, .open-custom { background:#111; color:#fff; border:1px solid rgba(255,0,0,0.15); }
+  .plan-choose:hover, .open-custom:hover { background:#ff1e1e; color:#fff; border-color:rgba(255,0,0,0.8); }
+  .cat-btn { background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.06); }
+  .cat-btn.active { background:#ff1e1e !important; color:#fff; border-color:rgba(255,0,0,0.9); box-shadow:0 0 18px rgba(255,0,0,0.25); }
+  select.form-select { background:#0b0b0b; color:#fff; border:1px solid rgba(255,255,255,0.04); }
+  input.form-control { background:#0b0b0b; color:#fff; border:1px solid rgba(255,255,255,0.04); }
+  /* small responsive */
+  @media (max-width:768px) {
+    .plans-track { gap:12px; }
+    .plan-card { min-width:280px !important; }
   }
 </style>
 
-<!-- ======= JS ======= -->
+<!-- ======= JS (inline) ======= -->
 <script>
 (function(){
-  // --- Config (from confirmed defaults) ---
-  const RATES = { IDR:1, USD:16000, EUR:17000 }; // conversion base to IDR
-  const PRICES_IDR = {
-    cpu_per_core: 100000,   // per core IDR
-    ram_per_gb: 25000,      // per GB
-    storage_per_gb: 2500,  // per GB NVMe
-    bw_per_tb: 100000        // per TB
-  };
-  const DDOS_FEES = { basic:0, advanced:20000, premium:50000 };
+  // — CONFIG / default rates (editable in-builder)
+  const baseRates = { IDR:1, USD:15000, EUR:16500 }; // IDR per USD/EUR (editable)
+  const regionMultiplier = { sg:1.00, id:0.95, us:1.05, de:1.08, fi:1.10 }; // adjust region price multipliers
 
-  // CPU preset list (label -> cores). Also include the model names user requested.
-  const CPU_PRESETS = [
-    {label:'AMD Ryzen 5 3500X', cores:6},
-    {label:'AMD Ryzen 5 5600X', cores:6},
-    {label:'AMD Ryzen 7 5800H', cores:8},
-    {label:'AMD Ryzen 7 5700G + Vega8', cores:8},
-    {label:'AMD Ryzen 9 3900X', cores:12},
-    {label:'AMD Ryzen Threadripper 3990X', cores:64},
-    {label:'AMD Ryzen 9 7900 5GHz + RTX3050', cores:12},
-    {label:'AMD Ryzen 9 7950X', cores:16},
-    {label:'AMD Ryzen 9 9950X', cores:16},
-    {label:'AMD Ryzen 9 9950X3D', cores:16},
-    {label:'Intel Xeon E5-2699', cores:22},
-    {label:'Intel Core i7 6700K', cores:4},
-    {label:'Intel Xeon Gold 6230N', cores:20},
-    // Add smaller dedicated-like options
-    {label:'1 vCore (custom)', cores:1},
-    {label:'2 vCore (custom)', cores:2},
-    {label:'4 vCore (custom)', cores:4},
-    {label:'8 vCore (custom)', cores:8}
-  ];
+  // promo discounts mapping for billing cycle (months)
+  const billingDiscount = { 1:0, 3:0.10, 6:0.30, 12:0.50 };
 
-  // --- DOM refs ---
+  // map ddos add-on cost (in IDR baseline)
+  const ddosAddon = { basic:0, arbor:50000, juniper:70000, premium:120000 };
+
+  // DOM refs
+  const plansTrack = document.getElementById('plansTrack');
   const currencySelect = document.getElementById('currencySelect');
   const regionSelect = document.getElementById('regionSelect');
-  const cpuPresetsWrap = document.getElementById('cpuPresets');
-  const customCoresInput = document.getElementById('customCores');
-  const ramRange = document.getElementById('ramRange');
-  const ramValue = document.getElementById('ramValue');
-  const storageRange = document.getElementById('storageRange');
-  const storageValue = document.getElementById('storageValue');
-  const bwRange = document.getElementById('bwRange');
-  const bwValue = document.getElementById('bwValue');
-  const ddosRadios = document.querySelectorAll('input[name="ddos"]');
+  const catBtns = document.querySelectorAll('.cat-btn');
+  const openCustomBtn = document.querySelectorAll('.open-custom');
+  const customBuilder = document.getElementById('customBuilder');
+  const closeBuilder = document.getElementById('closeBuilder');
+  const estimatedPriceEl = document.getElementById('estimatedPrice');
 
-  const summaryCpu = document.getElementById('summaryCpu');
-  const summaryRam = document.getElementById('summaryRam');
-  const summaryStorage = document.getElementById('summaryStorage');
-  const summaryBw = document.getElementById('summaryBw');
-  const summaryRegion = document.getElementById('summaryRegion');
-  const summaryDdos = document.getElementById('summaryDdos');
+  // builder inputs
+  const cpuCores = document.getElementById('cpuCores');
+  const ramSize = document.getElementById('ramSize');
+  const diskSize = document.getElementById('diskSize');
+  const gpuSelect = document.getElementById('gpuSelect');
+  const bwSelect = document.getElementById('bwSelect');
+  const ddosSelect = document.getElementById('ddosSelect');
+  const billingCycle = document.getElementById('billingCycle');
+  const rateUSD = document.getElementById('rateUSD');
+  const rateEUR = document.getElementById('rateEUR');
 
-  const subtotalText = document.getElementById('subtotalText');
-  const ddosFeeText = document.getElementById('ddosFeeText');
-  const totalText = document.getElementById('totalText');
-  const rateInfo = document.getElementById('rateInfo');
-
-  const addToCartBtn = document.getElementById('addToCartBtn');
-  const minPriceInput = document.getElementById('minPriceInput');
-
-  // default state
-  let state = {
-    cpuModel: CPU_PRESETS[2].label,
-    cpuCores: CPU_PRESETS[2].cores,
-    ram: parseInt(ramRange.value,10),
-    storage: parseInt(storageRange.value,10),
-    bw: parseInt(bwRange.value,10),
-    ddos: 'basic',
-    currency: 'IDR',
-    region: 'SG'
-  };
-
-  // --- helpers ---
-  function formatCurrency(amount, currency) {
-    // amount parameter is in IDR (base). Convert then format.
-    if (currency === 'IDR') {
-      return 'Rp' + Number(amount).toLocaleString('id-ID');
-    } else if (currency === 'USD') {
-      const val = (amount / RATES.USD);
-      return '$' + val.toFixed(2);
-    } else if (currency === 'EUR') {
-      const val = (amount / RATES.EUR);
-      return '€' + val.toFixed(2);
-    }
-    return amount;
+  // utility: format price
+  function formatPrice(idr, currency) {
+    if(currency === 'IDR') return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR', maximumFractionDigits:0}).format(idr);
+    if(currency === 'USD') return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD', maximumFractionDigits:2}).format(idr / parseFloat(rateUSD.value));
+    if(currency === 'EUR') return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR', maximumFractionDigits:2}).format(idr / parseFloat(rateEUR.value));
+    return idr;
   }
 
-  function calcPriceIDR() {
-    // compute subtotal in IDR
-    // CPU cost = cpu_per_core * cores
-    const cpuCost = PRICES_IDR.cpu_per_core * state.cpuCores;
-    const ramCost = PRICES_IDR.ram_per_gb * state.ram;
-    const storageCost = PRICES_IDR.storage_per_gb * state.storage;
-    const bwCost = PRICES_IDR.bw_per_tb * state.bw;
-    const subtotal = cpuCost + ramCost + storageCost + bwCost;
-    const ddosFee = DDOS_FEES[state.ddos] || 0;
-    const total = subtotal + ddosFee;
-    return { cpuCost, ramCost, storageCost, bwCost, subtotal, ddosFee, total };
-  }
-
-  // --- render / update UI ---
-  function renderCpuPresets(){
-    cpuPresetsWrap.innerHTML = '';
-    CPU_PRESETS.forEach((p, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn btn-sm';
-      btn.style = 'background:#111; color:#eee; border:1px solid rgba(255,255,255,0.04);';
-      btn.textContent = p.label;
-      btn.addEventListener('click', () => {
-        state.cpuModel = p.label;
-        state.cpuCores = p.cores;
-        customCoresInput.value = Math.min(32, Math.max(1, p.cores)); // limit to 1-32 for display
-        updateAll();
-      });
-      cpuPresetsWrap.appendChild(btn);
+  // initialize displayed prices on cards using their data-base (IDR baseline)
+  function refreshCardPrices(){
+    const cards = document.querySelectorAll('.plan-card');
+    const currency = currencySelect.value;
+    const region = regionSelect.value;
+    cards.forEach(c => {
+      const base = parseFloat(c.dataset.base || 0); // base in IDR
+      // apply region multiplier
+      const idr = Math.round(base * (regionMultiplier[region] || 1));
+      const el = c.querySelector('.plan-price');
+      if(el) el.textContent = formatPrice(idr, currency);
     });
   }
 
-  function updateAll(){
-    // update state from inputs
-    state.ram = parseInt(ramRange.value,10);
-    state.storage = parseInt(storageRange.value,10);
-    state.bw = parseInt(bwRange.value,10);
-    state.currency = currencySelect.value;
-    state.region = regionSelect.value;
-    // ddos
-    const ddosChecked = document.querySelector('input[name="ddos"]:checked');
-    state.ddos = ddosChecked ? ddosChecked.value : 'basic';
-    // custom cores override if changed
-    const customCores = parseInt(customCoresInput.value,10);
-    if (!isNaN(customCores) && customCores >=1 && customCores <=32) {
-      state.cpuCores = customCores;
-      // if custom core doesn't match a preset label, keep the cpuModel generic
-      if (!CPU_PRESETS.some(p => p.cores === customCores && p.label === state.cpuModel)) {
-        state.cpuModel = customCores + ' vCore (custom)';
-      }
-    }
-    // update UI labels
-    ramValue.textContent = state.ram + ' GB';
-    storageValue.textContent = state.storage + ' GB';
-    bwValue.textContent = state.bw + ' TB';
-    summaryCpu.textContent = state.cpuModel + ' — ' + state.cpuCores + ' cores';
-    summaryRam.textContent = state.ram + ' GB';
-    summaryStorage.textContent = state.storage + ' GB NVMe';
-    summaryBw.textContent = state.bw + ' TB';
-    summaryRegion.textContent = regionSelect.options[regionSelect.selectedIndex].text;
-    summaryDdos.textContent = state.ddos.charAt(0).toUpperCase() + state.ddos.slice(1);
+  // filter by category buttons
+  catBtns.forEach(b => {
+    b.addEventListener('click', () => {
+      catBtns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      const cat = b.dataset.cat;
+      document.querySelectorAll('#plansTrack .plan-card').forEach(pc=>{
+        if(cat === 'custom') {
+          // show custom and all custom-tagged
+          pc.style.display = (pc.dataset.cat === 'custom' ? 'block' : (pc.dataset.cat ? (pc.dataset.cat === 'custom' ? 'block' : 'none') : 'block'));
+        } else {
+          pc.style.display = (pc.dataset.cat === cat ? 'block' : 'none');
+        }
+      });
+      // scroll to first visible
+      const first = document.querySelector('#plansTrack .plan-card[style*="display: block"], #plansTrack .plan-card:not([style])');
+      if(first) first.scrollIntoView({behavior:'smooth', inline:'start'});
+    });
+  });
 
-    // calculate prices
-    const pricing = calcPriceIDR();
-    subtotalText.textContent = formatCurrency(pricing.subtotal, state.currency);
-    ddosFeeText.textContent = formatCurrency(pricing.ddosFee, state.currency);
-    totalText.textContent = formatCurrency(pricing.total, state.currency);
+  // currency / region change listeners
+  currencySelect.addEventListener('change', refreshCardPrices);
+  regionSelect.addEventListener('change', refreshCardPrices);
 
-    // rate info
-    rateInfo.textContent = `1 USD = ${RATES.USD.toLocaleString('id-ID')} IDR | 1 EUR = ${RATES.EUR.toLocaleString('id-ID')} IDR`;
+  // initial refresh
+  refreshCardPrices();
+
+  // open custom builder buttons
+  document.querySelectorAll('.open-custom').forEach(btn=>{
+    btn.addEventListener('click', ()=> {
+      customBuilder.style.display = 'block';
+      customBuilder.scrollIntoView({behavior:'smooth'});
+      updateEstimate();
+    });
+  });
+
+  // plan choose quick-add: open builder and prefill base price
+  document.querySelectorAll('.plan-choose').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const base = parseFloat(e.currentTarget.dataset.base || 0);
+      // prefill baseline values (simple mapping)
+      cpuCores.value = Math.min(16, Math.max(2, Math.round(base/100000)));
+      ramSize.value = 8;
+      diskSize.value = 120;
+      bwSelect.value = '4';
+      gpuSelect.value = 'none';
+      ddosSelect.value = 'basic';
+      billingCycle.value = '1';
+      customBuilder.style.display = 'block';
+      // store base price in a hidden attribute
+      customBuilder.dataset.quickbase = base;
+      updateEstimate();
+      customBuilder.scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  // close builder
+  closeBuilder.addEventListener('click', ()=> {
+    customBuilder.style.display = 'none';
+  });
+
+  // update estimate whenever builder fields change
+  [cpuCores, ramSize, diskSize, gpuSelect, bwSelect, ddosSelect, billingCycle, rateUSD, rateEUR, regionSelect].forEach(inp=>{
+    inp.addEventListener('input', updateEstimate);
+    inp.addEventListener('change', updateEstimate);
+  });
+
+  function updateEstimate(){
+    // base price algorithm (simple and editable)
+    // base = corePrice * cores + ramPrice * RAM + diskPrice * diskGB + bwPrice * TB + gpuPrice + ddosAddon
+    const cores = Math.max(1, parseInt(cpuCores.value||1));
+    const ram = Math.max(8, parseInt(ramSize.value||8));
+    const disk = Math.max(20, parseInt(diskSize.value||20));
+    const bw = bwSelect.value === 'unlimited' ? 99 : parseFloat(bwSelect.value||4);
+    const gpu = gpuSelect.value;
+    const ddos = ddosSelect.value;
+    const cycle = parseInt(billingCycle.value||1);
+    const region = regionSelect.value;
+    const currency = currencySelect.value;
+
+    // unit costs (IDR) - tweak these to match market/Hetzner
+    const corePrice = 90000;   // per core
+    const ramPrice = 12000;    // per GB
+    const diskPrice = 800;     // per GB NVMe
+    const bwPrice = 25000;     // per TB
+    const gpuPrices = { none:0, rtx3050:700000, vega8:120000 };
+    const ddosCost = ddosAddon[ddos] || 0;
+
+    // base quickbase override (if user clicked a plan)
+    const quickBase = parseFloat(customBuilder.dataset.quickbase || 0);
+
+    let base = quickBase > 0 ? quickBase : (
+      Math.round( cores*corePrice + ram*ramPrice + disk*diskPrice + bw*bwPrice + (gpuPrices[gpu]||0) + ddosCost )
+    );
+
+    // apply region multiplier
+    base = Math.round(base * (regionMultiplier[region] || 1));
+
+    // apply billing discount
+    const discount = billingDiscount[cycle] || 0;
+    const final = Math.round(base * (1 - discount));
+
+    // show price in selected currency
+    estimatedPriceEl.textContent = formatPrice(final, currency);
   }
 
-  // --- events binding ---
-  currencySelect.addEventListener('change', () => updateAll());
-  regionSelect.addEventListener('change', () => updateAll());
-  customCoresInput.addEventListener('input', () => {
-    // clamp 1..32
-    let v = parseInt(customCoresInput.value || '1',10);
-    if (isNaN(v)) v = 1;
-    v = Math.max(1, Math.min(32, v));
-    customCoresInput.value = v;
-    updateAll();
-  });
-  ramRange.addEventListener('input', () => updateAll());
-  storageRange.addEventListener('input', () => updateAll());
-  bwRange.addEventListener('input', () => updateAll());
-  ddosRadios.forEach(r => r.addEventListener('change', () => updateAll()));
+  // initial estimate
+  updateEstimate();
 
-  addToCartBtn.addEventListener('click', () => {
-    const pricing = calcPriceIDR();
-    // Build simple payload (you can adapt for your cart)
-    const payload = {
-      cpuModel: state.cpuModel,
-      cores: state.cpuCores,
-      ram_gb: state.ram,
-      storage_gb: state.storage,
-      bandwidth_tb: state.bw,
-      ddos: state.ddos,
-      region: state.region,
-      price_idr: pricing.total
-    };
-    // For demo, open order link (replace with real checkout)
-    const msg = encodeURIComponent(`Order Request:\nCPU: ${payload.cpuModel} (${payload.cores} cores)\nRAM: ${payload.ram_gb}GB\nStorage: ${payload.storage_gb}GB NVMe\nBandwidth: ${payload.bandwidth_tb}TB\nDDoS: ${payload.ddos}\nRegion: ${payload.region}\nTotal: ${formatCurrency(payload.price_idr, state.currency)}\n\nSilakan lanjut ke checkout.`);
-    window.open('https://dsc.gg/mineidhost?order=' + msg, '_blank');
+  // ensure horizontal scroll looks nice on wheel (scroll sideways on vertical wheel)
+  plansTrack.addEventListener('wheel', function(e){
+    if(e.deltaY === 0) return;
+    e.preventDefault();
+    plansTrack.scrollLeft += e.deltaY;
   });
 
-  // --- init ---
-  renderCpuPresets();
-  // set initial custom cores visible
-  customCoresInput.value = state.cpuCores;
-  updateAll();
+  // small accessibility: allow clicking category to show all
+  // by default show EPYC
+  document.querySelector('.cat-btn[data-cat="epyc"]').click();
 
-  // expose for debugging (optional)
-  window._dedicatedCalc = {
-    state, PRICES_IDR, RATES, calcPriceIDR, updateAll
-  };
 })();
 </script>
-<!-- ======= END DEDICATED CALCULATOR ======= -->
 <!-- === OS Types (Auto Scroll Premium Red Style) === -->
 <style>
   .os {
