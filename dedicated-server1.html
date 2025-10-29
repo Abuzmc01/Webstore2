@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>VPS Kvm | MineIDHost</title>
+	<link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+	<style>.header{background:url("assets/images/Hero/cloud.jpg") no-repeat center center;}</style>
+</head>
+<body>
+			          										
+<!-- Navbar -->			
+<!-- Navigation -->									
+<nav id="navbar_top" class="navbar navbar-dark navbar-expand-lg fixed-top" style="background: rgba(0, 0, 0, 0.9); box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img class="img-fluid" src="assets/images/logo.svg" alt="MineIDHost Logo" style="height: 45px; filter: drop-shadow(0 0 8px rgba(255,0,0,0.8));">
+      <span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dinoNavbar" aria-controls="dinoNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="dinoNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="game-hosting.html">Game Hosting</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">VPS Services</a>
+          <ul class="dropdown-menu dropdown-large dropdown-menu-end">
+            <div class="row p-2">
+              <div class="col-md-6">
+                <ul class="list-unstyled mb-0">
+                  <li><a class="dropdown-item" href="vps-kvm.html">VPS Kvm</a></li>
+                  <li><a class="dropdown-item" href="vps-cloud.html">VPS Cloud</a></li>
+                  <li><a class="dropdown-item" href="dedicated-servers.html">Dedicated Sedver</a></li>
+                </ul>
+              </div>
+            </div>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Other Product</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Petrodactyl Services</a></li>
+            <li><a class="dropdown-item" href="#">Minecraft Models</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Important</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Partners</a></li>
+            <li><a class="dropdown-item" href="#">Terms of Services</a></li>
+            <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+            <li><a class="dropdown-item" href="#">FAQ</a></li>
+          </ul>
+        </li>
+
+        <!-- Client Area -->
+        <li class="nav-item">
+          <div class="dropdown text-center">
+            <a class="btn dropdown-toggle" id="panel" data-bs-toggle="dropdown" aria-expanded="false">
+              Client Area
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-panel" aria-labelledby="panel">
+              <a class="dropdown-item" href="https://dsc.gg/mineidhost">Client Area <span class="d-block">Billing & Support</span></a>
+              <a class="dropdown-item" href="https://panel.mineidhost.icu">Game Panel <span class="d-block">Game Management</span></a>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+	
+<!-- ======= NAVBAR STYLE ======= -->
+<style>
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: 0.3s;
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ff1e1e !important;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+/* Dropdown Style */
+.dropdown-menu {
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  border-radius: 10px;
+}
+.dropdown-item {
+  color: #ccc !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.dropdown-item:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff1e1e !important;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/* Client Area Button */
+#panel.btn {
+  background: linear-gradient(90deg, #ff0000, #a10000);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+#panel.btn:hover {
+  background: linear-gradient(90deg, #a10000, #ff0000);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Responsif Glow on Mobile */
+@media (max-width: 991px) {
+  .navbar-dark .navbar-nav .nav-link {
+    text-align: center;
+    padding: 10px;
+  }
+  #panel.btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+</style>
+<!-- ======= END NAVBAR ====== -->
+	<!-- Header -->
+	<div class="header">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-start align-items-center h-100">
+                <div class="col-lg-12 mt-5">
+                    <h1>VPS Kvm</h1>
+                    <p> Platform cloud yang sederhana dan canggih yang disesuaikan dengan kebutuhan Anda.</p>
+                </div>
+            </div>
+        </div>
+    </div>										
+										
+<!-- Plans -->
+	<div class="plans py-5">
+  <div class="container-fluid container-custom">
+
+    <!-- Switcher Tab -->
+    <ul id="swicherPlans" class="btn-swicher text-center nav nav-pills d-flex justify-content-center mb-5" data-bs-tabs="tabs">
+  <li class="nav-item">
+    <a href="#budget" class="premium-btn active" data-bs-toggle="tab">AMD Epyc</a>
+  </li>
+  <li class="nav-item">
+    <a href="#medium" class="premium-btn" data-bs-toggle="tab">AMD Ryzen</a>
+  </li>
+  <li class="nav-item">
+    <a href="#high" class="premium-btn" data-bs-toggle="tab">Intel CPU</a>
+  </li>
+	</ul>
+
+    <!-- TAB CONTENT -->
+    <div class="tab-content fade-container">
+
+      <!-- EPYC -->
+<div id="budget" class="tab-pane fade show active">
+  <div class="row justify-content-center">
+
+    <!-- EPYC 1 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">AMD Epyc Generasi 2</h2>
+        <div class="premium-price">Mulai 50.000IDR</div>
+        <ul class="premium-list">
+          <li>🗄️ 4GB RAM DDR4 3200Mhz</li>
+          <li>🌀 2vCPU AMD Epyc 7002</li>
+          <li>💾 60GB NVMe SSD</li>
+          <li>🌐 4TB Bandwith Traffic</li>
+          <li>🌏 Regions Singapore</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+
+    <!-- EPYC 2 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">AMD Epyc Generasi 3</h2>
+	    <div class="premium-price">Mulai 80.000IDR</div>
+        <div class="premium-price"></div>
+        <ul class="premium-list">
+          <li>🗄️ 4GB RAM DDR4 3800Mhz</li>
+          <li>🌀 2vCPU AMD Epyc 7763</li>
+          <li>💾 150GB NVMe SSD</li>
+		  <li>🌐 4TB Bandwith Traffic</li>
+          <li>🌏 Regions Singapore</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+
+    <!-- EPYC 3 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">AMD Epyc Generasi 4</h2>
+        <div class="premium-price">Mulai 110.000IDR</div>
+        <ul class="premium-list">
+          <li>🗄️ 8GB RAM DDR5 5600</li>
+          <li>🌀 4vCPU AMD Epyc 9K84/9654</li>
+          <li>💾 150GB NVMe SSD</li>
+          <li>🌐 8TB Bandwith Traffic</li>
+          <li>🌏 Regions Singapore/Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RYZEN -->
+<div id="medium" class="tab-pane fade">
+  <div class="container py-5">
+
+	<!-- RYZEN 1 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">Ryzen7 5800X</h2>
+        <div class="premium-price">Mulai 80.000IDR</div>
+        <ul class="premium-list">
+          <li>🗄️ 4GB RAM DDR4 3200Mhz</li>
+          <li>🌀 2vCPU AMD Ryzen7 5800X</li>
+          <li>💾 130GB NVMe SSD</li>
+          <li>🌐 2TB Bandwith Traffic</li>
+          <li>🌏 Regions Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+
+    <!-- RYZEN 2 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">Ryzen9 7950X3D</h2>
+	    <div class="premium-price">Mulai 150.000IDR</div>
+        <div class="premium-price"></div>
+        <ul class="premium-list">
+          <li>🗄️ 6GB RAM DDR5 4800Mhz</li>
+          <li>🌀 2vCPU AMD Ryzen9 7950X3D</li>
+          <li>💾 25GB NVMe SSD</li>
+		  <li>🌐 4TB Bandwith Traffic</li>
+          <li>🌏 Regions Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+
+    <!-- RYZEN 3 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">Ryzen9 9950X3D</h2>
+        <div class="premium-price">Mulai 100.000IDR</div>
+        <ul class="premium-list">
+          <li>🗄️ 2GB RAM DDR5 5800Mhz</li>
+          <li>🌀 1vCPU AMD Ryzen9 9950X3D</li>
+          <li>💾 50GB NVMe SSD</li>
+          <li>🌐 4TB Bandwith Traffic</li>
+          <li>🌏 Regions Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTEL -->
+<div id="high" class="tab-pane fade">
+  <div class="container py-5">
+	  
+<!-- INTEL 1 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">Intel E5-2699v4</h2>
+        <div class="premium-price">Mulai 125.000IDR</div>
+        <ul class="premium-list">
+          <li>🗄️ 8GB RAM DDR4 2400Mhz</li>
+          <li>🌀 4vCPU Xeon E5-2699v4</li>
+          <li>💾 130GB NVMe SSD</li>
+          <li>🌐 2TB Bandwith Traffic</li>
+          <li>🌏 Regions Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+
+    <!-- INTEL 2 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">Core i9-9900K</h2>
+	    <div class="premium-price">Mulai 150.000IDR</div>
+        <div class="premium-price"></div>
+        <ul class="premium-list">
+          <li>🗄️ 8GB RAM DDR4 3200Mhz</li>
+          <li>🌀 4vCPU Core i9-9900K</li>
+          <li>💾 150GB NVMe SSD</li>
+		  <li>🌐 4TB Bandwith Traffic</li>
+          <li>🌏 Regions Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+
+    <!-- INTEL 3 -->
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card mc-card text-center premium-card glow-animate">
+        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
+        <h2 class="premium-title">Gold 6330N</h2>
+        <div class="premium-price">Mulai 350.000IDR</div>
+        <ul class="premium-list">
+          <li>🗄️ 16GB RAM DDR4 3200Mhz</li>
+          <li>🌀 4vCPU Gold 6330N</li>
+          <li>💾 100GB NVMe SSD</li>
+          <li>🌐 4TB Bandwith Traffic</li>
+          <li>🌏 Regions Indonesia</li>
+          <li>🗓️ Aktif 30 hari</li>
+        </ul>
+        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE FIX -->
+<style>
+/* ======= CARD PREMIUM ======= */
+.premium-card {
+  background: linear-gradient(180deg, #141414, #0d0d0d);
+  border-radius: 14px;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
+  border: 1px solid #1f1f1f;
+  transition: all 0.3s ease;
+  padding: 20px;
+  max-width: 320px;
+  margin: 0 auto 25px;
+  position: relative;
+  overflow: hidden;
+}
+.premium-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 40, 40, 0.6);
+}
+
+/* ======= BREATHING GLOW ======= */
+@keyframes breathingGlow {
+  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
+  50% { box-shadow: 0 0 35px rgba(255, 50, 50, 0.6); }
+  100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
+}
+.glow-animate {
+  animation: breathingGlow 3s ease-in-out infinite;
+}
+
+/* ======= GAMBAR DI ATAS CARD ======= */
+.plan-icon-top {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  margin: 10px auto;
+  display: block;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* ======= TEKS & HARGA ======= */
+.premium-title {
+  color: #ff3b3b;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.premium-price {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.premium-price del {
+  color: #ff8888;
+  font-size: 0.9rem;
+  margin-right: 5px;
+}
+
+/* ======= LIST ======= */
+.premium-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+.premium-list li { margin: 6px 0; }
+
+/* ======= BUTTON ======= */
+.premium-btn {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  padding: 8px 20px;
+  transition: 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95rem;
+}
+.premium-btn:hover {
+  background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
+  box-shadow: 0 0 15px rgba(255, 40, 40, 0.8);
+  transform: translateY(-2px);
+}
+
+/* ======= TAB FADE ANIMATION ======= */
+.fade-container .tab-pane {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: all 0.6s ease-in-out;
+}
+.fade-container .tab-pane.show.active {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 0 25px rgba(255, 40, 40, 0.4);
+}
+
+/* ======= TAB BUTTON STYLE ======= */
+.btn-swicher .nav-link {
+  color: #fff;
+  background: linear-gradient(180deg, #141414, #0d0d0d);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  margin: 0 6px;
+  padding: 10px 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
+}
+
+.btn-swicher .nav-link:hover {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-swicher .nav-link.active {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
+  color: #fff !important;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+  border: 1px solid rgba(255, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+/* === FIX WARNA AKTIF BIRU PADA TAB PREMIUM === */
+#swicherPlans .premium-btn {
+  color: #fff !important;
+  background: linear-gradient(180deg, #141414, #0d0d0d);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  margin: 0 6px;
+  padding: 10px 24px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
+}
+
+#swicherPlans .premium-btn:hover,
+#swicherPlans .premium-btn.active,
+#swicherPlans .premium-btn:focus,
+#swicherPlans .nav-link.active,
+#swicherPlans .nav-link:focus {
+  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 0, 0, 0.6) !important;
+  transform: translateY(-2px);
+}
+
+/* Hilangkan efek biru default dari Bootstrap nav-pills */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+/* ======= NAVBAR PREMIUM RED ======= */
+.navbar {
+  background: linear-gradient(180deg, #0b0b0b, #141414);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+.navbar-brand {
+  color: #ff2a2a !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 20px rgba(255, 0, 0, 1);
+}
+
+/* ======= NAV LINK ======= */
+.navbar .nav-link {
+  color: #e0e0e0 !important;
+  font-weight: 500;
+  padding: 10px 18px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar .nav-link:hover {
+  color: #ff4d4d !important;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+/* ======= ACTIVE STATE ======= */
+.navbar .nav-link.active {
+  color: #ffffff !important;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+}
+
+.navbar .nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff0000, #ff3b3b);
+  border-radius: 4px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
+/* ======= NAVBAR HOVER GLOW ======= */
+.navbar:hover {
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+}
+
+/* ======= TOGGLER (untuk mobile) ======= */
+.navbar-toggler {
+  border-color: rgba(255, 0, 0, 0.4);
+}
+.navbar-toggler-icon {
+  filter: invert(48%) sepia(93%) saturate(2990%) hue-rotate(340deg) brightness(103%) contrast(101%);
+}
+
+/* ======= IMAGE SECTION ======= */
+.image-section {
+  background: linear-gradient(145deg, #0d0d0d, #151515);
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 35px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+.image-section:hover {
+  box-shadow: 0 0 45px rgba(255, 0, 0, 0.8);
+  transform: translateY(-5px);
+}
+
+/* ======= IMAGE BOX ======= */
+.image-box img {
+  border-radius: 12px;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ======= ANIMASI FADE-UP ======= */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+.fade-up:nth-child(1) { animation-delay: 0.1s; }
+.fade-up:nth-child(2) { animation-delay: 0.2s; }
+.fade-up:nth-child(3) { animation-delay: 0.3s; }
+.fade-up:nth-child(4) { animation-delay: 0.4s; }
+.fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === HIGH IMAGE STYLE === */
+.image-box {
+  background: radial-gradient(circle at center, #0a0a0a, #000);
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 40px;
+}
+.image-box:hover {
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.45);
+  transform: scale(1.02);
+}
+
+/* === Gambar dengan bingkai === */
+.image-frame {
+  border: 3px solid #111;
+  border-radius: 12px;
+  padding: 8px;
+  background: linear-gradient(145deg, #000, #111);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  display: inline-block;
+  transition: 0.3s ease;
+}
+.image-frame:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+/* === HIGH IMAGE === */
+.high-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* === Teks di atas gambar === */
+.image-title {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.8), 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+/* === Deskripsi di bawah gambar === */
+.image-desc {
+  color: #ccc;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 700px;
+  margin: 20px auto 0;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 0, 0, 0.15);
+  box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.2);
+}
+</style>
+<!-- === OS Types (Auto Scroll Premium Red Style) === -->
+<style>
+  .os {
+    background-color: #000;
+    padding: 5rem 0;
+    overflow: hidden;
+  }
+
+  .os .title h4,
+  .os .title p {
+    color: #fff;
+  }
+
+  /* === SCROLLER CONTAINER === */
+  .os-scroller {
+    display: flex;
+    width: max-content;
+    animation: scrollOS 18s linear infinite;
+  }
+
+  @keyframes scrollOS {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* === OS ITEM === */
+  .os-item {
+    text-align: center;
+    margin: 0 60px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .os-item svg {
+    width: 100px;
+    height: 100px;
+    filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.4));
+    transition: all 0.3s ease;
+  }
+
+  .os-item h3 {
+    color: #fff;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  .os-item:hover svg {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 50px rgba(255, 0, 0, 0.9));
+  }
+
+  .os-item:hover h3 {
+    color: #ff4040;
+  }
+
+  /* === CUSTOM COLOR FIX === */
+  .os .debian path {
+    fill: #ff4d6d !important;
+  }
+
+  .os .ubuntu circle,
+  .os .ubuntu path {
+    fill: #ff5c33 !important;
+  }
+
+  .os .windows polygon {
+    fill: #b30000 !important;
+  }
+
+  .os svg g polygon,
+  .os svg g rect,
+  .os svg g path {
+    fill: #ff3333 !important;
+  }
+
+  @media (max-width: 768px) {
+    .os-item svg {
+      width: 70px;
+      height: 70px;
+    }
+    .os-item {
+      margin: 0 40px;
+    }
+    .os-item h3 {
+      font-size: 0.9rem;
+    }
+    .os-scroller {
+      animation-duration: 8s;
+    }
+  }
+</style>
+
+<div class="os">
+  <div class="container">
+    <div class="title text-center mb-5">
+      <h4 class="mb-0">Operasional System</h4>
+      <p>Pilih jenis OS VPS Anda</p>
+    </div>
+
+    <!-- === SCROLLING WRAPPER === -->
+    <div class="os-wrapper">
+      <div class="os-scroller">
+        <!-- LOOP isi 2x agar animasi mulus -->
+        <div class="os-item">
+          <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(-17.935 -428.95)">
+              <g transform="translate(128.57)">
+                <polygon points="123.45 685.18 10.432 796.48 -102.59 685.18 10.432 573.87"></polygon>
+                <polygon points="146.99 662.38 35.665 550.36 146.99 438.36 258.32 550.36"></polygon>
+                <polygon points="258.58 820.33 145.56 931.64 32.533 820.33 145.56 709.02"></polygon>
+                <polygon points="282.12 797.53 170.79 685.52 282.12 573.51 393.44 685.52"></polygon>
+              </g>
+            </g>
+          </svg>
+          <h3>CentOS</h3>
+        </div>
+
+        <div class="os-item">
+          <svg class="debian" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m325.62 501.58c-154.98 6.498-288.78-129.43-274.71-285.54 12.089-134.18 154.12-240.51 285.08-195.4 108.88 37.504 169.11 183.08 90.087 276.23-31.309 36.906-80.176 58.087-128.72 52.902-62.999-6.728-113.73-63.897-109.08-128.07 3.154-43.56 35.444-81.28 78.646-89.648 24.704-4.785 63.242 0.312 77.096 24.127 5.993 10.302 1.432 23.488-12.364 21.443-5.184-0.769-10.299-7.481-14.596-9.822-9.661-5.262-20.867-8.256-31.088-7.597-35.563 2.291-59.659 33.14-60.177 66.017 3.176 77.702 91.837 98.046 144.37 55.292 46.777-38.065 46.631-104.71 13.707-151.49-42.537-60.439-121.64-68.488-183.91-36.535-67.998 34.892-100.5 109.56-90.508 182.52 9.577 69.936 52.304 131.86 113.38 166.88 23.753 13.621 49.666 22.785 76.587 27.612 8.092 1.451 25.258 0.188 32.211 4.844 10.983 7.357 8.807 25.67-6.008 26.229z" />
+          </svg>
+          <h3>Debian</h3>
+        </div>
+
+        <div class="os-item">
+          <svg class="ubuntu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <circle cx="54.674" cy="256" r="53.333" />
+            <circle cx="406.61" cy="458.667" r="53.333" />
+            <circle cx="406.61" cy="53.333" r="53.333" />
+            <path
+              d="M262.098,147.669c2.383,4.129,7.216,6.176,11.84,5.013c55.924-14.4,113.089,18.592,128.597,74.219 c1.298,4.593,5.489,7.764,10.261,7.765h87.168c5.891,0.003,10.669-4.77,10.673-10.661c0-0.566-0.045-1.132-0.134-1.691 c-6.168-38.801-22.959-75.137-48.512-104.981c-3.524-4.066-9.524-4.871-13.995-1.877c-12.228,8.182-26.61,12.548-41.323,12.544 c-40.78-0.145-73.959-32.869-74.667-73.643c-0.078-5.395-4.171-9.882-9.536-10.453c-33.448-3.504-67.251,0.925-98.667,12.928 c-5.501,2.108-8.251,8.277-6.143,13.778c0.201,0.524,0.443,1.032,0.724,1.518L262.098,147.669z" />
+          </svg>
+          <h3>Ubuntu</h3>
+        </div>
+
+        <div class="os-item">
+          <svg class="windows" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 488">
+            <polygon points="0.144,254.608 0.16,420.52 199.496,447.824 199.336,255.888" />
+            <polygon points="484,0 220,38.472 220,233.456 484,231.36" />
+            <polygon points="0,69.096 0.184,234.92 199.528,233.784 199.432,42.024" />
+            <polygon points="223.52,450.792 487.928,488 488,257.688 223.152,257.256" />
+          </svg>
+          <h3>Windows</h3>
+        </div>
+
+        <!-- Duplikasi agar scroll looping mulus -->
+        <div class="os-item"><svg enable-background="new 0 0 512 512" viewBox="0 0 512 512"><g transform="translate(-17.935 -428.95)"><g transform="translate(128.57)"><polygon points="123.45 685.18 10.432 796.48 -102.59 685.18 10.432 573.87"></polygon></g></g></svg><h3>CentOS</h3></div>
+      </div>
+    </div>
+  </div>
+</div>
+	<!-- ======= PANEL SECTION ======= -->
+<div class="panel py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
+  <div class="container">
+    <div class="row d-flex justify-content-between align-items-center">
+
+      <!-- BAGIAN GAMBAR / LAPTOP -->
+      <div class="col-md-6 d-flex justify-content-center">
+        <div class="laptop fade-in-up" 
+             style="position:relative; transition:all 0.4s ease; border-radius:20px; overflow:hidden;
+             box-shadow:0 0 25px rgba(255,0,0,0.3); border:2px solid rgba(255,0,0,0.4);
+             background:rgba(30,0,0,0.5); max-width:850px; aspect-ratio:2120/1192;">
+          <div class="laptop__screen" style="width:100%; height:100%; border-radius:15px; overflow:hidden;">
+            <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+              <div class="carousel-inner" style="height:100%;">
+                <div class="carousel-item active">
+                  <img class="img-fluid w-100 h-100" src="assets/images/laptop.png" alt="Dashboard" style="object-fit:cover;">
+                </div>
+                <div class="carousel-item">
+                  <img class="img-fluid w-100 h-100" src="assets/images/laptop.png" alt="Plugins" style="object-fit:cover;">
+                </div>
+                <div class="carousel-item">
+                  <img class="img-fluid w-100 h-100" src="assets/images/laptop.png" alt="Mods" style="object-fit:cover;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAGIAN TEKS -->
+      <div class="col-md-6 d-flex align-items-center">
+        <div class="panel_content fade-in-up" style="z-index:2;">
+          <h2 style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">Panel Kontrol yang Kuat</h2>
+          <p style="color:#ccc;">Kelola server kamu dengan mudah lewat tools intuitif dan monitoring real-time!</p>
+          <ul style="list-style:none; padding-left:0;">
+            
+            <li style="color:#ddd; margin-bottom:10px; display:flex; align-items:center; font-weight:500; font-size:15px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                style="margin-right:8px; filter:drop-shadow(0 0 6px rgba(255,0,0,0.8)); fill:#ff1e1e;">
+                <path d="M20.285 2.859L8.571 14.573l-4.857-4.857-2.143 2.143 7 7L22.428 5z"/>
+              </svg>
+              Full root akses
+            </li>
+
+            <li style="color:#ddd; margin-bottom:10px; display:flex; align-items:center; font-weight:500; font-size:15px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                style="margin-right:8px; filter:drop-shadow(0 0 6px rgba(255,0,0,0.8)); fill:#ff1e1e;">
+                <path d="M20.285 2.859L8.571 14.573l-4.857-4.857-2.143 2.143 7 7L22.428 5z"/>
+              </svg>
+              Menginstal perangkat lunak
+            </li>
+
+            <li style="color:#ddd; margin-bottom:10px; display:flex; align-items:center; font-weight:500; font-size:15px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                style="margin-right:8px; filter:drop-shadow(0 0 6px rgba(255,0,0,0.8)); fill:#ff1e1e;">
+                <path d="M20.285 2.859L8.571 14.573l-4.857-4.857-2.143 2.143 7 7L22.428 5z"/>
+              </svg>
+              Kemampuan untuk meningkatkan kinerja
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- ======= END PANEL SECTION ======= -->
+<!-- ANIMASI & STYLE -->
+<style>
+.laptop:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 40px rgba(255,0,0,0.8);
+  border-color: rgba(255,0,0,0.8);
+}
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeElements = document.querySelectorAll(".fade-in-up");
+  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeElements.forEach(el => appearOnScroll.observe(el));
+});
+</script>
+
+<!-- ======= FAQ SECTION ======= -->
+<section class="faq-section py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
+  <div class="container">
+    <div class="title text-center mb-5 fade-in-up">
+      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.8); font-weight:700;">
+        FAQ Vps Kvm
+      </h4>
+      <p style="color:#ccc;">Berikut beberapa pertanyaan umum seputar layanan Vps kami</p>
+    </div>
+
+    <div class="faq-wrapper fade-in-up">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Vps Kvm itu apa?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>VPS KVM (Kernel-based Virtual Machine) adalah jenis Virtual Private Server (VPS) yang menggunakan teknologi virtualisasi KVM. KVM adalah sebuah modul kernel Linux yang memungkinkan Anda untuk menjalankan beberapa sistem operasi secara bersamaan pada satu mesin fisik.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Apa Jenis ddos yang digunakan untuk Vps Kvm MineIDHost?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Kami menggunakan Jenis DDOS Protection,Perangkat Keras Arbor dan Juniper: Digunakan untuk mendeteksi dan memitigasi serangan DDoS secara otomatis .</p>
+		  <p>Penyaringan Lalu Lintas: Melakukan penyaringan terhadap pola serangan yang dikenal, seperti DNS reflection, NTP reflection, dan UDP floods pada port 80 .</p>
+		  <p>Deteksi Dinamis: Sistem dapat mengenali pola serangan berdasarkan jumlah lalu lintas atau jumlah paket, serta membedakan jenis serangan untuk mitigasi yang lebih tepat .</p>
+		  <p>Perlindungan ini aktif secara default untuk semua server mineidhost, termasuk VPS, tanpa biaya tambahan .</p>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Berapa lama proses aktivasi layanan setelah pembayaran?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Setelah Konsultasi dan Kami menerima pembayaran,Vps anda akan kami proses dalam waktu Estimasi1×24Jam.</p>
+		  <p>Namun itu hanya berlaku pada Cpu AMD Epyc,Untuk Laynan seperti AMD Ryzen Dan intel,kami hanya butuh waktu 1-3 Jam estimasi.</p>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Bagaimana cara Membeli Vps?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Anda dapat menghubungi kami melalui WhatsApp, Discord, atau Email di halaman kontak. Tim kami tersedia 24/7.</p>
+		  <p>Tanyakan Stock masih ada atau tidak,Jika masih...anda bisa langsung melakukaj pembayaran,dan vps anda akan lamgsung kami proses.</p>
+        </div>
+      </div>
+		
+	  <!-- FAQ 5 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Apakah MineIDHost mempunyai server fisik?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Ya,kami menggunakan Server fisik dari hetzner.com (Sewa dedicated server,lalu kami bilah menjadi Vps Kvm).</p>
+		 </div>
+       </div>
+			
+	  <!-- FAQ 6 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Kenapa Vps disini Murah, seperti Vps FT/Ilegal?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Itu adalah pertanyaan umum para pendatang baru,dan kami tidak heran dan memaklumi prasangka buruk kalian,baik kami akan menjelaskan.</p>
+		  <p>Kami menjalin hubungan/Kerja sama antar perusahaan,Yang membuat kami menerima harga jauh lebih murah dari harga mereka,jadi kami menjual nya lagi kepada kalian dengan harga murah dengan keuntungan sekitar 30%.</p>
+		  <p>Kami juga sudah melakukan diskusi dengan pihak yang terkait,bahwa kami ingin menargetkan pasar game,jadi kami tidak akan memberikan harga lebih tinggi dari pihak Hetzner yang mempunyai pasar jauh lebih besar/berkelas.</p>
+        </div>
+      </div>
+
+	  <!-- FAQ 7 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Apakah Vps nya bisa di perpanjang tanpa replace?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+		  <p>Ya vps bisa di perpanjang hingga 1Tahun atau bahkan bertahun. tahun,karnaini bukan vps ilegal,jadi kamu bisa memperpanjang vps ini sampai kapanpun.</p>
+		  <p>Bahkan kamu bisa mendapatkan promo di setiap masa aktif yang berbeda, semakin lama kamu membeli vps dengan masa aktif lebih lama,maka semakin besar promo yang kamu dapat.</p>
+		  <p>kamu bisa mendapatkan promo 10-50%,dan saat memperpanjang kamu tidak perlu memikirkan untuk aktif mengingatkan perbulan,karna kamu sudah mempunyai sistem otomatis.</p>
+         </div>
+       </div>
+	 <!-- FAQ 8 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          Apakah Vps Dapat IPv4 Publik
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Ya,semua vps mendapatkan Public</p>
+          <p>Public IPv4 1×</p>
+          <p>Public IPv6 1×</p>
+          <p>Private IPv4 1×</p>
+		 </div>
+       </div> 
+     </div>
+   </div>
+ </div>
+</section>
+
+<!-- ======= FAQ CSS ======= -->
+<style>
+.faq-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-item {
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  background: rgba(20,20,20,0.85);
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.faq-item:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+  border-color: rgba(255, 0, 0, 0.6);
+}
+.faq-question {
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 15px 20px;
+  text-align: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.faq-question:hover {
+  color: #ff1e1e;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+}
+.faq-icon {
+  font-size: 22px;
+  color: #ff1e1e;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  animation: glowPulse 1.6s infinite alternate;
+  transition: transform 0.3s ease;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  color: #ccc;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 0 20px;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.faq-answer.open {
+  padding: 15px 20px 20px;
+}
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* Glow pulse merah */
+@keyframes glowPulse {
+  from {
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+  to {
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.9), 0 0 25px rgba(255, 0, 0, 0.8);
+  }
+}
+
+/* Scroll Animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- ======= FAQ JS ======= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Animasi scroll muncul
+  const fadeEls = document.querySelectorAll(".fade-in-up");
+  const obs = new IntersectionObserver((entries, obsr) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        obsr.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => obs.observe(el));
+
+  // FAQ interaktif
+  const faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach(item => {
+    const btn = item.querySelector(".faq-question");
+    btn.addEventListener("click", () => {
+      item.classList.toggle("active");
+    });
+  });
+});
+</script>
+<!-- ======= END FAQ SECTION ======= -->
+<!-- ======= FOOTER ======= -->
+<footer class="footer-section fade-in-up">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <h3 class="footer-logo">
+          <img src="assets/images/logo.svg" alt="MineIDHost Logo" class="img-fluid mb-2" style="width: 120px; filter: drop-shadow(0 0 8px rgba(255,0,0,0.8));">
+          <span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
+        </h3>
+        <p class="footer-desc">Solusi Terbaik Layanan Cloud servers,mendukung Keras perkembangan Digital infrastruktur.</p>
+        <p class="footer-copy">&copy; 2025 MineIDHost. All Rights Reserved.</p>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <h4>Services</h4>
+            <ul class="footer-list">
+              <li><a href="#">Game Hosting</a></li>
+              <li><a href="#">VPS/RDP Kvm</a></li>
+              <li><a href="#">Cloud Server</a></li>
+              <li><a href="#">Dedicated Server</a></li>
+              <li><a href="#">Plugins Development</a></li>
+              <li><a href="#">Petrodactyl Service</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <h4>Support</h4>
+            <ul class="footer-list">
+              <li><a href="#">WhatsApp</a></li>
+              <li><a href="#">Email</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="https://dsc.gg/mineidhost">Discord</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <h4>Company</h4>
+            <ul class="footer-list">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Partners</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <h4>Legal</h4>
+            <ul class="footer-list">
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lokasi Server dan Aktivasi Info -->
+    <div class="text-center mt-4 text-light small fade-in-up">
+      🌍 Data Center berlokasi di <span style="color:#ff3b3b;">German</span> | ⚡ Support Dari Hetzner.Com<span style="color:#ff3b3b;"> Cloud services</span> Keamanan Besar | 🛡️ Anti-DDoS Protection
+    </div>
+
+    <!-- Pembayaran -->
+    <div class="payment-section text-center mt-4 fade-in-up">
+      <h5 class="text-light mb-3">💳 Metode Pembayaran Kami</h5>
+      <div class="payment-logos">
+        <img src="assets/images/payments/dana.png" alt="DANA">
+        <img src="assets/images/payments/ovo.png" alt="OVO">
+        <img src="assets/images/payments/gopay.png" alt="GoPay">
+        <img src="assets/images/payments/qris.png" alt="QRIS">
+        <img src="assets/images/payments/alfamart.png" alt="Alfamart">
+      </div>
+    </div>
+  </div>
+  <div class="footer-glow-line"></div>
+</footer>
+
+<!-- ======= SOCIAL MEDIA BAR ======= -->
+<div class="footer-social-bar fade-in-up">
+  <div class="container text-center">
+    <div class="social-icons">
+      <a href="https://wa.me/6281234567890" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://dsc.gg/mineidhost" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+      <a href="https://www.tiktok.com/@mineidhost" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.instagram.com/mineidhost" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:support@mineidhost.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+</div>
+		
+<!-- ======= STYLE & ANIMASI ======= -->
+<style>
+.discord-banner {
+  background: #0b0b0b;
+  color: #fff;
+  padding: 18px 0;
+  font-weight: 500;
+  font-size: 1.05rem;
+  text-align: center;
+  position: relative;
+}
+.discord-banner::before,
+.discord-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff1e1e, transparent);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+.discord-banner::before { top: 0; }
+.discord-banner::after { bottom: 0; }
+
+.discord-btn {
+  background: #fff;
+  color: #ff1e1e;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.discord-btn:hover {
+  background: #ff1e1e;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 50, 50, 0.9);
+}
+
+/* FOOTER */
+.footer-section {
+  background: #0a0a0a;
+  color: #ccc;
+  padding: 70px 0 40px;
+  border-top: 2px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 -10px 30px rgba(255, 0, 0, 0.2);
+  position: relative;
+}
+.footer-section::before,
+.footer-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,0,0,0.5), rgba(255,0,0,0.1));
+  box-shadow: 0 0 15px rgba(255,0,0,0.6);
+}
+.footer-section::before { left: 0; }
+.footer-section::after { right: 0; }
+
+.payment-section img {
+  height: 38px;
+  margin: 0 10px;
+  opacity: 0.9;
+  transition: 0.3s;
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3));
+}
+.payment-section img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.7));
+}
+
+.footer-social-bar {
+  background: #0b0b0b;
+  border-top: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 -5px 25px rgba(255, 0, 0, 0.25);
+  padding: 15px 0;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+.social-icons a {
+  color: #ccc;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+.social-icons a:hover {
+  color: #ff1e1e;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Animasi muncul saat scroll */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- ======= SCRIPT ======= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeEls = document.querySelectorAll(".fade-in-up");
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => observer.observe(el));
+});
+</script>
+
+<!-- ======= FONT AWESOME & LIBRARY ======= -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  crossorigin="anonymous"
+/>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/swiper-bundle.min.js"></script> 
+<script src="assets/js/slider.js"></script>
+<script src="assets/js/game-selector.js"></script>
+<script src="assets/js/reviews.js"></script>
+</body>
+</html>
