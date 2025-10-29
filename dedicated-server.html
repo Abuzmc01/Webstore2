@@ -240,461 +240,269 @@
 
 <!-- RYZEN -->
 <div id="medium" class="tab-pane fade">
-  <div class="container py-5">
+<!-- ======= Dedicated Server Plans (MineIDHost Style) ======= -->
+<section class="dedicated-plans py-6" style="background: var(--background);">
+  <div class="container">
 
-	<!-- RYZEN 1 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">Ryzen7 5800X</h2>
-        <div class="premium-price">Mulai 80.000IDR</div>
-        <ul class="premium-list">
-          <li>🗄️ 4GB RAM DDR4 3200Mhz</li>
-          <li>🌀 2vCPU AMD Ryzen7 5800X</li>
-          <li>💾 130GB NVMe SSD</li>
-          <li>🌐 2TB Bandwith Traffic</li>
-          <li>🌏 Regions Indonesia</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+    <!-- Header -->
+    <div class="title text-center mb-5 fade-in-up">
+      <h4 class="mb-0" style="color: var(--red); text-shadow: 0 0 15px rgba(255,0,0,0.8); font-weight: 700;">
+        Dedicated Server Plans
+      </h4>
+      <p style="color: var(--light);">Pilih kategori CPU dan konfigurasi server sesuai kebutuhan Anda</p>
+    </div>
+
+    <!-- Filter & Sort Controls -->
+    <div class="plan-controls d-flex flex-wrap justify-content-center align-items-center gap-3 mb-5">
+      <div class="plan-filter d-flex flex-wrap gap-2">
+        <button class="filter-btn active" data-category="all">Semua</button>
+        <button class="filter-btn" data-category="epyc">AMD EPYC</button>
+        <button class="filter-btn" data-category="ryzen">AMD Ryzen</button>
+        <button class="filter-btn" data-category="intel">Intel</button>
+        <button class="filter-btn" data-category="custom">Custom Build</button>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <select id="sortPrice" class="filter-select">
+          <option value="none">Urutkan Harga</option>
+          <option value="asc">Termurah</option>
+          <option value="desc">Termahal</option>
+        </select>
+        <label class="promo-toggle">
+          <input type="checkbox" id="promoOnly">
+          <span class="toggle-label">Tampilkan Promo</span>
+        </label>
       </div>
     </div>
 
-    <!-- RYZEN 2 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">Ryzen9 7950X3D</h2>
-	    <div class="premium-price">Mulai 150.000IDR</div>
-        <div class="premium-price"></div>
-        <ul class="premium-list">
-          <li>🗄️ 6GB RAM DDR5 4800Mhz</li>
-          <li>🌀 2vCPU AMD Ryzen9 7950X3D</li>
-          <li>💾 25GB NVMe SSD</li>
-		  <li>🌐 4TB Bandwith Traffic</li>
-          <li>🌏 Regions Indonesia</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
-      </div>
-    </div>
+    <!-- PLANS GRID -->
+    <div class="row" id="planGrid">
 
-    <!-- RYZEN 3 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">Ryzen9 9950X3D</h2>
-        <div class="premium-price">Mulai 100.000IDR</div>
-        <ul class="premium-list">
-          <li>🗄️ 2GB RAM DDR5 5800Mhz</li>
-          <li>🌀 1vCPU AMD Ryzen9 9950X3D</li>
-          <li>💾 50GB NVMe SSD</li>
-          <li>🌐 4TB Bandwith Traffic</li>
-          <li>🌏 Regions Indonesia</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      <!-- EPYC -->
+      <div class="col-lg-4 col-md-6 mb-4 plan-card" data-category="epyc" data-price="50000">
+        <div class="card mc-card text-center premium-card glow-animate">
+          <h2 class="premium-title">AMD EPYC Gen 2</h2>
+          <p class="premium-sub">Server Entry-Level</p>
+          <div class="premium-price">Mulai <span>Rp50.000</span></div>
+          <ul class="premium-list">
+            <li>🗄️ 4GB DDR4 RAM</li>
+            <li>🌀 2vCPU EPYC 7002</li>
+            <li>💾 60GB NVMe SSD</li>
+            <li>🌐 4TB Bandwidth</li>
+            <li>🌏 Region: Singapore</li>
+          </ul>
+          <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- INTEL -->
-<div id="high" class="tab-pane fade">
-  <div class="container py-5">
-	  
-<!-- INTEL 1 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">Intel E5-2699v4</h2>
-        <div class="premium-price">Mulai 125.000IDR</div>
-        <ul class="premium-list">
-          <li>🗄️ 8GB RAM DDR4 2400Mhz</li>
-          <li>🌀 4vCPU Xeon E5-2699v4</li>
-          <li>💾 130GB NVMe SSD</li>
-          <li>🌐 2TB Bandwith Traffic</li>
-          <li>🌏 Regions Indonesia</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      <!-- RYZEN -->
+      <div class="col-lg-4 col-md-6 mb-4 plan-card" data-category="ryzen" data-price="100000" data-promo="true">
+        <div class="card mc-card text-center premium-card glow-animate">
+          <h2 class="premium-title">Ryzen 9 9950X3D</h2>
+          <p class="premium-sub">Performa Ekstrim Gaming ⚡</p>
+          <div class="premium-price">Mulai <span>Rp100.000</span></div>
+          <ul class="premium-list">
+            <li>2GB DDR5 RAM</li>
+            <li>1vCPU Ryzen 9 9950X3D</li>
+            <li>50GB NVMe SSD</li>
+            <li>4TB Bandwidth</li>
+            <li>Region: Indonesia</li>
+          </ul>
+          <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+        </div>
       </div>
-    </div>
 
-    <!-- INTEL 2 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">Core i9-9900K</h2>
-	    <div class="premium-price">Mulai 150.000IDR</div>
-        <div class="premium-price"></div>
-        <ul class="premium-list">
-          <li>🗄️ 8GB RAM DDR4 3200Mhz</li>
-          <li>🌀 4vCPU Core i9-9900K</li>
-          <li>💾 150GB NVMe SSD</li>
-		  <li>🌐 4TB Bandwith Traffic</li>
-          <li>🌏 Regions Indonesia</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      <!-- INTEL -->
+      <div class="col-lg-4 col-md-6 mb-4 plan-card" data-category="intel" data-price="350000">
+        <div class="card mc-card text-center premium-card glow-animate">
+          <h2 class="premium-title">Intel Xeon Gold 6330N</h2>
+          <p class="premium-sub">Kinerja Bisnis & Database</p>
+          <div class="premium-price">Mulai <span>Rp350.000</span></div>
+          <ul class="premium-list">
+            <li>16GB DDR4 RAM</li>
+            <li>4vCPU Xeon Gold 6330N</li>
+            <li>100GB NVMe SSD</li>
+            <li>4TB Bandwidth</li>
+            <li>Region: Indonesia</li>
+          </ul>
+          <a href="https://dsc.gg/mineidhost" class="premium-btn">Pesan Sekarang</a>
+        </div>
       </div>
-    </div>
 
-    <!-- INTEL 3 -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card mc-card text-center premium-card glow-animate">
-        <img src="assets/images/logo.svg" alt="Minecraft Block" class="img-fluid plan-icon-top">
-        <h2 class="premium-title">Gold 6330N</h2>
-        <div class="premium-price">Mulai 350.000IDR</div>
-        <ul class="premium-list">
-          <li>🗄️ 16GB RAM DDR4 3200Mhz</li>
-          <li>🌀 4vCPU Gold 6330N</li>
-          <li>💾 100GB NVMe SSD</li>
-          <li>🌐 4TB Bandwith Traffic</li>
-          <li>🌏 Regions Indonesia</li>
-          <li>🗓️ Aktif 30 hari</li>
-        </ul>
-        <a href="https://dsc.gg/mineidhost" class="premium-btn">Paket Lainya</a>
+      <!-- CUSTOM -->
+      <div class="col-lg-4 col-md-6 mb-4 plan-card" data-category="custom" data-price="250000">
+        <div class="card mc-card text-center premium-card glow-animate">
+          <h2 class="premium-title">Custom Build</h2>
+          <p class="premium-sub">Pilih Spesifikasi Sendiri 🔧</p>
+          <div class="premium-price">Mulai <span>Rp250.000</span></div>
+          <ul class="premium-list">
+            <li>RAM, CPU, & Storage sesuai keinginan</li>
+            <li>Full root access</li>
+            <li>Gratis setup OS</li>
+            <li>DDoS Protection aktif</li>
+            <li>Region bebas</li>
+          </ul>
+          <a href="https://wa.me/6282377658840" class="premium-btn">Hubungi Kami</a>
+        </div>
       </div>
+
     </div>
   </div>
-</div>
+</section>
 
-<!-- STYLE FIX -->
+<!-- JS: Filter + Sort + Promo -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const sortSelect = document.getElementById("sortPrice");
+  const promoToggle = document.getElementById("promoOnly");
+  const planGrid = document.getElementById("planGrid");
+
+  function filterPlans() {
+    const category = document.querySelector(".filter-btn.active").dataset.category;
+    const promoOnly = promoToggle.checked;
+
+    document.querySelectorAll(".plan-card").forEach(card => {
+      const matchCategory = (category === "all" || card.dataset.category === category);
+      const matchPromo = !promoOnly || card.dataset.promo === "true";
+      card.style.display = (matchCategory && matchPromo) ? "block" : "none";
+    });
+  }
+
+  function sortPlans(order) {
+    const plans = Array.from(planGrid.children);
+    plans.sort((a, b) => {
+      const priceA = parseInt(a.dataset.price);
+      const priceB = parseInt(b.dataset.price);
+      return order === "asc" ? priceA - priceB : priceB - priceA;
+    });
+    plans.forEach(plan => planGrid.appendChild(plan));
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      filterPlans();
+    });
+  });
+
+  promoToggle.addEventListener("change", filterPlans);
+
+  sortSelect.addEventListener("change", () => {
+    const value = sortSelect.value;
+    if (value !== "none") sortPlans(value);
+  });
+});
+</script>
+
+<!-- CSS -->
 <style>
-/* ======= CARD PREMIUM ======= */
+/* Filter Buttons */
+.plan-filter .filter-btn {
+  background: var(--dark);
+  color: var(--light);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  padding: 10px 25px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+.plan-filter .filter-btn:hover,
+.plan-filter .filter-btn.active {
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.6);
+}
+
+/* Select + Toggle */
+.filter-select {
+  background: var(--dark);
+  border: 1px solid var(--red);
+  color: var(--light);
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-weight: 500;
+}
+.promo-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--light);
+}
+.toggle-label {
+  font-size: 14px;
+}
+
+/* Cards */
 .premium-card {
-  background: linear-gradient(180deg, #141414, #0d0d0d);
-  border-radius: 14px;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
-  border: 1px solid #1f1f1f;
-  transition: all 0.3s ease;
-  padding: 20px;
-  max-width: 320px;
-  margin: 0 auto 25px;
-  position: relative;
-  overflow: hidden;
+  background: var(--dark);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 35px 20px;
+  color: var(--light);
+  transition: 0.3s ease;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.08);
 }
 .premium-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(255, 40, 40, 0.6);
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
 }
-
-/* ======= BREATHING GLOW ======= */
-@keyframes breathingGlow {
-  0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
-  50% { box-shadow: 0 0 35px rgba(255, 50, 50, 0.6); }
-  100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.25); }
-}
-.glow-animate {
-  animation: breathingGlow 3s ease-in-out infinite;
-}
-
-/* ======= GAMBAR DI ATAS CARD ======= */
-.plan-icon-top {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  margin: 10px auto;
-  display: block;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-}
-
-/* ======= TEKS & HARGA ======= */
 .premium-title {
-  color: #ff3b3b;
-  font-weight: 600;
-  font-size: 1.3rem;
-  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--red);
+  text-shadow: 0 0 8px rgba(255,0,0,0.5);
 }
-.premium-price {
-  font-size: 1.1rem;
+.premium-sub {
+  font-size: 14px;
+  color: var(--gray);
   margin-bottom: 10px;
 }
-.premium-price del {
-  color: #ff8888;
-  font-size: 0.9rem;
-  margin-right: 5px;
+.premium-price {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--light);
 }
-
-/* ======= LIST ======= */
+.premium-price span {
+  color: var(--white);
+  font-size: 20px;
+}
 .premium-list {
   list-style: none;
   padding: 0;
-  margin: 15px 0;
-  text-align: left;
-  font-size: 0.9rem;
+  margin: 0 0 20px 0;
 }
-.premium-list li { margin: 6px 0; }
-
-/* ======= BUTTON ======= */
+.premium-list li {
+  color: var(--light);
+  font-size: 14px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
 .premium-btn {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
-  border: none;
+  background: var(--red);
+  color: var(--white);
+  font-weight: 600;
+  padding: 10px 24px;
   border-radius: 10px;
-  color: white;
-  font-weight: 500;
-  padding: 8px 20px;
-  transition: 0.3s;
   text-decoration: none;
-  display: inline-block;
-  font-size: 0.95rem;
-}
-.premium-btn:hover {
-  background: linear-gradient(90deg, #ff4b2b, #ff1e1e);
-  box-shadow: 0 0 15px rgba(255, 40, 40, 0.8);
-  transform: translateY(-2px);
-}
-
-/* ======= TAB FADE ANIMATION ======= */
-.fade-container .tab-pane {
-  opacity: 0;
-  transform: scale(0.98);
-  transition: all 0.6s ease-in-out;
-}
-.fade-container .tab-pane.show.active {
-  opacity: 1;
-  transform: scale(1);
-  box-shadow: 0 0 25px rgba(255, 40, 40, 0.4);
-}
-
-/* ======= TAB BUTTON STYLE ======= */
-.btn-swicher .nav-link {
-  color: #fff;
-  background: linear-gradient(180deg, #141414, #0d0d0d);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  border-radius: 10px;
-  margin: 0 6px;
-  padding: 10px 24px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
-}
-
-.btn-swicher .nav-link:hover {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-  transform: translateY(-2px);
-}
-
-.btn-swicher .nav-link.active {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  color: #fff !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-  border: 1px solid rgba(255, 0, 0, 0.6);
-  transform: translateY(-2px);
-}
-
-/* === FIX WARNA AKTIF BIRU PADA TAB PREMIUM === */
-#swicherPlans .premium-btn {
-  color: #fff !important;
-  background: linear-gradient(180deg, #141414, #0d0d0d);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  border-radius: 10px;
-  margin: 0 6px;
-  padding: 10px 24px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
-}
-
-#swicherPlans .premium-btn:hover,
-#swicherPlans .premium-btn.active,
-#swicherPlans .premium-btn:focus,
-#swicherPlans .nav-link.active,
-#swicherPlans .nav-link:focus {
-  background: linear-gradient(90deg, #ff1e1e, #ff4b2b) !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255, 0, 0, 0.6) !important;
-  transform: translateY(-2px);
-}
-
-/* Hilangkan efek biru default dari Bootstrap nav-pills */
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-  background-color: transparent !important;
-  color: inherit !important;
-  box-shadow: none !important;
-}
-
-/* ======= NAVBAR PREMIUM RED ======= */
-.navbar {
-  background: linear-gradient(180deg, #0b0b0b, #141414);
-  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.1);
-  transition: all 0.4s ease;
-}
-
-.navbar-brand {
-  color: #ff2a2a !important;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
-  transition: all 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: #ffffff !important;
-  text-shadow: 0 0 20px rgba(255, 0, 0, 1);
-}
-
-/* ======= NAV LINK ======= */
-.navbar .nav-link {
-  color: #e0e0e0 !important;
-  font-weight: 500;
-  padding: 10px 18px;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.navbar .nav-link:hover {
-  color: #ff4d4d !important;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-}
-
-/* ======= ACTIVE STATE ======= */
-.navbar .nav-link.active {
-  color: #ffffff !important;
-  text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-}
-
-.navbar .nav-link.active::after {
-  content: "";
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff0000, #ff3b3b);
-  border-radius: 4px;
-  transform: translateX(-50%);
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-}
-
-/* ======= NAVBAR HOVER GLOW ======= */
-.navbar:hover {
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 0, 0, 0.4);
-}
-
-/* ======= TOGGLER (untuk mobile) ======= */
-.navbar-toggler {
-  border-color: rgba(255, 0, 0, 0.4);
-}
-.navbar-toggler-icon {
-  filter: invert(48%) sepia(93%) saturate(2990%) hue-rotate(340deg) brightness(103%) contrast(101%);
-}
-
-/* ======= IMAGE SECTION ======= */
-.image-section {
-  background: linear-gradient(145deg, #0d0d0d, #151515);
-  border-radius: 18px;
-  padding: 25px;
-  margin-bottom: 35px;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-  transition: all 0.3s ease;
-}
-.image-section:hover {
-  box-shadow: 0 0 45px rgba(255, 0, 0, 0.8);
-  transform: translateY(-5px);
-}
-
-/* ======= IMAGE BOX ======= */
-.image-box img {
-  border-radius: 12px;
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-/* ======= ANIMASI FADE-UP ======= */
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 0.8s ease forwards;
-}
-.fade-up:nth-child(1) { animation-delay: 0.1s; }
-.fade-up:nth-child(2) { animation-delay: 0.2s; }
-.fade-up:nth-child(3) { animation-delay: 0.3s; }
-.fade-up:nth-child(4) { animation-delay: 0.4s; }
-.fade-up:nth-child(5) { animation-delay: 0.5s; }
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === HIGH IMAGE STYLE === */
-.image-box {
-  background: radial-gradient(circle at center, #0a0a0a, #000);
-  border-radius: 14px;
-  padding: 25px;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 40px;
-}
-.image-box:hover {
-  box-shadow: 0 0 40px rgba(255, 0, 0, 0.45);
-  transform: scale(1.02);
-}
-
-/* === Gambar dengan bingkai === */
-.image-frame {
-  border: 3px solid #111;
-  border-radius: 12px;
-  padding: 8px;
-  background: linear-gradient(145deg, #000, #111);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-  display: inline-block;
   transition: 0.3s ease;
 }
-.image-frame:hover {
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+.premium-btn:hover {
+  background: #ff3b3b;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
 }
 
-/* === HIGH IMAGE === */
-.high-img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 10px;
+/* Animation */
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
 }
-
-/* === Teks di atas gambar === */
-.image-title {
-  color: #fff;
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 0 0 12px rgba(255, 0, 0, 0.8), 0 0 25px rgba(255, 0, 0, 0.6);
-}
-
-/* === Deskripsi di bawah gambar === */
-.image-desc {
-  color: #ccc;
-  font-size: 16px;
-  line-height: 1.7;
-  text-align: center;
-  max-width: 700px;
-  margin: 20px auto 0;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 15px 20px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 0, 0, 0.15);
-  box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.2);
+@keyframes fadeInUp {
+  from {opacity: 0; transform: translateY(25px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 </style>
+
 <!-- === OS Types (Auto Scroll Premium Red Style) === -->
 <style>
   .os {
