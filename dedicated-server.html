@@ -156,7 +156,7 @@
             </div>
         </div>
     </div>	
-
+	
 <!-- ======= DEDICATED PLANS (ready-to-paste) ======= -->
 <section id="dedicated-plans" class="py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); overflow:hidden;">
   <div class="container">
@@ -197,7 +197,6 @@
     <div class="plans-track-wrapper" style="overflow:hidden; position:relative;">
       <div id="plansTrack" class="plans-track" style="display:flex; gap:18px; padding-bottom:6px; overflow-x:auto; scroll-behavior:smooth;">
         <!-- Cards inserted here by HTML (static examples) -->
-        <!-- We'll include a few preset plans for each category -->
         <!-- Epyc -->
         <div class="plan-card" data-cat="epyc" data-base="500000" style="min-width:340px;">
           <div class="card p-3" style="background:linear-gradient(180deg,#0d0d0d,#0a0a0a); border:1px solid rgba(255,0,0,0.15); box-shadow:0 6px 22px rgba(255,0,0,0.06);">
@@ -210,7 +209,8 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
-              <button class="btn btn-sm plan-choose btn-outline-light" data-base="500000">Pilih</button>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="500000"
+                data-cores="4" data-ram="8" data-disk="120" data-bw="10" data-os="Ubuntu 22.04">Pilih</button>
             </div>
             <small style="color:#999">Region: Singapore</small>
           </div>
@@ -222,7 +222,8 @@
             <div style="color:#ccc; font-size:13px;">8 vCPU • 16 GB RAM • 240 GB NVMe • 20 TB BW</div>
             <div class="d-flex align-items-center justify-content-between mt-2">
               <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
-              <button class="btn btn-sm plan-choose btn-outline-light" data-base="900000">Pilih</button>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="900000"
+                data-cores="8" data-ram="16" data-disk="240" data-bw="20" data-os="Ubuntu 22.04">Pilih</button>
             </div>
             <small style="color:#999">Region: Singapore</small>
           </div>
@@ -235,7 +236,8 @@
             <div style="color:#ccc; font-size:13px;">4 vCPU • 8 GB RAM • 120 GB NVMe • 6 TB BW</div>
             <div class="d-flex align-items-center justify-content-between mt-2">
               <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
-              <button class="btn btn-sm plan-choose btn-outline-light" data-base="400000">Pilih</button>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="400000"
+                data-cores="4" data-ram="8" data-disk="120" data-bw="6" data-os="Ubuntu 22.04">Pilih</button>
             </div>
             <small style="color:#999">Region: Indonesia</small>
           </div>
@@ -248,7 +250,8 @@
             <div style="color:#ccc; font-size:13px;">8 vCPU • 16 GB RAM • 240 GB NVMe • 8 TB BW</div>
             <div class="d-flex align-items-center justify-content-between mt-2">
               <div style="font-size:18px; color:#ff3b3b; font-weight:700;" class="plan-price">--</div>
-              <button class="btn btn-sm plan-choose btn-outline-light" data-base="700000">Pilih</button>
+              <button class="btn btn-sm plan-choose btn-outline-light" data-base="700000"
+                data-cores="8" data-ram="16" data-disk="240" data-bw="8" data-os="Ubuntu 22.04">Pilih</button>
             </div>
             <small style="color:#999">Region: Indonesia</small>
           </div>
@@ -353,6 +356,23 @@
           </div>
 
           <div class="col-md-3">
+            <label class="form-label" style="color:#fff">Operating System</label>
+            <select id="osSelect" class="form-select form-select-sm">
+              <!-- teks saja sesuai permintaan -->
+              <option>Ubuntu 24.04</option>
+              <option>Ubuntu 22.04</option>
+              <option>Debian 12</option>
+              <option>CentOS 8</option>
+              <option>AlmaLinux 9</option>
+              <option>Rocky Linux 9</option>
+              <option>Windows Server 2019</option>
+              <option>Windows Server 2022</option>
+              <option>Proxmox VE</option>
+              <option>Custom ISO</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
             <label class="form-label" style="color:#fff">Currency Rate (editable)</label>
             <div class="d-flex gap-2">
               <input id="rateUSD" class="form-control form-control-sm" value="15000" type="number" />
@@ -365,7 +385,7 @@
             <div>
               <strong style="color:#fff">Estimated price:</strong>
               <div style="font-size:20px; color:#ff3b3b; font-weight:700;" id="estimatedPrice">--</div>
-              <small style="color:#999">Harga akan berubah sesuai region/cycle/ddos</small>
+              <small style="color:#999">Harga akan berubah sesuai region/cycle/ddos/os</small>
             </div>
             <div>
               <button id="addToCart" class="btn btn-sm btn-outline-light">Tambahkan</button>
@@ -397,6 +417,7 @@
   .cat-btn.active { background:#ff1e1e !important; color:#fff; border-color:rgba(255,0,0,0.9); box-shadow:0 0 18px rgba(255,0,0,0.25); }
   select.form-select { background:#0b0b0b; color:#fff; border:1px solid rgba(255,255,255,0.04); }
   input.form-control { background:#0b0b0b; color:#fff; border:1px solid rgba(255,255,255,0.04); }
+  .badge { font-size:12px; padding:6px 8px; border-radius:8px; }
   /* small responsive */
   @media (max-width:768px) {
     .plans-track { gap:12px; }
@@ -408,14 +429,17 @@
 <script>
 (function(){
   // — CONFIG / default rates (editable in-builder)
-  const baseRates = { IDR:1, USD:15000, EUR:16500 }; // IDR per USD/EUR (editable)
   const regionMultiplier = { sg:1.00, id:0.95, us:1.05, de:1.08, fi:1.10 }; // adjust region price multipliers
-
-  // promo discounts mapping for billing cycle (months)
   const billingDiscount = { 1:0, 3:0.10, 6:0.30, 12:0.50 };
-
-  // map ddos add-on cost (in IDR baseline)
   const ddosAddon = { basic:0, arbor:50000, juniper:70000, premium:120000 };
+
+  // OS addon cost (IDR) — Windows / Proxmox add cost
+  const osAddon = {
+    'Windows Server 2019': 150000,
+    'Windows Server 2022': 180000,
+    'Proxmox VE': 50000,
+    'Custom ISO': 20000
+  };
 
   // DOM refs
   const plansTrack = document.getElementById('plansTrack');
@@ -428,6 +452,7 @@
   const estimatedPriceEl = document.getElementById('estimatedPrice');
 
   // builder inputs
+  const cpuModel = document.getElementById('cpuModel');
   const cpuCores = document.getElementById('cpuCores');
   const ramSize = document.getElementById('ramSize');
   const diskSize = document.getElementById('diskSize');
@@ -437,10 +462,11 @@
   const billingCycle = document.getElementById('billingCycle');
   const rateUSD = document.getElementById('rateUSD');
   const rateEUR = document.getElementById('rateEUR');
+  const osSelect = document.getElementById('osSelect');
 
   // utility: format price
   function formatPrice(idr, currency) {
-    if(currency === 'IDR') return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR', maximumFractionDigits:0}).format(idr);
+    if(!currency || currency === 'IDR') return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR', maximumFractionDigits:0}).format(idr);
     if(currency === 'USD') return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD', maximumFractionDigits:2}).format(idr / parseFloat(rateUSD.value));
     if(currency === 'EUR') return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR', maximumFractionDigits:2}).format(idr / parseFloat(rateEUR.value));
     return idr;
@@ -468,8 +494,7 @@
       const cat = b.dataset.cat;
       document.querySelectorAll('#plansTrack .plan-card').forEach(pc=>{
         if(cat === 'custom') {
-          // show custom and all custom-tagged
-          pc.style.display = (pc.dataset.cat === 'custom' ? 'block' : (pc.dataset.cat ? (pc.dataset.cat === 'custom' ? 'block' : 'none') : 'block'));
+          pc.style.display = pc.dataset.cat === 'custom' ? 'block' : 'none';
         } else {
           pc.style.display = (pc.dataset.cat === cat ? 'block' : 'none');
         }
@@ -499,18 +524,26 @@
   // plan choose quick-add: open builder and prefill base price
   document.querySelectorAll('.plan-choose').forEach(btn=>{
     btn.addEventListener('click', (e)=>{
-      const base = parseFloat(e.currentTarget.dataset.base || 0);
-      // prefill baseline values (simple mapping)
-      cpuCores.value = Math.min(16, Math.max(2, Math.round(base/100000)));
-      ramSize.value = 8;
-      diskSize.value = 120;
-      bwSelect.value = '4';
+      const el = e.currentTarget;
+      const base = parseFloat(el.dataset.base || 0);
+      const cores = el.dataset.cores || 4;
+      const ram = el.dataset.ram || 8;
+      const disk = el.dataset.disk || 120;
+      const bw = el.dataset.bw || 4;
+      const os = el.dataset.os || 'Ubuntu 22.04';
+      // prefill builder
+      cpuModel.value = cpuModel.querySelector('option').value || cpuModel.value;
+      cpuCores.value = Math.min(32, Math.max(1, parseInt(cores)));
+      ramSize.value = Math.max(8, parseInt(ram));
+      diskSize.value = Math.max(20, parseInt(disk));
+      bwSelect.value = bw >= 8 ? (bw >= 10 ? '8' : '4') : bw;
       gpuSelect.value = 'none';
       ddosSelect.value = 'basic';
       billingCycle.value = '1';
-      customBuilder.style.display = 'block';
+      osSelect.value = osSelect.querySelector('option[value="' + os + '"]') ? os : os; // keep text selection if present
       // store base price in a hidden attribute
       customBuilder.dataset.quickbase = base;
+      customBuilder.style.display = 'block';
       updateEstimate();
       customBuilder.scrollIntoView({behavior:'smooth'});
     });
@@ -522,14 +555,12 @@
   });
 
   // update estimate whenever builder fields change
-  [cpuCores, ramSize, diskSize, gpuSelect, bwSelect, ddosSelect, billingCycle, rateUSD, rateEUR, regionSelect].forEach(inp=>{
+  [cpuModel, cpuCores, ramSize, diskSize, gpuSelect, bwSelect, ddosSelect, billingCycle, rateUSD, rateEUR, regionSelect, osSelect].forEach(inp=>{
     inp.addEventListener('input', updateEstimate);
     inp.addEventListener('change', updateEstimate);
   });
 
   function updateEstimate(){
-    // base price algorithm (simple and editable)
-    // base = corePrice * cores + ramPrice * RAM + diskPrice * diskGB + bwPrice * TB + gpuPrice + ddosAddon
     const cores = Math.max(1, parseInt(cpuCores.value||1));
     const ram = Math.max(8, parseInt(ramSize.value||8));
     const disk = Math.max(20, parseInt(diskSize.value||20));
@@ -539,20 +570,23 @@
     const cycle = parseInt(billingCycle.value||1);
     const region = regionSelect.value;
     const currency = currencySelect.value;
+    const os = osSelect.value;
 
-    // unit costs (IDR) - tweak these to match market/Hetzner
+    // unit costs (IDR) - tuned to be reasonable vs Hetzner market (adjust as needed)
     const corePrice = 90000;   // per core
     const ramPrice = 12000;    // per GB
     const diskPrice = 800;     // per GB NVMe
     const bwPrice = 25000;     // per TB
     const gpuPrices = { none:0, rtx3050:700000, vega8:120000 };
+
     const ddosCost = ddosAddon[ddos] || 0;
+    const osCost = osAddon[os] || 0;
 
     // base quickbase override (if user clicked a plan)
     const quickBase = parseFloat(customBuilder.dataset.quickbase || 0);
 
     let base = quickBase > 0 ? quickBase : (
-      Math.round( cores*corePrice + ram*ramPrice + disk*diskPrice + bw*bwPrice + (gpuPrices[gpu]||0) + ddosCost )
+      Math.round( cores*corePrice + ram*ramPrice + disk*diskPrice + bw*bwPrice + (gpuPrices[gpu]||0) + ddosCost + osCost )
     );
 
     // apply region multiplier
@@ -564,10 +598,50 @@
 
     // show price in selected currency
     estimatedPriceEl.textContent = formatPrice(final, currency);
+    // store final for add to cart
+    customBuilder.dataset.estimated = final;
   }
 
   // initial estimate
   updateEstimate();
+
+  // add to cart -> save to localStorage "mi_cart"
+  document.getElementById('addToCart').addEventListener('click', ()=>{
+    const item = {
+      id: 'ded-'+Date.now(),
+      cpuModel: cpuModel.value,
+      cores: cpuCores.value,
+      ram: ramSize.value,
+      disk: diskSize.value,
+      gpu: gpuSelect.value,
+      bandwidth: bwSelect.value,
+      ddos: ddosSelect.value,
+      billing: billingCycle.value,
+      os: osSelect.value,
+      region: regionSelect.value,
+      currency: currencySelect.value,
+      price_idr: parseInt(customBuilder.dataset.estimated || 0),
+      added_at: new Date().toISOString()
+    };
+    // read cart
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('mi_cart')||'[]'); } catch(e){ cart=[]; }
+    cart.push(item);
+    localStorage.setItem('mi_cart', JSON.stringify(cart));
+    // small visual feedback
+    const msg = document.createElement('div');
+    msg.textContent = 'Ditambahkan ke keranjang';
+    msg.style.position = 'fixed';
+    msg.style.right = '20px';
+    msg.style.bottom = '20px';
+    msg.style.background = '#ff1e1e';
+    msg.style.color = '#fff';
+    msg.style.padding = '10px 14px';
+    msg.style.borderRadius = '8px';
+    msg.style.boxShadow = '0 6px 20px rgba(255,0,0,0.25)';
+    document.body.appendChild(msg);
+    setTimeout(()=> msg.remove(), 2200);
+  });
 
   // ensure horizontal scroll looks nice on wheel (scroll sideways on vertical wheel)
   plansTrack.addEventListener('wheel', function(e){
@@ -576,8 +650,7 @@
     plansTrack.scrollLeft += e.deltaY;
   });
 
-  // small accessibility: allow clicking category to show all
-  // by default show EPYC
+  // default show EPYC
   document.querySelector('.cat-btn[data-cat="epyc"]').click();
 
 })();
