@@ -370,6 +370,42 @@
   0% { opacity:0; transform:translateY(25px); }
   100% { opacity:1; transform:translateY(0); }
 }
+	
+/* === FIX BUTTON STYLE (Match Premium Theme) === */
+.btn, 
+button, 
+a.btn, 
+a.premium-btn, 
+button.premium-btn {
+  background: #ff1e1e;
+  color: #fff !important;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 10px 20px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover, 
+button:hover, 
+a.btn:hover, 
+.premium-btn:hover {
+  background: #ff3b3b;
+  border-color: rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+  transform: scale(1.03);
+}
+
+.btn:active, 
+button:active, 
+a.btn:active, 
+.premium-btn:active {
+  background: #b90000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+  transform: scale(0.97);
+}
 </style>
 
 <!-- ===== JS ===== -->
