@@ -750,6 +750,189 @@
     }
   }
 </style>
+	
+<!-- ===== DOMAIN SEARCH (MineIDHost Ultimate Version) ===== -->
+<section id="domain-search" style="background:radial-gradient(circle at center,#0a0a0a 0%,#000 100%); padding:60px 0;">
+  <div class="container text-center">
+    <h2 style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.7); font-weight:700;">Cari Domain Kamu 🔎</h2>
+    <p style="color:#ccc; margin-bottom:30px;">Kamu membutuhkan domain untuk menjalankan server dedicated mu,jika kamu menggunakannya untuk website atau server game!</p>
+
+    <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+      <input id="domainInput" type="text" placeholder="contoh: mineidhost.com"
+        style="padding:14px 18px; width:320px; border-radius:10px; border:none; background:#111; color:#fff;">
+      <button id="searchDomainBtn"
+        style="background:#ff1e1e; color:#fff; border:none; border-radius:10px; padding:14px 22px; cursor:pointer; font-weight:600;">
+        Cari Domain
+      </button>
+    </div>
+    <small id="domainError" style="color:#ff3b3b; display:none; margin-top:8px;">❌ Format domain tidak valid</small>
+
+    <!-- Suggestions -->
+    <div id="suggestions" style="margin-top:15px; display:none;">
+      <p style="color:#999; font-size:14px;">💡 Saran domain tersedia:</p>
+      <div id="suggestionList" style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;"></div>
+    </div>
+
+    <!-- Result -->
+    <div id="domainResult" style="margin-top:40px; display:none; opacity:0; transition:opacity 0.7s ease;">
+      <div id="domainCard"
+        style="max-width:480px; margin:0 auto; background:linear-gradient(180deg,#0d0d0d,#0a0a0a);
+               border:1px solid rgba(255,0,0,0.3); border-radius:14px; padding:25px; color:#fff;
+               box-shadow:0 0 20px rgba(255,0,0,0.2); transition:0.3s;">
+        <h3 id="domainName" style="color:#fff; font-weight:700;"></h3>
+        <p id="domainPrice" style="color:#ff3b3b; font-size:22px; margin:10px 0;"></p>
+        <p id="domainPromo" style="color:#fed230; font-size:14px; display:none;">🔥 Promo aktif!</p>
+        <button id="orderBtn"
+          style="background:#ff1e1e; color:#fff; border:none; border-radius:10px; padding:10px 24px;
+                 font-weight:600; cursor:pointer;">🛒 Pesan Sekarang</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const domainPrices = {
+	"app": 120000,
+	"email": 150000,
+	"site": 80000,
+	"online": 80000,
+	"shop": 90000,
+	"me": 120000,
+    "com": 120000,
+    "net": 21000,
+    "org": 125000,
+    "id": 120000,
+    "my.id": 15000,
+	"biz.id": 15000,
+    "biz": 110000,
+    "store": 99000,
+    "co.id": 250000,
+    "xyz": 50000,
+  };
+
+  const domainPromos = {
+    "xyz": 0.5, // 50%
+    "id": 0.2   // 20%
+  };
+
+  const input = document.getElementById("domainInput");
+  const btn = document.getElementById("searchDomainBtn");
+  const result = document.getElementById("domainResult");
+  const nameEl = document.getElementById("domainName");
+  const priceEl = document.getElementById("domainPrice");
+  const promoEl = document.getElementById("domainPromo");
+  const orderBtn = document.getElementById("orderBtn");
+  const card = document.getElementById("domainCard");
+  const domainError = document.getElementById("domainError");
+  const suggestionsDiv = document.getElementById("suggestions");
+  const suggestionList = document.getElementById("suggestionList");
+
+  // Validasi domain
+  function isValidDomain(domain) {
+    const regex = /^(?!\-)(?:[a-zA-Z0-9\-]{1,63}\.)+[a-zA-Z]{2,}$/;
+    return regex.test(domain);
+  }
+
+  // Auto saran ekstensi
+  input.addEventListener("input", () => {
+    const text = input.value.trim().toLowerCase();
+    suggestionList.innerHTML = "";
+    domainError.style.display = "none";
+
+    if (!text || text.includes(".")) {
+      suggestionsDiv.style.display = "none";
+      return;
+    }
+
+    Object.keys(domainPrices).forEach(ext => {
+      const domain = `${text}.${ext}`;
+      const btn = document.createElement("button");
+      btn.textContent = domain;
+      btn.style = `
+        background:#111; color:#fff; border:1px solid rgba(255,255,255,0.1);
+        border-radius:8px; padding:8px 14px; cursor:pointer; transition:0.3s;
+      `;
+      btn.onmouseenter = () => btn.style.background = "#ff1e1e";
+      btn.onmouseleave = () => btn.style.background = "#111";
+      btn.onclick = () => {
+        input.value = domain;
+        suggestionsDiv.style.display = "none";
+        searchDomain(domain);
+      };
+      suggestionList.appendChild(btn);
+    });
+
+    suggestionsDiv.style.display = "block";
+  });
+
+  // Tombol cari domain
+  btn.addEventListener("click", () => {
+    const domain = input.value.trim().toLowerCase();
+    if (!domain) return alert("Masukkan nama domain terlebih dahulu!");
+    if (!isValidDomain(domain)) {
+      domainError.style.display = "block";
+      result.style.display = "none";
+      return;
+    }
+    domainError.style.display = "none";
+    searchDomain(domain);
+  });
+
+  // Fungsi pencarian domain
+  function searchDomain(domain) {
+    const ext = domain.split(".").slice(1).join(".");
+    const basePrice = domainPrices[ext];
+    const promo = domainPromos[ext] || 0;
+    nameEl.textContent = domain;
+
+    if (basePrice) {
+      const discount = Math.round(basePrice * promo);
+      const finalPrice = basePrice - discount;
+
+      priceEl.innerHTML = promo > 0
+        ? `<del style='color:#777; font-size:16px;'>Rp ${basePrice.toLocaleString("id-ID")}</del> 
+           <strong style='color:#ff3b3b;'>Rp ${finalPrice.toLocaleString("id-ID")}</strong> / tahun`
+        : `Rp ${basePrice.toLocaleString("id-ID")} / tahun`;
+
+      promoEl.style.display = promo > 0 ? "block" : "none";
+      card.classList.add("glow-available");
+      orderBtn.style.display = "inline-block";
+    } else {
+      priceEl.textContent = "❌ Domain tidak tersedia atau ekstensi tidak dikenal.";
+      promoEl.style.display = "none";
+      orderBtn.style.display = "none";
+      card.classList.remove("glow-available");
+    }
+
+    result.style.display = "block";
+    setTimeout(() => result.style.opacity = "1", 100);
+  }
+
+  // Order ke Discord
+  orderBtn.addEventListener("click", () => {
+    const domain = input.value.trim();
+    window.open(`https://dsc.gg/mineidhost?domain=${encodeURIComponent(domain)}`, "_blank");
+  });
+</script>
+
+<style>
+  #searchDomainBtn:hover {
+    background:#b40000;
+    box-shadow:0 0 15px rgba(255,0,0,0.6);
+  }
+  #domainCard:hover {
+    transform:scale(1.03);
+    box-shadow:0 0 30px rgba(255,0,0,0.4);
+  }
+  .glow-available {
+    box-shadow:0 0 25px rgba(255,0,0,0.8) !important;
+    animation: glowPulse 1.5s infinite alternate;
+  }
+  @keyframes glowPulse {
+    from { box-shadow:0 0 15px rgba(255,0,0,0.4); }
+    to { box-shadow:0 0 25px rgba(255,0,0,0.8); }
+  }
+</style>
 
 <div class="os">
   <div class="container">
