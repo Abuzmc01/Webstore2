@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MineIDHost AI Support</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+    color: #fff;
+  }
+  .chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    width: 340px;
+    max-height: 520px;
+    background: #111;
+    border: 1px solid rgba(255,0,0,0.4);
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+  }
+  .chat-header {
+    background: #ff1e1e;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4em;
+    animation: fadeIn 0.3s ease-in;
+  }
+  .msg.user {
+    align-self: flex-end;
+    background: #1c1c1c;
+    border: 1px solid #ff1e1e;
+    color: #fff;
+  }
+  .msg.ai {
+    align-self: flex-start;
+    background: #1a0000;
+    border: 1px solid rgba(255,0,0,0.6);
+    color: #ffbcbc;
+  }
+  .chat-input {
+    display: flex;
+    border-top: 1px solid rgba(255,0,0,0.4);
+  }
+  .chat-input input {
+    flex: 1;
+    background: #000;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+  }
+  .chat-input button {
+    background: #ff1e1e;
+    border: none;
+    color: #fff;
+    padding: 0 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .chat-input button:hover {
+    background: #d91818;
+  }
+  .typing {
+    font-size: 13px;
+    color: #999;
+    font-style: italic;
+    animation: blink 1.2s infinite;
+  }
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(10px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+  @keyframes blink {
+    50% { opacity: 0.6; }
+  }
+  /* bubble open button */
+  .chat-bubble {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: #ff1e1e;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 9998;
+    transition: all 0.3s;
+  }
+  .chat-bubble:hover { transform: scale(1.1); background:#ff2e2e; }
+</style>
+</head>
+<body>
+
+<!-- Chat bubble -->
+<div class="chat-bubble" id="chatBubble">💬</div>
+
+<!-- Chat window -->
+<div class="chat-container" id="chatBox" style="display:none;">
+  <div class="chat-header">💬 MineIDHost AI Support</div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg ai">Halo! 👋 Aku asisten AI MineIDHost. Ada yang bisa kubantu hari ini?</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Tulis pesan...">
+    <button id="sendBtn">➤</button>
+  </div>
+</div>
+
+<script>
+  const chatBubble = document.getElementById('chatBubble');
+  const chatBox = document.getElementById('chatBox');
+  const chatMessages = document.getElementById('chatMessages');
+  const sendBtn = document.getElementById('sendBtn');
+  const userInput = document.getElementById('userInput');
+
+  chatBubble.onclick = () => {
+    chatBox.style.display = chatBox.style.display === 'none' ? 'flex' : 'none';
+  };
+
+  async function sendMessage() {
+    const text = userInput.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    userInput.value = '';
+
+    const typing = document.createElement('div');
+    typing.className = 'typing';
+    typing.textContent = 'AI sedang mengetik...';
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_API_KEY_HERE" // ganti dengan API key OpenAI kamu
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [
+            {role: "system", content: "Kamu adalah AI Customer Support untuk MineIDHost, bersikap ramah, membantu pelanggan menjelaskan produk, server, dan layanan."},
+            {role: "user", content: text}
+          ]
+        })
+      });
+
+      const data = await response.json();
+      typing.remove();
+      const reply = data.choices?.[0]?.message?.content || "Maaf, terjadi kesalahan dalam merespon 😢";
+      addMessage(reply, 'ai');
+    } catch (err) {
+      typing.remove();
+      addMessage("Terjadi kesalahan koneksi ⚠️", 'ai');
+    }
+  }
+
+  function addMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = `msg ${sender}`;
+    msg.textContent = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  sendBtn.onclick = sendMessage;
+  userInput.addEventListener("keypress", e => {
+    if (e.key === "Enter") sendMessage();
+  });
+</script>
+</body>
+</html>
