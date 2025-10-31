@@ -1,310 +1,116 @@
-<!-- ai-builder.html -->
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MineIDHost — AI Website Builder</title>
-
-  <!-- JSZip CDN (for creating ZIP client-side) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js" integrity="sha512-km3pJj2fGmkS0wXc1v7n8tYqF2C3wQZK+q3Q3p3UKw6uK0j3gk3oZk3mK3j3gK3j3gK3j3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Website Builder | MineIDHost</title>
+  <link rel="icon" href="assets/images/logo.svg">
   <style>
-    :root{
-      --bg:#0a0a0a; --card:#0d0d0d; --muted:#bdbdbd; --accent:#ff1e1e; --accent-2:#ff3b3b;
-      --white:#ffffff; --input:#111;
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      padding: 2rem;
     }
-    body{font-family:Poppins,system-ui,Arial; background:linear-gradient(180deg,var(--bg),#000); color:var(--muted); margin:0; padding:28px;}
-    .wrap{max-width:1100px;margin:0 auto;}
-    .top{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand h1{color:var(--white);font-size:20px;margin:0}
-    .desc{color:#cfcfcf;font-size:13px}
-    .panel{background:var(--card);border-radius:12px;padding:18px;border:1px solid rgba(255,0,0,0.08);box-shadow:0 6px 30px rgba(255,0,0,0.03)}
-    .row{display:flex;gap:12px;flex-wrap:wrap}
-    .col{flex:1 1 240px;min-width:220px}
-    label{display:block;color:#ddd;font-size:13px;margin-bottom:6px}
-    input[type="text"], select, textarea, input[type="number"]{
-      width:100%;padding:8px 10px;border-radius:8px;background:var(--input);border:1px solid rgba(255,255,255,0.03);color:var(--white);
+    h1 {
+      color: #ff1e1e;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
     }
-    textarea{min-height:88px;resize:vertical}
-    .btn{display:inline-block;padding:8px 14px;border-radius:8px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-weight:600}
-    .btn.secondary{background:#111;border:1px solid rgba(255,255,255,0.04)}
-    .help{font-size:13px;color:#9b9b9b;margin-top:6px}
-    .preview{margin-top:18px;padding:12px;border-radius:10px;background:linear-gradient(180deg,#070707,#0a0a0a);min-height:160px;border:1px solid rgba(255,255,255,0.02)}
-    .controls{display:flex;gap:8px;align-items:center}
-    .small{font-size:12px;color:#aaa}
-    .notice{margin-top:12px;color:#cbb;border-left:3px solid rgba(255,30,30,0.2);padding-left:10px}
-    .flex-right{margin-left:auto}
-    .preview iframe{width:100%;height:320px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:#000}
-    .checks{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:8px;color:#ddd;cursor:pointer}
-    .chip.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));border-color:rgba(255,30,30,0.9);color:#fff;box-shadow:0 6px 20px rgba(255,30,30,0.12)}
-    @media(max-width:880px){ .row{flex-direction:column} .preview iframe{height:260px} }
+    textarea {
+      width: 90%;
+      max-width: 800px;
+      height: 150px;
+      background: #111;
+      color: #fff;
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 1rem;
+      resize: none;
+      font-size: 15px;
+      margin-top: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 12px 25px;
+      background: #ff1e1e;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff3838;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+    iframe {
+      width: 100%;
+      max-width: 1000px;
+      height: 600px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      margin-top: 2rem;
+      background: #000;
+    }
+    #downloadBtn {
+      display: none;
+      margin-top: 1rem;
+      background: #141627;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <img src="assets/images/logo.svg" alt="logo" style="width:44px;height:44px;filter:drop-shadow(0 0 8px rgba(255,0,0,0.45))">
-        <div>
-          <h1>MineIDHost — AI Website Builder</h1>
-          <div class="desc">Generate website otomatis setelah order — prototype ready-to-use</div>
-        </div>
-      </div>
-      <div class="flex-right" style="margin-left:auto;">
-        <div class="small">Order ID: <strong id="orderId" style="color:#fff">—</strong></div>
-        <div class="small">Email: <strong id="orderEmail" style="color:#fff">—</strong></div>
-      </div>
-    </div>
+  <h1>MineIDHost — AI Website Builder</h1>
+  <p>Buat website otomatis menggunakan GPT-4o 🚀</p>
 
-    <div class="panel">
-      <div class="row">
-        <div class="col">
-          <label>Website Name</label>
-          <input id="siteName" value="My Awesome Server" type="text" />
-        </div>
+  <textarea id="promptInput" placeholder="Contoh: Buatkan website landing page untuk layanan hosting berwarna hitam dan merah, dengan tombol order dan animasi glow."></textarea>
+  <br>
+  <button id="generateBtn">Generate Website</button>
+  <div id="loading" style="display:none; color:#ff1e1e; margin-top:10px;">⚙️ AI sedang membuat websitemu...</div>
 
-        <div class="col">
-          <label>Business Type</label>
-          <select id="businessType">
-            <option>Game Hosting</option>
-            <option>Company / Corporate</option>
-            <option>Store / E-commerce</option>
-            <option>Personal / Portfolio</option>
-            <option>Blog</option>
-          </select>
-        </div>
+  <iframe id="preview"></iframe>
+  <button id="downloadBtn">⬇️ Download Website</button>
 
-        <div class="col">
-          <label>Primary Color</label>
-          <input id="primaryColor" type="color" value="#ff1e1e" />
-          <div class="help">Pilih warna utama tema (default merah MineIDHost)</div>
-        </div>
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const preview = document.getElementById('preview');
+    const loading = document.getElementById('loading');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-        <div class="col">
-          <label>Style</label>
-          <div class="checks" id="styleChips">
-            <div class="chip active" data-val="modern">Modern</div>
-            <div class="chip" data-val="minimal">Minimal</div>
-            <div class="chip" data-val="dark">Dark</div>
-            <div class="chip" data-val="corporate">Corporate</div>
-          </div>
-        </div>
+    generateBtn.onclick = async () => {
+      const prompt = document.getElementById('promptInput').value.trim();
+      if (!prompt) return alert('Tulis dulu deskripsi websitenya!');
 
-        <div class="col">
-          <label>Pages (pilih)</label>
-          <div class="checks" id="pagesChips">
-            <div class="chip active" data-val="home">Home</div>
-            <div class="chip active" data-val="about">About</div>
-            <div class="chip active" data-val="pricing">Pricing</div>
-            <div class="chip" data-val="contact">Contact</div>
-            <div class="chip" data-val="blog">Blog</div>
-          </div>
-        </div>
+      loading.style.display = 'block';
+      preview.srcdoc = '';
+      downloadBtn.style.display = 'none';
 
-        <div class="col">
-          <label>Custom Text / Brief</label>
-          <textarea id="brief" placeholder="Tuliskan pesan singkat: produk/layanan, tone (formal/casual), call-to-action"></textarea>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:10px;margin-top:12px;align-items:center;">
-        <button id="generateBtn" class="btn">Generate Website (ZIP)</button>
-        <button id="previewBtn" class="btn secondary">Live Preview</button>
-        <div class="small" style="margin-left:auto;color:#aaa">Prototype: client-side generation • Untuk AI production: hubungkan ke backend</div>
-      </div>
-
-      <div class="preview" id="previewArea" style="display:none;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="color:#fff;font-weight:600">Preview</div>
-          <div class="small">Jika ingin hasil lebih lengkap, hubungkan ke AI backend</div>
-        </div>
-        <iframe id="previewFrame"></iframe>
-      </div>
-
-      <div class="notice">
-        Setelah user menekan Generate, file akan di-download sebagai ZIP berisi <code>index.html</code> dan <code>styles.css</code>.
-        (Production: ganti proses JS ini dengan panggilan ke backend untuk menyimpan hasil dan deploy otomatis)
-      </div>
-    </div>
-  </div>
-
-<script>
-/* Basic client-side site generator prototype.
-   - For production replace generateSiteFromForm() with API call to backend/AI
-   - Integration: accept order params via URL (order & email & token) */
-
-(function(){
-  // read query params (order integration)
-  const qs = Object.fromEntries(new URLSearchParams(location.search));
-  if(qs.order) document.getElementById('orderId').textContent = qs.order;
-  if(qs.email) document.getElementById('orderEmail').textContent = qs.email;
-
-  // chips toggles
-  function initChips(containerId){
-    const container = document.getElementById(containerId);
-    container.querySelectorAll('.chip').forEach(chip=>{
-      chip.addEventListener('click', ()=>{
-        chip.classList.toggle('active');
+      const res = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
       });
-    });
-  }
-  initChips('styleChips');
-  initChips('pagesChips');
+      const data = await res.json();
+      loading.style.display = 'none';
 
-  // preview button
-  const previewArea = document.getElementById('previewArea');
-  const previewBtn = document.getElementById('previewBtn');
-  previewBtn.addEventListener('click', ()=>{
-    if(previewArea.style.display === 'none') {
-      previewArea.style.display = 'block';
-      renderPreview();
-      previewBtn.textContent = 'Hide Preview';
-    } else {
-      previewArea.style.display = 'none';
-      previewBtn.textContent = 'Live Preview';
-    }
-  });
+      if (data.html) {
+        preview.srcdoc = data.html;
+        downloadBtn.style.display = 'inline-block';
 
-  // generate button
-  document.getElementById('generateBtn').addEventListener('click', async ()=>{
-    // disabled while building
-    const btn = document.getElementById('generateBtn');
-    btn.disabled = true;
-    btn.textContent = 'Generating...';
-    try {
-      const site = await generateSiteFromForm(); // returns {html,css,assets}
-      // create zip and download using JSZip
-      if(typeof JSZip === 'undefined') {
-        alert('JSZip not loaded. Check CDN.');
-        return;
-      }
-      const zip = new JSZip();
-      zip.file('index.html', site.html);
-      zip.file('styles.css', site.css);
-      // assets (if any)
-      if(site.assets){
-        const assetsFolder = zip.folder('assets');
-        for(const [name, dataUrl] of Object.entries(site.assets)){
-          // convert dataURL to blob
-          const res = await fetch(dataUrl);
-          const blob = await res.blob();
-          assetsFolder.file(name, blob);
-        }
-      }
-      const content = await zip.generateAsync({type:"blob"});
-      const orderId = (new URLSearchParams(location.search)).get('order') || 'order';
-      const fileName = `${(document.getElementById('siteName').value||'site').replace(/\s+/g,'_')}_${orderId}.zip`;
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(content);
-      a.download = fileName;
-      a.click();
-      URL.revokeObjectURL(a.href);
-    } catch (e){
-      console.error(e);
-      alert('Gagal generate: '+e.message);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = 'Generate Website (ZIP)';
-    }
-  });
-
-  // gather form and produce HTML+CSS. Replace this function to call backend/AI for richer sites.
-  async function generateSiteFromForm(){
-    // gather inputs
-    const name = document.getElementById('siteName').value || 'My Site';
-    const business = document.getElementById('businessType').value;
-    const color = document.getElementById('primaryColor').value || '#ff1e1e';
-    const brief = document.getElementById('brief').value || '';
-    const styles = Array.from(document.querySelectorAll('#styleChips .chip.active')).map(c=>c.dataset.val);
-    const pages = Array.from(document.querySelectorAll('#pagesChips .chip.active')).map(c=>c.dataset.val);
-
-    // build simple hero + nav + sections based on pages selection
-    const html = `<!doctype html>
-<html lang="id">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>${escapeHtml(name)}</title>
-<link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-<header class="site-header">
-  <nav class="nav">
-    <div class="brand">${escapeHtml(name)}</div>
-    <ul class="navlinks">
-      ${pages.map(p => `<li><a href="#${p}">${capitalize(p)}</a></li>`).join('')}
-    </ul>
-  </nav>
-  <div class="hero">
-    <h1>${escapeHtml(name)}</h1>
-    <p>${escapeHtml(brief || `Profesional ${escapeHtml(business)} — Siap dipakai.`)}</p>
-    <a class="cta" href="#pricing">Mulai Sekarang</a>
-  </div>
-</header>
-
-<main>
-  ${pages.includes('about') ? `<section id="about" class="section"><h2>About</h2><p>About ${escapeHtml(name)} — ${escapeHtml(business)}</p></section>` : ''}
-  ${pages.includes('pricing') ? `<section id="pricing" class="section"><h2>Pricing</h2><div class="cards"><div class="card"><h3>Starter</h3><p>8GB RAM • 2 vCPU • 120GB NVMe</p></div><div class="card"><h3>Pro</h3><p>16GB RAM • 4 vCPU • 240GB NVMe</p></div></div></section>` : ''}
-  ${pages.includes('contact') ? `<section id="contact" class="section"><h2>Contact</h2><p>Hubungi kami via email@example.com</p></section>` : ''}
-  ${pages.includes('blog') ? `<section id="blog" class="section"><h2>Blog</h2><p>Latest news...</p></section>` : ''}
-</main>
-
-<footer class="site-footer">
-  <div>${escapeHtml(name)} © ${(new Date()).getFullYear()}</div>
-</footer>
-
-</body>
-</html>`;
-
-    // basic CSS using chosen color
-    const css = `:root{--accent:${color};--bg:#080808;--card:#0b0b0b;--muted:#cfcfcf;--white:#fff}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--muted);line-height:1.5}
-a{color:var(--accent);text-decoration:none}
-.site-header{padding:36px 20px;background:linear-gradient(180deg,rgba(0,0,0,0.2),transparent)}
-.nav{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto}
-.brand{color:var(--white);font-weight:700}
-.navlinks{list-style:none;display:flex;gap:16px;margin:0;padding:0}
-.navlinks a{padding:8px 10px;border-radius:8px;background:transparent;color:var(--muted)}
-.hero{max-width:1100px;margin:28px auto 0;padding:20px}
-.hero h1{color:var(--white);font-size:32px;margin:0 0 8px}
-.hero p{color:var(--muted);margin:0 0 12px}
-.cta{display:inline-block;padding:10px 16px;border-radius:8px;background:var(--accent);color:#fff;font-weight:600}
-.section{max-width:1100px;margin:28px auto;padding:20px;background:var(--card);border-radius:10px}
-.cards{display:flex;gap:12px;flex-wrap:wrap}
-.card{padding:16px;border-radius:8px;background:rgba(255,255,255,0.02);min-width:180px}
-.site-footer{padding:20px;text-align:center;color:#888}`;
-    
-    // assets e.g. logo small (we can inline logo from your assets if exists — here we skip)
-    const assets = {}; // key: filename, value: dataURL (optional)
-
-    return {html, css, assets};
-  }
-
-  // small preview renderer
-  function renderPreview(){
-    generateSiteFromForm().then(site=>{
-      const frame = document.getElementById('previewFrame');
-      const blob = new Blob([site.html], {type:'text/html'});
-      const url = URL.createObjectURL(blob);
-      frame.src = url;
-      // release objectURL later
-      setTimeout(()=>URL.revokeObjectURL(url), 30000);
-    });
-  }
-
-  // helper functions
-  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, function (m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]); }); }
-  function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1) }
-
-  // animate chips default active state
-  document.querySelectorAll('.chip').forEach((c,i)=>{
-    if(c.classList.contains('active')) c.style.boxShadow='0 8px 30px rgba(255,30,30,0.06)';
-  });
-
-})();
-</script>
+        downloadBtn.onclick = () => {
+          const blob = new Blob([data.html], { type: 'text/html' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'website.html';
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+      } else alert('Gagal generate website!');
+    };
+  </script>
 </body>
 </html>
