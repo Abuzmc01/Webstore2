@@ -145,78 +145,122 @@
 }
 </style>
 <!-- ======= END NAVBAR ====== -->
-		        
-	<!-- Header -->
-	<div class="header">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-start align-items-center h-100">
-                <div class="col-lg-12 mt-5">
-                    <h1>Terms of Service</h2>
-                    <p>Tujuan ToS adalah untuk melindungi hak-hak penyedia layanan dan pengguna, serta menjelaskan aturan main dalam menggunakan layanan. Dengan menyetujui ToS, pengguna dianggap telah memahami dan menyetujui ketentuan yang berlaku.</p>
-                </div>
-            </div>
-        </div>
+<!-- ===== TERMS OF SERVICE (MineIDHost Style Final) ===== -->
+
+<!-- Header -->
+<div class="header">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-start align-items-center h-100">
+      <div class="col-lg-12 mt-5 text-light">
+        <h1 style="color:#ff1e1e; text-shadow:0 0 10px rgba(255,0,0,0.6);">Terms of Service</h1>
+        <p style="color:#ccc; max-width:800px;">
+          Tujuan ToS adalah untuk melindungi hak-hak penyedia layanan dan pengguna, serta menjelaskan aturan main dalam menggunakan layanan. Dengan menyetujui ToS, pengguna dianggap telah memahami dan menyetujui ketentuan yang berlaku.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main TOS Section -->
+<section id="tos-ddos-illegal" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); color:#f5f5f5; padding:60px 20px;">
+  <div class="container" style="max-width:950px; margin:auto;">
+    
+    <div class="reveal">
+      <h3 style="color:#ff4040;">Larangan, Garansi, dan Penanganan Aktivitas Ilegal / Penyalahgunaan (termasuk DDoS)</h3>
+      <p style="color:#ccc;">
+        MineIDHost berkomitmen menjaga keamanan dan stabilitas layanan bagi seluruh pelanggan. Setiap bentuk penggunaan layanan yang bertujuan merusak, mengganggu, atau melanggar hukum — termasuk namun tidak terbatas pada pelaksanaan atau fasilitasi serangan DDoS, penyebaran malware, penjualan akses ilegal, phishing, spam masif, atau aktivitas kriminal lainnya — <strong>tidak ditoleransi</strong> dan akan dikenai tindakan tegas.
+      </p>
     </div>
 
-	<!-- ===== Terms of Service - MineIDHost (update: Penanganan DDoS & Aktivitas Ilegal) ===== -->
-<section id="tos-ddos-illegal" style="background:#0a0a0a; color:#f5f5f5; padding:30px 20px; border-top:1px solid rgba(255,255,255,0.03);">
-  <div class="container" style="max-width:950px; margin:auto;">
-    <h3 style="color:#ff4040; margin-top:0;">Larangan, Garansi, dan Penanganan Aktivitas Ilegal / Penyalahgunaan (termasuk DDoS)</h3>
+    <div class="reveal">
+      <h4 style="color:#ff6b6b;">Contoh Aktivitas yang Dilarang</h4>
+      <ul style="color:#ddd;">
+        <li>Melakukan, memfasilitasi, atau menyediakan infrastruktur untuk serangan DDoS (direct atau reflective).</li>
+        <li>Hosting atau distribusi malware, ransomware, botnet, atau tools eksploitasi.</li>
+        <li>Phishing, penipuan, pengumpulan data pribadi secara ilegal.</li>
+        <li>Penjualan atau pertukaran akses tidak sah ke sistem pihak ketiga.</li>
+        <li>Penyebaran materi yang melanggar hak cipta atau hukum setempat.</li>
+      </ul>
+    </div>
 
-    <p style="color:#ccc;">
-      MineIDHost berkomitmen menjaga keamanan dan stabilitas layanan bagi seluruh pelanggan. Untuk itu, setiap bentuk penggunaan layanan yang bertujuan merusak, mengganggu, atau melanggar hukum — termasuk namun tidak terbatas pada pelaksanaan atau fasilitasi serangan DDoS, penyebaran malware, penjualan akses ilegal, phishing, spam masif, atau aktivitas kriminal lainnya — <strong>tidak ditoleransi</strong> dan akan dikenai tindakan tegas.
-    </p>
+    <div class="reveal">
+      <h4 style="color:#ff6b6b;">Konsekuensi & Kebijakan Garansi</h4>
+      <ul style="color:#ddd;">
+        <li><strong>Tidak ada garansi</strong> untuk layanan yang digunakan dalam aktivitas terlarang — tidak berlaku SLA, kompensasi, atau dukungan khusus.</li>
+        <li>MineIDHost berhak melakukan <strong>suspensi</strong> atau <strong>terminasi permanen</strong> tanpa pemberitahuan apabila aktivitas melanggar terdeteksi.</li>
+        <li>Layanan yang dihentikan karena pelanggaran tidak akan mendapatkan <strong>refund</strong>.</li>
+      </ul>
+    </div>
 
-    <h4 style="color:#ff6b6b; margin-bottom:6px;">Contoh Aktivitas yang Dilarang</h4>
-    <ul style="color:#ddd; margin-top:6px;">
-      <li>Melakukan, memfasilitasi, atau menyediakan infrastruktur untuk serangan DDoS (direct atau reflective/named amplification).</li>
-      <li>Hosting atau distribusi malware, ransomware, botnet, atau tools eksploitasi.</li>
-      <li>Phishing, penipuan, pengumpulan data pribadi secara ilegal.</li>
-      <li>Penjualan/pertukaran akses tidak sah ke sistem pihak ketiga (credential stuffing, brute force, akses backdoor).</li>
-      <li>Penyebaran materi yang melanggar hak cipta/ketentuan hukum setempat secara terang-terangan.</li>
-    </ul>
+    <div class="reveal">
+      <h4 style="color:#ff6b6b;">Proses Deteksi & Penanganan</h4>
+      <ul style="color:#ddd;">
+        <li>Mitigasi otomatis (filtering, rate limit) untuk melindungi jaringan.</li>
+        <li>Isolasi resource bermasalah agar tidak memengaruhi pelanggan lain.</li>
+        <li>Penyimpanan log dan bukti teknis (traffic, timestamps, headers) untuk investigasi.</li>
+        <li>Pemberitahuan kepada pemilik akun (jika memungkinkan) disertai arahan perbaikan.</li>
+      </ul>
+    </div>
 
-    <h4 style="color:#ff6b6b; margin-bottom:6px;">Konsekuensi & Kebijakan Garansi</h4>
-    <ul style="color:#ddd; margin-top:6px;">
-      <li><strong>Tidak ada jaminan</strong> (no warranty) untuk layanan yang digunakan untuk melakukan atau mendukung aktivitas terlarang — layanan semacam itu <em>tidak</em> akan mendapatkan jaminan ketersediaan, mitigasi khusus, ataupun kompensasi SLA.</li>
-      <li>Jika terdeteksi pelanggaran, MineIDHost berhak melakukan tindakan segera termasuk <strong>penangguhan sementara (suspension)</strong>, <strong>pemutusan permanen (termination)</strong> akun atau layanan, dan/atau pemblokiran resource tanpa pemberitahuan lanjutan bila diperlukan demi keamanan jaringan.</li>
-      <li>Untuk layanan yang dihentikan karena pelanggaran ini, <strong>tidak diberikan pengembalian dana (refund)</strong> dan semua hak terkait layanan tersebut gugur.</li>
-    </ul>
+    <div class="reveal">
+      <h4 style="color:#ff6b6b;">Kerjasama Hukum & Pelaporan</h4>
+      <p style="color:#ddd;">
+        MineIDHost akan bekerja sama dengan pihak berwenang bila ditemukan bukti aktivitas ilegal. Kami berhak menyerahkan data log dan informasi billing sesuai peraturan hukum yang berlaku.
+      </p>
+    </div>
 
-    <h4 style="color:#ff6b6b; margin-bottom:6px;">Proses Deteksi & Penanganan</h4>
-    <p style="color:#ddd;">
-      MineIDHost menggunakan kombinasi monitoring otomatis dan peninjauan manual untuk mendeteksi penyalahgunaan. Saat dugaan pelanggaran muncul, langkah yang dapat diambil meliputi:
-    </p>
-    <ul style="color:#ddd; margin-top:6px;">
-      <li>Mitigasi otomatis (traffic filtering / rate limiting) untuk melindungi jaringan.</li>
-      <li>Isolasi resource yang bermasalah untuk mencegah dampak lateral ke pelanggan lain.</li>
-      <li>Penyimpanan log dan bukti teknis yang relevan (traffic sample, timestamps, header, dsb.) untuk keperluan investigasi internal dan, bila perlu, pihak penegak hukum.</li>
-      <li>Pemberitahuan kepada pemilik akun (jika memungkinkan) berisi ringkasan dugaan pelanggaran dan langkah perbaikan yang harus dilakukan.</li>
-    </ul>
+    <div class="reveal">
+      <h4 style="color:#ff6b6b;">Banding & Proses Pemulihan</h4>
+      <p style="color:#ddd;">
+        Pengguna dapat mengajukan banding dalam waktu <strong>14 hari</strong> setelah suspensi melalui email:
+        <a href="mailto:support@mineidhost.store" style="color:#ff5a5a;">support@mineidhost.store</a>.
+        MineIDHost akan meninjau bukti dan memberikan keputusan akhir secara objektif.
+      </p>
+    </div>
 
-    <h4 style="color:#ff6b6b; margin-bottom:6px;">Kerjasama Hukum & Pelaporan</h4>
-    <p style="color:#ddd;">
-      MineIDHost akan bekerja sama dengan otoritas penegak hukum bila bukti menunjukkan aktivitas kriminal. Kami berhak menyerahkan data investigasi (termasuk log, informasi billing, dan metadata) kepada pihak berwenang sesuai ketentuan hukum. Pengguna yang terbukti melakukan tindakan kriminal dapat dikenai tuntutan hukum dan/atau tuntutan ganti rugi.
-    </p>
+    <div class="reveal">
+      <h4 style="color:#ff6b6b;">Tanggung Jawab & Indemnifikasi</h4>
+      <p style="color:#ddd;">
+        Pengguna wajib menanggung segala kerugian atau biaya yang timbul akibat pelanggaran, termasuk biaya hukum, pemulihan jaringan, dan kerusakan reputasi perusahaan.
+      </p>
+    </div>
 
-    <h4 style="color:#ff6b6b; margin-bottom:6px;">Banding & Proses Pemulihan</h4>
-    <p style="color:#ddd;">
-      Jika akun Anda ditangguhkan karena dugaan penyalahgunaan, Anda berhak mengajukan banding dalam jangka waktu <strong>14 hari</strong> dengan mengirim email berisi bukti dan penjelasan ke <a href="mailto:support@mineidhost.store" style="color:#ff5a5a;">support@mineidhost.store</a>. Selama proses banding, MineIDHost dapat menahan data teknis dan menilai bukti tambahan. Keputusan akhir mengenai pemulihan layanan berada di wewenang MineIDHost setelah evaluasi.
-    </p>
+    <hr style="border-color:rgba(255,255,255,0.06); margin:25px 0;">
 
-    <h4 style="color:#ff6b6b; margin-bottom:6px;">Tanggung Jawab & Indemnifikasi</h4>
-    <p style="color:#ddd;">
-      Pengguna setuju untuk mengganti kerugian (indemnify) MineIDHost terhadap klaim, biaya, kerugian, atau kerusakan yang timbul akibat penggunaan layanan untuk aktivitas terlarang. Ini termasuk biaya pemulihan jaringan, biaya hukum, dan kerugian reputasi.
-    </p>
-
-    <hr style="border-color:rgba(255,255,255,0.06); margin:18px 0;">
-
-    <p style="color:#bbb; font-size:13px;">
-      Ketentuan tambahan ini melengkapi Ketentuan Layanan utama MineIDHost. Dengan menggunakan layanan kami Anda menyetujui semua kebijakan di atas. Versi ini terakhir diperbarui: <strong>1 November 2025</strong>.
+    <p style="color:#aaa; font-size:13px; text-align:center;">
+      Versi terakhir diperbarui: <strong>1 November 2025</strong> — MineIDHost berhak memperbarui kebijakan ini sewaktu-waktu tanpa pemberitahuan sebelumnya.
     </p>
   </div>
 </section>
 
+<!-- Animasi Fade-in -->
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #tos-ddos-illegal ul li {
+    margin-bottom: 8px;
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const reveals = document.querySelectorAll(".reveal");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(r => observer.observe(r));
+});
+</script>		        
+	
 <!-- ======= FOOTER ======= -->
 <footer class="footer-section fade-in-up">
   <div class="container">
