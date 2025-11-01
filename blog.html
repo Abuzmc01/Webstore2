@@ -1,277 +1,513 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Blogs | MineIDHost</title>
+	<title>Blogs & About Us| MineIDHost</title>
 	<link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
-	<style>.header{background:url("") no-repeat center center;}</style>
+	<style>.header{background:url("assets/images/Hero/cloud.jpg") no-repeat center center;}</style>
 </head>
 <body>
-	
-	<!-- Navbar -->
-	<!-- Navigation -->
-<nav id="navbar_top" class="navbar navbar-dark navbar-expand-lg fixed-top">
-		<div class="container">
-		<a class="navbar-brand" href="index.html">
-			<img class="img-fluid" src="assets/images/logo.svg" alt="DinoNode Logo">
-			<span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
-		</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dinoNavbar" aria-controls="dinoNavbar" aria-expanded="false" aria-label="Toggle navigation">
-	      	<span class="navbar-toggler-icon"></span>
-	    </button>
-		<div class="collapse navbar-collapse" id="dinoNavbar">
-		    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-		        <li class="nav-item">
-		          	<a class="nav-link" href="index.html">Home</a>
-		        </li>
-		        <li class="nav-item">
-		          	<a class="nav-link" href="minecraft.html">Minecraft Hosting</a>
-		        </li>
-		        <li class="nav-item dropdown">
-		          	<a class="nav-link dropdown-toggle" href="index.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            	VPS HOSTING
-		          	</a>
-		          	<ul class="dropdown-menu dropdown-large dropdown-menu-end">
-		          		<div class="row">
-							<div class="col-md-6">
-								<ul class="list-unstyled">
-									<li>
-										<a class="dropdown-item" href="ark.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/ark.png" class="rounded" alt="ARK Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Rome | Zen2 Series</h4>
-													<p class="mb-0">Starting at <b>6000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-					            	<li>
-										<a class="dropdown-item" href="csgo.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/csgo.png" class="rounded" alt="CS:GO Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Milan | Zen3 Series</h4>
-													<p class="mb-0">Starting at <b>10.000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="valheim.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/valheim.png" class="rounded" alt="Valheim Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Genoa | Zen4 Series</h4>
-													<p class="mb-0">Starting at <b>12.000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-6">
-								<ul class="list-unstyled">
-									<li>
-										<a class="dropdown-item" href="fivem.html">
-											<div class="d-flex align-items-center dropdown-item-mega">
-												<img src="assets/images/game_icons/fivem.png" class="rounded" alt="FiveM Icon">
-												<div class="dropdown-item-content ms-2">
-													<h4 class="mb-0">VPS AMD Ryzen9 | Zen5 Series</h4>
-													<p class="mb-0">Starting at <b>15.000/GB</b></p>
-												</div> 
-											</div>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-		          	</ul>
-		        </li>
-		        <li class="nav-item dropdown">
-		          	<a class="nav-link dropdown-toggle" href="csgo.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            	Other Product
-		          	</a>
-		          	<ul class="dropdown-menu dropdown-menu-end">
-		            	<li><a class="dropdown-item" href="vps-hosting.html">Petrodactyl Service</a></li>
-		            	<li><a class="dropdown-item" href="discord-hosting.html">Minecraft Models</a></li>
-		          	</ul>
-		        </li>
-		        <li class="nav-item dropdown">
-		          	<a class="nav-link dropdown-toggle" href="csgo.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            	Important
-		          	</a>
-		          	<ul class="dropdown-menu dropdown-menu-end">
-		            	<li><a class="dropdown-item" href="partners.html">Partners</a></li>
-		            	<li><a class="dropdown-item" href="csgo.html#">Contact</a></li>
-		            	<li><a class="dropdown-item" href="terms-of-service.html">Terms of Service</a></li>
-		            	<li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
-		          	</ul>
-		        </li>
-		        <li class="nav-item">
-					<div class="dropdown text-center">
-						<a class="btn dropdown-toggle" id="panel" data-bs-toggle="dropdown" aria-expanded="false">
-							Client Area
-						</a>
-						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-panel" aria-labelledby="panel">
-							<a class="dropdown-item" href="https://dsc.gg/mineidhost">									
-								Client Area <span class="d-block">Billing &amp; Support</span>
-							</a>
-							<a class="dropdown-item" href="https://panel.mineidhost.icu">									
-								Game Panel <span class="d-block">Game Management</span>
-							</a>
-						</ul>
-					</div>
-				</li>
-		    </ul>
-		</div>
-	</div>
-</nav>
-	<!-- Header -->
-	<div class="header">
-        <div class="container h-100">
-            <div class="row d-flex justify-content-start align-items-center h-100">
-                <div class="col-lg-12 mt-5">
-                    <h1>Blogs</h2>
-					<p></p>
-                    <h2>Panduan Memilih VPS Hosting.</h2>
-					<p>membahas tentang cara memilih VPS hosting yang tepat untuk kebutuhan bisnis atau pribadi.</p>
-					<p></p>
-					<h2>Kelebihan VPS Hosting</h2>
-					<p>Artikel yang menjelaskan tentang kelebihan VPS hosting dibandingkan dengan shared hosting atau dedicated hosting</p>
-					<p></p>
-					<h2>Tips Mengoptimalkan VPS Hosting</h2>
-					<p>Artikel yang memberikan tips dan trik untuk mengoptimalkan kinerja VPS hosting, seperti pengaturan konfigurasi server dan optimasi database.</p>					
-                </div>
+			          										
+<!-- Navbar -->			
+<!-- Navigation -->									
+<nav id="navbar_top" class="navbar navbar-dark navbar-expand-lg fixed-top" style="background: rgba(0, 0, 0, 0.9); box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img class="img-fluid" src="assets/images/logo.svg" alt="MineIDHost Logo" style="height: 45px; filter: drop-shadow(0 0 8px rgba(255,0,0,0.8));">
+      <span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dinoNavbar" aria-controls="dinoNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="dinoNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="game-hosting.html">Game Hosting</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">VPS Services</a>
+          <ul class="dropdown-menu dropdown-large dropdown-menu-end">
+            <div class="row p-2">
+              <div class="col-md-6">
+                <ul class="list-unstyled mb-0">
+                  <li><a class="dropdown-item" href="vps-kvm.html">VPS Kvm</a></li>
+                  <li><a class="dropdown-item" href="vps-cloud.html">VPS Cloud</a></li>
+                  <li><a class="dropdown-item" href="dedicated-server.html">Dedicated Sedver</a></li>
+                </ul>
+              </div>
             </div>
-        </div>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Other Product</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="petrodactyl-service.html">Petrodactyl Services</a></li>
+            <li><a class="dropdown-item" href="ai-builder.html">Converter Ai Builder</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Important</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="partners.html">Partners</a></li>
+            <li><a class="dropdown-item" href="terms-of-service.html">Terms of Services</a></li>
+            <li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+          </ul>
+        </li>
+
+        <!-- Client Area -->
+        <li class="nav-item">
+          <div class="dropdown text-center">
+            <a class="btn dropdown-toggle" id="panel" data-bs-toggle="dropdown" aria-expanded="false">
+              Client Area
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-panel" aria-labelledby="panel">
+              <a class="dropdown-item" href="https://billing.mineidhost.store">Client Area <span class="d-block">Billing Invoice</span></a>
+              <a class="dropdown-item" href="https://panel.mineidhost.icu">Server Panel <span class="d-block">Panel Console</span></a>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="blog py-6">
-        <div class="container">
-            <div class="row">
-                                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-banner">
-                                <img src="admin/uploads/1.webp" class="card-img-top" alt="Ultimate Guide to Game Hosting">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Panduan Utama untuk Hosting Game</h5>
-                                <p class="card-text">Pelajari segala hal tentang menyiapkan server game Anda sendiri.</p>
-                                <a href="ultimate-guide-to-game-hosting.html" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-banner">
-                                <img src="admin/uploads/2.webp" class="card-img-top" alt="Top 5 Game Hosting Providers of 2024">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Top 5 Game Hosting Providers of 2024</h5>
-                                <p class="card-text">A review of the best game hosting providers available in 2024.</p>
-                                <a href="top-5-game-hosting-providers-2024.html" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-banner">
-                                <img src="admin/uploads/3.webp" class="card-img-top" alt="Setting Up a Minecraft Server in Docker">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Menyiapkan Server Minecraft di Docker</h5>
-                                <p class="card-text">Panduan langkah demi langkah untuk menghosting server Minecraft menggunakan Docker.</p>
-                                <a href="setting-up-minecraft-server-docker.html" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                            </div>
-        </div>
+  </div>
+</nav>
+	
+<!-- ======= NAVBAR STYLE ======= -->
+<style>
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: 0.3s;
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ff1e1e !important;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+/* Dropdown Style */
+.dropdown-menu {
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  border-radius: 10px;
+}
+.dropdown-item {
+  color: #ccc !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.dropdown-item:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff1e1e !important;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+/* Client Area Button */
+#panel.btn {
+  background: linear-gradient(90deg, #ff0000, #a10000);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+#panel.btn:hover {
+  background: linear-gradient(90deg, #a10000, #ff0000);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Responsif Glow on Mobile */
+@media (max-width: 991px) {
+  .navbar-dark .navbar-nav .nav-link {
+    text-align: center;
+    padding: 10px;
+  }
+  #panel.btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+</style>
+<!-- ======= END NAVBAR ====== -->
+	
+	
+	
+<!-- ========================================= -->
+<!-- == ABOUT US START == -->
+<!-- ========================================= -->
+
+<section id="about-us" class="py-12 px-8 bg-white text-gray-900 rounded-2xl shadow-lg border border-gray-200 mt-12">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-extrabold tracking-widest text-red-600 mb-2">
+      &lt;== ABOUT US ==&gt;
+    </h1>
+  </div>
+
+  <p class="text-gray-700 leading-relaxed text-justify mb-6">
+    <strong>MineIDHost</strong> adalah penyedia layanan hosting dan infrastruktur digital berbasis di Indonesia yang fokus
+    memberikan performa tinggi, harga terjangkau, dan uptime maksimal untuk semua pengguna. Kami melayani berbagai kebutuhan —
+    mulai dari <strong>VPS KVM, game server hosting, panel Pterodactyl, hingga domain & SSL</strong>.
+  </p>
+
+  <p class="text-gray-700 leading-relaxed text-justify mb-6">
+    Didukung oleh hardware modern seperti <strong>AMD Ryzen 9 9950X3D</strong> dan <strong>AMD EPYC 9K84</strong>,
+    serta perlindungan <strong>DDoS berbasis router Arbon dan Juniper</strong>, kami berkomitmen untuk menghadirkan layanan
+    yang cepat, aman, dan handal tanpa kompromi.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-red-600 mt-8 mb-3">Visi Kami</h3>
+  <p class="text-gray-700 leading-relaxed">
+    Menjadi solusi hosting terjangkau dan berkualitas tinggi yang dapat diakses oleh seluruh komunitas developer,
+    gamer, dan pelaku bisnis digital di Indonesia.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-red-600 mt-8 mb-3">Kontak</h3>
+  <ul class="list-disc pl-8 space-y-2 text-gray-700">
+    <li>Email: <a href="mailto:support@mineidhost.store" class="text-blue-600 underline">support@mineidhost.store</a></li>
+    <li>Website: <a href="https://mineidhost.store" class="text-blue-600 underline">https://mineidhost.store</a></li>
+    <li>Client Area: <a href="https://mineidhost.icu" class="text-blue-600 underline">https://mineidhost.icu</a></li>
+  </ul>
+</section>
+<!-- ========================================= -->
+<!-- == BLOG SECTION == -->
+<!-- ========================================= -->
+
+<!-- Header -->
+<div class="header py-5 bg-light border-bottom">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-start align-items-center h-100">
+      <div class="col-lg-12 mt-5 text-dark">
+        <h1 class="fw-bold text-danger mb-4">&lt;== BLOG MINEIDHOST ==&gt;</h1>
+        <p class="text-secondary mb-5">Kumpulan artikel, panduan, dan informasi seputar dunia hosting, server, serta tips pengelolaan VPS secara optimal.</p>
+
+        <h2 class="fw-semibold text-dark">Panduan Memilih VPS Hosting</h2>
+        <p class="text-muted mb-4">Membahas tentang cara memilih VPS hosting yang tepat untuk kebutuhan bisnis atau pribadi. Kami bantu kamu memahami faktor seperti CPU, RAM, dan uptime yang harus diperhatikan.</p>
+
+        <h2 class="fw-semibold text-dark">Kelebihan VPS Hosting</h2>
+        <p class="text-muted mb-4">Pelajari kelebihan VPS dibandingkan shared atau dedicated hosting, termasuk fleksibilitas, kontrol penuh, dan performa tinggi.</p>
+
+        <h2 class="fw-semibold text-dark">Tips Mengoptimalkan VPS Hosting</h2>
+        <p class="text-muted mb-4">Dapatkan tips konfigurasi server, pengaturan firewall, dan optimasi database agar performa VPS tetap cepat dan stabil 24/7.</p>
+      </div>
     </div>
-    <!-- Footer -->
-	<div class="discord-label py-3" style="background-color: #FF0000;">
-	<div class="container">
-		<div class="row d-flex justify-content-between align-items-center">
-			<div class="col-lg-8">
-				<p class="mb-0">Bergabunglah dengan server Discord kami untuk berita industri eksklusif, pembaruan & hadiah!</p>
-			</div>
-			<div class="col-lg-2">
-				<a href="https://dsc.gg/mineidhost" class="btn bg-light"><svg class="discord-icon" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path id="Icon" d="m133.408 346.261c95.35 37.211 176.493 44.459 268.445-13.461-.674 1.011-18.863 27.958-66.695 41.768 10.105 13.811 23.916 29.642 23.916 29.642 30.653 0 60.632-8.758 86.568-25.6 20.211-13.474 31.663-36.716 29.305-60.968-4.042-41.432-13.811-81.853-28.968-120.589-19.2-50.526-65.347-85.558-118.905-90.611-4.716-.337-8.084-.337-10.105-.337l-5.389 5.389c61.642 17.516 92.295 44.8 92.968 45.811-94.653-47.832-206.484-48.505-301.811-2.021 0 0 30.316-29.979 97.347-45.811l-4.042-4.042c-7.074 0-13.811.674-20.884 1.684-49.516 8.421-90.947 42.442-108.8 89.263-15.495 40.421-25.6 82.863-29.305 125.979-2.021 22.905 8.758 45.474 27.621 58.611 24.926 16.505 54.568 25.263 84.547 25.263 0 0 12.126-15.832 24.253-29.979-45.474-13.474-64-40.421-64.337-41.432l8.558 4.37c5.116 2.614 10.361 4.982 15.713 7.071zm52.866-29.293c-21.895-.674-39.074-19.2-38.4-41.432.674-20.884 17.516-37.726 38.4-38.4 21.895.674 39.074 19.2 38.4 41.432-1.011 20.885-17.516 37.727-38.4 38.4zm137.431 0c-21.895-.674-39.074-19.2-38.4-41.432.674-20.884 17.516-37.726 38.4-38.4 21.895.674 39.074 19.2 38.4 41.432-.673 20.885-17.516 37.727-38.4 38.4z"/></svg> Join Discord</a>
-			</div>
-		</div>
-	</div>
+  </div>
 </div>
-<footer class="pt-6 pb-4">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-4">
-				<h3>
-					<img class="img-fluid" src="assets/images/logo.svg" alt="DinoNode Footer Logo">
-					<span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
-				</h3>
-				<p>Mendampingi bisnis dan individu untuk tumbuh, terlindungi, dan siap bersaing dengan solusi teknologi terbaik.</p>
-				<p class="copy">&copy; Copyright 2025 MineIDHost. All Rights Reserved</p>
-			</div>
-			<div class="col-lg-8">
-				<div class="row">
-					<div class="col-lg-3">
-						<h4>Services</h4>
-						<ul>
-							<li><a href="minecraft.html">Minecraft Hosting</a></li>
-							<li><a href="ark.html">Vps Epyc Zen2 Series</a></li>
-							<li><a href="csgo.html">Vps Epyc Zen3 Series</a></li>
-							<li><a href="valheim.html">Vps Epyc Zen4 Series</a></li>
-							<li><a href="fivem.html">Vps Ryzen Zen5 Series</a></li>
-							<li><a href="rust.html">Petrodactyl Service</a></li>
-							<li><a href="terraria.html">Minecraft Models</a></li>
-						</ul>
-					</div>
-					<div class="col-lg-3">
-						<h4>Support</h4>
-						<ul>
-							<li><a href="index.html">Knowledgebase</a></li>
-							<li><a href="https://dsc.gg/mineidhost">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-									<path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
-								</svg>
-								Server Status
-							</a></li>
-							<li><a href="index.html">Client Area</a></li>
-							<li><a href="https://dsc.gg/mineidhost">Discord</a></li>
-						</ul>
-					</div>
-					<div class="col-lg-3">
-						<h4>Company</h4>
-						<ul>
-							<li><a href="about-us.html">About Us</a></li>
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="index.html#">Contact Us</a></li>
-							<li><a href="partners.html">Partners</a></li>
-						</ul>
-					</div>
-					<div class="col-lg-3">
-						<h4>Legal</h4>
-						<ul>
-							<li><a href="terms-of-service.html">Terms of Service</a></li>
-							<li><a href="privacy-policy.html">Privacy Policy</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
+
+<!-- Blog Cards -->
+<div class="blog py-6 bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-danger">Artikel Terbaru Kami</h2>
+      <p class="text-muted">Temukan berbagai panduan dan berita terbaru seputar dunia server dan teknologi hosting.</p>
+    </div>
+
+    <div class="row">
+
+      <!-- CARD 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg border-0 rounded-3 h-100 hover-shadow-lg transition-all">
+          <div class="card-banner overflow-hidden">
+            <img src="admin/uploads/1.webp" class="card-img-top img-fluid" alt="Ultimate Guide to Game Hosting">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold text-dark">Panduan Utama untuk Hosting Game</h5>
+            <p class="card-text text-muted">Pelajari segala hal tentang menyiapkan server game sendiri — dari pemilihan hardware hingga konfigurasi panel.</p>
+            <a href="ultimate-guide-to-game-hosting.html" class="btn btn-danger w-100 fw-semibold">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg border-0 rounded-3 h-100 hover-shadow-lg transition-all">
+          <div class="card-banner overflow-hidden">
+            <img src="admin/uploads/2.webp" class="card-img-top img-fluid" alt="Top 5 Game Hosting Providers of 2024">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold text-dark">Top 5 Game Hosting Providers of 2024</h5>
+            <p class="card-text text-muted">Ulasan penyedia hosting game terbaik di tahun 2024 berdasarkan performa, harga, dan dukungan pelanggan.</p>
+            <a href="top-5-game-hosting-providers-2024.html" class="btn btn-danger w-100 fw-semibold">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg border-0 rounded-3 h-100 hover-shadow-lg transition-all">
+          <div class="card-banner overflow-hidden">
+            <img src="admin/uploads/3.webp" class="card-img-top img-fluid" alt="Setting Up a Minecraft Server in Docker">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold text-dark">Menyiapkan Server Minecraft di Docker</h5>
+            <p class="card-text text-muted">Panduan langkah demi langkah untuk menghosting server Minecraft menggunakan Docker secara efisien dan mudah.</p>
+            <a href="setting-up-minecraft-server-docker.html" class="btn btn-danger w-100 fw-semibold">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Read More -->
+    <div class="text-center mt-5">
+      <a href="/blog/all" class="btn btn-outline-danger px-5 py-2 fw-semibold rounded-pill">Lihat Semua Artikel</a>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================= -->
+<!-- == END BLOG SECTION == -->
+<!-- ========================================= -->
+	
+<!-- ========================================= -->
+<!-- == ABOUT US END == -->
+<!-- ========================================= -->
+
+<!-- ======= FOOTER ======= -->
+<footer class="footer-section fade-in-up">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <h3 class="footer-logo">
+          <img src="assets/images/logo.svg" alt="MineIDHost Logo" class="img-fluid mb-2" style="width: 120px; filter: drop-shadow(0 0 8px rgba(255,0,0,0.8));">
+          <span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
+        </h3>
+        <p class="footer-desc">Solusi Terbaik Layanan Cloud servers,mendukung Keras perkembangan Digital infrastruktur.</p>
+        <p class="footer-copy">&copy; 2025 MineIDHost. All Rights Reserved.</p>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <h4>Services</h4>
+            <ul class="footer-list">
+              <li><a href="game-hosting.html">Game Hosting</a></li>
+              <li><a href="vps-kvm.html">VPS/RDP Kvm</a></li>
+              <li><a href="cloud-server.html">Cloud Server</a></li>
+              <li><a href="dedicated-server.html">Dedicated Server</a></li>
+              <li><a href="petrodactyl-service.html">Plugins Development</a></li>
+              <li><a href="petrodactyl-service.html">Petrodactyl Service</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <h4>Support</h4>
+            <ul class="footer-list">
+              <li><a href="https://wa.me/6282377658840">WhatsApp</a></li>
+              <li><a href="mineidhost@gmail.com">Email</a></li>
+              <li><a href="https://www.instagram.com/mineidhost.co.id">Instagram</a></li>
+              <li><a href="https://dsc.gg/mineidhost">Discord</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <h4>Perusahaan</h4>
+            <ul class="footer-list">
+              <li><a href="about-us.html">About US</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="https://wa.me/6282377658840">Contact US</a></li>
+              <li><a href="partners.html">collaboration</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <h4>Legal</h4>
+            <ul class="footer-list">
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lokasi Server dan Aktivasi Info -->
+    <div class="text-center mt-4 text-light small fade-in-up">
+      🌍 Data Center berlokasi di <span style="color:#ff3b3b;">German</span> | ⚡ Support Dari Hetzner.Com<span style="color:#ff3b3b;"> Cloud services</span> Keamanan Besar | 🛡️ Anti-DDoS Protection
+    </div>
+
+    <!-- Pembayaran -->
+    <div class="payment-section text-center mt-4 fade-in-up">
+      <h5 class="text-light mb-3">💳 Metode Pembayaran Kami</h5>
+      <div class="payment-logos">
+        <img src="assets/images/payments/dana.png" alt="DANA">
+        <img src="assets/images/payments/ovo.png" alt="OVO">
+        <img src="assets/images/payments/gopay.png" alt="GoPay">
+        <img src="assets/images/payments/qris.png" alt="QRIS">
+        <img src="assets/images/payments/alfamart.png" alt="Alfamart">
+      </div>
+    </div>
+  </div>
+  <div class="footer-glow-line"></div>
 </footer>
+
+<!-- ======= SOCIAL MEDIA BAR ======= -->
+<div class="footer-social-bar fade-in-up">
+  <div class="container text-center">
+    <div class="social-icons">
+      <a href="https://wa.me/6282377658840" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://dsc.gg/mineidhost" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+      <a href="https://www.tiktok.com/@mineidhost.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.instagram.com/mineidhost.co.id" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="mineidhost@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ======= STYLE & ANIMASI ======= -->
+<style>
+.discord-banner {
+  background: #0b0b0b;
+  color: #fff;
+  padding: 18px 0;
+  font-weight: 500;
+  font-size: 1.05rem;
+  text-align: center;
+  position: relative;
+}
+.discord-banner::before,
+.discord-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff1e1e, transparent);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+.discord-banner::before { top: 0; }
+.discord-banner::after { bottom: 0; }
+
+.discord-btn {
+  background: #fff;
+  color: #ff1e1e;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.discord-btn:hover {
+  background: #ff1e1e;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 50, 50, 0.9);
+}
+
+/* FOOTER */
+.footer-section {
+  background: #0a0a0a;
+  color: #ccc;
+  padding: 70px 0 40px;
+  border-top: 2px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 -10px 30px rgba(255, 0, 0, 0.2);
+  position: relative;
+}
+.footer-section::before,
+.footer-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,0,0,0.5), rgba(255,0,0,0.1));
+  box-shadow: 0 0 15px rgba(255,0,0,0.6);
+}
+.footer-section::before { left: 0; }
+.footer-section::after { right: 0; }
+
+.payment-section img {
+  height: 38px;
+  margin: 0 10px;
+  opacity: 0.9;
+  transition: 0.3s;
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3));
+}
+.payment-section img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.7));
+}
+
+.footer-social-bar {
+  background: #0b0b0b;
+  border-top: 1px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 0 -5px 25px rgba(255, 0, 0, 0.25);
+  padding: 15px 0;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+.social-icons a {
+  color: #ccc;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+.social-icons a:hover {
+  color: #ff1e1e;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Animasi muncul saat scroll */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<!-- ======= SCRIPT ======= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeEls = document.querySelectorAll(".fade-in-up");
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => observer.observe(el));
+});
+</script>
+
+<!-- ======= FONT AWESOME & LIBRARY ======= -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  crossorigin="anonymous"
+/>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/custom.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script> 
-    <script src="assets/js/slider.js"></script>
-	<script src="assets/js/game-selector.js"></script>
-	<script src="assets/js/reviews.js"></script>
+<script src="assets/js/swiper-bundle.min.js"></script> 
+<script src="assets/js/slider.js"></script>
+<script src="assets/js/game-selector.js"></script>
+<script src="assets/js/reviews.js"></script>
 </body>
 </html>
