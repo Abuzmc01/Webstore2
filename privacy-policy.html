@@ -157,79 +157,143 @@
             </div>
         </div>
   </div>
+	
 <!-- ========================================= -->
 <!-- == PRIVACY POLICY SECTION START == -->
 <!-- ========================================= -->
 
-<section id="privacy-policy" class="py-12 px-8 bg-white text-gray-900 rounded-2xl shadow-lg border border-gray-200">
-  <div class="text-center mb-8">
-    <h1 class="text-4xl font-extrabold tracking-widest text-red-600 mb-2">
+<style>
+  /* Fade-up animation */
+  .fade-element {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .fade-element.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Custom theme styling */
+  .policy-container {
+    background: #0d1117;
+    color: #d1d5db;
+    border: 1px solid #374151;
+    border-radius: 18px;
+  }
+</style>
+
+<section id="privacy-policy"
+  class="policy-container py-14 px-8 shadow-xl fade-element">
+
+  <div class="text-center mb-10 fade-element">
+    <h1 class="text-4xl font-extrabold tracking-wider text-red-500 drop-shadow-lg mb-2">
       &lt;== PRIVACY POLICY ==&gt;
     </h1>
     <p class="text-sm text-gray-500 italic">Last Updated: 1 November 2025</p>
   </div>
 
-  <p class="mb-6 text-lg leading-relaxed text-gray-700 text-justify">
-    Selamat datang di <strong>MineIDHost</strong>. Kami menghormati privasi setiap pengguna dan berkomitmen
-    untuk melindungi data pribadi yang Anda berikan saat menggunakan layanan kami, termasuk situs
-    <strong>mineidhost.store</strong> dan <strong>mineidhost.icu</strong>.
+  <p class="mb-6 text-lg leading-relaxed text-gray-300 text-justify fade-element">
+    Selamat datang di <strong>MineIDHost</strong>. Kami menghormati privasi setiap pengguna dan 
+    berkomitmen untuk melindungi data pribadi yang Anda berikan saat menggunakan layanan kami, 
+    termasuk situs <strong>mineidhost.store</strong> dan <strong>mineidhost.icu</strong>.
   </p>
 
-  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-600">1. Informasi yang Kami Kumpulkan</h3>
-  <ul class="list-disc pl-8 space-y-2 text-gray-700">
+  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-500 fade-element">
+    1. Informasi yang Kami Kumpulkan
+  </h3>
+  <ul class="list-disc pl-8 space-y-2 text-gray-300 fade-element">
     <li>Nama, alamat email, nomor telepon, dan informasi akun billing.</li>
     <li>Data login, IP address, serta log aktivitas server.</li>
     <li>Informasi teknis seperti sistem operasi, browser, dan perangkat yang digunakan.</li>
   </ul>
 
-  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-600">2. Penggunaan Informasi</h3>
-  <ul class="list-disc pl-8 space-y-2 text-gray-700">
+  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-500 fade-element">
+    2. Penggunaan Informasi
+  </h3>
+  <ul class="list-disc pl-8 space-y-2 text-gray-300 fade-element">
     <li>Mengelola akun dan menyediakan layanan hosting, VPS, serta domain.</li>
     <li>Meningkatkan keamanan dan kinerja jaringan.</li>
     <li>Menangani dukungan teknis serta mencegah penyalahgunaan layanan.</li>
     <li>Mengirimkan notifikasi sistem, pembaruan, dan tagihan.</li>
   </ul>
 
-  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-600">3. Keamanan Data</h3>
-  <p class="text-gray-700 leading-relaxed">
-    Kami menerapkan <strong>perlindungan DDoS berbasis router Arbon dan Juniper</strong>, sistem
-    <strong>firewall tingkat lanjut</strong>, serta <strong>enkripsi SSL/TLS</strong> di seluruh transaksi.
-    Data pengguna disimpan di server dengan pengawasan 24/7 dan backup terenkripsi secara berkala.
+  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-500 fade-element">
+    3. Keamanan Data
+  </h3>
+  <p class="text-gray-300 leading-relaxed fade-element">
+    Kami menerapkan <strong>perlindungan DDoS berbasis router Arbon dan Juniper</strong>, 
+    sistem <strong>firewall tingkat lanjut</strong>, serta <strong>enkripsi SSL/TLS</strong> 
+    di seluruh transaksi. Data pengguna disimpan di server dengan pengawasan 24/7 
+    dan backup terenkripsi secara berkala.
   </p>
 
-  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-600">4. Pembagian Data</h3>
-  <p class="text-gray-700 leading-relaxed">
-    MineIDHost tidak menjual, menyewakan, atau membagikan data pribadi tanpa izin. Data hanya dibagikan kepada
-    mitra terpercaya seperti gateway pembayaran (Midtrans, PayPal, Tripay), provider infrastruktur (Hetzner, OVH),
-    dan penyedia keamanan (Cloudflare, Juniper).
+  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-500 fade-element">
+    4. Pembagian Data
+  </h3>
+  <p class="text-gray-300 leading-relaxed fade-element">
+    MineIDHost tidak menjual, menyewakan, atau membagikan data pribadi tanpa izin. Data hanya 
+    dibagikan kepada mitra terpercaya seperti gateway pembayaran (Midtrans, PayPal, Tripay), 
+    provider infrastruktur (Hetzner, OVH), dan penyedia keamanan (Cloudflare, Juniper).
   </p>
 
-  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-600">5. Hak Pengguna</h3>
-  <p class="text-gray-700 leading-relaxed">
+  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-500 fade-element">
+    5. Hak Pengguna
+  </h3>
+  <p class="text-gray-300 leading-relaxed fade-element">
     Pengguna memiliki hak untuk meminta salinan data, memperbarui, atau menghapus informasi pribadi.
     Untuk permintaan terkait data pribadi, hubungi kami di:
-    <a href="mailto:support@mineidhost.store" class="text-blue-600 underline font-medium">
+    <a href="mailto:support@mineidhost.store" class="text-blue-400 underline font-medium">
       support@mineidhost.store
     </a>.
   </p>
 
-  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-600">6. Perubahan Kebijakan</h3>
-  <p class="text-gray-700 leading-relaxed">
-    MineIDHost dapat memperbarui kebijakan ini sewaktu-waktu untuk menyesuaikan dengan perkembangan sistem,
-    regulasi, atau kebutuhan internal. Versi terbaru akan selalu tersedia di
-    <a href="https://mineidhost.store" class="text-blue-600 underline font-medium">mineidhost.store</a>.
+  <h3 class="text-2xl font-semibold mt-8 mb-3 text-red-500 fade-element">
+    6. Perubahan Kebijakan
+  </h3>
+  <p class="text-gray-300 leading-relaxed fade-element">
+    MineIDHost dapat memperbarui kebijakan ini sewaktu-waktu untuk menyesuaikan dengan perubahan sistem 
+    dan regulasi. Versi terbaru tersedia di 
+    <a href="#" class="text-blue-400 underline font-medium">mineidhost.store</a>.
   </p>
 
-  <div class="mt-10 text-center border-t border-gray-200 pt-6 text-sm text-gray-600">
+  <div class="mt-10 text-center border-t border-gray-700 pt-6 text-sm text-gray-500 fade-element">
     <p><strong>MineIDHost Support Team</strong></p>
-    <p>Email: <a href="mailto:support@mineidhost.store" class="text-blue-600 underline">support@mineidhost.store</a></p>
-    <p>Website: <a href="https://mineidhost.store" class="text-blue-600 underline">https://mineidhost.store</a></p>
+    <p>Email:
+      <a href="mailto:support@mineidhost.store" class="text-blue-400 underline">
+        support@mineidhost.store
+      </a>
+    </p>
+    <p>Website:
+      <a href="https://mineidhost.store" class="text-blue-400 underline">
+        https://mineidhost.store
+      </a>
+    </p>
   </div>
 </section>
+
+<script>
+  // Intersection Observer for scroll animation
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  document.querySelectorAll('.fade-element').forEach(el =>
+    observer.observe(el)
+  );
+</script>
 
 <!-- ========================================= -->
 <!-- == PRIVACY POLICY SECTION END == -->
 <!-- ========================================= -->
+
 
 <!-- ======= FOOTER ======= -->
 <footer class="footer-section fade-in-up">
