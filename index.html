@@ -2976,5 +2976,133 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
+<style>
+	
+/* =========================================
+   FIX NAVBAR OVERLAP - MINEIDHOST
+   ========================================= */
+
+:root {
+  --mih-navbar-height: 80px;
+}
+
+/* Navbar selalu berada paling depan */
+#navbar_top {
+  z-index: 99999 !important;
+}
+
+/* Dorong seluruh isi halaman sesuai tinggi navbar */
+body {
+  padding-top: var(--mih-navbar-height);
+}
+
+/* Hero jangan masuk ke belakang navbar */
+.hero_section {
+  position: relative;
+  margin-top: 0 !important;
+}
+
+/* Tinggi hero mengikuti area yang tersisa */
+.hero-slide {
+  min-height: calc(100vh - var(--mih-navbar-height));
+  height: calc(100vh - var(--mih-navbar-height));
+}
+
+/* Jangan biarkan elemen hero menembus navbar */
+.hero_content {
+  position: relative;
+  z-index: 5;
+}
+
+/* =========================================
+   DESKTOP
+   ========================================= */
+
+@media (min-width: 992px) {
+
+  #navbar_top {
+    min-height: 80px;
+  }
+
+  .hero-slide {
+    min-height: calc(100vh - var(--mih-navbar-height));
+    height: calc(100vh - var(--mih-navbar-height));
+  }
+
+}
+
+
+/* =========================================
+   TABLET / LANDSCAPE HP
+   ========================================= */
+
+@media (min-width: 576px) and (max-width: 991px) {
+
+  .hero-slide {
+    min-height: calc(100vh - var(--mih-navbar-height));
+    height: calc(100vh - var(--mih-navbar-height));
+  }
+
+}
+
+
+/* =========================================
+   HP
+   ========================================= */
+
+@media (max-width: 575px) {
+
+  .hero-slide {
+    min-height: calc(100vh - var(--mih-navbar-height));
+    height: calc(100vh - var(--mih-navbar-height));
+  }
+
+}
+</style>
+
+<script>
+(function () {
+
+  function updateMineIDHostNavbarHeight() {
+
+    const navbar = document.getElementById("navbar_top");
+
+    if (!navbar) return;
+
+    const height = navbar.getBoundingClientRect().height;
+
+    document.documentElement.style.setProperty(
+      "--mih-navbar-height",
+      height + "px"
+    );
+
+  }
+
+  /* Jalankan saat halaman dibuka */
+  window.addEventListener("load", updateMineIDHostNavbarHeight);
+
+  /* Jalankan ketika ukuran layar berubah */
+  window.addEventListener("resize", updateMineIDHostNavbarHeight);
+
+  /* Jalankan ketika menu mobile dibuka/tutup */
+  document.addEventListener("shown.bs.collapse", updateMineIDHostNavbarHeight);
+  document.addEventListener("hidden.bs.collapse", updateMineIDHostNavbarHeight);
+
+  /* Pantau perubahan tinggi navbar */
+  const navbar = document.getElementById("navbar_top");
+
+  if (navbar && window.ResizeObserver) {
+
+    const observer = new ResizeObserver(() => {
+      updateMineIDHostNavbarHeight();
+    });
+
+    observer.observe(navbar);
+
+  }
+
+})();
+</script>
 </body>
 </html>
