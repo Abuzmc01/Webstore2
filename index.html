@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>MineIDHost | Vps Hosting Provider</title>
+	<title>MineIDHost | Layanan Minecraft Hosting</title>
 	<link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
@@ -785,52 +785,66 @@
 }
 
 </style>
-	
+
 <!-- ======= SERVER PARTNERSHIP MINEIDHOST ======= -->
-<section class="mih-partnership-section">
+<section class="mih-partnership">
 
-  <div class="container">
+  <div class="mih-partnership-title">
+    <h2>
+      SERVER PARTNERSHIP
+      <span>MINEIDHOST</span>
+    </h2>
 
-    <div class="mih-partnership-title">
-      <h2>SERVER PARTNERSHIP MINEIDHOST</h2>
-      <span></span>
-    </div>
+    <div class="mih-partnership-line"></div>
+  </div>
 
-    <div class="mih-partnership-slider">
+  <!-- AREA SLIDER -->
+  <div class="mih-partner-marquee">
 
-      <!-- PARTNERSHIP 1 -->
-      <div class="mih-partner">
-        <img
-          src="assets/images/partners/hetzner.png"
-          alt="Hetzner">
+    <div class="mih-partner-track">
+
+      <!-- SET 1 -->
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/hetzner.png" alt="Hetzner">
       </div>
 
-      <!-- PARTNERSHIP 2 -->
-      <div class="mih-partner">
-        <img
-          src="assets/images/partners/nxz.png"
-          alt="NxzyStore">
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/nxz.png" alt="NXZ">
       </div>
 
-      <!-- PARTNERSHIP 3 -->
-      <div class="mih-partner">
-        <img
-          src="assets/images/partners/ovh.png"
-          alt="OVHcloud">
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/ovh.png" alt="OVHcloud">
       </div>
 
-      <!-- PARTNERSHIP 4 -->
-      <div class="mih-partner">
-        <img
-          src="assets/images/partners/amd.png"
-          alt="AMD">
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/amd.png" alt="AMD">
       </div>
 
-      <!-- PARTNERSHIP 5 -->
-      <div class="mih-partner">
-        <img
-          src="assets/images/partners/intel.png"
-          alt="Intel">
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/intel.png" alt="Intel">
+      </div>
+
+
+      <!-- SET 2
+           DUPLIKAT UNTUK LOOP TANPA PUTUS -->
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/hetzner.png" alt="Hetzner">
+      </div>
+
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/nxz.png" alt="NXZ">
+      </div>
+
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/ovh.png" alt="OVHcloud">
+      </div>
+
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/amd.png" alt="AMD">
+      </div>
+
+      <div class="mih-partner-item">
+        <img src="assets/images/partners/intel.png" alt="Intel">
       </div>
 
     </div>
@@ -840,54 +854,57 @@
 </section>
 
 
-<!-- ======= PARTNERSHIP CSS ======= -->
+<!-- ======= SERVER PARTNERSHIP CSS ======= -->
 <style>
 
-.mih-partnership-section {
+.mih-partnership {
 
   position: relative;
 
-  background:
-    radial-gradient(
-      circle at center,
-      #151515 0%,
-      #080808 55%,
-      #000 100%
-    );
+  width: 100%;
 
-  padding: 65px 0 70px;
+  padding: 55px 0 60px;
 
   overflow: hidden;
 
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(90, 0, 0, 0.25) 0%,
+      rgba(20, 0, 0, 0.2) 35%,
+      #050505 75%,
+      #000 100%
+    );
+
   border-top:
-    1px solid rgba(255,0,0,.18);
+    1px solid rgba(255, 0, 0, 0.25);
 
   border-bottom:
-    1px solid rgba(255,0,0,.18);
+    1px solid rgba(255, 0, 0, 0.25);
 
 }
 
 
-/* RED GLOW BACKGROUND */
+/* RED GLOW DI ATAS */
 
-.mih-partnership-section::before {
+.mih-partnership::before {
 
   content: "";
 
   position: absolute;
 
-  width: 500px;
-  height: 200px;
-
-  top: 50%;
+  top: -100px;
   left: 50%;
 
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+
+  width: 650px;
+  height: 180px;
 
   background:
-    rgba(255,0,0,.08);
+    rgba(255, 0, 0, 0.15);
 
-  filter: blur(100px);
+  filter: blur(80px);
 
   pointer-events: none;
 
@@ -900,11 +917,11 @@
 
   position: relative;
 
-  z-index: 2;
+  z-index: 5;
 
   text-align: center;
 
-  margin-bottom: 45px;
+  margin-bottom: 40px;
 
 }
 
@@ -915,7 +932,7 @@
 
   color: #fff;
 
-  font-size: 25px;
+  font-size: 27px;
 
   font-weight: 800;
 
@@ -924,24 +941,32 @@
   text-transform: uppercase;
 
   text-shadow:
-    0 0 12px rgba(255,0,0,.35);
+    0 0 15px rgba(255, 0, 0, 0.3);
 
 }
 
 
-/* GARIS MERAH */
+.mih-partnership-title h2 span {
 
-.mih-partnership-title span {
+  color: #ff1e1e;
 
-  display: block;
+  text-shadow:
+    0 0 15px rgba(255, 0, 0, 0.7);
 
-  width: 70px;
+}
 
-  height: 3px;
 
-  margin: 10px auto 0;
+/* GARIS */
 
-  border-radius: 10px;
+.mih-partnership-line {
+
+  width: 75px;
+
+  height: 4px;
+
+  margin: 12px auto 0;
+
+  border-radius: 20px;
 
   background:
     linear-gradient(
@@ -952,133 +977,246 @@
     );
 
   box-shadow:
-    0 0 12px rgba(255,0,0,.7);
+    0 0 15px rgba(255, 0, 0, 0.8);
 
 }
 
 
-/* PARTNER CONTAINER */
+/* ============================= */
+/* MARQUEE */
+/* ============================= */
 
-.mih-partnership-slider {
+.mih-partner-marquee {
+
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  padding: 8px 0 15px;
+
+}
+
+
+/* FADE SISI */
+
+.mih-partner-marquee::before,
+.mih-partner-marquee::after {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  width: 130px;
+
+  height: 100%;
+
+  z-index: 4;
+
+  pointer-events: none;
+
+}
+
+
+.mih-partner-marquee::before {
+
+  left: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #050505,
+      rgba(5,5,5,0)
+    );
+
+}
+
+
+.mih-partner-marquee::after {
+
+  right: 0;
+
+  background:
+    linear-gradient(
+      270deg,
+      #050505,
+      rgba(5,5,5,0)
+    );
+
+}
+
+
+/* TRACK */
+
+.mih-partner-track {
+
+  display: flex;
+
+  align-items: center;
+
+  width: max-content;
+
+  gap: 22px;
+
+  animation:
+    mihPartnerScroll
+    22s
+    linear
+    infinite;
+
+}
+
+
+/* ============================= */
+/* BULAT PARTNER */
+/* ============================= */
+
+.mih-partner-item {
+
+  flex: 0 0 auto;
+
+  width: 125px;
+
+  height: 125px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 18px;
+
+  position: relative;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #252525 0%,
+      #101010 55%,
+      #050505 100%
+    );
+
+  border:
+    2px solid rgba(255, 0, 0, 0.75);
+
+  box-shadow:
+    0 0 10px rgba(255, 0, 0, 0.3),
+    inset 0 0 20px rgba(255, 0, 0, 0.08);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+
+}
+
+
+/* GLOW CIRCLE */
+
+.mih-partner-item::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 4px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(255, 60, 60, 0.25);
+
+  box-shadow:
+    inset 0 0 12px rgba(255, 0, 0, 0.15);
+
+}
+
+
+/* LOGO */
+
+.mih-partner-item img {
 
   position: relative;
 
   z-index: 2;
 
-  display: flex;
+  width: 100%;
 
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 25px;
-
-  flex-wrap: nowrap;
-
-}
-
-
-/* PARTNER CARD */
-
-.mih-partner {
-
-  width: 150px;
-
-  height: 110px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 15px;
-
-  border-radius: 15px;
-
-  background:
-    rgba(15,15,15,.75);
-
-  border:
-    1px solid rgba(255,0,0,.16);
-
-  box-shadow:
-    0 0 15px rgba(255,0,0,.08);
-
-  transition:
-    transform .35s ease,
-    border-color .35s ease,
-    box-shadow .35s ease;
-
-}
-
-
-.mih-partner img {
-
-  max-width: 115px;
+  max-width: 88px;
 
   max-height: 65px;
-
-  width: auto;
 
   height: auto;
 
   object-fit: contain;
 
-  opacity: .85;
+  opacity: .92;
 
   filter:
     drop-shadow(
-      0 0 7px rgba(255,0,0,.18)
+      0 0 7px rgba(255, 0, 0, .25)
     );
-
-  transition:
-    transform .35s ease,
-    opacity .35s ease,
-    filter .35s ease;
 
 }
 
 
 /* HOVER */
 
-.mih-partner:hover {
-
-  transform:
-    translateY(-6px);
-
-  border-color:
-    rgba(255,0,0,.55);
-
-  box-shadow:
-    0 0 25px rgba(255,0,0,.3);
-
-}
-
-
-.mih-partner:hover img {
-
-  opacity: 1;
+.mih-partner-item:hover {
 
   transform:
     scale(1.08);
 
-  filter:
-    drop-shadow(
-      0 0 14px rgba(255,0,0,.55)
-    );
+  border-color:
+    #ff0000;
+
+  box-shadow:
+    0 0 25px rgba(255, 0, 0, .75),
+    inset 0 0 25px rgba(255, 0, 0, .12);
 
 }
 
 
-/* ================= MOBILE ================= */
+/* ============================= */
+/* ANIMATION */
+/* ============================= */
+
+@keyframes mihPartnerScroll {
+
+  0% {
+
+    transform:
+      translateX(0);
+
+  }
+
+  100% {
+
+    transform:
+      translateX(
+        calc(-50% - 11px)
+      );
+
+  }
+
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
 
 @media (max-width: 768px) {
 
-  .mih-partnership-section {
+  .mih-partnership {
 
     padding:
-      50px 15px 55px;
+      45px 0 50px;
 
   }
 
@@ -1092,81 +1230,94 @@
 
   .mih-partnership-title h2 {
 
-    font-size: 20px;
+    font-size: 21px;
 
     letter-spacing: .5px;
 
   }
 
 
-  .mih-partnership-slider {
+  .mih-partnership-line {
 
-    gap: 12px;
+    width: 60px;
 
-    flex-wrap: wrap;
+    height: 3px;
 
   }
 
 
-  .mih-partner {
+  .mih-partner-track {
+
+    gap: 18px;
+
+    animation-duration:
+      18s;
+
+  }
+
+
+  .mih-partner-item {
 
     width: 105px;
 
-    height: 85px;
+    height: 105px;
 
-    padding: 10px;
-
-    border-radius: 12px;
+    padding: 15px;
 
   }
 
 
-  .mih-partner img {
+  .mih-partner-item img {
 
-    max-width: 80px;
+    max-width: 76px;
 
-    max-height: 45px;
+    max-height: 55px;
+
+  }
+
+
+  .mih-partner-marquee::before,
+  .mih-partner-marquee::after {
+
+    width: 70px;
 
   }
 
 }
 
 
+/* ============================= */
 /* SMALL PHONE */
+/* ============================= */
 
 @media (max-width: 480px) {
 
-  .mih-partnership-slider {
+  .mih-partner-track {
 
-    display: grid;
+    gap: 16px;
 
-    grid-template-columns:
-      repeat(3, 1fr);
-
-    gap: 10px;
+    animation-duration:
+      16s;
 
   }
 
 
-  .mih-partner {
+  .mih-partner-item {
 
-    width: 100%;
+    width: 95px;
 
-    height: 80px;
+    height: 95px;
 
-  }
-
-
-  .mih-partner:nth-child(4) {
-
-    grid-column: 1 / 2;
+    padding: 13px;
 
   }
 
 
-  .mih-partner:nth-child(5) {
+  .mih-partner-item img {
 
-    grid-column: 2 / 3;
+    max-width: 68px;
+
+    max-height: 48px;
 
   }
 
