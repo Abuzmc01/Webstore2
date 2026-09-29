@@ -3104,5 +3104,334 @@ body {
 
 })();
 </script>
+
+<style>
+/* =========================================
+   MINEIDHOST - NAVBAR COMPACT
+   ========================================= */
+
+/* Ukuran navbar */
+:root {
+  --mih-navbar-height: 64px;
+}
+
+/* NAVBAR */
+#navbar_top {
+  min-height: 64px !important;
+  height: 64px !important;
+
+  background:
+    linear-gradient(
+      rgba(18, 18, 18, 0.96),
+      rgba(10, 10, 10, 0.96)
+    ) !important;
+
+  border-bottom:
+    1px solid rgba(255, 0, 0, 0.35) !important;
+
+  box-shadow:
+    0 4px 20px rgba(255, 0, 0, 0.18),
+    inset 0 -1px 0 rgba(255, 0, 0, 0.12) !important;
+
+  backdrop-filter: blur(12px);
+
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+
+/* GRID EFFECT SEPERTI KOLOM FITUR */
+#navbar_top::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.25;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.045) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    70px 70px;
+
+}
+
+
+/* RED GLOW BAWAH NAVBAR */
+#navbar_top::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: -2px;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,0,0,0.9),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px rgba(255,0,0,0.8);
+
+}
+
+
+/* ISI NAVBAR DI ATAS GRID */
+#navbar_top .container {
+
+  position: relative;
+
+  z-index: 3;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+
+/* LOGO DIPERKECIL */
+#navbar_top .navbar-brand img {
+
+  height: 34px !important;
+
+  width: auto;
+
+  filter:
+    drop-shadow(
+      0 0 7px rgba(255,0,0,0.7)
+    ) !important;
+
+}
+
+
+/* TEKS LOGO */
+#navbar_top .navbar-brand {
+
+  font-size: 20px !important;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+
+/* MENU */
+#navbar_top .nav-link {
+
+  font-size: 14px !important;
+
+  padding:
+    7px 10px !important;
+
+  line-height: 1.2;
+
+}
+
+
+/* CLIENT AREA */
+#navbar_top #panel.btn {
+
+  padding:
+    7px 14px !important;
+
+  font-size: 13px;
+
+  border-radius: 8px;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 991px) {
+
+  #navbar_top {
+
+    min-height: 60px !important;
+
+    height: 60px !important;
+
+    padding:
+      4px 0 !important;
+
+  }
+
+
+  #navbar_top .navbar-brand {
+
+    font-size: 18px !important;
+
+  }
+
+
+  #navbar_top .navbar-brand img {
+
+    height: 32px !important;
+
+  }
+
+
+  #navbar_top .navbar-toggler {
+
+    padding: 4px 7px;
+
+    border: none;
+
+  }
+
+
+  #navbar_top .navbar-toggler-icon {
+
+    width: 28px;
+
+    height: 28px;
+
+  }
+
+
+  /* MENU MOBILE */
+  #navbar_top .navbar-collapse {
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(20,20,20,0.98),
+        rgba(5,5,5,0.98)
+      );
+
+    margin-top: 4px;
+
+    padding: 10px;
+
+    border:
+      1px solid rgba(255,0,0,0.25);
+
+    border-radius: 0 0 12px 12px;
+
+    box-shadow:
+      0 15px 30px rgba(0,0,0,0.7),
+      0 0 20px rgba(255,0,0,0.15);
+
+  }
+
+
+  #navbar_top .nav-link {
+
+    padding:
+      9px !important;
+
+    font-size: 14px !important;
+
+  }
+
+}
+
+
+/* =========================================
+   HP KECIL
+   ========================================= */
+
+@media (max-width: 480px) {
+
+  #navbar_top {
+
+    min-height: 58px !important;
+
+    height: 58px !important;
+
+  }
+
+
+  #navbar_top .navbar-brand {
+
+    font-size: 17px !important;
+
+  }
+
+
+  #navbar_top .navbar-brand img {
+
+    height: 29px !important;
+
+  }
+
+}
+</style>
+
+
+<script>
+/* Update tinggi navbar secara otomatis */
+(function () {
+
+  function updateNavbarHeight() {
+
+    const navbar =
+      document.getElementById("navbar_top");
+
+    if (!navbar) return;
+
+    const height =
+      navbar.getBoundingClientRect().height;
+
+    document.documentElement.style.setProperty(
+      "--mih-navbar-height",
+      height + "px"
+    );
+
+  }
+
+  window.addEventListener(
+    "load",
+    updateNavbarHeight
+  );
+
+  window.addEventListener(
+    "resize",
+    updateNavbarHeight
+  );
+
+  window.addEventListener(
+    "orientationchange",
+    updateNavbarHeight
+  );
+
+  setTimeout(
+    updateNavbarHeight,
+    300
+  );
+
+})();
+</script>
 </body>
 </html>
