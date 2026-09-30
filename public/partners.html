@@ -148,7 +148,521 @@
 </style>
 <!-- ======= END NAVBAR ======= -->
 
+<!-- ======= HERO SECTION - MINEIDHOST MODERN ======= -->
+<section class="mih-hero">
+  <div class="swiper mihHeroSwiper">
+    <div class="swiper-wrapper">
 
+      <!-- SLIDE 1 -->
+      <div class="swiper-slide mih-hero-slide">
+        <div class="mih-hero-content">
+
+          <img src="assets/images/slider_images/keuntungan-partner.png"
+               class="mih-hero-image"
+               alt="Keuntungan Partnership">
+
+          <h1>Keuntungan Partnership</h1>
+
+          <p>
+            Rasakan layan kusus, developer kusus, optimasi server kusus, dan setup server kusus.
+			semua layanan diperoleh secara gratis oleh team thecnical kami selama 10 × dalam satu bulan.
+          </p>
+
+          <a href="https://wa.me/mineidhost.support"
+             class="mih-hero-button">
+            daftar Sekarang
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- SLIDE 2 -->
+      <div class="swiper-slide mih-hero-slide">
+        <div class="mih-hero-content">
+
+          <img src="assets/images/slider_images/promo-partner.png"
+               class="mih-hero-image"
+               alt="Promo partnership">
+
+          <h1>Promo kusus Partnership</h1>
+
+          <p>
+            Nikmati promo kusus setiap bulan sebesar 15% untuk 1× pemakaian,
+            kamu juga bisa mendapatkan pormo kusus sebesar 20-30% dalam waktu tertentu.
+          </p>
+
+          <a href="https://wa.me/mineidhost.support"
+             class="mih-hero-button">
+            daftar Sekarang
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- SLIDE 3 -->
+      <div class="swiper-slide mih-hero-slide">
+        <div class="mih-hero-content">
+
+          <img src="assets/images/slider_images/cara-partner.png"
+               class="mih-hero-image"
+               alt="Cara menjadi partner">
+
+          <h1>Cara menjadi partnership?</h1>
+
+          <p>
+            Cukup berlanggan selama 3Bulan, kamu bisa menjadi partner kita lo,
+			Konsultasi sekarang untuk melihat s&K partnership lainya.
+          </p>
+
+          <a href="https://billing.mineidhost.com/products/gta-samp-hosting"
+             class="mih-hero-button">
+            Gabung Sekarang
+          </a>
+
+        </div>
+	  </div>
+	</div>
+
+    <!-- 8 DOTS -->
+    <div class="swiper-pagination mih-hero-pagination"></div>
+
+  </div>
+</section>
+
+<!-- ======= MINEIDHOST HERO CSS ======= -->
+<style>
+
+.mih-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+
+  /* TEMA MINEIDHOST */
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(255, 0, 0, 0.28) 0%,
+      rgba(100, 0, 0, 0.18) 35%,
+      rgba(10, 10, 10, 0.95) 70%,
+      #000000 100%
+    );
+
+  color: #fff;
+}
+
+/* Background glow */
+
+.mih-hero::before {
+  content: "";
+  position: absolute;
+
+  width: 650px;
+  height: 650px;
+
+  top: 20%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: rgba(255, 0, 0, 0.12);
+
+  filter: blur(120px);
+
+  pointer-events: none;
+}
+
+/* SWIPER */
+
+.mihHeroSwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.mih-hero-slide {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding:
+    90px
+    25px
+    130px;
+
+  box-sizing: border-box;
+}
+
+
+/* CONTENT */
+
+.mih-hero-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 850px;
+
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  animation: mihHeroFade 0.8s ease;
+}
+
+
+/* IMAGE */
+
+.mih-hero-image {
+  width: 430px;
+  height: 310px;
+
+  max-width: 85vw;
+
+  object-fit: contain;
+
+  margin-bottom: 20px;
+
+  filter:
+  drop-shadow(0 18px 25px rgba(255, 0, 0, 0.35));
+
+  animation: mihFloat 4s ease-in-out infinite;
+}
+
+
+/* TITLE */
+
+.mih-hero-content h1 {
+  margin: 0 0 22px;
+
+  color: #fff;
+
+  font-size: clamp(34px, 5vw, 52px);
+
+  line-height: 1.1;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+
+  text-shadow:
+    0 4px 12px rgba(50, 0, 100, 0.25);
+}
+
+
+/* DESCRIPTION */
+
+.mih-hero-content p {
+  width: 100%;
+  max-width: 760px;
+
+  margin: 0 auto 32px;
+
+  color: rgba(255,255,255,0.96);
+
+  font-size: clamp(17px, 2vw, 24px);
+
+  line-height: 1.45;
+
+  font-weight: 400;
+}
+
+
+/* BUTTON */
+
+.mih-hero-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 280px;
+
+  padding: 17px 35px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #b40000
+  );
+
+  color: #fff !important;
+
+  text-decoration: none !important;
+
+  font-size: 19px;
+
+  font-weight: 700;
+
+  border: 1px solid rgba(255, 80, 80, 0.4);
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 0, 0.45);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.mih-hero-button:hover {
+  transform: translateY(-3px);
+
+  color: #fff !important;
+
+  background: linear-gradient(
+    90deg,
+    #ff3030,
+    #d00000
+  );
+
+  box-shadow:
+    0 0 35px rgba(255, 0, 0, 0.8);
+}
+}
+
+
+.mih-hero-button:hover {
+
+  transform: translateY(-3px);
+
+  color: #fff !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      #223451,
+      #142238
+    );
+
+  box-shadow:
+    0 15px 35px rgba(30,0,80,0.4);
+}
+
+
+/* PAGINATION */
+
+.mih-hero-pagination {
+  bottom: 75px !important;
+}
+
+
+.mih-hero-pagination
+.swiper-pagination-bullet {
+
+  width: 10px;
+  height: 10px;
+
+  margin: 0 5px !important;
+
+  opacity: .28;
+
+  background: #fff;
+
+  transition:
+    all .3s ease;
+}
+
+
+.mih-hero-pagination
+.swiper-pagination-bullet-active {
+
+  width: 12px;
+  height: 12px;
+
+  opacity: 1;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 10px rgba(255,255,255,.7);
+}
+
+
+/* SLIDE TRANSITION */
+
+.mihHeroSwiper .swiper-slide-active
+.mih-hero-content {
+
+  animation:
+    mihHeroFade
+    .8s ease both;
+}
+
+
+@keyframes mihHeroFade {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+@keyframes mihFloat {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .mih-hero {
+
+    min-height: 720px;
+
+    height: 100svh;
+
+  }
+
+
+  .mih-hero-slide {
+
+    padding:
+      90px
+      20px
+      120px;
+
+  }
+
+
+  .mih-hero-image {
+
+    width: 360px;
+
+    height: 285px;
+
+    max-width: 86vw;
+
+    margin-bottom: 15px;
+
+  }
+
+
+  .mih-hero-content h1 {
+
+    font-size: 35px;
+
+    margin-bottom: 20px;
+
+  }
+
+
+  .mih-hero-content p {
+
+    max-width: 650px;
+
+    font-size: 18px;
+
+    line-height: 1.45;
+
+    margin-bottom: 30px;
+
+  }
+
+
+  .mih-hero-button {
+
+    min-width: 280px;
+
+    padding: 16px 30px;
+
+    font-size: 18px;
+
+  }
+
+
+  .mih-hero-pagination {
+
+    bottom: 70px !important;
+
+  }
+
+}
+
+
+/* SMALL PHONE */
+
+@media (max-width: 480px) {
+
+  .mih-hero {
+
+    min-height: 700px;
+
+  }
+
+
+  .mih-hero-slide {
+
+    padding:
+      85px
+      18px
+      110px;
+
+  }
+
+
+  .mih-hero-image {
+
+    width: 310px;
+
+    height: 260px;
+
+  }
+
+
+  .mih-hero-content h1 {
+
+    font-size: 33px;
+
+  }
+
+
+  .mih-hero-content p {
+
+    font-size: 17px;
+
+  }
+
+
+  .mih-hero-button {
+
+    min-width: 270px;
+
+  }
+
+}
+
+</style>
 
 <!-- ===================== -->
 <!-- == PARTNERS SECTION == -->
