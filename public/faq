@@ -1,0 +1,165 @@
+<section class="mdh-faq">
+
+    <div class="mdh-faq-header">
+        <span class="mdh-eyebrow">FAQ</span>
+
+        <h2>Pertanyaan yang sering ditanya</h2>
+
+        <p>
+            Temukan jawaban cepat mengenai layanan,
+            panel, pembayaran, dan server MineIDHost.
+        </p>
+    </div>
+
+    <div class="mdh-faq-list">
+
+        <div class="mdh-faq-item">
+            <button class="mdh-faq-question">
+                <span class="mdh-faq-number">01</span>
+                <strong>Bagaimana cara mengakses server?</strong>
+                <span class="mdh-faq-plus">+</span>
+            </button>
+
+            <div class="mdh-faq-answer">
+                <p>
+                    Setelah layanan aktif, server dapat dikelola
+                    melalui panel MineIDHost.
+                </p>
+
+                <a href="https://panel.mineidhost.com"
+                   target="_blank"
+                   rel="noopener"
+                   class="mdh-faq-link">
+                    Buka Panel →
+                </a>
+            </div>
+        </div>
+
+
+        <div class="mdh-faq-item">
+            <button class="mdh-faq-question">
+                <span class="mdh-faq-number">02</span>
+                <strong>Apakah server bisa di-upgrade?</strong>
+                <span class="mdh-faq-plus">+</span>
+            </button>
+
+            <div class="mdh-faq-answer">
+                <p>
+                    Bisa, selama resource dan paket yang dibutuhkan
+                    tersedia pada billing MineIDHost.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="mdh-faq-item">
+            <button class="mdh-faq-question">
+                <span class="mdh-faq-number">03</span>
+                <strong>Apakah Minecraft Java dan Bedrock bisa bermain bersama?</strong>
+                <span class="mdh-faq-plus">+</span>
+            </button>
+
+            <div class="mdh-faq-answer">
+                <p>
+                    Bisa menggunakan GeyserMC dan Floodgate.
+                    Tutorial lengkap tersedia di dokumentasi.
+                </p>
+
+                <a href="docs.html#java-bedrock-crossplay"
+                   class="mdh-faq-link">
+                    Lihat Tutorial →
+                </a>
+            </div>
+        </div>
+
+
+        <div class="mdh-faq-item">
+            <button class="mdh-faq-question">
+                <span class="mdh-faq-number">04</span>
+                <strong>Bagaimana cara install plugin?</strong>
+                <span class="mdh-faq-plus">+</span>
+            </button>
+
+            <div class="mdh-faq-answer">
+                <p>
+                    Plugin dapat dipasang melalui fitur Plugin
+                    atau File Manager pada panel, tergantung
+                    software server yang digunakan.
+                </p>
+
+                <a href="docs.html#install-plugin"
+                   class="mdh-faq-link">
+                    Lihat Tutorial →
+                </a>
+            </div>
+        </div>
+
+
+        <div class="mdh-faq-item">
+            <button class="mdh-faq-question">
+                <span class="mdh-faq-number">05</span>
+                <strong>Apakah tersedia backup?</strong>
+                <span class="mdh-faq-plus">+</span>
+            </button>
+
+            <div class="mdh-faq-answer">
+                <p>
+                    Backup mengikuti fitur dan batasan paket
+                    yang kamu beli.
+                </p>
+
+                <a href="docs.html#backup"
+                   class="mdh-faq-link">
+                    Cara Backup →
+                </a>
+            </div>
+        </div>
+
+
+        <div class="mdh-faq-item">
+            <button class="mdh-faq-question">
+                <span class="mdh-faq-number">06</span>
+                <strong>Bagaimana jika server saya mengalami masalah?</strong>
+                <span class="mdh-faq-plus">+</span>
+            </button>
+
+            <div class="mdh-faq-answer">
+                <p>
+                    Cek dokumentasi troubleshooting terlebih dahulu.
+                    Jika masih mengalami masalah, hubungi support
+                    MineIDHost melalui Discord.
+                </p>
+
+                <a href="https://dsc.gg/mineidhost"
+                   target="_blank"
+                   rel="noopener"
+                   class="mdh-faq-link">
+                    Discord Support →
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="mdh-docs-banner">
+
+        <div>
+            <span>DOCUMENTATION</span>
+
+            <h3>Butuh tutorial yang lebih lengkap?</h3>
+
+            <p>
+                Pelajari cara setup, konfigurasi, crossplay,
+                plugin, world, backup, dan troubleshooting
+                melalui dokumentasi MineIDHost.
+            </p>
+        </div>
+
+        <a href="docs.html" class="mdh-docs-button">
+            Buka Documentation →
+        </a>
+
+    </div>
+
+</section>
