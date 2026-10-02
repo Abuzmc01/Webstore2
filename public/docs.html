@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>MineIDHost Docs — Documentation</title>
+
+<meta name="description"
+      content="Dokumentasi MineIDHost untuk setup Minecraft, panel, plugin, crossplay Bedrock, backup dan troubleshooting.">
+
+
+<style>
+
+/* =====================================================
+   MINEIDHOST DOCS
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(220, 20, 55, .10),
+            transparent 35%
+        ),
+        #08080b;
+
+    color: #e9e9ed;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.mdh-doc-topbar {
+
+    height: 70px;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+    background:
+        rgba(8,8,11,.88);
+
+    backdrop-filter: blur(18px);
+}
+
+.mdh-doc-logo {
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-weight: 800;
+}
+
+.mdh-doc-logo-mark {
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff173f,
+            #8d001b
+        );
+
+    box-shadow:
+        0 0 22px rgba(255,20,55,.25);
+}
+
+.mdh-doc-logo small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+.mdh-doc-top-actions {
+
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.mdh-doc-top-actions a {
+
+    padding: 9px 14px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 8px;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-size: 13px;
+}
+
+.mdh-doc-top-actions a:hover {
+    color: #fff;
+    border-color: rgba(255,30,60,.35);
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.mdh-doc-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        270px minmax(0, 1fr);
+
+    min-height: 100vh;
+
+    padding-top: 70px;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.mdh-doc-sidebar {
+
+    position: fixed;
+
+    top: 70px;
+    bottom: 0;
+
+    width: 270px;
+
+    overflow-y: auto;
+
+    padding: 30px 20px;
+
+    border-right:
+        1px solid rgba(255,255,255,.07);
+
+    background:
+        rgba(8,8,11,.72);
+}
+
+.mdh-doc-sidebar-title {
+
+    margin: 0 10px 14px;
+
+    color: #555;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.mdh-doc-nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    margin-bottom: 28px;
+}
+
+.mdh-doc-nav a {
+
+    display: block;
+
+    padding: 9px 11px;
+
+    border-radius: 7px;
+
+    color: #888;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: .2s ease;
+}
+
+.mdh-doc-nav a:hover,
+.mdh-doc-nav a.active {
+
+    color: #fff;
+
+    background:
+        rgba(255,25,55,.08);
+}
+
+.mdh-doc-nav a.active {
+
+    border-left:
+        2px solid #ff3150;
+
+    padding-left: 9px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.mdh-doc-main {
+
+    grid-column: 2;
+
+    max-width: 1050px;
+
+    width: 100%;
+
+    margin: 0 auto;
+
+    padding: 70px 55px 120px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.mdh-doc-hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 55px 45px;
+
+    margin-bottom: 65px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,20,50,.10),
+            rgba(255,255,255,.015)
+        );
+}
+
+.mdh-doc-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    right: -80px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,25,55,.10);
+
+    filter: blur(50px);
+}
+
+.mdh-doc-eyebrow {
+
+    position: relative;
+    z-index: 2;
+
+    color: #ff3150;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.mdh-doc-hero h1 {
+
+    position: relative;
+    z-index: 2;
+
+    margin: 14px 0;
+
+    max-width: 700px;
+
+    color: #fff;
+
+    font-size:
+        clamp(34px, 5vw, 58px);
+
+    line-height: 1.05;
+}
+
+.mdh-doc-hero p {
+
+    position: relative;
+    z-index: 2;
+
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #999;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.mdh-doc-search {
+
+    position: relative;
+
+    margin-top: 30px;
+
+    z-index: 5;
+}
+
+.mdh-doc-search input {
+
+    width: 100%;
+
+    padding: 15px 18px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    color: #fff;
+
+    background:
+        rgba(0,0,0,.3);
+
+    font-size: 14px;
+}
+
+.mdh-doc-search input:focus {
+
+    border-color:
+        rgba(255,40,65,.5);
+
+    box-shadow:
+        0 0 25px rgba(255,20,50,.08);
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.mdh-doc-category {
+
+    margin-bottom: 55px;
+}
+
+.mdh-doc-category-title {
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.mdh-doc-category-title span {
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    color: #ff3150;
+
+    background:
+        rgba(255,25,50,.08);
+
+    font-size: 13px;
+}
+
+.mdh-doc-category-title h2 {
+
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 23px;
+}
+
+
+/* =====================================================
+   DOC CARDS
+===================================================== */
+
+.mdh-doc-cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+}
+
+.mdh-doc-card {
+
+    display: block;
+
+    padding: 22px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 13px;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    background:
+        rgba(255,255,255,.018);
+
+    transition: .3s ease;
+}
+
+.mdh-doc-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(255,35,60,.3);
+
+    background:
+        rgba(255,25,50,.025);
+}
+
+.mdh-doc-card-icon {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 10px;
+
+    color: #ff3150;
+
+    background:
+        rgba(255,25,50,.08);
+
+    font-size: 18px;
+}
+
+.mdh-doc-card h3 {
+
+    margin: 0 0 7px;
+
+    color: #eee;
+
+    font-size: 15px;
+}
+
+.mdh-doc-card p {
+
+    margin: 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   ARTICLE
+===================================================== */
+
+.mdh-doc-article {
+
+    display: none;
+
+    animation:
+        mdhDocFade .3s ease;
+}
+
+.mdh-doc-article.active {
+    display: block;
+}
+
+@keyframes mdhDocFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.mdh-doc-back {
+
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+    color: #888;
+
+    text-decoration: none;
+
+    font-size: 13px;
+}
+
+.mdh-doc-back:hover {
+    color: #ff3150;
+}
+
+.mdh-doc-article h1 {
+
+    margin: 0 0 15px;
+
+    color: #fff;
+
+    font-size:
+        clamp(30px, 5vw, 46px);
+}
+
+.mdh-doc-article-lead {
+
+    color: #888;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+.mdh-doc-step {
+
+    margin-top: 35px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+}
+
+.mdh-doc-step h2 {
+
+    color: #fff;
+
+    font-size: 21px;
+}
+
+.mdh-doc-step h3 {
+
+    color: #ddd;
+
+    font-size: 17px;
+}
+
+.mdh-doc-step p,
+.mdh-doc-step li {
+
+    color: #999;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+.mdh-doc-step ol,
+.mdh-doc-step ul {
+
+    padding-left: 22px;
+}
+
+.mdh-doc-code {
+
+    margin: 18px 0;
+
+    padding: 17px;
+
+    overflow-x: auto;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 10px;
+
+    background: #050507;
+
+    color: #ff8b9c;
+
+    font-family:
+        monospace;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+.mdh-doc-note {
+
+    margin: 20px 0;
+
+    padding: 17px 20px;
+
+    border-left:
+        3px solid #ff3150;
+
+    background:
+        rgba(255,25,50,.05);
+
+    color: #999;
+
+    line-height: 1.7;
+}
+
+.mdh-doc-note strong {
+    color: #fff;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .mdh-doc-top-actions a:not(:last-child) {
+        display: none;
+    }
+
+    .mdh-doc-layout {
+        display: block;
+    }
+
+    .mdh-doc-sidebar {
+
+        position: fixed;
+
+        left: -280px;
+
+        z-index: 900;
+
+        transition: .3s ease;
+    }
+
+    .mdh-doc-sidebar.open {
+        left: 0;
+    }
+
+    .mdh-doc-main {
+
+        padding:
+            35px 18px 80px;
+    }
+
+    .mdh-doc-menu {
+
+        display: flex !important;
+
+    }
+
+    .mdh-doc-cards {
+
+        grid-template-columns: 1fr;
+    }
+
+    .mdh-doc-hero {
+
+        padding: 35px 25px;
+    }
+
+}
+
+.mdh-doc-menu {
+
+    display: none;
+
+    width: 38px;
+    height: 38px;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 8px;
+
+    color: #fff;
+
+    background: transparent;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     TOPBAR
+===================================================== -->
+
+<header class="mdh-doc-topbar">
+
+    <button class="mdh-doc-menu"
+            id="mdhDocMenu">
+        ☰
+    </button>
+
+    <a href="minecraft.html"
+       class="mdh-doc-logo">
+
+        <span class="mdh-doc-logo-mark">
+            M
+        </span>
+
+        <span>
+            MineIDHost
+            <small>Documentation</small>
+        </span>
+
+    </a>
+
+    <div class="mdh-doc-top-actions">
+
+        <a href="https://panel.mineidhost.com"
+           target="_blank">
+            Panel
+        </a>
+
+        <a href="https://dsc.gg/mineidhost"
+           target="_blank">
+            Discord
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="mdh-doc-layout">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="mdh-doc-sidebar"
+       id="mdhDocSidebar">
+
+    <div class="mdh-doc-sidebar-title">
+        Getting Started
+    </div>
+
+    <nav class="mdh-doc-nav">
+
+        <a href="#home"
+           class="active">
+            Documentation
+        </a>
+
+        <a href="#akses-panel">
+            Cara Akses Panel
+        </a>
+
+        <a href="#buat-server">
+            Membuat Server Minecraft
+        </a>
+
+    </nav>
+
+
+    <div class="mdh-doc-sidebar-title">
+        Minecraft Java
+    </div>
+
+    <nav class="mdh-doc-nav">
+
+        <a href="#install-plugin">
+            Install Plugin
+        </a>
+
+        <a href="#upload-world">
+            Upload World
+        </a>
+
+        <a href="#change-version">
+            Ganti Versi Server
+        </a>
+
+        <a href="#operator">
+            Menjadi Operator
+        </a>
+
+        <a href="#whitelist">
+            Whitelist Server
+        </a>
+
+        <a href="#optimasi">
+            Optimasi Server
+        </a>
+
+    </nav>
+
+
+    <div class="mdh-doc-sidebar-title">
+        Crossplay
+    </div>
+
+    <nav class="mdh-doc-nav">
+
+        <a href="#java-bedrock-crossplay">
+            Java + Bedrock
+        </a>
+
+        <a href="#geyser">
+            Setup GeyserMC
+        </a>
+
+        <a href="#floodgate">
+            Setup Floodgate
+        </a>
+
+        <a href="#viaversion">
+            Multi Version
+        </a>
+
+    </nav>
+
+
+    <div class="mdh-doc-sidebar-title">
+        Panel
+    </div>
+
+    <nav class="mdh-doc-nav">
+
+        <a href="#file-manager">
+            File Manager
+        </a>
+
+        <a href="#console">
+            Console
+        </a>
+
+        <a href="#allocation">
+            Allocation / Port
+        </a>
+
+        <a href="#backup">
+            Backup
+        </a>
+
+        <a href="#sftp">
+            SFTP
+        </a>
+
+    </nav>
+
+
+    <div class="mdh-doc-sidebar-title">
+        Troubleshooting
+    </div>
+
+    <nav class="mdh-doc-nav">
+
+        <a href="#server-error">
+            Server Tidak Start
+        </a>
+
+        <a href="#lag">
+            Server Lag
+        </a>
+
+        <a href="#connection">
+            Tidak Bisa Join
+        </a>
+
+        <a href="#plugin-error">
+            Plugin Error
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="mdh-doc-main">
+
+
+<!-- HOME -->
+
+<div class="mdh-doc-home"
+     id="home">
+
+
+    <section class="mdh-doc-hero">
+
+        <span class="mdh-doc-eyebrow">
+            MINEIDHOST DOCS
+        </span>
+
+        <h1>
+            Documentation untuk
+            server kamu.
+        </h1>
+
+        <p>
+            Panduan lengkap untuk mengelola server,
+            menggunakan panel, memasang plugin,
+            membuat crossplay Java & Bedrock,
+            melakukan backup, hingga troubleshooting.
+        </p>
+
+
+        <div class="mdh-doc-search">
+
+            <input
+                type="search"
+                id="mdhDocSearch"
+                placeholder="Cari dokumentasi...">
+
+        </div>
+
+    </section>
+
+
+    <!-- GETTING STARTED -->
+
+    <section class="mdh-doc-category">
+
+        <div class="mdh-doc-category-title">
+
+            <span>01</span>
+
+            <h2>Getting Started</h2>
+
+        </div>
+
+
+        <div class="mdh-doc-cards">
+
+            <a href="#akses-panel"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ↗
+                </div>
+
+                <h3>
+                    Cara Akses Panel
+                </h3>
+
+                <p>
+                    Login dan mulai mengelola
+                    server MineIDHost.
+                </p>
+
+            </a>
+
+
+            <a href="#buat-server"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    +
+                </div>
+
+                <h3>
+                    Membuat Server Minecraft
+                </h3>
+
+                <p>
+                    Panduan memilih software
+                    dan melakukan instalasi server.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- JAVA -->
+
+    <section class="mdh-doc-category">
+
+        <div class="mdh-doc-category-title">
+
+            <span>02</span>
+
+            <h2>Minecraft Java</h2>
+
+        </div>
+
+
+        <div class="mdh-doc-cards">
+
+            <a href="#install-plugin"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    +
+                </div>
+
+                <h3>
+                    Install Plugin
+                </h3>
+
+                <p>
+                    Cara memasang plugin Bukkit,
+                    Spigot, Paper atau Purpur.
+                </p>
+
+            </a>
+
+
+            <a href="#upload-world"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ↑
+                </div>
+
+                <h3>
+                    Upload World
+                </h3>
+
+                <p>
+                    Upload world Minecraft
+                    melalui File Manager.
+                </p>
+
+            </a>
+
+
+            <a href="#change-version"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ↻
+                </div>
+
+                <h3>
+                    Ganti Versi Server
+                </h3>
+
+                <p>
+                    Mengubah versi Minecraft
+                    tanpa kehilangan konfigurasi.
+                </p>
+
+            </a>
+
+
+            <a href="#operator"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    #
+                </div>
+
+                <h3>
+                    Menjadi Operator
+                </h3>
+
+                <p>
+                    Memberikan akses admin
+                    kepada akun Minecraft.
+                </p>
+
+            </a>
+
+
+            <a href="#whitelist"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Whitelist Server
+                </h3>
+
+                <p>
+                    Membatasi server agar
+                    hanya pemain tertentu yang dapat join.
+                </p>
+
+            </a>
+
+
+            <a href="#optimasi"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Optimasi Server
+                </h3>
+
+                <p>
+                    Tips dasar mengurangi beban
+                    server dan menjaga TPS.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CROSSPLAY -->
+
+    <section class="mdh-doc-category">
+
+        <div class="mdh-doc-category-title">
+
+            <span>03</span>
+
+            <h2>Java & Bedrock Crossplay</h2>
+
+        </div>
+
+
+        <div class="mdh-doc-cards">
+
+            <a href="#java-bedrock-crossplay"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ◇
+                </div>
+
+                <h3>
+                    Java + Bedrock Crossplay
+                </h3>
+
+                <p>
+                    Membuat pemain Java dan
+                    Bedrock bermain di server yang sama.
+                </p>
+
+            </a>
+
+
+            <a href="#geyser"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    G
+                </div>
+
+                <h3>
+                    Setup GeyserMC
+                </h3>
+
+                <p>
+                    Konfigurasi Geyser sebagai
+                    bridge Java dan Bedrock.
+                </p>
+
+            </a>
+
+
+            <a href="#floodgate"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    F
+                </div>
+
+                <h3>
+                    Setup Floodgate
+                </h3>
+
+                <p>
+                    Memungkinkan pemain Bedrock
+                    masuk menggunakan Floodgate.
+                </p>
+
+            </a>
+
+
+            <a href="#viaversion"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    V
+                </div>
+
+                <h3>
+                    Multi Version
+                </h3>
+
+                <p>
+                    Mengizinkan client dengan
+                    versi berbeda untuk terhubung.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- PANEL -->
+
+    <section class="mdh-doc-category">
+
+        <div class="mdh-doc-category-title">
+
+            <span>04</span>
+
+            <h2>Panel</h2>
+
+        </div>
+
+
+        <div class="mdh-doc-cards">
+
+            <a href="#file-manager"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ▤
+                </div>
+
+                <h3>
+                    File Manager
+                </h3>
+
+                <p>
+                    Mengelola file server
+                    langsung dari panel.
+                </p>
+
+            </a>
+
+
+            <a href="#console"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    >
+                </div>
+
+                <h3>
+                    Console
+                </h3>
+
+                <p>
+                    Menjalankan command dan
+                    melihat log server.
+                </p>
+
+            </a>
+
+
+            <a href="#allocation"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    #
+                </div>
+
+                <h3>
+                    Allocation / Port
+                </h3>
+
+                <p>
+                    Menambahkan port untuk
+                    kebutuhan server.
+                </p>
+
+            </a>
+
+
+            <a href="#backup"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ◫
+                </div>
+
+                <h3>
+                    Backup
+                </h3>
+
+                <p>
+                    Membuat dan mengelola
+                    backup server.
+                </p>
+
+            </a>
+
+
+            <a href="#sftp"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ⇄
+                </div>
+
+                <h3>
+                    SFTP
+                </h3>
+
+                <p>
+                    Transfer file server
+                    menggunakan SFTP.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- TROUBLESHOOT -->
+
+    <section class="mdh-doc-category">
+
+        <div class="mdh-doc-category-title">
+
+            <span>05</span>
+
+            <h2>Troubleshooting</h2>
+
+        </div>
+
+
+        <div class="mdh-doc-cards">
+
+            <a href="#server-error"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    !
+                </div>
+
+                <h3>
+                    Server Tidak Start
+                </h3>
+
+                <p>
+                    Langkah pemeriksaan ketika
+                    server gagal berjalan.
+                </p>
+
+            </a>
+
+
+            <a href="#lag"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Server Lag
+                </h3>
+
+                <p>
+                    Pemeriksaan dasar ketika
+                    server mengalami lag.
+                </p>
+
+            </a>
+
+
+            <a href="#connection"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    ×
+                </div>
+
+                <h3>
+                    Tidak Bisa Join
+                </h3>
+
+                <p>
+                    Periksa alamat, port,
+                    firewall dan konfigurasi server.
+                </p>
+
+            </a>
+
+
+            <a href="#plugin-error"
+               class="mdh-doc-card">
+
+                <div class="mdh-doc-card-icon">
+                    !
+                </div>
+
+                <h3>
+                    Plugin Error
+                </h3>
+
+                <p>
+                    Cara membaca error plugin
+                    dari console.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =====================================================
+     ARTICLES
+===================================================== -->
+
+
+<article class="mdh-doc-article"
+         id="akses-panel">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Cara Akses Panel</h1>
+
+    <p class="mdh-doc-article-lead">
+        Panel digunakan untuk mengelola server,
+        console, file, plugin, backup, allocation,
+        startup dan konfigurasi server.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Buka Panel MineIDHost</h2>
+
+        <p>
+            Buka panel melalui:
+        </p>
+
+        <div class="mdh-doc-code">
+https://panel.mineidhost.com
+        </div>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Login</h2>
+
+        <p>
+            Gunakan akun yang digunakan ketika melakukan
+            pemesanan layanan MineIDHost.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Pilih Server</h2>
+
+        <p>
+            Setelah login, pilih server yang ingin
+            kamu kelola untuk membuka halaman server.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="buat-server">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Membuat Server Minecraft</h1>
+
+    <p class="mdh-doc-article-lead">
+        Panduan dasar untuk menyiapkan server Minecraft
+        menggunakan panel MineIDHost.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Pilih software server</h2>
+
+        <p>
+            Untuk Minecraft Java, software seperti Paper
+            atau Purpur dapat digunakan sesuai kebutuhan
+            plugin dan server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Pilih versi Minecraft</h2>
+
+        <p>
+            Gunakan versi yang sesuai dengan plugin,
+            mod atau kebutuhan server kamu.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Install server</h2>
+
+        <p>
+            Jalankan proses install/reinstall dari panel
+            dan tunggu sampai server selesai disiapkan.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-note">
+        <strong>Tips:</strong>
+        Sebelum melakukan reinstall, pastikan file
+        penting dan world sudah memiliki backup.
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="install-plugin">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Install Plugin Minecraft</h1>
+
+    <p class="mdh-doc-article-lead">
+        Plugin memungkinkan kamu menambahkan fitur
+        baru ke server Minecraft Java.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Pastikan software mendukung plugin</h2>
+
+        <p>
+            Gunakan software seperti Paper, Purpur,
+            Spigot atau software Bukkit-compatible.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Upload plugin</h2>
+
+        <p>
+            Buka File Manager dan masuk ke:
+        </p>
+
+        <div class="mdh-doc-code">
+/plugins
+        </div>
+
+        <p>
+            Upload file plugin dengan ekstensi:
+        </p>
+
+        <div class="mdh-doc-code">
+.jar
+        </div>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Restart server</h2>
+
+        <p>
+            Restart server dan periksa Console untuk
+            memastikan plugin berhasil dimuat.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="java-bedrock-crossplay">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Java + Bedrock Crossplay</h1>
+
+    <p class="mdh-doc-article-lead">
+        Tutorial membuat pemain Minecraft Java Edition
+        dan Bedrock Edition dapat bermain pada server
+        yang sama menggunakan GeyserMC dan Floodgate.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>Yang dibutuhkan</h2>
+
+        <ul>
+            <li>Server Minecraft Java.</li>
+            <li>GeyserMC.</li>
+            <li>Floodgate.</li>
+            <li>ViaVersion disarankan untuk kompatibilitas versi.</li>
+            <li>Allocation/port UDP untuk Bedrock.</li>
+        </ul>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Install plugin</h2>
+
+        <p>
+            Install GeyserMC, Floodgate dan ViaVersion
+            pada server Java kamu.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Buat allocation Bedrock</h2>
+
+        <p>
+            Buka menu Network/Allocations pada panel
+            dan buat port tambahan yang akan digunakan
+            pemain Bedrock.
+        </p>
+
+        <div class="mdh-doc-note">
+            <strong>Penting:</strong>
+            Bedrock menggunakan koneksi UDP. Pastikan
+            allocation yang digunakan tersedia dan sesuai
+            dengan konfigurasi Geyser.
+        </div>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Konfigurasi Geyser</h2>
+
+        <p>
+            Atur listener Bedrock menggunakan port allocation
+            yang telah dibuat.
+        </p>
+
+        <p>
+            Untuk koneksi backend, gunakan alamat dan port
+            server Java kamu.
+        </p>
+
+        <p>
+            Jika menggunakan Floodgate, authentication
+            Geyser diarahkan ke Floodgate.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>4. Restart server</h2>
+
+        <p>
+            Simpan konfigurasi kemudian restart server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>5. Cara pemain join</h2>
+
+        <p>
+            Pemain Java menggunakan alamat dan port Java.
+            Pemain Bedrock menggunakan alamat server
+            dengan port Bedrock yang telah dibuat.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="geyser">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Setup GeyserMC</h1>
+
+    <p class="mdh-doc-article-lead">
+        GeyserMC berfungsi sebagai bridge antara
+        Minecraft Bedrock dan Minecraft Java.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Install Geyser</h2>
+
+        <p>
+            Upload atau install plugin Geyser yang
+            sesuai dengan software server kamu.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Install Floodgate</h2>
+
+        <p>
+            Floodgate diperlukan apabila kamu ingin
+            pemain Bedrock dapat terhubung menggunakan
+            sistem autentikasi Floodgate.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Buat port Bedrock</h2>
+
+        <p>
+            Buat allocation tambahan untuk listener
+            Bedrock dan gunakan port tersebut pada
+            konfigurasi Geyser.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-note">
+        <strong>Catatan:</strong>
+        Jangan menggunakan port Java sebagai port Bedrock
+        apabila konfigurasi kamu menggunakan allocation
+        terpisah.
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="floodgate">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Setup Floodgate</h1>
+
+    <p class="mdh-doc-article-lead">
+        Floodgate bekerja bersama Geyser untuk membantu
+        autentikasi pemain Bedrock pada server Java.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Install Floodgate</h2>
+
+        <p>
+            Pasang Floodgate pada server yang sudah
+            menggunakan Geyser.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Restart</h2>
+
+        <p>
+            Restart server agar folder dan konfigurasi
+            Floodgate dibuat.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Periksa Console</h2>
+
+        <p>
+            Pastikan tidak terdapat error Floodgate
+            atau Geyser ketika server selesai startup.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="viaversion">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Multi Version Minecraft</h1>
+
+    <p class="mdh-doc-article-lead">
+        ViaVersion dapat membantu server menerima
+        client dengan versi yang berbeda, tergantung
+        kompatibilitas versi plugin dan server.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Install ViaVersion</h2>
+
+        <p>
+            Install ViaVersion melalui plugin manager
+            atau upload file plugin ke folder plugins.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Restart server</h2>
+
+        <p>
+            Restart server setelah plugin selesai dipasang.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="upload-world">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Upload World Minecraft</h1>
+
+    <p class="mdh-doc-article-lead">
+        Gunakan File Manager atau SFTP untuk memindahkan
+        world ke server MineIDHost.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Stop server</h2>
+
+        <p>
+            Matikan server terlebih dahulu sebelum
+            mengganti world.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Backup world lama</h2>
+
+        <p>
+            Simpan backup sebelum menghapus atau mengganti
+            world yang sedang digunakan.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Upload world</h2>
+
+        <p>
+            Upload folder world melalui File Manager
+            atau SFTP.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>4. Pastikan nama world benar</h2>
+
+        <p>
+            Pastikan konfigurasi server menunjuk ke
+            nama folder world yang benar.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="change-version">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Ganti Versi Server</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Backup terlebih dahulu</h2>
+
+        <p>
+            Selalu buat backup sebelum mengganti versi.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Tentukan software dan versi</h2>
+
+        <p>
+            Pilih versi Minecraft yang sesuai dengan
+            plugin dan world yang digunakan.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Install versi baru</h2>
+
+        <p>
+            Gunakan fitur startup/software pada panel
+            sesuai konfigurasi server kamu.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="operator">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Menjadi Operator</h1>
+
+    <p class="mdh-doc-article-lead">
+        Operator memberikan akses command admin
+        kepada pemain.
+    </p>
+
+    <div class="mdh-doc-step">
+
+        <h2>Melalui Console</h2>
+
+        <p>
+            Buka Console pada panel dan gunakan:
+        </p>
+
+        <div class="mdh-doc-code">
+op NamaPlayer
+        </div>
+
+        <p>
+            Ganti <strong>NamaPlayer</strong> dengan
+            username Minecraft yang ingin diberikan OP.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="whitelist">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Whitelist Server</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Aktifkan whitelist</h2>
+
+        <div class="mdh-doc-code">
+whitelist on
+        </div>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Tambahkan pemain</h2>
+
+        <div class="mdh-doc-code">
+whitelist add NamaPlayer
+        </div>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Hapus pemain</h2>
+
+        <div class="mdh-doc-code">
+whitelist remove NamaPlayer
+        </div>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="optimasi">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Optimasi Server Minecraft</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Gunakan software yang sesuai</h2>
+
+        <p>
+            Untuk server plugin-based, Paper atau Purpur
+            dapat digunakan sesuai kebutuhan.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Perhatikan view distance</h2>
+
+        <p>
+            View distance yang terlalu tinggi dapat
+            meningkatkan beban server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Periksa plugin</h2>
+
+        <p>
+            Plugin yang terlalu berat atau melakukan
+            operasi berlebihan dapat memengaruhi performa.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>4. Gunakan Spark</h2>
+
+        <p>
+            Spark dapat digunakan untuk melakukan profiling
+            ketika server mengalami masalah performa.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="file-manager">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>File Manager</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Fungsi File Manager</h2>
+
+        <ul>
+            <li>Upload file.</li>
+            <li>Download file.</li>
+            <li>Edit konfigurasi.</li>
+            <li>Membuat folder.</li>
+            <li>Menghapus file.</li>
+            <li>Mengelola plugin dan world.</li>
+        </ul>
+
+    </div>
+
+    <div class="mdh-doc-note">
+        <strong>Peringatan:</strong>
+        Jangan menghapus file server secara sembarangan.
+        Buat backup sebelum mengubah konfigurasi penting.
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="console">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Console</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Apa fungsi Console?</h2>
+
+        <p>
+            Console digunakan untuk melihat startup log,
+            error, warning dan menjalankan command server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Contoh command</h2>
+
+        <div class="mdh-doc-code">
+list
+whitelist on
+op NamaPlayer
+say Server akan restart
+        </div>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="allocation">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Allocation / Port</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Apa itu allocation?</h2>
+
+        <p>
+            Allocation adalah port yang dapat digunakan
+            sebagai endpoint jaringan server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Kapan membutuhkan port tambahan?</h2>
+
+        <ul>
+            <li>Bedrock / Geyser.</li>
+            <li>Query.</li>
+            <li>Server tambahan.</li>
+            <li>Layanan yang membutuhkan port tertentu.</li>
+        </ul>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="backup">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Backup Server</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Kapan harus melakukan backup?</h2>
+
+        <ul>
+            <li>Sebelum mengganti versi.</li>
+            <li>Sebelum install plugin besar.</li>
+            <li>Sebelum mengganti world.</li>
+            <li>Sebelum mengubah konfigurasi penting.</li>
+        </ul>
+
+    </div>
+
+    <div class="mdh-doc-note">
+        <strong>Rekomendasi:</strong>
+        Jangan hanya mengandalkan satu backup.
+        Untuk data penting, simpan salinan tambahan
+        di lokasi lain.
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="sftp">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>SFTP</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Fungsi SFTP</h2>
+
+        <p>
+            SFTP dapat digunakan untuk transfer file
+            dalam jumlah besar tanpa harus upload satu
+            per satu melalui browser.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Gunakan client SFTP</h2>
+
+        <p>
+            Kamu dapat menggunakan aplikasi seperti
+            FileZilla atau client SFTP lainnya.
+        </p>
+
+        <p>
+            Gunakan host, username, password dan port
+            yang diberikan oleh panel server.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="server-error">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Server Tidak Start</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Periksa Console</h2>
+
+        <p>
+            Lihat pesan error terakhir sebelum server
+            berhenti.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Periksa Java Version</h2>
+
+        <p>
+            Pastikan versi Java sesuai dengan versi
+            Minecraft/server software yang digunakan.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Periksa plugin</h2>
+
+        <p>
+            Plugin yang tidak kompatibel dapat menyebabkan
+            server gagal startup.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="lag">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Server Lag</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Periksa TPS</h2>
+
+        <p>
+            Gunakan profiling untuk mengetahui bagian
+            server yang menyebabkan beban tinggi.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Periksa plugin</h2>
+
+        <p>
+            Plugin yang menjalankan task terlalu sering
+            dapat menyebabkan tick server menjadi berat.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Kurangi beban world</h2>
+
+        <p>
+            Terlalu banyak entity, chunk aktif atau
+            aktivitas redstone dapat meningkatkan beban.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="connection">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Tidak Bisa Join Server</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>Periksa IP dan Port</h2>
+
+        <p>
+            Pastikan alamat dan port yang digunakan
+            sesuai dengan allocation server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Periksa status server</h2>
+
+        <p>
+            Pastikan server sudah Running dan tidak
+            sedang dalam proses startup.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>Jika menggunakan Bedrock</h2>
+
+        <p>
+            Pastikan menggunakan port Bedrock,
+            bukan port Java apabila Geyser dikonfigurasi
+            menggunakan allocation terpisah.
+        </p>
+
+    </div>
+
+</article>
+
+
+<article class="mdh-doc-article"
+         id="plugin-error">
+
+    <a href="#home" class="mdh-doc-back">
+        ← Kembali ke Documentation
+    </a>
+
+    <h1>Plugin Error</h1>
+
+    <div class="mdh-doc-step">
+
+        <h2>1. Buka Console</h2>
+
+        <p>
+            Cari nama plugin yang muncul pada error.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>2. Periksa kompatibilitas</h2>
+
+        <p>
+            Pastikan plugin sesuai dengan versi
+            Minecraft dan software server.
+        </p>
+
+    </div>
+
+    <div class="mdh-doc-step">
+
+        <h2>3. Tes tanpa plugin</h2>
+
+        <p>
+            Jika diperlukan, pindahkan plugin yang
+            bermasalah sementara dari folder plugins
+            lalu lakukan restart.
+        </p>
+
+    </div>
+
+</article>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   MINEIDHOST DOCS JAVASCRIPT
+===================================================== */
+
+const articles =
+    document.querySelectorAll(".mdh-doc-article");
+
+const home =
+    document.querySelector(".mdh-doc-home");
+
+const sidebarLinks =
+    document.querySelectorAll(".mdh-doc-nav a");
+
+const search =
+    document.getElementById("mdhDocSearch");
+
+
+function showPage() {
+
+    let hash =
+        window.location.hash.substring(1);
+
+
+    articles.forEach(function(article) {
+        article.classList.remove("active");
+    });
+
+
+    if (hash && document.getElementById(hash)) {
+
+        const target =
+            document.getElementById(hash);
+
+        if (
+            target.classList.contains(
+                "mdh-doc-article"
+            )
+        ) {
+
+            home.style.display = "none";
+
+            target.classList.add("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        } else {
+
+            home.style.display = "block";
+
+        }
+
+    } else {
+
+        home.style.display = "block";
+
+    }
+
+
+    sidebarLinks.forEach(function(link) {
+
+        link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + hash
+        );
+
+    });
+
+
+    document
+        .getElementById("mdhDocSidebar")
+        .classList.remove("open");
+}
+
+
+window.addEventListener(
+    "hashchange",
+    showPage
+);
+
+showPage();
+
+
+/* SEARCH */
+
+search.addEventListener(
+    "input",
+    function() {
+
+        const query =
+            this.value
+                .toLowerCase()
+                .trim();
+
+        document
+            .querySelectorAll(".mdh-doc-card")
+            .forEach(function(card) {
+
+                const text =
+                    card.innerText.toLowerCase();
+
+                card.style.display =
+                    !query || text.includes(query)
+                        ? ""
+                        : "none";
+
+            });
+
+    }
+);
+
+
+/* MOBILE MENU */
+
+document
+    .getElementById("mdhDocMenu")
+    .addEventListener(
+        "click",
+        function() {
+
+            document
+                .getElementById("mdhDocSidebar")
+                .classList.toggle("open");
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>
