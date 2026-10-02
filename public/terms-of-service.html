@@ -1420,7 +1420,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <img src="assets/images/logo.svg" alt="MineIDHost Logo" class="img-fluid mb-2" style="width: 120px; filter: drop-shadow(0 0 8px rgba(255,0,0,0.8));">
           <span style="color: #FFFFFF;">MineID</span><span style="color: #FF0000;">Host</span>
         </h3>
-        <p class="footer-desc">Solusi Terbaik Layanan Cloud servers,mendukung Keras perkembangan Digital infrastruktur.</p>
+        <p class="footer-desc">Solusi Terbaik Layanan Game Hosting, Harga murah dan Berkualitas Tinggi</p>
         <p class="footer-copy">&copy; 2025 MineIDHost. All Rights Reserved.</p>
       </div>
 
@@ -1429,12 +1429,12 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="col-lg-3 col-6">
             <h4>Services</h4>
             <ul class="footer-list">
-              <li><a href="game-hosting.html">Game Hosting</a></li>
-              <li><a href="vps-kvm.html">VPS/RDP Kvm</a></li>
-              <li><a href="cloud-server.html">Cloud Server</a></li>
-              <li><a href="dedicated-server.html">Dedicated Server</a></li>
-              <li><a href="petrodactyl-service.html">Plugins Development</a></li>
-              <li><a href="petrodactyl-service.html">Petrodactyl Service</a></li>
+              <li><a href="https://billing.mineidhost.com/products/asia-minecraft-basic-hosting">Basic Hosting</a></li>
+              <li><a href="https://billing.mineidhost.com/products/asia-minecraft-medium-hosting">Medium Hosting</a></li>
+              <li><a href="https://billing.mineidhost.com/products/asia-minecraft-private-basic">PvNode Basic</a></li>
+              <li><a href="https://billing.mineidhost.com/products/asia-minecraft-private-medium">PvNode Medium</a></li>
+              <li><a href="https://billing.mineidhost.com/products/asia-minecraft-private-high">PvNode High</a></li>
+              <li><a href="https://billing.mineidhost.com/products/bm-amd-epyc">Bare Metal Server</a></li>
             </ul>
           </div>
 
@@ -1443,7 +1443,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <ul class="footer-list">
               <li><a href="https://wa.me/6282377658840">WhatsApp</a></li>
               <li><a href="mineidhost@gmail.com">Email</a></li>
-              <li><a href="https://www.instagram.com/mineidhost.co.id">Instagram</a></li>
+              <li><a href="https://www.instagram.com/mineidhost.comm">Instagram</a></li>
               <li><a href="https://dsc.gg/mineidhost">Discord</a></li>
             </ul>
           </div>
@@ -1471,7 +1471,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <!-- Lokasi Server dan Aktivasi Info -->
     <div class="text-center mt-4 text-light small fade-in-up">
-      🌍 Data Center berlokasi di <span style="color:#ff3b3b;">German</span> | ⚡ Support Dari Hetzner.Com<span style="color:#ff3b3b;"> Cloud services</span> Keamanan Besar | 🛡️ Anti-DDoS Protection
+      🌍 Data Center berlokasi di <span style="color:#ff3b3b;">Indonesia</span> | 🗾 Jawa Timur Ponorogo<span style="color:#ff3b3b;"> MineIDHost</span> Kenyamanan Tanpa Batas| 💲 Harga Tetap terjangkau.
     </div>
 
     <!-- Pembayaran -->
@@ -1496,7 +1496,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <a href="https://wa.me/6282377658840" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
       <a href="https://dsc.gg/mineidhost" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
       <a href="https://www.tiktok.com/@mineidhost.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-      <a href="https://www.instagram.com/mineidhost.co.id" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.instagram.com/mineidhost.comm" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="mineidhost@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
@@ -1642,5 +1642,506 @@ document.addEventListener("DOMContentLoaded", () => {
 <script src="assets/js/slider.js"></script>
 <script src="assets/js/game-selector.js"></script>
 <script src="assets/js/reviews.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* Hapus instance lama jika slider.js sebelumnya
+     sudah membuat hero swiper */
+  const heroElement = document.querySelector(".mihHeroSwiper");
+
+  if (!heroElement) return;
+
+  if (heroElement.swiper) {
+    heroElement.swiper.destroy(true, true);
+  }
+
+  /* Hero MineIDHost */
+  new Swiper(".mihHeroSwiper", {
+
+    loop: true,
+
+    speed: 850,
+
+    effect: "fade",
+
+    fadeEffect: {
+      crossFade: true
+    },
+
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false
+    },
+
+    pagination: {
+      el: ".mih-hero-pagination",
+      clickable: true
+    },
+
+    grabCursor: true,
+
+    allowTouchMove: true
+
+  });
+
+});
+</script>
+
+<style>
+	
+/* =========================================
+   FIX NAVBAR OVERLAP - MINEIDHOST
+   ========================================= */
+
+:root {
+  --mih-navbar-height: 80px;
+}
+
+/* Navbar selalu berada paling depan */
+#navbar_top {
+  z-index: 99999 !important;
+}
+
+/* Dorong seluruh isi halaman sesuai tinggi navbar */
+body {
+  padding-top: var(--mih-navbar-height);
+}
+
+/* Hero jangan masuk ke belakang navbar */
+.hero_section {
+  position: relative;
+  margin-top: 0 !important;
+}
+
+/* Tinggi hero mengikuti area yang tersisa */
+.hero-slide {
+  min-height: calc(100vh - var(--mih-navbar-height));
+  height: calc(100vh - var(--mih-navbar-height));
+}
+
+/* Jangan biarkan elemen hero menembus navbar */
+.hero_content {
+  position: relative;
+  z-index: 5;
+}
+
+/* =========================================
+   DESKTOP
+   ========================================= */
+
+@media (min-width: 992px) {
+
+  #navbar_top {
+    min-height: 80px;
+  }
+
+  .hero-slide {
+    min-height: calc(100vh - var(--mih-navbar-height));
+    height: calc(100vh - var(--mih-navbar-height));
+  }
+
+}
+
+
+/* =========================================
+   TABLET / LANDSCAPE HP
+   ========================================= */
+
+@media (min-width: 576px) and (max-width: 991px) {
+
+  .hero-slide {
+    min-height: calc(100vh - var(--mih-navbar-height));
+    height: calc(100vh - var(--mih-navbar-height));
+  }
+
+}
+
+
+/* =========================================
+   HP
+   ========================================= */
+
+@media (max-width: 575px) {
+
+  .hero-slide {
+    min-height: calc(100vh - var(--mih-navbar-height));
+    height: calc(100vh - var(--mih-navbar-height));
+  }
+
+}
+</style>
+
+<script>
+(function () {
+
+  function updateMineIDHostNavbarHeight() {
+
+    const navbar = document.getElementById("navbar_top");
+
+    if (!navbar) return;
+
+    const height = navbar.getBoundingClientRect().height;
+
+    document.documentElement.style.setProperty(
+      "--mih-navbar-height",
+      height + "px"
+    );
+
+  }
+
+  /* Jalankan saat halaman dibuka */
+  window.addEventListener("load", updateMineIDHostNavbarHeight);
+
+  /* Jalankan ketika ukuran layar berubah */
+  window.addEventListener("resize", updateMineIDHostNavbarHeight);
+
+  /* Jalankan ketika menu mobile dibuka/tutup */
+  document.addEventListener("shown.bs.collapse", updateMineIDHostNavbarHeight);
+  document.addEventListener("hidden.bs.collapse", updateMineIDHostNavbarHeight);
+
+  /* Pantau perubahan tinggi navbar */
+  const navbar = document.getElementById("navbar_top");
+
+  if (navbar && window.ResizeObserver) {
+
+    const observer = new ResizeObserver(() => {
+      updateMineIDHostNavbarHeight();
+    });
+
+    observer.observe(navbar);
+
+  }
+
+})();
+</script>
+
+<style>
+/* =========================================
+   MINEIDHOST - NAVBAR COMPACT
+   ========================================= */
+
+/* Ukuran navbar */
+:root {
+  --mih-navbar-height: 64px;
+}
+
+/* NAVBAR */
+#navbar_top {
+  min-height: 64px !important;
+  height: 64px !important;
+
+  background:
+    linear-gradient(
+      rgba(18, 18, 18, 0.96),
+      rgba(10, 10, 10, 0.96)
+    ) !important;
+
+  border-bottom:
+    1px solid rgba(255, 0, 0, 0.35) !important;
+
+  box-shadow:
+    0 4px 20px rgba(255, 0, 0, 0.18),
+    inset 0 -1px 0 rgba(255, 0, 0, 0.12) !important;
+
+  backdrop-filter: blur(12px);
+
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+
+/* GRID EFFECT SEPERTI KOLOM FITUR */
+#navbar_top::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.25;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.045) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    70px 70px;
+
+}
+
+
+/* RED GLOW BAWAH NAVBAR */
+#navbar_top::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: -2px;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,0,0,0.9),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px rgba(255,0,0,0.8);
+
+}
+
+
+/* ISI NAVBAR DI ATAS GRID */
+#navbar_top .container {
+
+  position: relative;
+
+  z-index: 3;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+
+/* LOGO DIPERKECIL */
+#navbar_top .navbar-brand img {
+
+  height: 34px !important;
+
+  width: auto;
+
+  filter:
+    drop-shadow(
+      0 0 7px rgba(255,0,0,0.7)
+    ) !important;
+
+}
+
+
+/* TEKS LOGO */
+#navbar_top .navbar-brand {
+
+  font-size: 20px !important;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  display: flex;
+
+  align-items: center;
+
+}
+
+
+/* MENU */
+#navbar_top .nav-link {
+
+  font-size: 14px !important;
+
+  padding:
+    7px 10px !important;
+
+  line-height: 1.2;
+
+}
+
+
+/* CLIENT AREA */
+#navbar_top #panel.btn {
+
+  padding:
+    7px 14px !important;
+
+  font-size: 13px;
+
+  border-radius: 8px;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 991px) {
+
+  #navbar_top {
+
+    min-height: 60px !important;
+
+    height: 60px !important;
+
+    padding:
+      4px 0 !important;
+
+  }
+
+
+  #navbar_top .navbar-brand {
+
+    font-size: 18px !important;
+
+  }
+
+
+  #navbar_top .navbar-brand img {
+
+    height: 32px !important;
+
+  }
+
+
+  #navbar_top .navbar-toggler {
+
+    padding: 4px 7px;
+
+    border: none;
+
+  }
+
+
+  #navbar_top .navbar-toggler-icon {
+
+    width: 28px;
+
+    height: 28px;
+
+  }
+
+
+  /* MENU MOBILE */
+  #navbar_top .navbar-collapse {
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(20,20,20,0.98),
+        rgba(5,5,5,0.98)
+      );
+
+    margin-top: 4px;
+
+    padding: 10px;
+
+    border:
+      1px solid rgba(255,0,0,0.25);
+
+    border-radius: 0 0 12px 12px;
+
+    box-shadow:
+      0 15px 30px rgba(0,0,0,0.7),
+      0 0 20px rgba(255,0,0,0.15);
+
+  }
+
+
+  #navbar_top .nav-link {
+
+    padding:
+      9px !important;
+
+    font-size: 14px !important;
+
+  }
+
+}
+
+
+/* =========================================
+   HP KECIL
+   ========================================= */
+
+@media (max-width: 480px) {
+
+  #navbar_top {
+
+    min-height: 58px !important;
+
+    height: 58px !important;
+
+  }
+
+
+  #navbar_top .navbar-brand {
+
+    font-size: 17px !important;
+
+  }
+
+
+  #navbar_top .navbar-brand img {
+
+    height: 29px !important;
+
+  }
+
+}
+</style>
+
+
+<script>
+/* Update tinggi navbar secara otomatis */
+(function () {
+
+  function updateNavbarHeight() {
+
+    const navbar =
+      document.getElementById("navbar_top");
+
+    if (!navbar) return;
+
+    const height =
+      navbar.getBoundingClientRect().height;
+
+    document.documentElement.style.setProperty(
+      "--mih-navbar-height",
+      height + "px"
+    );
+
+  }
+
+  window.addEventListener(
+    "load",
+    updateNavbarHeight
+  );
+
+  window.addEventListener(
+    "resize",
+    updateNavbarHeight
+  );
+
+  window.addEventListener(
+    "orientationchange",
+    updateNavbarHeight
+  );
+
+  setTimeout(
+    updateNavbarHeight,
+    300
+  );
+
+})();
+</script>
 </body>
-</html>	
+</html>
