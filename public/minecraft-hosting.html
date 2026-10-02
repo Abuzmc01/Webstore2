@@ -4151,6 +4151,429 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </section>
 
+/* ================================
+   MINEIDHOST INFRASTRUCTURE
+================================ */
+
+.mdh-infrastructure,
+.mdh-faq {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 22px;
+}
+
+.mdh-section-header,
+.mdh-faq-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 55px;
+}
+
+.mdh-eyebrow {
+    display: inline-block;
+    color: #ff3150;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.mdh-section-header h2,
+.mdh-faq-header h2 {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.08;
+    color: #fff;
+}
+
+.mdh-section-header p,
+.mdh-faq-header p {
+    margin-top: 18px;
+    color: #999;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* INFRA GRID */
+
+.mdh-infra-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.mdh-infra-card {
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.012)
+        );
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    transition: .35s ease;
+}
+
+.mdh-infra-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,40,70,.35);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.4),
+        0 0 30px rgba(255,20,50,.08);
+}
+
+.mdh-infra-image {
+    margin: 22px 22px 0;
+    height: 170px;
+    overflow: hidden;
+    border-radius: 13px;
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.mdh-infra-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mdh-infra-content {
+    padding: 25px;
+}
+
+.mdh-infra-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,40,70,.25);
+    border-radius: 12px;
+
+    color: #ff3150;
+    font-size: 22px;
+
+    background: rgba(255,30,55,.04);
+    margin-bottom: 18px;
+}
+
+.mdh-infra-content h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 21px;
+}
+
+.mdh-infra-content p {
+    color: #999;
+    line-height: 1.7;
+    margin: 12px 0 20px;
+}
+
+.mdh-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+
+    color: #aaa;
+}
+
+.mdh-brand strong {
+    font-size: 28px;
+    color: #fff;
+}
+
+.mdh-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.mdh-tags span {
+    padding: 7px 13px;
+    border-radius: 999px;
+
+    background: rgba(255,25,55,.08);
+    border: 1px solid rgba(255,25,55,.12);
+
+    color: #ff526b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* STATS */
+
+.mdh-infra-stats {
+    margin-top: 22px;
+    padding: 38px 25px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.02);
+}
+
+.mdh-infra-stats strong {
+    display: block;
+    color: #fff;
+    font-size: 36px;
+}
+
+.mdh-infra-stats span {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+
+/* ================================
+   FAQ
+================================ */
+
+.mdh-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mdh-faq-item {
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.018);
+
+    transition: .3s ease;
+}
+
+.mdh-faq-item.active {
+    border-color: rgba(255,35,65,.25);
+    background: rgba(255,25,45,.025);
+}
+
+.mdh-faq-question {
+    width: 100%;
+    border: 0;
+    background: transparent;
+
+    padding: 20px 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+}
+
+.mdh-faq-number {
+    min-width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.07);
+
+    color: #777;
+    background: rgba(255,255,255,.025);
+}
+
+.mdh-faq-question strong {
+    flex: 1;
+    font-size: 17px;
+}
+
+.mdh-faq-plus {
+    font-size: 27px;
+    font-weight: 300;
+    color: #777;
+
+    transition: .3s ease;
+}
+
+.mdh-faq-item.active .mdh-faq-plus {
+    color: #ff3150;
+    transform: rotate(45deg);
+}
+
+.mdh-faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+
+    transition: .35s ease;
+}
+
+.mdh-faq-answer p {
+    overflow: hidden;
+    margin: 0;
+    padding: 0 25px;
+
+    color: #999;
+    line-height: 1.7;
+}
+
+.mdh-faq-item.active .mdh-faq-answer {
+    grid-template-rows: 1fr;
+}
+
+.mdh-faq-item.active .mdh-faq-answer p {
+    padding-bottom: 22px;
+}
+
+
+/* SUPPORT */
+
+.mdh-faq-support {
+    margin-top: 25px;
+    padding: 38px 34px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0,
+            rgba(255,20,50,.08),
+            transparent 40%
+        ),
+        rgba(255,255,255,.02);
+}
+
+.mdh-support-badge {
+    display: inline-block;
+
+    padding: 7px 14px;
+    border-radius: 999px;
+
+    color: #ff526b;
+    background: rgba(255,20,50,.06);
+    border: 1px solid rgba(255,20,50,.15);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.mdh-faq-support h3 {
+    margin: 22px 0 8px;
+    color: #fff;
+    font-size: 27px;
+}
+
+.mdh-faq-support p {
+    max-width: 700px;
+    color: #888;
+    line-height: 1.7;
+}
+
+.mdh-support-button,
+.mdh-support-secondary {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+
+    padding: 16px;
+    margin-top: 18px;
+
+    border-radius: 9px;
+
+    font-weight: 700;
+}
+
+.mdh-support-button {
+    color: #fff;
+    background: #c8102e;
+}
+
+.mdh-support-secondary {
+    color: #999;
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .mdh-infrastructure,
+    .mdh-faq {
+        padding: 70px 20px;
+    }
+
+    .mdh-infra-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mdh-infra-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 10px;
+    }
+
+    .mdh-infra-stats strong {
+        font-size: 30px;
+    }
+
+    .mdh-faq-question {
+        padding: 16px;
+    }
+
+    .mdh-faq-number {
+        min-width: 42px;
+        height: 42px;
+    }
+
+    .mdh-faq-question strong {
+        font-size: 15px;
+    }
+
+    .mdh-faq-support {
+        padding: 28px 20px;
+    }
+}
+
+<script>
+document.querySelectorAll(".mdh-faq-question").forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        const item = this.closest(".mdh-faq-item");
+        const isActive = item.classList.contains("active");
+
+        document.querySelectorAll(".mdh-faq-item").forEach(function(other) {
+            other.classList.remove("active");
+        });
+
+        if (!isActive) {
+            item.classList.add("active");
+        }
+
+    });
+
+});
+</script>
+
 <!-- ======= FOOTER ======= -->
 <footer class="footer-section fade-in-up">
   <div class="container">
