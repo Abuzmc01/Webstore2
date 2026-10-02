@@ -1904,169 +1904,256 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 </div>
 <!-- End Game Selector -->
-<!-- ======= WORLD MAP SECTION ======= -->
-<div class="worldmap-section py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
-  <div class="container text-center position-relative" style="z-index: 2;">
-    <div class="title mb-5 fade-in-up">
-      <h4 class="mb-0" style="color:#ff1e1e; text-shadow:0 0 15px rgba(255,0,0,0.8); font-weight:700;">
-        Jangkauan Global Kami
-      </h4>
-      <p style="color:#ccc;">Server kami tersebar di berbagai lokasi strategis untuk performa terbaik</p>
+	
+<!-- ======= GLOBAL MAP SECTION ======= -->
+<div class="global-map-section">
+
+  <div class="fade-in-up" style="animation-delay:0.2s;">
+
+    <div class="map-container">
+      <img
+        src="assets/images/world-map.png"
+        alt="MineIDHost Global Infrastructure Map"
+        class="world-map"
+      >
     </div>
 
-    <!-- MAP AREA -->
-    <div class="fade-in-up" style="animation-delay:0.2s;">
-      <div class="map-container">
-        <img src="assets/images/world-map.png" alt="World Map" class="world-map">
-
-        <!-- SVG GARIS ANIMASI -->
-        <svg class="map-lines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="glowLine" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#ff1e1e" stop-opacity="0.1">
-                <animate attributeName="stop-opacity" values="0.1;1;0.1" dur="2s" repeatCount="indefinite" />
-              </stop>
-              <stop offset="100%" stop-color="#ff1e1e" stop-opacity="0.7">
-                <animate attributeName="stop-opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite" />
-              </stop>
-            </linearGradient>
-          </defs>
-
-          <!-- Garis antar lokasi -->
-          <path d="M720,320 Q580,260 470,220" stroke="url(#glowLine)" stroke-width="2.5" fill="none" />
-          <path d="M720,320 Q700,340 690,360" stroke="url(#glowLine)" stroke-width="2" fill="none" />
-          <path d="M470,220 Q420,200 380,180" stroke="url(#glowLine)" stroke-width="2" fill="none" />
-        </svg>
-
-        <!-- PIN INDONESIA -->
-        <div class="map-pin" style="top: 68%; left: 72%;">
-          <span>Indonesia</span>
-        </div>
-
-        <!-- PIN SINGAPURA -->
-        <div class="map-pin" style="top: 60%; left: 70%;">
-          <span>Singapore</span>
-        </div>
-
-        <!-- PIN JERMAN -->
-        <div class="map-pin" style="top: 42%; left: 45%;">
-          <span>Germany</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="fade-in-up" style="animation-delay:0.4s;">
-      <p style="color:#aaa; max-width:600px; margin:25px auto 0;">
-        Infrastruktur global kami menghubungkan <b>Singapura</b>, <b>Indonesia</b>, dan <b>Jerman</b> dengan jaringan berkecepatan tinggi serta redundansi premium.
-      </p>
-    </div>
   </div>
+
+  <div class="fade-in-up" style="animation-delay:0.4s;">
+    <p class="map-description">
+      Infrastruktur global kami menghubungkan
+      <b>Singapura</b>, <b>Indonesia</b>, dan <b>Malaysia</b>
+      dengan jaringan berkecepatan tinggi serta redundansi premium.
+	  membuat jaringan server game anda tetap rendah dan stabil.
+    </p>
+  </div>
+
   <div class="glow-bg"></div>
+
 </div>
+
 
 <!-- ======= CSS ======= -->
 <style>
+
+.global-map-section {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 20px 20px 90px;
+  background: #000;
+}
+
+/* MAP CONTAINER */
 .map-container {
   position: relative;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
+
+/* FOTO MAP 2120 × 1192 */
 .world-map {
-  max-width: 75%;
-  border: 2px solid rgba(255, 0, 0, 0.4);
-  border-radius: 15px;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-.world-map:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 35px rgba(255, 0, 0, 0.7);
-}
-.map-lines {
-  position: absolute;
-  width: 75%;
+  display: block;
+  width: 100%;
   height: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.6));
+  aspect-ratio: 2120 / 1192;
+  object-fit: cover;
+
+  border: 2px solid rgba(255, 0, 0, 0.55);
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 15px rgba(255, 0, 0, 0.35),
+    0 0 35px rgba(255, 0, 0, 0.20),
+    inset 0 0 30px rgba(255, 0, 0, 0.15);
+
+  transition:
+    transform 0.6s ease,
+    box-shadow 0.6s ease;
 }
-.map-pin {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background: #ff1e1e;
-  border-radius: 50%;
-  box-shadow: 0 0 15px rgba(255,0,0,0.8), 0 0 30px rgba(255,0,0,0.5);
-  animation: pulsePin 2s infinite;
-  cursor: pointer;
+
+/* HOVER DESKTOP */
+.world-map:hover {
+  transform: scale(1.015);
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 0, 0.55),
+    0 0 50px rgba(255, 0, 0, 0.30),
+    inset 0 0 35px rgba(255, 0, 0, 0.18);
 }
-.map-pin span {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85);
-  color: #fff;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-  border: 1px solid rgba(255,0,0,0.5);
-  text-shadow: 0 0 5px rgba(255,0,0,0.6);
+
+
+/* DESCRIPTION */
+.map-description {
+  position: relative;
+  z-index: 3;
+
+  color: #aaa;
+
+  max-width: 720px;
+  margin: 25px auto 0;
+
+  font-size: 20px;
+  line-height: 1.7;
+
+  text-align: center;
 }
-.map-pin:hover span {
-  opacity: 1;
+
+.map-description b {
+  color: #ddd;
+  font-weight: 700;
 }
-@keyframes pulsePin {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.3); opacity: 0.7; }
-}
+
+
+/* BACKGROUND RED GLOW */
 .glow-bg {
-  position:absolute;
-  top:-100px;
-  left:-100px;
-  width:300%;
-  height:300%;
-  background:radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 60%);
-  animation:pulseGlow 6s infinite alternate;
-  z-index:1;
+  position: absolute;
+
+  top: 15%;
+  left: 50%;
+
+  width: 900px;
+  height: 700px;
+
+  transform: translateX(-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 0, 0, 0.13) 0%,
+      rgba(255, 0, 0, 0.06) 30%,
+      transparent 70%
+    );
+
+  animation: pulseGlow 6s ease-in-out infinite alternate;
+
+  pointer-events: none;
+  z-index: 1;
 }
+
+
+/* GLOW ANIMATION */
 @keyframes pulseGlow {
-  from {opacity: 0.25;}
-  to {opacity: 0.6;}
+
+  0% {
+    opacity: 0.35;
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(1.08);
+  }
+
 }
+
+
+/* SCROLL ANIMATION */
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
+
 .fade-in-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  .global-map-section {
+    padding: 10px 15px 70px;
+  }
+
+  .map-container {
+    width: 100%;
+  }
+
+  .world-map {
+    width: 100%;
+    border-radius: 15px;
+    border-width: 1.5px;
+  }
+
+  .map-description {
+    font-size: 17px;
+    line-height: 1.65;
+    margin-top: 22px;
+    padding: 0 10px;
+  }
+
+}
+
+
+/* ===== HP KECIL ===== */
+@media (max-width: 480px) {
+
+  .global-map-section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .world-map {
+    border-radius: 12px;
+  }
+
+  .map-description {
+    font-size: 16px;
+  }
+
+}
+
 </style>
 
-<!-- ======= JS Scroll Animation ======= -->
+
+<!-- ======= JS SCROLL ANIMATION ======= -->
 <script>
+
 document.addEventListener("DOMContentLoaded", () => {
-  const fadeElements = document.querySelectorAll(".fade-in-up");
-  const appearOnScroll = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
+
+  const fadeElements =
+    document.querySelectorAll(".fade-in-up");
+
+  const appearOnScroll =
+    new IntersectionObserver((entries, observer) => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add("visible");
+
+          observer.unobserve(entry.target);
+
+        }
+
+      });
+
+    }, {
+      threshold: 0.15
     });
-  }, { threshold: 0.2 });
-  fadeElements.forEach(el => appearOnScroll.observe(el));
+
+  fadeElements.forEach(el => {
+    appearOnScroll.observe(el);
+  });
+
 });
+
 </script>
-<!-- ======= END WORLD MAP SECTION ======= -->
+
+<!-- ======= END GLOBAL MAP SECTION ======= -->
 <!-- ======= PANEL SECTION ======= -->
 <div class="panel py-6" style="background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); position: relative; overflow: hidden;">
   <div class="container">
