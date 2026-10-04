@@ -1180,30 +1180,9 @@ html {
     </button>
 </div>
 
-<div class="vps-products-heading">
-    <div>
-        <div class="vps-section-label">
-            <span></span>
-            VPS PRODUCTS
-        </div>
-        <h2>Pilih <b>Paket VPS</b></h2>
-        <p>Performa tinggi untuk kebutuhan server Anda.</p>
-    </div>
-</div>
-
 <div class="vps-product-controls">
 
-    <div class="vps-category-tabs">
-        <button type="button" class="vps-category active" data-category="milan">
-            AMD EPYC Milan
-        </button>
-        <button type="button" class="vps-category" data-category="genoa">
-            AMD EPYC Genoa
-        </button>
-        <button type="button" class="vps-category" data-category="ryzen9">
-            AMD Ryzen
-        </button>
-    </div>
+    <div class="vps-section-divider" aria-hidden="true"></div>
 
     <div class="vps-search">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1218,20 +1197,27 @@ html {
         >
     </div>
 
-    <div class="vps-product-select">
+    <label class="vps-product-select">
         <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 6h3M11 6h9M4 12h7M15 12h5M4 18h3M11 18h9"></path>
             <circle cx="9" cy="6" r="2"></circle>
             <circle cx="13" cy="12" r="2"></circle>
             <circle cx="9" cy="18" r="2"></circle>
         </svg>
-        <span id="vps-active-product-label">AMD EPYC Milan</span>
+
+        <select id="vps-category-select" aria-label="Pilih kategori VPS">
+            <option value="milan">AMD EPYC Milan</option>
+            <option value="genoa">AMD EPYC Genoa</option>
+            <option value="ryzen9">AMD Ryzen</option>
+        </select>
+
         <span class="vps-select-chevron">⌄</span>
-    </div>
+    </label>
 
     <div class="vps-products-count">
         <span id="vps-product-count">0</span> Products
     </div>
+
 </div>
 
 <div class="vps-product-grid" id="amd-vps-grid">
@@ -3331,8 +3317,8 @@ html {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const categories =
-        document.querySelectorAll(".vps-category");
+    const categorySelect =
+        document.getElementById("vps-category-select");
 
     const cards =
         document.querySelectorAll(".amd-vps-card");
@@ -3372,47 +3358,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 !keyword || name.includes(keyword);
 
             if (categoryMatch && searchMatch) {
-
                 card.style.display = "";
-
-                card.classList.remove("vps-card-exit");
-                card.classList.remove("vps-card-visible");
-
-                requestAnimationFrame(() => {
-                    card.classList.add("vps-card-visible");
-                });
-
                 visible++;
-
             } else {
-
-                card.classList.remove("vps-card-visible");
-                card.classList.add("vps-card-exit");
-
-                setTimeout(() => {
-                    if (!card.classList.contains("vps-card-visible")) {
-                        card.style.display = "none";
-                    }
-                }, 320);
-
+                card.style.display = "none";
             }
-
         });
 
-        const count = document.getElementById("vps-product-count");
-        if (count) count.textContent = visible;
+        if (categorySelect) {
+            categorySelect.value = activeCategory;
+        }
 
-        const label =
-            document.getElementById("vps-active-product-label");
+        const count =
+            document.getElementById("vps-product-count");
 
-        if (label) {
-            const labels = {
-                milan: "AMD EPYC Milan",
-                genoa: "AMD EPYC Genoa",
-                ryzen9: "AMD Ryzen"
-            };
-            label.textContent =
-                labels[activeCategory] || "VPS Products";
+        if (count) {
+            count.textContent = visible;
         }
 
         if (noResult) {
@@ -3420,37 +3381,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 visible === 0 ? "block" : "none";
         }
 
+        // Re-observe the newly visible cards so each product
+        // gets its own entrance/exit animation on scroll.
+        if (window.vpsObserveCards) {
+            window.vpsObserveCards();
+        }
     }
-
-
     /* =====================================================
-       CATEGORY
+       CATEGORY SELECT
     ====================================================== */
 
-    categories.forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            categories.forEach(item => {
-
-                item.classList.remove("active");
-
-            });
-
-            this.classList.add("active");
-
-            activeCategory =
-                this.dataset.category;
+    if (categorySelect) {
+        categorySelect.addEventListener("change", function () {
+            activeCategory = this.value;
 
             if (search) {
                 search.value = "";
             }
 
             filterVPS();
-
         });
-
-    });
+    }
 
 
     /* =====================================================
@@ -3539,6 +3490,77 @@ Terima kasih.`;
             }
         });
     }
+
+
+
+    /* =====================================================
+       PRODUCT SCROLL ANIMATION
+    ====================================================== */
+
+    let vpsObserver = null;
+
+    function setupVPSObserver() {
+
+        if (vpsObserver) {
+            vpsObserver.disconnect();
+        }
+
+        const visibleCards =
+            document.querySelectorAll(
+                ".amd-vps-card:not([style*='display: none'])"
+            );
+
+        if (!("IntersectionObserver" in window)) {
+            visibleCards.forEach(card => {
+                card.classList.add("vps-scroll-in");
+                card.classList.remove("vps-scroll-out");
+            });
+            return;
+        }
+
+        vpsObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+
+                    const card = entry.target;
+
+                    if (entry.isIntersecting) {
+
+                        card.classList.remove("vps-scroll-out");
+
+                        // Small per-card stagger when entering.
+                        const index =
+                            Array.from(visibleCards).indexOf(card);
+
+                        card.style.transitionDelay =
+                            `${Math.max(0, index) * 55}ms`;
+
+                        requestAnimationFrame(() => {
+                            card.classList.add("vps-scroll-in");
+                        });
+
+                    } else {
+
+                        card.classList.remove("vps-scroll-in");
+                        card.classList.add("vps-scroll-out");
+                        card.style.transitionDelay = "0ms";
+                    }
+                });
+            },
+            {
+                threshold: 0.08,
+                rootMargin: "0px 0px -35px 0px"
+            }
+        );
+
+        visibleCards.forEach(card => {
+            card.classList.remove("vps-scroll-in");
+            card.classList.remove("vps-scroll-out");
+            vpsObserver.observe(card);
+        });
+    }
+
+    window.vpsObserveCards = setupVPSObserver;
 
 
     /* =====================================================
@@ -4417,6 +4439,134 @@ body {
     }
     .vps-product-grid {
         gap: 18px;
+    }
+}
+
+
+/* ===== PRODUCT SCROLL ENTER / EXIT ===== */
+.amd-vps-card {
+    opacity: 0;
+    transform: translateY(42px) scale(.97);
+    transition:
+        opacity .55s cubic-bezier(.22,.61,.36,1),
+        transform .65s cubic-bezier(.22,.61,.36,1),
+        border-color .3s ease,
+        box-shadow .3s ease;
+    will-change: opacity, transform;
+}
+
+.amd-vps-card.vps-scroll-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.amd-vps-card.vps-scroll-out {
+    opacity: 0;
+    transform: translateY(42px) scale(.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .amd-vps-card,
+    .amd-vps-card.vps-scroll-in,
+    .amd-vps-card.vps-scroll-out {
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+}
+
+
+/* ===== REFERENCE LAYOUT ===== */
+.vps-product-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.vps-section-divider {
+    width: 100%;
+    height: 3px;
+    border-radius: 999px;
+    background: #ff3030;
+    box-shadow:
+        0 0 10px rgba(255,48,48,.65),
+        0 0 25px rgba(255,48,48,.25);
+    margin: 0 0 8px;
+}
+
+.vps-product-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    min-height: 76px;
+    box-sizing: border-box;
+    padding: 0 22px;
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(31,31,31,.96), rgba(17,17,17,.96));
+    color: #eee;
+    cursor: pointer;
+}
+
+.vps-product-select svg {
+    flex: 0 0 auto;
+    width: 27px;
+    height: 27px;
+    stroke: #aaa;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.vps-product-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 1;
+    min-width: 0;
+    height: 72px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #eee;
+    font: inherit;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.vps-product-select select option {
+    background: #181818;
+    color: #fff;
+}
+
+.vps-product-select:focus-within {
+    border-color: rgba(255,45,45,.55);
+    box-shadow: 0 0 25px rgba(255,30,30,.08);
+}
+
+.vps-select-chevron {
+    flex: 0 0 auto;
+    color: #aaa;
+    font-size: 25px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .vps-section-divider {
+        margin-bottom: 4px;
+    }
+
+    .vps-product-select {
+        min-height: 72px;
+        border-radius: 17px;
+    }
+
+    .vps-product-select select {
+        height: 68px;
+        font-size: 16px;
     }
 }
 
