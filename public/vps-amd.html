@@ -286,7 +286,99 @@
 
 </section>
 
+<!-- =====================================================
+     AMD VPS - BREADCRUMB
+===================================================== -->
 
+<div class="amd-vps-breadcrumb">
+
+    <a href="index.html">
+        ⌂
+        <span>Dashboard</span>
+    </a>
+
+    <b>›</b>
+
+    <span>▣</span>
+
+    <b>›</b>
+
+    <span>Store</span>
+
+    <b>›</b>
+
+    <span class="active">
+        ▱ &nbsp; AMD VPS
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     AMD VPS - CATEGORY TABS
+===================================================== -->
+
+<div class="amd-vps-tabs">
+
+    <button
+        class="amd-vps-tab active"
+        data-category="milan">
+        VPS Milan
+    </button>
+
+    <button
+        class="amd-vps-tab"
+        data-category="genoa">
+        VPS Genoa
+    </button>
+
+    <button
+        class="amd-vps-tab"
+        data-category="ryzen">
+        VPS Ryzen 9
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     AMD VPS - SEARCH
+===================================================== -->
+
+<div class="amd-vps-search">
+
+    <span>🔎</span>
+
+    <input
+        type="text"
+        id="amd-vps-search"
+        placeholder="Search by product name..."
+        autocomplete="off"
+    >
+
+</div>
+
+
+<!-- =====================================================
+     AMD VPS - ACTIVE CATEGORY
+===================================================== -->
+
+<div class="amd-vps-category-bar">
+
+    <div class="amd-vps-category-icon">
+        ☷
+    </div>
+
+    <span id="amd-vps-category-title">
+        VPS Milan
+    </span>
+
+    <span class="amd-vps-category-arrow">
+       ⌄
+    </span>
+
+</div>
+	
 <!-- =====================================================
      CSS
 ===================================================== -->
@@ -1054,6 +1146,343 @@
       35px 15px 45px;
 
   }
+
+}
+
+/* =====================================================
+   AMD VPS EXTRA UI
+===================================================== */
+
+.amd-vps-breadcrumb {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        20px 0 28px;
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+.amd-vps-breadcrumb a {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #777;
+
+    text-decoration: none;
+
+}
+
+.amd-vps-breadcrumb a:hover {
+
+    color: #fff;
+
+}
+
+.amd-vps-breadcrumb b {
+
+    color: #555;
+
+    font-size: 20px;
+
+}
+
+.amd-vps-breadcrumb .active {
+
+    color: #fff;
+
+    font-weight: 700;
+
+}
+
+
+/* TABS */
+
+.amd-vps-tabs {
+
+    display: flex;
+
+    gap: 18px;
+
+    overflow-x: auto;
+
+    margin-bottom: 28px;
+
+    padding-bottom: 5px;
+
+    scrollbar-width: none;
+
+}
+
+.amd-vps-tabs::-webkit-scrollbar {
+
+    display: none;
+
+}
+
+.amd-vps-tab {
+
+    position: relative;
+
+    flex: 0 0 auto;
+
+    min-width: 220px;
+
+    padding: 20px 30px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.13);
+
+    background: #111;
+
+    color: #aaa;
+
+    font: inherit;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+
+}
+
+.amd-vps-tab:hover {
+
+    color: #fff;
+
+    border-color:
+        rgba(255,40,40,.5);
+
+}
+
+.amd-vps-tab.active {
+
+    color: #fff;
+
+    border-color: #ff2525;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,0,0,.13),
+            rgba(255,0,0,.025)
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(255,0,0,.08);
+
+}
+
+.amd-vps-tab.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 28px;
+    right: 28px;
+
+    bottom: -6px;
+
+    height: 4px;
+
+    border-radius: 10px;
+
+    background: #ff3030;
+
+    box-shadow:
+        0 0 12px
+        rgba(255,0,0,.8);
+
+}
+
+
+/* SEARCH */
+
+.amd-vps-search {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    width: 100%;
+
+    margin-bottom: 28px;
+
+    padding:
+        24px 35px;
+
+    border-radius: 22px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.13);
+
+    background: #101010;
+
+}
+
+.amd-vps-search > span {
+
+    font-size: 32px;
+
+    opacity: .75;
+
+}
+
+.amd-vps-search input {
+
+    width: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    color: #fff;
+
+    font: inherit;
+
+    font-size: 21px;
+
+}
+
+.amd-vps-search input::placeholder {
+
+    color: #777;
+
+}
+
+
+/* CATEGORY BAR */
+
+.amd-vps-category-bar {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    width: 100%;
+
+    margin-bottom: 25px;
+
+    padding:
+        25px 35px;
+
+    border-radius: 22px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    background: #101010;
+
+    color: #eee;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+}
+
+.amd-vps-category-icon {
+
+    font-size: 30px;
+
+    color: #aaa;
+
+}
+
+.amd-vps-category-arrow {
+
+    margin-left: auto;
+
+    color: #aaa;
+
+    font-size: 25px;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .amd-vps-breadcrumb {
+
+        gap: 8px;
+
+        font-size: 11px;
+
+        overflow: hidden;
+
+        white-space: nowrap;
+
+    }
+
+    .amd-vps-tab {
+
+        min-width: 165px;
+
+        padding:
+            17px 20px;
+
+        font-size: 15px;
+
+    }
+
+    .amd-vps-search {
+
+        padding:
+            20px;
+
+        gap: 13px;
+
+    }
+
+    .amd-vps-search > span {
+
+        font-size: 25px;
+
+    }
+
+    .amd-vps-search input {
+
+        font-size: 15px;
+
+    }
+
+    .amd-vps-category-bar {
+
+        padding:
+            20px;
+
+        font-size: 17px;
+
+    }
 
 }
 
