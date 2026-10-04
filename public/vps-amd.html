@@ -160,52 +160,55 @@
 </style>
 <!-- ======= END NAVBAR ======= -->
 
+
 <!-- =====================================================
-     MINEIDHOST - AMD VPS HERO
+     MINEIDHOST - AMD EPYC VPS HERO
 ===================================================== -->
 
 <section class="minecraft-hero">
 
-  <!-- BACKGROUND -->
-  <div class="minecraft-hero-bg"></div>
+  <!-- BACKGROUND / HEADER IMAGE -->
+  <div
+    class="minecraft-hero-bg"
+    style="background-image: url('assets/images/header/vps-amd.png');"
+  ></div>
 
-  <!-- IMAGE -->
-  <img
-    src="assets/images/header/vps-amd.png"
-    alt="AMD VPS - MineIDHost"
-    class="minecraft-hero-image"
-  >
-
-  <!-- DARK OVERLAY -->
-  <div class="minecraft-hero-overlay"></div>
-
-  <!-- CONTENT -->
-  <div class="minecraft-hero-content">
-
-    <div class="minecraft-badge">
+    <!-- BADGE -->
+    <div class="amd-vps-badge">
       <span>⚡</span>
       AMD VPS PERFORMANCE
     </div>
 
+
+    <!-- TITLE -->
     <h1>
-      AMD VPS
+      VPS AMD Epyc Processor 
       <span>Performa Tinggi</span>
     </h1>
 
-    <p>
-      VPS AMD dengan performa tinggi menggunakan
-      processor AMD EPYC dan Ryzen untuk server,
-      website, aplikasi, game server, dan kebutuhan
-      production.
+
+    <!-- DESCRIPTION -->
+    <p class="amd-vps-desc">
+      Virtual Private Server berperforma tinggi menggunakan
+      processor AMD EPYC untuk website, aplikasi, database,
+      game server, dan kebutuhan production.
     </p>
 
 
     <!-- FEATURES -->
-    <div class="minecraft-hero-features">
+    <div class="amd-vps-features">
 
-      <div class="minecraft-feature">
+      <!-- AMD EPYC -->
+      <div class="amd-vps-feature">
 
-        <span>⚡</span>
+        <div class="amd-vps-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="5" y="5" width="14" height="14" rx="2"/>
+            <rect x="8" y="8" width="8" height="8" rx="1"/>
+            <path d="M9 1v4M15 1v4M9 19v4M15 19v4"/>
+            <path d="M1 9h4M1 15h4M19 9h4M19 15h4"/>
+          </svg>
+        </div>
 
         <div>
           <strong>AMD EPYC</strong>
@@ -215,21 +218,33 @@
       </div>
 
 
-      <div class="minecraft-feature">
+      <!-- HIGH PERFORMANCE -->
+      <div class="amd-vps-feature">
 
-        <span>🚀</span>
+        <div class="amd-vps-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M13 2L4 14h7l-1 8 9-12h-7z"/>
+          </svg>
+        </div>
 
         <div>
           <strong>High Performance</strong>
-          <small>CPU Premium AMD</small>
+          <small>Powerful AMD CPU</small>
         </div>
 
       </div>
 
 
-      <div class="minecraft-feature">
+      <!-- NVME -->
+      <div class="amd-vps-feature">
 
-        <span>💾</span>
+        <div class="amd-vps-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="M7 9h10M7 13h6"/>
+            <circle cx="17" cy="13" r="1"/>
+          </svg>
+        </div>
 
         <div>
           <strong>NVMe Gen4</strong>
@@ -239,9 +254,15 @@
       </div>
 
 
-      <div class="minecraft-feature">
+      <!-- DDOS -->
+      <div class="amd-vps-feature">
 
-        <span>🛡️</span>
+        <div class="amd-vps-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2l8 3v6c0 5-3.4 9.2-8 11-4.6-1.8-8-6-8-11V5z"/>
+            <path d="M8 12l2.5 2.5L16 9"/>
+          </svg>
+        </div>
 
         <div>
           <strong>DDoS Protection</strong>
@@ -254,30 +275,24 @@
 
 
     <!-- BUTTON -->
-    <div class="minecraft-hero-buttons">
+    <div class="amd-vps-buttons">
 
       <a
-        href="https://billing.mineidhost.com"
-        class="minecraft-btn-primary"
+        href="#amd-vps-products"
+        class="amd-vps-btn-primary"
       >
-
         <span>🖥️</span>
-
         Lihat Paket VPS
-
         <b>→</b>
-
       </a>
 
 
       <a
         href="https://dsc.gg/mineidhost"
         target="_blank"
-        class="minecraft-btn-secondary"
+        class="amd-vps-btn-secondary"
       >
-
         Discord Support
-
       </a>
 
     </div>
@@ -288,186 +303,100 @@
 
 
 <!-- =====================================================
-     CSS
+     VPS CATEGORY
 ===================================================== -->
+
+<section
+  class="amd-vps-category"
+  id="amd-vps-products"
+>
+
+  <div class="amd-vps-category-scroll">
+
+    <button class="amd-vps-category-active">
+      AMD EPYC Milan
+    </button>
+
+    <button>
+      AMD EPYC Genoa
+    </button>
+
+    <button>
+      AMD Ryzen
+    </button>
+
+    <button>
+      Private VPS
+    </button>
+
+    <button>
+      High Performance
+    </button>
+
+  </div>
+
+</section>
+
 
 <style>
 
-.minecraft-hero {
+/* =====================================================
+   HERO
+===================================================== */
+
+.amd-vps-hero {
 
   position: relative;
 
   width: 100%;
-
-  min-height: 680px;
 
   overflow: hidden;
 
-  display: flex;
-
-  align-items: center;
-
-  background: #020202;
-
-  isolation: isolate;
-
-}
-
-
-/* =====================================================
-   BACKGROUND
-===================================================== */
-
-.minecraft-hero-bg {
-
-  position: absolute;
-
-  inset: 0;
-
   background:
-
     radial-gradient(
-      circle at 70% 50%,
-      rgba(255,0,0,.18),
-      transparent 40%
-    );
-
-  z-index: -3;
-
-}
-
-
-/* =====================================================
-   HERO IMAGE
-===================================================== */
-
-.minecraft-hero-image {
-
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  object-position: center;
-
-  z-index: -2;
-
-  transform: scale(1.02);
-
-  animation:
-    minecraftHeroZoom
-    12s
-    ease-in-out
-    infinite
-    alternate;
-
-}
-
-
-/* =====================================================
-   IMAGE ZOOM
-===================================================== */
-
-@keyframes minecraftHeroZoom {
-
-  0% {
-
-    transform:
-      scale(1.02);
-
-  }
-
-  100% {
-
-    transform:
-      scale(1.07);
-
-  }
-
-}
-
-
-/* =====================================================
-   OVERLAY
-===================================================== */
-
-.minecraft-hero-overlay {
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.94) 0%,
-      rgba(0,0,0,.82) 25%,
-      rgba(0,0,0,.45) 55%,
-      rgba(0,0,0,.15) 100%
+      circle at 50% 0%,
+      rgba(255,0,0,.13),
+      transparent 48%
     ),
+    #070505;
 
-    linear-gradient(
-      0deg,
-      rgba(0,0,0,.65) 0%,
-      transparent 40%,
-      rgba(0,0,0,.25) 100%
-    );
-
-  z-index: -1;
-
-}
-
-
-/* =====================================================
-   RED BOTTOM LINE
-===================================================== */
-
-.minecraft-hero::after {
-
-  content: "";
-
-  position: absolute;
-
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-  height: 3px;
-
-  background: #ff1e1e;
+  border-bottom:
+    2px solid #ff2020;
 
   box-shadow:
-
-    0 0 10px #ff1e1e,
-
-    0 0 30px
-    rgba(255,0,0,.8);
+    0 0 25px rgba(255,0,0,.25);
 
 }
 
 
-/* =====================================================
-   CONTENT
-===================================================== */
+.amd-vps-bg {
 
-.minecraft-hero-content {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,0,0,.04),
+      transparent 55%
+    );
+
+  pointer-events: none;
+
+}
+
+
+.amd-vps-container {
 
   position: relative;
 
-  z-index: 2;
-
-  width: 100%;
-
-  max-width: 1250px;
+  max-width: 1150px;
 
   margin: auto;
 
-  padding: 90px 35px;
+  padding:
+    75px 30px 70px;
 
 }
 
@@ -476,24 +405,24 @@
    BADGE
 ===================================================== */
 
-.minecraft-badge {
+.amd-vps-badge {
 
   display: inline-flex;
 
   align-items: center;
 
-  gap: 8px;
+  gap: 9px;
 
-  padding: 8px 15px;
+  padding:
+    9px 17px;
+
+  border:
+    1px solid rgba(255,0,0,.65);
 
   border-radius: 50px;
 
-  border:
-    1px solid
-    rgba(255,0,0,.65);
-
   background:
-    rgba(0,0,0,.55);
+    rgba(255,0,0,.055);
 
   color: #ff3030;
 
@@ -501,20 +430,17 @@
 
   font-weight: 800;
 
-  letter-spacing: 1.4px;
+  letter-spacing: 1.5px;
 
   box-shadow:
-    0 0 18px
-    rgba(255,0,0,.2);
-
-  backdrop-filter: blur(8px);
+    0 0 20px rgba(255,0,0,.15);
 
 }
 
 
-.minecraft-badge span {
+.amd-vps-badge span {
 
-  font-size: 15px;
+  font-size: 16px;
 
 }
 
@@ -523,48 +449,34 @@
    TITLE
 ===================================================== */
 
-.minecraft-hero h1 {
-
-  max-width: 680px;
+.amd-vps-container h1 {
 
   margin:
-    20px 0 15px;
+    25px 0 18px;
 
   color: #fff;
 
   font-size:
-    clamp(
-      42px,
-      6vw,
-      72px
-    );
+    clamp(44px, 6vw, 76px);
 
   line-height: 1.02;
 
   font-weight: 900;
 
-  letter-spacing: -1.5px;
-
-  text-shadow:
-    0 5px 20px
-    rgba(0,0,0,.7);
+  letter-spacing: -2px;
 
 }
 
 
-.minecraft-hero h1 span {
+.amd-vps-container h1 span {
 
   display: block;
 
   color: #ff2525;
 
   text-shadow:
-
-    0 0 12px
-    rgba(255,0,0,.8),
-
-    0 0 30px
-    rgba(255,0,0,.45);
+    0 0 15px rgba(255,0,0,.75),
+    0 0 35px rgba(255,0,0,.3);
 
 }
 
@@ -573,22 +485,19 @@
    DESCRIPTION
 ===================================================== */
 
-.minecraft-hero-content > p {
+.amd-vps-desc {
 
-  max-width: 600px;
+  max-width: 850px;
 
   margin:
-    0 0 28px;
+    0 0 38px;
 
-  color: #ddd;
+  color: #aaa;
 
-  font-size: 17px;
+  font-size:
+    clamp(16px, 2vw, 20px);
 
-  line-height: 1.7;
-
-  text-shadow:
-    0 2px 8px
-    rgba(0,0,0,.8);
+  line-height: 1.65;
 
 }
 
@@ -597,77 +506,56 @@
    FEATURES
 ===================================================== */
 
-.minecraft-hero-features {
+.amd-vps-features {
 
-  display: flex;
+  display: grid;
 
-  flex-wrap: wrap;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
-  gap: 10px;
+  gap:
+    14px 65px;
 
-  margin-bottom: 28px;
+  max-width: 850px;
+
+  margin-bottom: 35px;
 
 }
 
 
-.minecraft-feature {
+.amd-vps-feature {
 
   display: flex;
 
   align-items: center;
 
-  gap: 10px;
-
-  min-width: 145px;
-
-  padding:
-    11px 14px;
-
-  border-radius: 11px;
-
-  border:
-    1px solid
-    rgba(255,0,0,.3);
-
-  background:
-    rgba(0,0,0,.55);
-
-  backdrop-filter: blur(8px);
-
-  box-shadow:
-    0 5px 20px
-    rgba(0,0,0,.3);
+  gap: 12px;
 
   transition:
-
-    transform .3s ease,
-
-    border-color .3s ease,
-
-    box-shadow .3s ease;
+    transform .25s ease;
 
 }
 
 
-.minecraft-feature:hover {
+.amd-vps-feature:hover {
 
   transform:
-    translateY(-4px);
-
-  border-color:
-    rgba(255,0,0,.8);
-
-  box-shadow:
-    0 0 20px
-    rgba(255,0,0,.2);
+    translateX(5px);
 
 }
 
 
-.minecraft-feature > span {
+/* =====================================================
+   ICON
+===================================================== */
 
-  width: 34px;
-  height: 34px;
+.amd-vps-icon {
+
+  width: 40px;
+
+  height: 40px;
+
+  min-width: 40px;
 
   display: flex;
 
@@ -675,40 +563,59 @@
 
   justify-content: center;
 
-  border-radius: 9px;
+  border-radius: 10px;
 
   background:
-    rgba(255,0,0,.12);
+    rgba(255,0,0,.10);
 
   border:
-    1px solid
-    rgba(255,0,0,.3);
+    1px solid rgba(255,0,0,.28);
 
-  font-size: 17px;
+  box-shadow:
+    0 0 15px rgba(255,0,0,.08);
 
 }
 
 
-.minecraft-feature strong {
+.amd-vps-icon svg {
+
+  width: 22px;
+
+  height: 22px;
+
+  fill: none;
+
+  stroke: #ff3030;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+}
+
+
+.amd-vps-feature strong {
 
   display: block;
 
   color: #fff;
 
-  font-size: 13px;
+  font-size: 15px;
 
 }
 
 
-.minecraft-feature small {
+.amd-vps-feature small {
 
   display: block;
 
-  margin-top: 2px;
+  margin-top: 3px;
 
-  color: #999;
+  color: #777;
 
-  font-size: 10px;
+  font-size: 11px;
 
 }
 
@@ -717,7 +624,7 @@
    BUTTONS
 ===================================================== */
 
-.minecraft-hero-buttons {
+.amd-vps-buttons {
 
   display: flex;
 
@@ -728,16 +635,20 @@
 }
 
 
-.minecraft-btn-primary {
+.amd-vps-btn-primary {
 
   display: inline-flex;
 
   align-items: center;
 
+  justify-content: center;
+
   gap: 10px;
 
+  min-width: 245px;
+
   padding:
-    14px 21px;
+    16px 24px;
 
   border-radius: 10px;
 
@@ -745,7 +656,7 @@
     linear-gradient(
       135deg,
       #ff3030,
-      #c90000
+      #d00000
     );
 
   border:
@@ -753,137 +664,208 @@
 
   color: #fff !important;
 
-  font-size: 15px;
+  font-size: 16px;
 
   font-weight: 700;
 
   text-decoration: none !important;
 
   box-shadow:
-    0 0 20px
-    rgba(255,0,0,.35);
+    0 0 25px rgba(255,0,0,.32);
 
   transition:
-
-    transform .3s ease,
-
-    box-shadow .3s ease;
+    .3s ease;
 
 }
 
 
-.minecraft-btn-primary b {
-
-  font-size: 20px;
-
-  transition:
-    transform .3s ease;
-
-}
-
-
-.minecraft-btn-primary:hover {
+.amd-vps-btn-primary:hover {
 
   transform:
     translateY(-3px);
 
   box-shadow:
-    0 0 30px
-    rgba(255,0,0,.6);
+    0 0 35px rgba(255,0,0,.55);
 
 }
 
 
-.minecraft-btn-primary:hover b {
+.amd-vps-btn-primary b {
 
-  transform:
-    translateX(4px);
+  font-size: 21px;
 
 }
 
 
-.minecraft-btn-secondary {
+.amd-vps-btn-secondary {
 
   display: inline-flex;
 
   align-items: center;
 
+  justify-content: center;
+
+  min-width: 190px;
+
   padding:
-    14px 21px;
+    16px 24px;
 
   border-radius: 10px;
 
   border:
-    1px solid
-    rgba(255,255,255,.25);
+    1px solid rgba(255,255,255,.18);
 
   background:
-    rgba(0,0,0,.45);
+    rgba(255,255,255,.025);
 
   color: #fff !important;
 
-  font-size: 15px;
+  font-size: 16px;
 
   font-weight: 600;
 
   text-decoration: none !important;
 
-  backdrop-filter: blur(8px);
-
-  transition: .3s ease;
+  transition:
+    .3s ease;
 
 }
 
 
-.minecraft-btn-secondary:hover {
+.amd-vps-btn-secondary:hover {
 
   border-color:
-    rgba(255,0,0,.7);
+    rgba(255,0,0,.65);
 
   background:
-    rgba(255,0,0,.12);
+    rgba(255,0,0,.08);
 
 }
 
 
 /* =====================================================
-   TABLET
+   CATEGORY
 ===================================================== */
 
-@media (max-width: 900px) {
+.amd-vps-category {
 
-  .minecraft-hero {
+  width: 100%;
 
-    min-height: 650px;
+  background: #080606;
 
-  }
+  padding:
+    28px 0;
 
-
-  .minecraft-hero-content {
-
-    padding:
-      80px 25px;
-
-  }
+}
 
 
-  .minecraft-hero-overlay {
+.amd-vps-category-scroll {
 
-    background:
+  display: flex;
 
-      linear-gradient(
-        90deg,
-        rgba(0,0,0,.9),
-        rgba(0,0,0,.55)
-      ),
+  gap: 18px;
 
-      linear-gradient(
-        0deg,
-        rgba(0,0,0,.7),
-        transparent
-      );
+  max-width: 1150px;
 
-  }
+  margin: auto;
+
+  padding:
+    0 30px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+
+}
+
+
+.amd-vps-category-scroll::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+
+.amd-vps-category button {
+
+  position: relative;
+
+  flex: 0 0 auto;
+
+  padding:
+    18px 35px;
+
+  border-radius: 18px;
+
+  border:
+    1px solid #292929;
+
+  background:
+    #111;
+
+  color: #999;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    .3s ease;
+
+}
+
+
+.amd-vps-category button:hover {
+
+  color: #fff;
+
+  border-color:
+    rgba(255,0,0,.55);
+
+}
+
+
+.amd-vps-category .amd-vps-category-active {
+
+  color: #fff;
+
+  border-color:
+    #ff2020;
+
+  background:
+    rgba(255,0,0,.07);
+
+  box-shadow:
+    0 0 18px rgba(255,0,0,.12);
+
+}
+
+
+.amd-vps-category-active::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 15%;
+
+  right: 15%;
+
+  bottom: -12px;
+
+  height: 3px;
+
+  border-radius: 10px;
+
+  background:
+    #ff3030;
+
+  box-shadow:
+    0 0 12px #ff2020;
 
 }
 
@@ -894,119 +876,99 @@
 
 @media (max-width: 600px) {
 
-  .minecraft-hero {
-
-    min-height: 720px;
-
-    align-items: flex-end;
-
-  }
-
-
-  .minecraft-hero-image {
-
-    object-position:
-      60% center;
-
-  }
-
-
-  .minecraft-hero-overlay {
-
-    background:
-
-      linear-gradient(
-        180deg,
-        rgba(0,0,0,.18) 0%,
-        rgba(0,0,0,.45) 35%,
-        rgba(0,0,0,.96) 82%
-      );
-
-  }
-
-
-  .minecraft-hero-content {
+  .amd-vps-container {
 
     padding:
-      45px 18px 55px;
+      55px 20px 50px;
 
   }
 
 
-  .minecraft-badge {
+  .amd-vps-badge {
 
     font-size: 10px;
 
     padding:
-      7px 12px;
+      8px 13px;
 
   }
 
 
-  .minecraft-hero h1 {
+  .amd-vps-container h1 {
 
-    font-size: 42px;
+    font-size: 43px;
 
-    margin-top: 15px;
+    letter-spacing:
+      -1.5px;
 
   }
 
 
-  .minecraft-hero-content > p {
+  .amd-vps-desc {
 
     font-size: 14px;
 
-    line-height: 1.6;
+    line-height: 1.65;
+
+    margin-bottom:
+      30px;
 
   }
 
 
-  .minecraft-hero-features {
-
-    display: grid;
+  .amd-vps-features {
 
     grid-template-columns:
       1fr 1fr;
+
+    gap:
+      20px 10px;
+
+  }
+
+
+  .amd-vps-feature {
 
     gap: 8px;
 
   }
 
 
-  .minecraft-feature {
+  .amd-vps-icon {
 
-    min-width: 0;
+    width: 32px;
 
-    padding: 9px;
+    min-width: 32px;
 
-  }
-
-
-  .minecraft-feature > span {
-
-    width: 30px;
-    height: 30px;
-
-    font-size: 14px;
+    height: 32px;
 
   }
 
 
-  .minecraft-feature strong {
+  .amd-vps-icon svg {
+
+    width: 17px;
+
+    height: 17px;
+
+  }
+
+
+  .amd-vps-feature strong {
 
     font-size: 11px;
 
   }
 
 
-  .minecraft-feature small {
+  .amd-vps-feature small {
 
     font-size: 9px;
 
   }
 
 
-  .minecraft-hero-buttons {
+  .amd-vps-buttons {
 
     display: grid;
 
@@ -1016,42 +978,40 @@
   }
 
 
-  .minecraft-btn-primary,
-  .minecraft-btn-secondary {
+  .amd-vps-btn-primary,
+  .amd-vps-btn-secondary {
 
     width: 100%;
 
-    justify-content: center;
-
-  }
-
-}
-
-
-/* =====================================================
-   SMALL PHONE
-===================================================== */
-
-@media (max-width: 400px) {
-
-  .minecraft-hero {
-
-    min-height: 690px;
+    min-width: 0;
 
   }
 
 
-  .minecraft-hero h1 {
-
-    font-size: 36px;
-
-  }
-
-
-  .minecraft-hero-content {
+  .amd-vps-category {
 
     padding:
-      35px 15px 45px;
+      22px 0;
+
+  }
+
+
+  .amd-vps-category-scroll {
+
+    padding:
+      0 20px;
+
+    gap: 10px;
+
+  }
+
+
+  .amd-vps-category button {
+
+    padding:
+      15px 25px;
+
+    font-size: 13px;
 
   }
 
