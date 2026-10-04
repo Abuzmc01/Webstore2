@@ -1180,6 +1180,60 @@ html {
     </button>
 </div>
 
+<div class="vps-products-heading">
+    <div>
+        <div class="vps-section-label">
+            <span></span>
+            VPS PRODUCTS
+        </div>
+        <h2>Pilih <b>Paket VPS</b></h2>
+        <p>Performa tinggi untuk kebutuhan server Anda.</p>
+    </div>
+</div>
+
+<div class="vps-product-controls">
+
+    <div class="vps-category-tabs">
+        <button type="button" class="vps-category active" data-category="milan">
+            AMD EPYC Milan
+        </button>
+        <button type="button" class="vps-category" data-category="genoa">
+            AMD EPYC Genoa
+        </button>
+        <button type="button" class="vps-category" data-category="ryzen9">
+            AMD Ryzen
+        </button>
+    </div>
+
+    <div class="vps-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="M16 16l5 5"></path>
+        </svg>
+        <input
+            type="search"
+            id="amd-vps-search"
+            placeholder="Search by product name..."
+            autocomplete="off"
+        >
+    </div>
+
+    <div class="vps-product-select">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h3M11 6h9M4 12h7M15 12h5M4 18h3M11 18h9"></path>
+            <circle cx="9" cy="6" r="2"></circle>
+            <circle cx="13" cy="12" r="2"></circle>
+            <circle cx="9" cy="18" r="2"></circle>
+        </svg>
+        <span id="vps-active-product-label">AMD EPYC Milan</span>
+        <span class="vps-select-chevron">⌄</span>
+    </div>
+
+    <div class="vps-products-count">
+        <span id="vps-product-count">0</span> Products
+    </div>
+</div>
+
 <div class="vps-product-grid" id="amd-vps-grid">
 
 
@@ -3307,51 +3361,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
         cards.forEach(card => {
 
-            const category =
-                card.dataset.category;
-
+            const category = card.dataset.category;
             const name =
-                (card.dataset.name || "")
-                .toLowerCase();
+                (card.dataset.name || "").toLowerCase();
 
             const categoryMatch =
                 category === activeCategory;
 
             const searchMatch =
-                !keyword ||
-                name.includes(keyword);
+                !keyword || name.includes(keyword);
 
             if (categoryMatch && searchMatch) {
 
                 card.style.display = "";
 
-                visible++;
-
-                card.style.animation =
-                    "none";
+                card.classList.remove("vps-card-exit");
+                card.classList.remove("vps-card-visible");
 
                 requestAnimationFrame(() => {
-
-                    card.style.animation =
-                        "cardIn .4s ease both";
-
+                    card.classList.add("vps-card-visible");
                 });
+
+                visible++;
 
             } else {
 
-                card.style.display = "none";
+                card.classList.remove("vps-card-visible");
+                card.classList.add("vps-card-exit");
+
+                setTimeout(() => {
+                    if (!card.classList.contains("vps-card-visible")) {
+                        card.style.display = "none";
+                    }
+                }, 320);
 
             }
 
         });
 
+        const count = document.getElementById("vps-product-count");
+        if (count) count.textContent = visible;
+
+        const label =
+            document.getElementById("vps-active-product-label");
+
+        if (label) {
+            const labels = {
+                milan: "AMD EPYC Milan",
+                genoa: "AMD EPYC Genoa",
+                ryzen9: "AMD Ryzen"
+            };
+            label.textContent =
+                labels[activeCategory] || "VPS Products";
+        }
+
         if (noResult) {
-
             noResult.style.display =
-                visible === 0
-                    ? "block"
-                    : "none";
-
+                visible === 0 ? "block" : "none";
         }
 
     }
@@ -3455,6 +3521,24 @@ Terima kasih.`;
             );
 
         });
+
+
+
+    const heroVpsButton =
+        document.querySelector(".minecraft-btn-primary");
+
+    if (heroVpsButton) {
+        heroVpsButton.addEventListener("click", function (event) {
+            const grid = document.getElementById("amd-vps-grid");
+            if (grid) {
+                event.preventDefault();
+                grid.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
+    }
 
 
     /* =====================================================
@@ -4153,6 +4237,189 @@ body {
   }
 
 }
+
+/* ===== PRODUCT AREA / REFERENCE STYLE ===== */
+.vps-product-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.vps-category-tabs {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 2px 2px 10px;
+    margin: 0;
+    scrollbar-width: none;
+}
+.vps-category-tabs::-webkit-scrollbar { display: none; }
+
+.vps-category {
+    flex: 0 0 auto;
+    min-height: 58px;
+    padding: 0 28px;
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(35,35,35,.72), rgba(17,17,17,.82));
+    color: #8f8f8f;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    transition: .28s ease;
+}
+.vps-category:hover {
+    color: #fff;
+    border-color: rgba(255,45,45,.45);
+    transform: translateY(-2px);
+}
+.vps-category.active {
+    color: #fff;
+    border-color: #ff3030;
+    background: linear-gradient(145deg, rgba(55,18,18,.9), rgba(22,14,14,.95));
+    box-shadow: 0 0 24px rgba(255,30,30,.12);
+}
+
+.vps-search {
+    position: relative;
+    width: 100%;
+}
+.vps-search svg {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    width: 25px;
+    height: 25px;
+    transform: translateY(-50%);
+    stroke: #aaa;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+.vps-search input {
+    width: 100%;
+    min-height: 76px;
+    box-sizing: border-box;
+    padding: 0 24px 0 70px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    outline: none;
+    background: linear-gradient(145deg, rgba(29,29,29,.92), rgba(16,16,16,.92));
+    color: #fff;
+    font: inherit;
+    font-size: 17px;
+    transition: .3s ease;
+}
+.vps-search input:focus {
+    border-color: rgba(255,45,45,.55);
+    box-shadow: 0 0 28px rgba(255,30,30,.08);
+}
+.vps-search input::placeholder { color: #777; }
+
+.vps-product-select {
+    min-height: 76px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 24px;
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(29,29,29,.92), rgba(16,16,16,.92));
+    color: #eee;
+    font-size: 17px;
+}
+.vps-product-select svg {
+    width: 27px;
+    height: 27px;
+    stroke: #aaa;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+.vps-select-chevron {
+    margin-left: auto;
+    color: #aaa;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.vps-products-count {
+    color: #ff3b3b;
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.vps-product-grid {
+    gap: 24px;
+}
+
+.amd-vps-card {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255,35,35,.035), transparent 38%),
+        linear-gradient(145deg, rgba(31,31,31,.96), rgba(19,19,19,.96));
+    border-color: rgba(255,255,255,.09);
+    box-shadow: 0 18px 55px rgba(0,0,0,.18);
+    opacity: 0;
+    transform: translateY(28px) scale(.985);
+    animation: none;
+    transition: transform .5s cubic-bezier(.2,.75,.2,1),
+                opacity .5s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+}
+.amd-vps-card.vps-card-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+.amd-vps-card.vps-card-exit {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+}
+@keyframes vpsCardEnter {
+    from { opacity: 0; transform: translateY(28px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 600px) {
+    .vps-product-controls {
+        gap: 14px;
+        margin-bottom: 30px;
+    }
+    .vps-category {
+        min-height: 56px;
+        padding: 0 24px;
+        font-size: 14px;
+        border-radius: 15px;
+    }
+    .vps-search input,
+    .vps-product-select {
+        min-height: 72px;
+        border-radius: 17px;
+    }
+    .vps-search input {
+        font-size: 16px;
+        padding-left: 64px;
+    }
+    .vps-search svg {
+        left: 21px;
+        width: 24px;
+        height: 24px;
+    }
+    .vps-product-select {
+        font-size: 16px;
+    }
+    .vps-products-count {
+        font-size: 16px;
+    }
+    .vps-product-grid {
+        gap: 18px;
+    }
+}
+
 </style>
 
 
