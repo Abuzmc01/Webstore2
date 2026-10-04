@@ -53,10 +53,11 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Vps Kvm</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Virtual Private Server</a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="vps-amd.html">Vps AMD</a></li>
-            <li><a class="dropdown-item" href="vps-intel.html">Vps Intel</a></li>
+            <li><a class="dropdown-item" href="vps-amd.html">Vps AMD Epyc</a></li>
+			  
+            <li><a class="dropdown-item" href="vps-intel.html">Vps Intel Xeon</a></li>
           </ul>
         </li>
 
@@ -159,204 +160,751 @@
 </style>
 <!-- ======= END NAVBAR ======= -->
 
-<!-- =========================================================
-     MINEIDHOST - AMD VPS
-     HERO + CATEGORY + PRODUCT
-========================================================= -->
 
-<section class="mdh-vps-page" id="amd-vps">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
+<title>AMD VPS - MineIDHost</title>
 
-    <div class="mdh-vps-hero">
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        <!-- Background decoration -->
-        <div class="vps-hero-grid"></div>
-        <div class="vps-glow vps-glow-1"></div>
-        <div class="vps-glow vps-glow-2"></div>
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #050505;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.mdh-vps-hero {
+    position: relative;
+    min-height: 720px;
+    overflow: hidden;
+    background: #050505;
+}
+
+
+/* FOTO HERO */
+
+.vps-hero-image {
+    position: absolute;
+    inset: 0;
+
+    background-image: url("vps-amd.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter:
+        saturate(1.15)
+        contrast(1.08);
+
+    transform: scale(1.03);
+}
+
+
+/* DARK RED OVERLAY */
+
+.vps-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.97) 0%,
+            rgba(0,0,0,.88) 35%,
+            rgba(0,0,0,.50) 70%,
+            rgba(0,0,0,.30) 100%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.90)
+        );
+}
+
+
+/* RED GLOW */
+
+.vps-red-glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -120px;
+    top: 80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,20,20,.32),
+            transparent 70%
+        );
+
+    filter: blur(40px);
+
+    animation: redGlow 5s ease-in-out infinite;
+}
+
+
+/* GRID */
+
+.vps-grid-bg {
+    position: absolute;
+    inset: 0;
+
+    opacity: .12;
+
+    background-image:
+        linear-gradient(
+            rgba(255,30,30,.25) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,30,30,.25) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    mask-image:
+        linear-gradient(
+            90deg,
+            #000,
+            transparent 80%
+        );
+}
+
+
+/* CONTENT */
+
+.vps-hero-container {
+    position: relative;
+    z-index: 5;
+
+    width: min(1250px, 92%);
+    min-height: 720px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* LEFT */
+
+.vps-hero-content {
+    width: 60%;
+}
+
+
+/* BADGE */
+
+.vps-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 9px 16px;
+
+    border: 1px solid rgba(255,45,45,.4);
+    border-radius: 100px;
+
+    background: rgba(255,30,30,.07);
+
+    color: #ff4141;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+}
+
+.vps-badge i {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #ff3030;
+
+    box-shadow:
+        0 0 8px #ff3030,
+        0 0 20px rgba(255,30,30,.7);
+
+    animation: pulse 1.7s infinite;
+}
+
+
+/* TITLE */
+
+.vps-hero-content h1 {
+    margin: 25px 0 0;
+
+    font-size: clamp(50px, 7vw, 88px);
+
+    line-height: .90;
+
+    letter-spacing: -4px;
+
+    font-weight: 950;
+}
+
+.vps-hero-content h1 span {
+    display: block;
+
+    color: #ff3030;
+
+    text-shadow:
+        0 0 30px rgba(255,30,30,.35);
+}
+
+
+/* DESCRIPTION */
+
+.vps-description {
+    max-width: 620px;
+
+    margin-top: 25px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* FEATURES */
+
+.vps-features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 10px;
+
+    max-width: 620px;
+
+    margin-top: 25px;
+}
+
+.vps-feature {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 10px;
+
+    background:
+        rgba(0,0,0,.32);
+
+    backdrop-filter: blur(10px);
+
+    transition: .3s ease;
+}
+
+.vps-feature:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(255,40,40,.4);
+
+    background:
+        rgba(255,20,20,.06);
+}
+
+.vps-feature-icon {
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color: #ff3c3c;
+
+    background:
+        rgba(255,30,30,.08);
+
+    border:
+        1px solid
+        rgba(255,40,40,.18);
+}
+
+.vps-feature-icon svg {
+    width: 19px;
+    height: 19px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.vps-feature b {
+    display: block;
+
+    color: #eee;
+
+    font-size: 10px;
+}
+
+.vps-feature small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #666;
+
+    font-size: 8px;
+}
+
+
+/* BUTTON */
+
+.vps-buttons {
+    display: flex;
+
+    gap: 11px;
+
+    margin-top: 28px;
+}
+
+.vps-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 14px 21px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    transition: .3s ease;
+}
+
+.vps-btn-primary {
+    color: #fff;
+
+    background: #ff3030;
+
+    box-shadow:
+        0 10px 35px
+        rgba(255,30,30,.25);
+}
+
+.vps-btn-primary:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 45px
+        rgba(255,30,30,.4);
+}
+
+.vps-btn-secondary {
+    color: #ddd;
+
+    background:
+        rgba(0,0,0,.35);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    backdrop-filter: blur(8px);
+}
+
+.vps-btn-secondary:hover {
+    color: #ff4040;
+
+    border-color:
+        rgba(255,40,40,.45);
+}
+
+
+/* STATS */
+
+.vps-stats {
+    display: flex;
+
+    gap: 35px;
+
+    margin-top: 32px;
+}
+
+.vps-stat {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.vps-stat strong {
+    font-size: 12px;
+}
+
+.vps-stat span {
+    color: #666;
+
+    font-size: 9px;
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .4;
+        transform: scale(.7);
+    }
+
+}
+
+@keyframes redGlow {
+
+    0%,100% {
+        transform: scale(1);
+        opacity: .6;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px) {
+
+    .mdh-vps-hero {
+        min-height: 850px;
+    }
+
+    .vps-hero-image {
+        background-position: 65% center;
+
+        transform: scale(1.08);
+    }
+
+    .vps-hero-overlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(0,0,0,.94) 0%,
+                rgba(0,0,0,.68) 48%,
+                rgba(0,0,0,.97) 100%
+            );
+    }
+
+    .vps-hero-container {
+        display: block;
+
+        min-height: 850px;
+
+        padding-top: 65px;
+    }
+
+    .vps-hero-content {
+        width: 100%;
+    }
+
+    .vps-hero-content h1 {
+        font-size: 51px;
+
+        letter-spacing: -2.5px;
+    }
+
+    .vps-description {
+        font-size: 13px;
+    }
+
+    .vps-features {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .vps-buttons {
+        width: 100%;
+    }
+
+    .vps-btn {
+        flex: 1;
+
+        padding:
+            14px 8px;
+    }
+
+    .vps-stats {
+        gap: 22px;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<section class="mdh-vps-hero">
+
+    <!-- FOTO vps-amd.png -->
+    <div class="vps-hero-image"></div>
+
+    <!-- OVERLAY -->
+    <div class="vps-hero-overlay"></div>
+
+    <!-- GRID -->
+    <div class="vps-grid-bg"></div>
+
+    <!-- RED GLOW -->
+    <div class="vps-red-glow"></div>
+
+
+    <div class="vps-hero-container">
 
         <div class="vps-hero-content">
 
-            <div class="vps-hero-badge">
-                <span class="vps-status-dot"></span>
+
+            <div class="vps-badge">
+                <i></i>
                 AMD VPS PERFORMANCE
             </div>
+
 
             <h1>
                 AMD VPS
                 <span>Power Your Server</span>
             </h1>
 
-            <p>
-                VPS AMD berperforma tinggi dengan CPU AMD EPYC
-                dan AMD Ryzen untuk game server, website,
-                aplikasi, development, dan kebutuhan production.
+
+            <p class="vps-description">
+                Rasakan performa VPS berbasis AMD untuk
+                kebutuhan server, website, aplikasi,
+                development, game server, dan workload
+                production dengan performa tinggi.
             </p>
 
-            <div class="vps-hero-buttons">
 
-                <a href="#vps-products" class="vps-hero-btn primary">
-                    Lihat VPS
-                    <span>↓</span>
-                </a>
+            <div class="vps-features">
 
-                <a href="https://dsc.gg/mineidhost"
-                   target="_blank"
-                   class="vps-hero-btn secondary">
+
+                <div class="vps-feature">
+
+                    <div class="vps-feature-icon">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <rect
+                                x="5"
+                                y="5"
+                                width="14"
+                                height="14"
+                                rx="2"/>
+
+                            <rect
+                                x="8"
+                                y="8"
+                                width="8"
+                                height="8"
+                                rx="1"/>
+
+                            <path d="M9 2v3"/>
+                            <path d="M15 2v3"/>
+                            <path d="M9 19v3"/>
+                            <path d="M15 19v3"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div>
+                        <b>AMD EPYC</b>
+                        <small>Server Grade CPU</small>
+                    </div>
+
+                </div>
+
+
+                <div class="vps-feature">
+
+                    <div class="vps-feature-icon">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M4 7h16"/>
+                            <path d="M4 12h16"/>
+                            <path d="M4 17h16"/>
+
+                            <circle cx="8" cy="7" r="1"/>
+                            <circle cx="13" cy="12" r="1"/>
+                            <circle cx="16" cy="17" r="1"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div>
+                        <b>NVMe Gen4</b>
+                        <small>High Speed Storage</small>
+                    </div>
+
+                </div>
+
+
+                <div class="vps-feature">
+
+                    <div class="vps-feature-icon">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="8"/>
+
+                            <path d="M4 12h16"/>
+
+                            <path d="M12 4c3 3 3 13 0 16"/>
+
+                            <path d="M12 4c-3 3-3 13 0 16"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div>
+                        <b>Unlimited</b>
+                        <small>Bandwidth</small>
+                    </div>
+
+                </div>
+
+
+                <div class="vps-feature">
+
+                    <div class="vps-feature-icon">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path
+                                d="M12 21s7-4 7-10V5l-7-3-7 3v6c0 6 7 10 7 10z"/>
+
+                            <path d="M9 12l2 2 4-4"/>
+
+                        </svg>
+
+                    </div>
+
+                    <div>
+                        <b>DDoS Protection</b>
+                        <small>Network Protection</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="vps-buttons">
+
+                <a
+                    href="https://dsc.gg/mineidhost"
+                    target="_blank"
+                    class="vps-btn vps-btn-primary">
+
                     Discord Support
-                    <span>↗</span>
+                    →
+                    
+                </a>
+
+
+                <a
+                    href="https://billing.mineidhost.com"
+                    class="vps-btn vps-btn-secondary">
+
+                    Order VPS
+                    ↗
+
                 </a>
 
             </div>
 
-            <div class="vps-hero-stats">
 
-                <div>
-                    <strong>AMD</strong>
-                    <small>EPYC / Ryzen</small>
+            <div class="vps-stats">
+
+                <div class="vps-stat">
+                    <strong>EPYC</strong>
+                    <span>Milan / Genoa</span>
                 </div>
 
-                <div>
-                    <strong>NVMe</strong>
-                    <small>PCIe Gen4</small>
+                <div class="vps-stat">
+                    <strong>RYZEN 9</strong>
+                    <span>High Frequency</span>
                 </div>
 
-                <div>
-                    <strong>1 Gbps+</strong>
-                    <small>Network</small>
-                </div>
-
-                <div>
+                <div class="vps-stat">
                     <strong>ID / SG</strong>
-                    <small>Region</small>
-                </div>
-
+                    <span>Available Region</span>
+				</div>
             </div>
-
         </div>
-
-
-        <!-- CPU / SERVER VISUAL -->
-        <div class="vps-hero-visual">
-
-            <div class="vps-orbit orbit-1"></div>
-            <div class="vps-orbit orbit-2"></div>
-
-            <div class="vps-server-visual">
-
-                <div class="server-top">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <div class="server-main">
-
-                    <div class="server-chip">
-                        <div class="chip-inner">
-                            AMD
-                        </div>
-                    </div>
-
-                    <div class="server-lines">
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                    </div>
-
-                </div>
-
-                <div class="server-bottom">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <b>EPYC</b>
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
-
-
-    <!-- =====================================================
-         PRODUCT SECTION
-    ====================================================== -->
-
-    <div class="mdh-vps-products" id="vps-products">
-
-        <div class="vps-products-heading">
-
-            <div>
-
-                <div class="vps-section-label">
-                    <span></span>
-                    VPS AMD
-                </div>
-
-                <h2>
-                    Choose Your
-                    <b>Performance</b>
-                </h2>
-
-                <p>
-                    Pilih konfigurasi VPS sesuai kebutuhan
-                    server kamu.
-                </p>
-
-            </div>
-
-            <!-- Search -->
-            <div class="vps-search">
-
-                <svg viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="7"></circle>
-                    <path d="M16 16L21 21"></path>
-                </svg>
-
-                <input
-                    type="text"
-                    id="amd-vps-search"
-                    placeholder="Cari paket VPS..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             CATEGORY
-        ================================================== -->
-
-        <div class="vps-category-tabs">
-
-            <button
-                class="vps-category active"
-                data-category="milan">
-                VPS Milan
-            </button>
-
-            <button
-                class="vps-category"
-                data-category="genoa">
-                VPS Genoa
-            </button>
-
-            <button
-                class="vps-category"
-                data-category="ryzen9">
-                VPS Ryzen 9
-            </button>
-
-        </div>
-
-
+	
         <!-- =================================================
              PRODUCTS
         ================================================== -->
