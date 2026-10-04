@@ -4510,5 +4510,148 @@ body {
 
 })();
 </script>
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const tabs =
+            document.querySelectorAll(
+                ".amd-vps-tab"
+            );
+
+        const title =
+            document.getElementById(
+                "amd-vps-category-title"
+            );
+
+        const search =
+            document.getElementById(
+                "amd-vps-search"
+            );
+
+        const cards =
+            document.querySelectorAll(
+                ".amd-vps-card"
+            );
+
+
+        /* CATEGORY */
+
+        tabs.forEach(function (tab) {
+
+            tab.addEventListener(
+                "click",
+                function () {
+
+                    const category =
+                        this.dataset.category;
+
+
+                    tabs.forEach(function (item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    const names = {
+
+                        milan:
+                            "VPS Milan",
+
+                        genoa:
+                            "VPS Genoa",
+
+                        ryzen:
+                            "VPS Ryzen 9"
+
+                    };
+
+
+                    title.textContent =
+                        names[category] ||
+                        "VPS Milan";
+
+
+                    cards.forEach(function (card) {
+
+                        if (
+                            card.dataset.category ===
+                            category
+                        ) {
+
+                            card.style.display =
+                                "";
+
+                        } else {
+
+                            card.style.display =
+                                "none";
+
+                        }
+
+                    });
+
+                }
+            );
+
+        });
+
+
+        /* SEARCH */
+
+        if (search) {
+
+            search.addEventListener(
+                "input",
+                function () {
+
+                    const keyword =
+                        this.value
+                        .toLowerCase()
+                        .trim();
+
+
+                    cards.forEach(function (card) {
+
+                        const text =
+                            card.textContent
+                            .toLowerCase();
+
+
+                        if (
+                            text.includes(keyword)
+                        ) {
+
+                            card.style.display =
+                                "";
+
+                        } else {
+
+                            card.style.display =
+                                "none";
+
+                        }
+
+                    });
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
 </body>
 </html>
