@@ -1605,6 +1605,46 @@ section h3 span {
 #panel.btn:active {
   transform: translateY(0);
 }
+
+
+/* Fix ukuran ikon lokasi dan ikon footer */
+.footer-section .mih-privacy-svg {
+    display: inline-block !important;
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    vertical-align: -0.15em !important;
+    flex-shrink: 0;
+}
+
+/* Pastikan SVG footer tidak memenuhi layar */
+.footer-section svg {
+    width: 16px !important;
+    height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* Ikon lokasi dan informasi footer tetap sejajar */
+.footer-section .footer-location,
+.footer-section .footer-info {
+    display: block;
+    text-align: center;
+    line-height: 1.8;
+}
+
+@media (max-width: 480px) {
+    .footer-section .mih-privacy-svg,
+    .footer-section svg {
+        width: 15px !important;
+        height: 15px !important;
+        max-width: 15px !important;
+        max-height: 15px !important;
+    }
+}
 </style>
 
 </body>
