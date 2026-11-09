@@ -1,0 +1,4 @@
+node_modules/
+auth/
+.env
+tickets.log
