@@ -42,6 +42,62 @@
     if (bg.indexOf("gradient") > -1 && RED.test(bg)) return true;
     return RED.test(cs.backgroundColor || "");
   }
+  // warna teks "berwarna" (tidak abu-abu) -> diberi garis tepi lebih tebal
+  function saturated(c) {
+    var m = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(c || "");
+    if (!m) return false;
+    var r = +m[1], g = +m[2], b = +m[3];
+    return Math.max(r, g, b) - Math.min(r, g, b) > 60;
+  }
+  function ownText(el) {
+    for (var n = el.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && n.nodeValue.trim()) return n.nodeValue.trim();
+    return "";
+  }
+
+  // ikon gambar putih/transparan: jangan dikembalikan warnanya (biar jadi gelap di tema terang)
+  function checkWhiteIcon(img) {
+    if (img.classList.contains("mdh-keep") || img.dataset.mdhChecked || img.closest(".mdh-ri")) return;
+    if (!img.complete || !img.naturalWidth) { img.addEventListener("load", function () { checkWhiteIcon(img); }, { once: true }); return; }
+    img.dataset.mdhChecked = "1";
+    try {
+      var cv = document.createElement("canvas"); cv.width = cv.height = 24;
+      var cx = cv.getContext("2d"); cx.drawImage(img, 0, 0, 24, 24);
+      var d = cx.getImageData(0, 0, 24, 24).data, n = 0, lum = 0, trans = 0;
+      for (var i = 0; i < d.length; i += 4) {
+        if (d[i + 3] < 40) { trans++; continue; }
+        n++; lum += (d[i] * 0.299 + d[i + 1] * 0.587 + d[i + 2] * 0.114);
+      }
+      if (n && trans > 576 * 0.15 && lum / n > 205) img.classList.add("mdh-keep");
+    } catch (e) { /* gambar dari domain lain: lewati */ }
+  }
+
+  // emoji (termasuk bendera) dikembalikan ke warna asli
+  var EMOJI = /(\p{Regional_Indicator}{2}|\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)/u;
+  function wrapEmoji(root) {
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentNode;
+        if (!p || !EMOJI.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+        if (/^(SCRIPT|STYLE|TEXTAREA|INPUT|OPTION|TITLE)$/.test(p.nodeName) || p.isContentEditable) return NodeFilter.FILTER_REJECT;
+        if (p.closest && (p.closest(".mdh-ri") || p.closest(".mdh-emo"))) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [];
+    while (w.nextNode()) nodes.push(w.currentNode);
+    nodes.forEach(function (n) {
+      var parts = n.nodeValue.split(new RegExp(EMOJI.source, "gu"));
+      if (parts.length < 2) return;
+      var frag = document.createDocumentFragment();
+      parts.forEach(function (s, i) {
+        if (!s) return;
+        if (i % 2) { var sp = document.createElement("span"); sp.className = "mdh-ri mdh-emo"; sp.textContent = s; frag.appendChild(sp); }
+        else frag.appendChild(document.createTextNode(s));
+      });
+      n.parentNode.replaceChild(frag, n);
+    });
+  }
+
   function scanNode(node) {
     if (!node || node.nodeType !== 1) return;
     var list = [node];
@@ -49,11 +105,24 @@
     for (var i = 0; i < inner.length; i++) list.push(inner[i]);
     for (var j = 0; j < list.length; j++) {
       var el = list[j], tag = el.tagName;
-      if (tag === "IMG" || tag === "VIDEO" || tag === "SCRIPT" || tag === "STYLE" || tag === "svg" || tag === "path") continue;
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "path" || tag === "VIDEO") continue;
       if (el.classList.contains("mdh-ri") || el.classList.contains("mdh-theme-btn")) continue;
       if (el.parentElement && el.parentElement.closest(".mdh-ri")) continue;
-      if (needsRestore(el)) el.classList.add("mdh-ri");
+      if (tag === "IMG") { checkWhiteIcon(el); continue; }
+      var cs = getComputedStyle(el);
+      if (tag === "svg") {
+        // ikon SVG merah / bergradasi tetap merah asli
+        var paint = (cs.stroke || "") + " " + (cs.fill || "") + " " + (cs.color || "");
+        if (RED.test(paint) || el.querySelector("linearGradient,radialGradient")) el.classList.add("mdh-ri");
+        continue;
+      }
+      if (needsRestore(el)) { el.classList.add("mdh-ri"); continue; }
+      var txt = ownText(el);
+      // ikon font / simbol kecil berwarna merah
+      if (txt && txt.length <= 2 && RED.test(cs.color)) { el.classList.add("mdh-ri"); continue; }
+      if (txt && (saturated(cs.color) || cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text")) el.classList.add("mdh-tx");
     }
+    try { wrapEmoji(node); } catch (e) {}
   }
   function scan() { if (document.body) scanNode(document.body); }
 
