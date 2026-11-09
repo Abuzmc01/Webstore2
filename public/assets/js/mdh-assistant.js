@@ -42,6 +42,9 @@
     "#mdhA form.i{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(255,255,255,.08);background:#09090c}" +
     "#mdhA form.i input{flex:1;min-width:0;padding:11px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#121217;color:#fff;font-size:14px;outline:none}" +
     "#mdhA form.i input:focus{border-color:rgba(255,49,80,.6)}" +
+    "#mdhA form.i button.att{width:42px;background:#16161b;border:1px solid rgba(255,255,255,.1);font-size:17px}#mdhA form.i button.att[hidden]{display:none}" +
+    "#mdhA img.ph{display:block;max-width:100%;max-height:260px;border-radius:9px;margin-top:4px;cursor:zoom-in;min-height:50px;background:#222;object-fit:cover}" +
+    "#mdhA-lb{position:fixed;inset:0;z-index:99995;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:14px}#mdhA-lb img{max-width:100%;max-height:100%;border-radius:8px}" +
     "#mdhA form.i button{width:44px;border:0;border-radius:10px;background:#ff173f;color:#fff;cursor:pointer;font-size:18px}" +
     "#mdhA .t input,#mdhA .t textarea{width:100%;box-sizing:border-box;margin-top:7px;padding:9px 10px;border-radius:9px;border:1px solid rgba(255,255,255,.12);" +
     "background:#0e0e12;color:#fff;font-size:13.5px;font-family:inherit;outline:none}" +
@@ -75,7 +78,8 @@
     '<button type="button" aria-label="Tutup">&times;</button></div>' +
     '<div class="m" aria-live="polite"></div>' +
     '<div class="chips"></div>' +
-    '<form class="i"><input type="text" maxlength="400" placeholder="Tulis pertanyaan..." aria-label="Pertanyaan"><button type="submit" aria-label="Kirim">➤</button></form>';
+    '<form class="i"><button type="button" class="att" aria-label="Kirim foto" title="Kirim foto" hidden>📷</button><input type="file" accept="image/*" hidden>' +
+    '<input type="text" maxlength="400" placeholder="Tulis pertanyaan..." aria-label="Pertanyaan"><button type="submit" aria-label="Kirim">➤</button></form>';
 
   function mount() {
     document.body.appendChild(btn);
@@ -86,7 +90,8 @@
   var msgs = box.querySelector(".m");
   var chips = box.querySelector(".chips");
   var form = box.querySelector("form.i");
-  var input = form.querySelector("input");
+  var input = form.querySelector('input[type="text"]');
+  var attBtn = form.querySelector(".att"), fileIn = form.querySelector('input[type="file"]');
 
   /* ---------------------------------------------------------- helpers */
   function esc(s) {
@@ -329,19 +334,77 @@
   function renderLive(m) {
     if (box.querySelector('[data-mi="' + m.i + '"]')) return;
     var d = document.createElement("div");
+    var ph = m.kind === "image" ? '<img class="ph" alt="Foto">' : "";
     if (m.from === "user") {
       d.className = "b me";
-      d.innerHTML = linkify(m.text);
+      d.innerHTML = ph + linkify(m.text);
     } else if (m.from === "admin") {
       d.className = "b bot adm";
-      d.innerHTML = '<div style="font-size:11.5px;color:#ff8b9c;margin-bottom:3px;font-weight:600">' + esc(m.name || "Admin") + " | MineIDHost</div>" + linkify(m.text);
+      d.innerHTML = '<div style="font-size:11.5px;color:#ff8b9c;margin-bottom:3px;font-weight:600">' + esc(m.name || "Admin") + " | MineIDHost</div>" + ph + linkify(m.text);
     } else {
       d.className = "b bot";
       d.innerHTML = linkify(m.text);
     }
     d.setAttribute("data-mi", m.i);
     msgs.appendChild(d);
+    if (m.kind === "image" && live) loadImg(d.querySelector("img.ph"), m.file);
   }
+
+  var blobs = {};
+  function loadImg(img, file) {
+    var key = live.id + "/" + file;
+    var show = function (u) { img.src = u; img.onload = scroll; };
+    if (blobs[key]) show(blobs[key]);
+    else fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "file", id: live.id, token: live.token, file: file }) })
+      .then(function (r) { if (!r.ok) throw new Error(); return r.blob(); })
+      .then(function (b) { blobs[key] = URL.createObjectURL(b); show(blobs[key]); })
+      .catch(function () { img.alt = "Foto gagal dimuat"; img.style.minHeight = "0"; });
+    img.addEventListener("click", function () {
+      if (!img.src) return;
+      var lb = document.createElement("div"); lb.id = "mdhA-lb"; lb.innerHTML = '<img alt="">';
+      lb.querySelector("img").src = img.src; lb.addEventListener("click", function () { lb.remove(); });
+      document.body.appendChild(lb);
+    });
+  }
+
+  // kecilkan foto di browser sebelum dikirim (maks 1600px, JPEG)
+  function compressImage(file, cb) {
+    if (!/^image\//.test(file.type)) return cb("File harus berupa foto.");
+    if (file.size > 25 * 1024 * 1024) return cb("Foto terlalu besar (maks 25 MB).");
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function () {
+      var max = 1600, w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+      var cv = document.createElement("canvas"); cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+      var cx = cv.getContext("2d"); cx.fillStyle = "#fff"; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(im, 0, 0, cv.width, cv.height);
+      URL.revokeObjectURL(url);
+      var q = 0.82, data = cv.toDataURL("image/jpeg", q);
+      while (data.length > 3000000 && q > 0.4) { q -= 0.12; data = cv.toDataURL("image/jpeg", q); }
+      if (data.length > 3000000) return cb("Foto terlalu besar setelah dikompres.");
+      cb(null, data);
+    };
+    im.onerror = function () { URL.revokeObjectURL(url); cb("Foto tidak bisa dibaca."); };
+    im.src = url;
+  }
+
+  attBtn.addEventListener("click", function () { if (live && live.status !== "closed") fileIn.click(); });
+  fileIn.addEventListener("change", function () {
+    var f = fileIn.files && fileIn.files[0]; fileIn.value = "";
+    if (!f || !live) return;
+    var tmp = addBubble("me", "📷 Mengirim foto...", false, false);
+    tmp.style.opacity = ".6";
+    compressImage(f, function (err, data) {
+      if (err) { tmp.remove(); addBubble("bot", esc(err), true, false); return; }
+      var caption = input.value.trim(); input.value = "";
+      api({ action: "send_image", id: live.id, token: live.token, data: data, caption: caption, since: live.since }).then(function (r) {
+        tmp.remove();
+        if (r.messages) applyLive(r);
+        if (!r.ok && r.error) addBubble("bot", esc(r.error), true, false);
+      }).catch(function () {
+        tmp.remove();
+        addBubble("bot", "Foto gagal terkirim, cek koneksi lalu coba lagi.", true, false);
+      });
+    });
+  });
 
   function applyLive(res) {
     if (!live || !res) return;
@@ -370,6 +433,7 @@
 
   function liveControls() {
     chips.innerHTML = "";
+    attBtn.hidden = !live || live.status === "closed";
     if (!live) { setChips(["Harga paket", "Cara bayar", "Setup Geyser", "Server lag", "Hubungi admin"]); return; }
     if (live.status === "confirming") {
       setHeader("Tiket " + live.id + " · menunggu konfirmasi kamu");

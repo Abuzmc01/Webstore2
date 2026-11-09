@@ -8,19 +8,25 @@
 //   ALLOWED_ORIGIN (opsional) default: https://mineidhost.com
 
 const ACTIONS = new Set([
-  "create", "poll", "send",
-  "admin_login", "admin_list", "admin_get", "admin_send", "admin_resolve", "admin_close",
+  "create", "poll", "send", "send_image", "file",
+  "admin_methods", "admin_login", "admin_request_code", "admin_verify_code",
+  "admin_list", "admin_get", "admin_send", "admin_send_image", "admin_file", "admin_resolve", "admin_close",
 ]);
+
+// Foto dikirim sebagai base64 di JSON; Vercel membatasi body ±4,5 MB
+const MAX_BODY = 4 * 1024 * 1024;
 
 async function readBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
   if (typeof req.body === "string") return JSON.parse(req.body || "{}");
-  let raw = "";
+  const chunks = [];
+  let size = 0;
   for await (const c of req) {
-    raw += c;
-    if (raw.length > 30000) throw new Error("too large");
+    size += c.length;
+    if (size > MAX_BODY) throw new Error("too large");
+    chunks.push(c);
   }
-  return JSON.parse(raw || "{}");
+  return JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
 }
 
 module.exports = async function handler(req, res) {
@@ -41,7 +47,7 @@ module.exports = async function handler(req, res) {
   try {
     body = await readBody(req);
   } catch (e) {
-    return res.status(400).json({ ok: false, error: "body" });
+    return res.status(413).json({ ok: false, error: "Data terlalu besar. Kirim foto yang lebih kecil." });
   }
   if (!ACTIONS.has(body.action)) return res.status(400).json({ ok: false, error: "action" });
 
@@ -60,7 +66,7 @@ module.exports = async function handler(req, res) {
 
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 9000);
+    const timer = setTimeout(() => ctrl.abort(), 15000);
     const r = await fetch(base + "/api", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Bot-Secret": secret },
@@ -68,6 +74,12 @@ module.exports = async function handler(req, res) {
       signal: ctrl.signal,
     });
     clearTimeout(timer);
+    const ctype = r.headers.get("content-type") || "";
+    if (r.ok && ctype.startsWith("image/")) {
+      res.setHeader("Content-Type", ctype);
+      res.setHeader("Cache-Control", "private, max-age=86400");
+      return res.status(200).send(Buffer.from(await r.arrayBuffer()));
+    }
     const data = await r.json().catch(() => ({ ok: false, error: "Respon bot tidak valid." }));
     if (r.status === 401 && data.error === "secret") {
       console.error("BOT_SECRET di Vercel tidak sama dengan BOT_SECRET di .env bot");
