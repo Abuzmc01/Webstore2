@@ -14,7 +14,7 @@ function getTransport() {
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const fmt = (t) => new Date(t).toLocaleString("id-ID", { timeZone: "Asia/Jakarta", dateStyle: "medium", timeStyle: "short" });
-const who = (m) => (m.from === "user" ? m.name || "Pelanggan" : m.from === "admin" ? `${m.name || "Admin"} (MineIDHost)` : "Asisten MineIDHost");
+const who = (m) => (m.from === "user" ? m.name || "Pelanggan" : m.from === "admin" ? `${m.name || "Admin"} | MineIDHost` : "Asisten MineIDHost");
 
 function transcriptText(t) {
   return t.messages.map((m) => `[${fmt(m.t)}] ${who(m)}:\n${m.text}`).join("\n\n");

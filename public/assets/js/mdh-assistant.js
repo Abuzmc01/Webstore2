@@ -334,7 +334,7 @@
       d.innerHTML = linkify(m.text);
     } else if (m.from === "admin") {
       d.className = "b bot adm";
-      d.innerHTML = '<div style="font-size:11.5px;color:#ff8b9c;margin-bottom:3px;font-weight:600">' + esc(m.name || "Admin") + " · MineIDHost</div>" + linkify(m.text);
+      d.innerHTML = '<div style="font-size:11.5px;color:#ff8b9c;margin-bottom:3px;font-weight:600">' + esc(m.name || "Admin") + " | MineIDHost</div>" + linkify(m.text);
     } else {
       d.className = "b bot";
       d.innerHTML = linkify(m.text);
