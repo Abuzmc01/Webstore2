@@ -9,6 +9,7 @@
 <style>
 :root{--bg:#07070a;--panel:#0d0d11;--panel2:#121217;--line:rgba(255,255,255,.08);--text:#e8e8ee;--muted:#9a9aa4;--red:#ff173f;--red2:#ff3150;--ok:#2ecc71;--warn:#f5b041}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 button,input,textarea{font-family:inherit}
@@ -23,6 +24,9 @@ a{color:var(--red2)}
 #login{max-width:360px;margin:12vh auto;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
 #login h1{margin:0 0 6px;font-size:22px}
 #login p{margin:0 0 16px;color:var(--muted);font-size:14px}
+#login select{width:100%;margin-bottom:10px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:15px}
+#login .prev{margin:-2px 0 12px;font-size:13px;color:var(--muted);min-height:18px}
+#login .prev b{color:#ff8b9c}
 #login input{width:100%;margin-bottom:10px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:15px}
 #login button{width:100%;padding:12px;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
 #login .e{color:#ff8b9c;font-size:13px;margin-top:8px;min-height:18px}
@@ -97,8 +101,16 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
 
 <form id="login" autocomplete="on">
   <h1>Masuk admin</h1>
-  <p>Balas chat pelanggan MineIDHost. Password ada di <code>ADMIN_PASSWORD</code> bot.</p>
-  <input id="lname" placeholder="Nama kamu (tampil ke pelanggan)" maxlength="30" autocomplete="nickname">
+  <p>Balas chat pelanggan MineIDHost. Isi username, pilih jabatan, lalu password admin.</p>
+  <input id="lname" name="mdh-staff-username" placeholder="Username kamu (contoh: abuz)" maxlength="11" autocomplete="off" autocapitalize="off" spellcheck="false">
+  <select id="lrole" aria-label="Jabatan">
+    <option value="">Pilih jabatan...</option>
+    <option>Technical</option>
+    <option>CS</option>
+    <option>Founder</option>
+    <option>Billing Department</option>
+  </select>
+  <div id="lprev" class="prev"></div>
   <input id="lpass" type="password" placeholder="Password admin" autocomplete="current-password">
   <button type="submit">Masuk</button>
   <div class="e" id="lerr"></div>
@@ -146,15 +158,29 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
   }
 
   // ---------------------------------------------------------------- login
-  $("lname").value = S.name || "";
+  $("lname").value = S.user || "";
+  $("lrole").value = S.role || "";
+  function display() {
+    var u = $("lname").value.trim(), r = $("lrole").value;
+    return u && r ? u + " " + r : "";
+  }
+  function preview() {
+    var d = display();
+    $("lprev").innerHTML = d ? 'Tampil ke pelanggan: <b>' + esc(d) + " | MineIDHost</b>" : "";
+  }
+  $("lname").addEventListener("input", preview);
+  $("lrole").addEventListener("change", preview);
+  preview();
   $("login").addEventListener("submit", function (e) {
     e.preventDefault();
-    var name = $("lname").value.trim(), pass = $("lpass").value;
-    if (name.length < 2) { $("lerr").textContent = "Isi nama kamu."; return; }
+    var user = $("lname").value.trim(), role = $("lrole").value, pass = $("lpass").value;
+    if (!/^[A-Za-z0-9._-]{2,11}$/.test(user)) { $("lerr").textContent = "Username 2–11 karakter, hanya huruf, angka, titik, - atau _ (jangan pakai email)."; return; }
+    if (!role) { $("lerr").textContent = "Pilih jabatan kamu."; return; }
+    var name = user + " " + role;
     $("lerr").textContent = "Masuk...";
     api({ action: "admin_login", name: name, password: pass }).then(function (r) {
       if (!r.ok) { $("lerr").textContent = r.error || "Gagal masuk."; return; }
-      S.token = r.adminToken; S.name = name; saveS(); $("lpass").value = ""; $("lerr").textContent = "";
+      S.token = r.adminToken; S.name = name; S.user = user; S.role = role; saveS(); $("lpass").value = ""; $("lerr").textContent = "";
       startApp();
     }).catch(function () { $("lerr").textContent = "Server live chat tidak bisa dihubungi."; });
   });
@@ -168,7 +194,7 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
 
   function startApp() {
     $("login").style.display = "none"; $("app").className = "on"; $("status").hidden = false;
-    $("me").textContent = S.name;
+    $("me").textContent = S.name + " | MineIDHost";
     loadList();
     clearInterval(listTimer); listTimer = setInterval(loadList, 5000);
     var h = location.hash.slice(1);
@@ -225,11 +251,13 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
 
   // ---------------------------------------------------------------- chat
   var QUICK = [
-    "Halo, saya {admin} dari MineIDHost. Ada yang bisa saya bantu?",
+    "Halo kak, saya {user} dari tim {role} MineIDHost. Ada yang bisa saya bantu?",
     "Baik, saya cek dulu ya, mohon tunggu sebentar 🙏",
     "Boleh kirim screenshot error di console panel?",
     "Sudah saya perbaiki, silakan dicek kembali ya.",
   ];
+
+  function fillQ(q) { return q.replace("{user}", S.user || S.name).replace("{role}", S.role || ""); }
 
   function openTicket(id) {
     cur = { id: id }; since = 0;
@@ -255,7 +283,7 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
       (t.assistant ? "<details><summary>Riwayat dengan asisten sebelum tiket</summary><pre>" + esc(t.assistant) + "</pre></details>" : "") +
       "</div>" +
       '<div class="msgs" id="msgs"></div>' +
-      '<div class="quick">' + QUICK.map(function (q, i) { return '<button type="button" data-q="' + i + '">' + esc(q.replace("{admin}", S.name).slice(0, 34)) + "…</button>"; }).join("") + "</div>" +
+      '<div class="quick">' + QUICK.map(function (q, i) { return '<button type="button" data-q="' + i + '">' + esc(fillQ(q).slice(0, 34)) + "…</button>"; }).join("") + "</div>" +
       '<form class="send"><textarea placeholder="Balas ke pelanggan... (Enter kirim, Shift+Enter baris baru)" maxlength="2000"></textarea><button type="submit">➤</button></form>';
     var c = $("chat");
     c.querySelector(".back").addEventListener("click", function () { $("app").classList.remove("chatting"); clearInterval(chatTimer); cur = null; history.replaceState(null, "", location.pathname); renderList(); });
@@ -266,7 +294,7 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
     ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMsg(ta.value); } });
     c.querySelector(".quick").addEventListener("click", function (e) {
       var b = e.target.closest("[data-q]"); if (!b) return;
-      ta.value = QUICK[+b.getAttribute("data-q")].replace("{admin}", S.name); ta.focus();
+      ta.value = fillQ(QUICK[+b.getAttribute("data-q")]); ta.focus();
     });
     setState(t.status);
   }
@@ -290,7 +318,7 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
       if (m.i <= since) return; since = m.i;
       var d = document.createElement("div");
       d.className = "m " + m.from;
-      var who = m.from === "user" ? esc(m.name || "Pelanggan") : m.from === "admin" ? esc(m.name || "Admin") : "Bot";
+      var who = m.from === "user" ? esc(m.name || "Pelanggan") : m.from === "admin" ? esc(m.name || "Admin") + " | MineIDHost" : "Bot";
       d.innerHTML = "<small>" + who + " · " + esc(time(m.t)) + "</small>" + linkify(m.text);
       box.appendChild(d);
     });
@@ -335,7 +363,8 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
     if (S.token && h && (!cur || cur.id !== h)) openTicket(h);
   });
 
-  if (S.token) startApp(); else $("login").style.display = "block";
+  // sesi lama tanpa jabatan (sebelum ada pilihan jabatan) harus login ulang
+  if (S.token && S.role) startApp(); else { S.token = ""; $("login").style.display = "block"; }
 })();
 </script>
 </body>
