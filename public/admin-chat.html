@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin Live Chat | MineIDHost</title>
+<link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+<style>
+:root{--bg:#07070a;--panel:#0d0d11;--panel2:#121217;--line:rgba(255,255,255,.08);--text:#e8e8ee;--muted:#9a9aa4;--red:#ff173f;--red2:#ff3150;--ok:#2ecc71;--warn:#f5b041}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,textarea{font-family:inherit}
+a{color:var(--red2)}
+.top{display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;border-bottom:1px solid var(--line);background:#09090c}
+.top img{width:28px;height:28px}
+.top b{font-size:15px}
+.top .st{margin-left:auto;font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#666;margin-right:4px}
+.dot.on{background:var(--ok)}
+.top button{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:#ccc;cursor:pointer;font-size:12px}
+#login{max-width:360px;margin:12vh auto;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+#login h1{margin:0 0 6px;font-size:22px}
+#login p{margin:0 0 16px;color:var(--muted);font-size:14px}
+#login input{width:100%;margin-bottom:10px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:15px}
+#login button{width:100%;padding:12px;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+#login .e{color:#ff8b9c;font-size:13px;margin-top:8px;min-height:18px}
+#app{display:none;height:calc(100% - 56px)}
+#app.on{display:grid;grid-template-columns:330px 1fr}
+#list{border-right:1px solid var(--line);overflow-y:auto;background:#09090c}
+.filters{display:flex;gap:6px;padding:10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#09090c;z-index:2}
+.filters button{flex:1;padding:7px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--muted);cursor:pointer;font-size:12.5px}
+.filters button.on{border-color:rgba(255,49,80,.5);color:#fff;background:rgba(255,49,80,.1)}
+.tk{display:block;width:100%;text-align:left;padding:12px 14px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
+.tk:hover,.tk.sel{background:var(--panel2)}
+.tk .r1{display:flex;align-items:center;gap:8px}
+.tk .nm{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tk .tm{margin-left:auto;color:var(--muted);font-size:11.5px;white-space:nowrap}
+.tk .ls{margin-top:4px;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tk .id{font-size:11px;color:#777;margin-top:3px}
+.tag{font-size:10.5px;padding:2px 7px;border-radius:999px;font-weight:700;white-space:nowrap}
+.tag.open{background:rgba(255,49,80,.15);color:#ff8b9c}
+.tag.wait{background:var(--red);color:#fff}
+.tag.confirming{background:rgba(245,176,65,.15);color:var(--warn)}
+.tag.closed{background:rgba(255,255,255,.07);color:#888}
+.empty{padding:30px 16px;color:var(--muted);text-align:center;font-size:14px}
+#chat{display:flex;flex-direction:column;min-width:0;height:100%}
+#chat .hd{padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+#chat .hd .r{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#chat .hd h2{margin:0;font-size:16px}
+#chat .hd .info{margin-top:5px;font-size:12.5px;color:var(--muted);line-height:1.6;word-break:break-word}
+#chat .hd .acts{display:flex;gap:6px;margin-left:auto}
+#chat .hd .acts button{padding:7px 11px;border-radius:8px;border:1px solid var(--line);background:transparent;color:#ddd;cursor:pointer;font-size:12.5px}
+#chat .hd .acts .resolve{border-color:rgba(245,176,65,.5);color:var(--warn)}
+#chat .hd .acts .close{border-color:rgba(255,49,80,.5);color:#ff8b9c}
+#chat .hd details{margin-top:6px;font-size:12.5px;color:var(--muted)}
+#chat .hd details pre{white-space:pre-wrap;margin:6px 0 0;font-family:inherit;max-height:160px;overflow:auto}
+.back{display:none;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:#ccc;cursor:pointer}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:9px}
+.m{max-width:75%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.55;word-wrap:break-word;white-space:pre-wrap}
+.m small{display:block;font-size:11px;margin-bottom:3px;opacity:.8;white-space:normal}
+.m.user{align-self:flex-start;background:#15151a;border:1px solid var(--line)}
+.m.admin{align-self:flex-end;background:var(--red);color:#fff}
+.m.bot{align-self:center;max-width:90%;background:transparent;border:1px dashed rgba(255,255,255,.12);color:var(--muted);font-size:12.5px}
+.quick{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px 0}
+.quick button{padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-size:12px}
+.quick button:hover{color:#fff;border-color:rgba(255,49,80,.5)}
+form.send{display:flex;gap:8px;padding:10px 12px 12px;border-top:1px solid var(--line);background:#09090c}
+form.send textarea{flex:1;min-height:44px;max-height:140px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px;resize:vertical;outline:none}
+form.send button{width:56px;border:0;border-radius:10px;background:var(--red);color:#fff;font-size:18px;cursor:pointer}
+form.send textarea:disabled,form.send button:disabled{opacity:.45}
+.nochat{margin:auto;color:var(--muted);text-align:center;padding:20px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:#222;color:#fff;font-size:13.5px;display:none;z-index:50}
+@media(max-width:800px){
+  #app.on{grid-template-columns:1fr}
+  #app.on.chatting #list{display:none}
+  #app.on:not(.chatting) #chat{display:none}
+  .back{display:inline-block}
+  .m{max-width:88%}
+  #chat .hd .acts{margin-left:0;width:100%}
+  #chat .hd .acts button{flex:1}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <img src="/assets/images/logo.svg" alt="">
+  <b>Admin Live Chat</b>
+  <div class="st" id="status" hidden>
+    <span><span class="dot" id="waDot"></span>WhatsApp</span>
+    <span id="me"></span>
+    <button type="button" id="logout">Keluar</button>
+  </div>
+</header>
+
+<form id="login" autocomplete="on">
+  <h1>Masuk admin</h1>
+  <p>Balas chat pelanggan MineIDHost. Password ada di <code>ADMIN_PASSWORD</code> bot.</p>
+  <input id="lname" placeholder="Nama kamu (tampil ke pelanggan)" maxlength="30" autocomplete="nickname">
+  <input id="lpass" type="password" placeholder="Password admin" autocomplete="current-password">
+  <button type="submit">Masuk</button>
+  <div class="e" id="lerr"></div>
+</form>
+
+<div id="app">
+  <aside id="list">
+    <div class="filters">
+      <button type="button" data-f="active" class="on">Aktif</button>
+      <button type="button" data-f="closed">Ditutup</button>
+      <button type="button" data-f="all">Semua</button>
+    </div>
+    <div id="tickets"><div class="empty">Memuat...</div></div>
+  </aside>
+  <section id="chat"><div class="nochat">Pilih tiket di sebelah kiri untuk mulai membalas.</div></section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+  var API = "/api/livechat";
+  var K = "mdh-admin-v1";
+  var S = { token: "", name: "" }, filter = "active", tickets = [], cur = null, since = 0, listTimer = null, chatTimer = null, knownWaiting = {};
+  try { S = Object.assign(S, JSON.parse(localStorage.getItem(K) || "{}")); } catch (e) {}
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function linkify(s) { return esc(s).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
+  function ago(t) {
+    var s = Math.floor((Date.now() - t) / 1000);
+    if (s < 60) return "baru saja"; if (s < 3600) return Math.floor(s / 60) + " mnt";
+    if (s < 86400) return Math.floor(s / 3600) + " jam"; return Math.floor(s / 86400) + " hari";
+  }
+  function time(t) { return new Date(t).toLocaleString("id-ID", { timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", day: "2-digit", month: "short" }); }
+  function toast(msg) { var t = $("toast"); t.textContent = msg; t.style.display = "block"; clearTimeout(toast.h); toast.h = setTimeout(function () { t.style.display = "none"; }, 2600); }
+  function saveS() { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} }
+
+  function api(body) {
+    body.adminToken = S.token;
+    return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: "Respon tidak valid" }; }).then(function (j) { j._s = r.status; return j; }); })
+      .then(function (j) { if (j._s === 401 && body.action !== "admin_login") { logout("Sesi habis, silakan masuk lagi."); } return j; });
+  }
+
+  // ---------------------------------------------------------------- login
+  $("lname").value = S.name || "";
+  $("login").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("lname").value.trim(), pass = $("lpass").value;
+    if (name.length < 2) { $("lerr").textContent = "Isi nama kamu."; return; }
+    $("lerr").textContent = "Masuk...";
+    api({ action: "admin_login", name: name, password: pass }).then(function (r) {
+      if (!r.ok) { $("lerr").textContent = r.error || "Gagal masuk."; return; }
+      S.token = r.adminToken; S.name = name; saveS(); $("lpass").value = ""; $("lerr").textContent = "";
+      startApp();
+    }).catch(function () { $("lerr").textContent = "Server live chat tidak bisa dihubungi."; });
+  });
+  function logout(msg) {
+    S.token = ""; saveS();
+    clearInterval(listTimer); clearInterval(chatTimer);
+    $("app").className = ""; $("status").hidden = true; $("login").style.display = "block";
+    if (msg) $("lerr").textContent = msg;
+  }
+  $("logout").addEventListener("click", function () { logout(""); });
+
+  function startApp() {
+    $("login").style.display = "none"; $("app").className = "on"; $("status").hidden = false;
+    $("me").textContent = S.name;
+    loadList();
+    clearInterval(listTimer); listTimer = setInterval(loadList, 5000);
+    var h = location.hash.slice(1);
+    if (h) openTicket(h);
+  }
+
+  // ---------------------------------------------------------------- daftar tiket
+  document.querySelectorAll(".filters button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll(".filters button").forEach(function (x) { x.classList.remove("on"); });
+      b.classList.add("on"); filter = b.getAttribute("data-f"); renderList();
+      if (filter !== "active") loadList();
+    });
+  });
+
+  function loadList() {
+    api({ action: "admin_list", all: filter !== "active" }).then(function (r) {
+      if (!r.ok) return;
+      $("waDot").className = "dot" + (r.whatsapp ? " on" : "");
+      var newWaiting = r.tickets.filter(function (t) { return t.waiting && !knownWaiting[t.id + ":" + t.updated]; });
+      if (tickets.length && newWaiting.length) { ping(); }
+      knownWaiting = {}; r.tickets.forEach(function (t) { if (t.waiting) knownWaiting[t.id + ":" + t.updated] = 1; });
+      tickets = r.tickets; renderList();
+      var w = tickets.filter(function (t) { return t.waiting; }).length;
+      document.title = (w ? "(" + w + ") " : "") + "Admin Live Chat | MineIDHost";
+    });
+  }
+
+  function renderList() {
+    var list = tickets.filter(function (t) {
+      return filter === "all" ? true : filter === "closed" ? t.status === "closed" : t.status !== "closed";
+    });
+    if (!list.length) { $("tickets").innerHTML = '<div class="empty">Tidak ada tiket ' + (filter === "active" ? "aktif" : "") + ".</div>"; return; }
+    $("tickets").innerHTML = list.map(function (t) {
+      var tag = t.waiting ? '<span class="tag wait">Menunggu</span>' :
+        t.status === "confirming" ? '<span class="tag confirming">Konfirmasi</span>' :
+        t.status === "closed" ? '<span class="tag closed">Ditutup</span>' : '<span class="tag open">Aktif</span>';
+      return '<button type="button" class="tk' + (cur && cur.id === t.id ? " sel" : "") + '" data-id="' + esc(t.id) + '">' +
+        '<div class="r1"><span class="nm">' + esc(t.name) + "</span>" + tag + '<span class="tm">' + ago(t.updated) + "</span></div>" +
+        '<div class="ls">' + (t.lastFrom === "admin" ? "Kamu/admin: " : t.lastFrom === "bot" ? "Bot: " : "") + esc(t.last) + "</div>" +
+        '<div class="id">' + esc(t.id) + (t.lastAdmin ? " · dibalas " + esc(t.lastAdmin) : "") + "</div></button>";
+    }).join("");
+  }
+  $("tickets").addEventListener("click", function (e) {
+    var b = e.target.closest(".tk"); if (b) openTicket(b.getAttribute("data-id"));
+  });
+
+  function ping() {
+    try {
+      var c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain();
+      o.connect(g); g.connect(c.destination); o.frequency.value = 880; g.gain.value = 0.08; o.start(); o.stop(c.currentTime + 0.18);
+    } catch (e) {}
+  }
+
+  // ---------------------------------------------------------------- chat
+  var QUICK = [
+    "Halo, saya {admin} dari MineIDHost. Ada yang bisa saya bantu?",
+    "Baik, saya cek dulu ya, mohon tunggu sebentar 🙏",
+    "Boleh kirim screenshot error di console panel?",
+    "Sudah saya perbaiki, silakan dicek kembali ya.",
+  ];
+
+  function openTicket(id) {
+    cur = { id: id }; since = 0;
+    location.hash = id;
+    $("app").classList.add("chatting");
+    $("chat").innerHTML = '<div class="nochat">Memuat tiket ' + esc(id) + "...</div>";
+    api({ action: "admin_get", id: id, since: 0 }).then(function (r) {
+      if (!r.ok) { $("chat").innerHTML = '<div class="nochat">' + esc(r.error || "Tiket tidak ditemukan") + "</div>"; return; }
+      cur = r.ticket; drawChat(); appendMsgs(r.messages); renderList();
+      clearInterval(chatTimer); chatTimer = setInterval(refreshChat, 3000);
+    });
+  }
+
+  function drawChat() {
+    var t = cur, wa = String(t.whatsapp || "").replace(/\D/g, "").replace(/^0/, "62").replace(/^8/, "628");
+    $("chat").innerHTML =
+      '<div class="hd"><div class="r"><button type="button" class="back">←</button><h2>' + esc(t.name) + '</h2><span id="cst"></span>' +
+      '<div class="acts"><button type="button" class="resolve">Tanya: sudah selesai?</button><button type="button" class="close">Tutup tiket</button></div></div>' +
+      '<div class="info">' + esc(t.id) + " · " + '<a href="mailto:' + esc(t.email) + '">' + esc(t.email) + "</a>" +
+      (t.whatsapp ? ' · <a href="https://wa.me/' + esc(wa) + '" target="_blank" rel="noopener">WA ' + esc(t.whatsapp) + "</a>" : "") +
+      " · dibuka " + esc(time(t.created)) + (t.page ? ' · <a href="' + esc(t.page) + '" target="_blank" rel="noopener">halaman</a>' : "") +
+      (t.mail ? "<br>Email transkrip: " + esc(t.mail) : "") + "</div>" +
+      (t.assistant ? "<details><summary>Riwayat dengan asisten sebelum tiket</summary><pre>" + esc(t.assistant) + "</pre></details>" : "") +
+      "</div>" +
+      '<div class="msgs" id="msgs"></div>' +
+      '<div class="quick">' + QUICK.map(function (q, i) { return '<button type="button" data-q="' + i + '">' + esc(q.replace("{admin}", S.name).slice(0, 34)) + "…</button>"; }).join("") + "</div>" +
+      '<form class="send"><textarea placeholder="Balas ke pelanggan... (Enter kirim, Shift+Enter baris baru)" maxlength="2000"></textarea><button type="submit">➤</button></form>';
+    var c = $("chat");
+    c.querySelector(".back").addEventListener("click", function () { $("app").classList.remove("chatting"); clearInterval(chatTimer); cur = null; history.replaceState(null, "", location.pathname); renderList(); });
+    c.querySelector(".resolve").addEventListener("click", resolve);
+    c.querySelector(".close").addEventListener("click", closeT);
+    var ta = c.querySelector("textarea");
+    c.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); sendMsg(ta.value); });
+    ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMsg(ta.value); } });
+    c.querySelector(".quick").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-q]"); if (!b) return;
+      ta.value = QUICK[+b.getAttribute("data-q")].replace("{admin}", S.name); ta.focus();
+    });
+    setState(t.status);
+  }
+
+  function setState(st) {
+    cur.status = st;
+    var c = $("chat"); if (!c.querySelector(".hd")) return;
+    var map = { open: '<span class="tag open">Aktif</span>', confirming: '<span class="tag confirming">Menunggu konfirmasi pelanggan</span>', closed: '<span class="tag closed">Ditutup</span>' };
+    $("cst").innerHTML = map[st] || "";
+    var closed = st === "closed";
+    c.querySelector("textarea").disabled = closed; c.querySelector("form.send button").disabled = closed;
+    c.querySelector(".resolve").disabled = closed || st === "confirming";
+    c.querySelector(".close").disabled = closed;
+    c.querySelector(".quick").style.display = closed ? "none" : "flex";
+  }
+
+  function appendMsgs(list) {
+    var box = $("msgs"); if (!box) return;
+    var atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
+    (list || []).forEach(function (m) {
+      if (m.i <= since) return; since = m.i;
+      var d = document.createElement("div");
+      d.className = "m " + m.from;
+      var who = m.from === "user" ? esc(m.name || "Pelanggan") : m.from === "admin" ? esc(m.name || "Admin") : "Bot";
+      d.innerHTML = "<small>" + who + " · " + esc(time(m.t)) + "</small>" + linkify(m.text);
+      box.appendChild(d);
+    });
+    if (atBottom || list.length) box.scrollTop = box.scrollHeight;
+  }
+
+  function refreshChat() {
+    if (!cur || !cur.id) return;
+    api({ action: "admin_get", id: cur.id, since: since }).then(function (r) {
+      if (!r.ok || !cur || r.ticket.id !== cur.id) return;
+      if (r.ticket.status !== cur.status) { cur.mail = r.ticket.mail; setState(r.ticket.status); }
+      appendMsgs(r.messages);
+    });
+  }
+
+  function sendMsg(text) {
+    text = String(text || "").trim(); if (!text || !cur) return;
+    var ta = $("chat").querySelector("textarea"); ta.value = ""; ta.focus();
+    api({ action: "admin_send", id: cur.id, text: text, since: since }).then(function (r) {
+      if (!r.ok) { toast(r.error || "Gagal mengirim"); ta.value = text; return; }
+      appendMsgs(r.messages); setState(r.status); loadList();
+    }).catch(function () { toast("Gagal mengirim, cek koneksi."); ta.value = text; });
+  }
+
+  function resolve() {
+    api({ action: "admin_resolve", id: cur.id, since: since }).then(function (r) {
+      if (!r.ok) { toast(r.error || "Gagal"); return; }
+      appendMsgs(r.messages); setState(r.status); toast("Bot menanyakan ke pelanggan apakah masih ada yang bisa dibantu."); loadList();
+    });
+  }
+
+  function closeT() {
+    if (!window.confirm("Tutup tiket " + cur.id + " sekarang? Transkrip akan dikirim ke email pelanggan dan support.")) return;
+    api({ action: "admin_close", id: cur.id, since: since }).then(function (r) {
+      if (!r.ok) { toast(r.error || "Gagal menutup"); return; }
+      appendMsgs(r.messages); setState("closed"); toast("Tiket ditutup. Email: " + (r.mail || "-")); loadList();
+    });
+  }
+
+  window.addEventListener("hashchange", function () {
+    var h = location.hash.slice(1);
+    if (S.token && h && (!cur || cur.id !== h)) openTicket(h);
+  });
+
+  if (S.token) startApp(); else $("login").style.display = "block";
+})();
+</script>
+</body>
+</html>
