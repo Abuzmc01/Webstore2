@@ -27,6 +27,31 @@ html[data-theme="light"] .mdh-ri .mdh-ri {
   filter: none;
 }
 
+/* latar tidak putih polos: gradasi putih -> merah muda lembut -> peach
+   (warna ditulis dalam "ruang sebelum dibalik"; hasil akhirnya #fff -> #fff2f6 -> #ffece8) */
+html[data-theme="light"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483646;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(120% 65% at 100% 100%, rgb(40, 4, 0) 0%, rgba(40, 4, 0, 0) 62%),
+    radial-gradient(90% 55% at 0% 30%, rgb(30, 0, 8) 0%, rgba(30, 0, 8, 0) 70%),
+    linear-gradient(170deg, rgba(0, 0, 0, 0) 0%, rgb(20, 0, 3) 45%, rgb(34, 0, 6) 100%);
+}
+
+/* garis tepi gelap tipis di semua teks, lebih tebal untuk teks berwarna / bergradasi */
+html[data-theme="light"] body { -webkit-text-stroke: .25px rgba(255, 255, 255, .5); }
+html[data-theme="light"] .mdh-tx { -webkit-text-stroke: .6px rgba(255, 255, 255, .85); }
+html[data-theme="light"] .mdh-ri,
+html[data-theme="light"] input,
+html[data-theme="light"] textarea { -webkit-text-stroke: 0; }
+
+/* ikon putih (gambar) dibiarkan ikut terbalik supaya jadi gelap dan terlihat */
+html[data-theme="light"] img.mdh-keep { filter: none; }
+
 /* tombol pilihan tema */
 .mdh-theme-btn {
   display: inline-flex;
