@@ -18,6 +18,8 @@ export const cfg = {
   port: Number(e.SERVER_PORT || e.PORT || 3000), // SERVER_PORT otomatis di Pterodactyl
   botSecret: (e.BOT_SECRET || "").trim(),
   adminPassword: (e.ADMIN_PASSWORD || "").trim(),
+  // Email admin yang boleh login dengan kode (pisahkan dengan koma)
+  adminEmails: (e.ADMIN_EMAILS || "").split(",").map((x) => x.trim().toLowerCase()).filter((x) => x.includes("@")),
   groupJid: e.GROUP_JID || "",
   pairingNumber: (e.PAIRING_NUMBER || "").replace(/\D/g, ""),
   siteUrl: (e.SITE_URL || "https://mineidhost.com").replace(/\/$/, ""),
@@ -37,7 +39,10 @@ export const cfg = {
 export function checkConfig() {
   const errs = [];
   if (cfg.botSecret.length < 16 || cfg.botSecret.startsWith("ganti-")) errs.push("BOT_SECRET wajib diisi minimal 16 karakter acak (bukan teks contoh).");
-  if (cfg.adminPassword.length < 8 || cfg.adminPassword.startsWith("ganti-")) errs.push("ADMIN_PASSWORD wajib diisi minimal 8 karakter (password halaman admin chat).");
+  const pwOk = cfg.adminPassword.length >= 8 && !cfg.adminPassword.startsWith("ganti-");
+  if (!pwOk) cfg.adminPassword = ""; // password login dimatikan kalau kosong / teks contoh
+  if (!pwOk && !cfg.adminEmails.length) errs.push("Isi ADMIN_EMAILS (login kode email) atau ADMIN_PASSWORD minimal 8 karakter untuk halaman admin chat.");
+  if (cfg.adminEmails.length && (!cfg.gmailUser || !cfg.gmailAppPassword)) console.warn("[!] ADMIN_EMAILS diisi tapi Gmail belum dikonfigurasi: kode login tidak bisa dikirim.");
   if (!cfg.gmailUser || !cfg.gmailAppPassword) console.warn("[i] GMAIL_USER / GMAIL_APP_PASSWORD belum diisi: transkrip email tidak akan dikirim.");
   if (errs.length) {
     errs.forEach((x) => console.error("[!] " + x));

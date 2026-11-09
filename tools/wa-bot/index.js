@@ -8,10 +8,11 @@
 
 import http from "node:http";
 import crypto from "node:crypto";
+import fs from "node:fs";
 import { cfg, checkConfig } from "./lib/config.js";
 import * as store from "./lib/store.js";
 import { startWhatsApp, notifyGroup, wa } from "./lib/wa.js";
-import { sendTranscript } from "./lib/mail.js";
+import { sendTranscript, sendLoginCode } from "./lib/mail.js";
 
 checkConfig();
 
@@ -38,14 +39,21 @@ function isDone(text) {
 }
 
 // ---------------------------------------------------------------- sesi admin
-const adminSessions = new Map(); // token -> { name, exp }
-function adminLogin(password, name) {
-  const a = Buffer.from(String(password || "")), b = Buffer.from(cfg.adminPassword);
-  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
+const adminSessions = new Map(); // token -> { name, email, exp }
+function newSession(name, email) {
   const token = crypto.randomBytes(24).toString("base64url");
-  adminSessions.set(token, { name: String(name || "Admin").slice(0, 30), exp: Date.now() + 7 * 864e5 });
+  adminSessions.set(token, { name: String(name || "Admin").slice(0, 40), email: email || "", exp: Date.now() + 7 * 864e5 });
   return token;
 }
+function adminLogin(password, name) {
+  if (!cfg.adminPassword) return null;
+  const a = Buffer.from(String(password || "")), b = Buffer.from(cfg.adminPassword);
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
+  return newSession(name);
+}
+// kode login lewat email: email -> { hash, exp, tries }
+const loginCodes = new Map();
+const hashCode = (email, code) => crypto.createHmac("sha256", cfg.botSecret).update(email + ":" + code).digest("hex");
 function adminFrom(body) {
   const s = adminSessions.get(String(body.adminToken || ""));
   if (!s || s.exp < Date.now()) return null;
@@ -72,6 +80,17 @@ function waLink(n) {
   if (d.startsWith("8")) d = "62" + d;
   return d.length >= 9 ? `https://wa.me/${d}` : "";
 }
+function decodeImage(data) {
+  const m = /^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$/.exec(String(data || ""));
+  if (!m) return { error: "Format foto tidak didukung (pakai JPG/PNG/WebP)." };
+  const buf = Buffer.from(m[2], "base64");
+  if (buf.length > 4 * 1024 * 1024) return { error: "Foto terlalu besar (maks 4 MB)." };
+  const kind = store.detectImage(buf);
+  if (!kind) return { error: "File bukan foto yang valid." };
+  return { buf, kind };
+}
+function preview(m) { return m.kind === "image" ? "📷 Foto" + (m.text ? ": " + m.text : "") : m.text; }
+
 function view(t, since) {
   return { ok: true, id: t.id, status: t.status, messages: store.publicMessages(t, since) };
 }
@@ -157,11 +176,74 @@ const actions = {
     return view(t, Number(b.since) || 0);
   },
 
+  async send_image(b) {
+    const t = store.getTicket(b.id);
+    if (!store.checkToken(t, b.token)) return { ok: false, error: "Tiket tidak ditemukan.", code: 404 };
+    if (t.status === "closed") return { ...view(t, Number(b.since) || 0), ok: false, error: "Tiket sudah ditutup." };
+    if (limited("img:" + t.id, 10, 10 * 60e3)) return { ok: false, error: "Terlalu banyak foto, tunggu sebentar." };
+    const img = decodeImage(b.data);
+    if (img.error) return { ok: false, error: img.error };
+    const file = store.saveUpload(t, img.buf, img.kind.ext);
+    const caption = clip(b.caption, 500);
+    store.addMessage(t, "user", t.name, caption, { file });
+    if (t.status === "confirming") { t.status = "open"; t.confirmAt = 0; store.addMessage(t, "bot", "Asisten", MSG.reopen); }
+    if (!limited("notify:" + t.id, 1, 2 * 60e3)) notifyGroup(`📷 *${t.id}* (${t.name}) mengirim foto${caption ? ": " + caption.slice(0, 200) : ""}\n👉 ${adminLink(t.id)}`);
+    return view(t, Number(b.since) || 0);
+  },
+
+  async file(b) {
+    const t = store.getTicket(b.id);
+    if (!store.checkToken(t, b.token)) return { ok: false, error: "Tidak ditemukan.", code: 404 };
+    const p = store.uploadPath(t, b.file);
+    return p ? { __file: p } : { ok: false, error: "Foto tidak ditemukan.", code: 404 };
+  },
+
   // ----- admin
+  async admin_methods() {
+    return { ok: true, email: cfg.adminEmails.length > 0, password: Boolean(cfg.adminPassword) };
+  },
+
   async admin_login(b) {
     if (limited("login:" + (b.ip || "?"), 8, 10 * 60e3)) return { ok: false, error: "Terlalu banyak percobaan login." };
-    const token = adminLogin(b.password, clip(b.name, 30));
+    if (!cfg.adminPassword) return { ok: false, error: "Login password dimatikan, pakai kode email." };
+    const token = adminLogin(b.password, clip(b.name, 40));
     return token ? { ok: true, adminToken: token } : { ok: false, error: "Password salah.", code: 401 };
+  },
+
+  async admin_request_code(b) {
+    const email = clip(b.email, 120).toLowerCase();
+    if (limited("code-ip:" + (b.ip || "?"), 6, 10 * 60e3) || limited("code:" + email, 3, 10 * 60e3)) {
+      return { ok: false, error: "Terlalu banyak permintaan kode. Coba lagi 10 menit lagi." };
+    }
+    if (!cfg.adminEmails.includes(email)) {
+      // jangan beri tahu email mana yang terdaftar
+      return { ok: true, sent: true };
+    }
+    const code = String(crypto.randomInt(0, 1e6)).padStart(6, "0");
+    loginCodes.set(email, { hash: hashCode(email, code), exp: Date.now() + 10 * 60e3, tries: 0 });
+    try {
+      await sendLoginCode(email, code, clip(b.name, 40));
+    } catch (e) {
+      loginCodes.delete(email);
+      console.error("[!] Gagal kirim kode login:", e.message);
+      return { ok: false, error: "Kode gagal dikirim: " + e.message };
+    }
+    console.log(`[OK] Kode login dikirim ke ${email}`);
+    return { ok: true, sent: true };
+  },
+
+  async admin_verify_code(b) {
+    const email = clip(b.email, 120).toLowerCase();
+    const code = String(b.code || "").replace(/\D/g, "");
+    const rec = loginCodes.get(email);
+    if (!rec || rec.exp < Date.now()) return { ok: false, error: "Kode salah atau sudah kedaluwarsa. Minta kode baru.", code: 401 };
+    rec.tries++;
+    if (rec.tries > 5) { loginCodes.delete(email); return { ok: false, error: "Terlalu banyak percobaan. Minta kode baru.", code: 401 }; }
+    const a = Buffer.from(rec.hash), c = Buffer.from(hashCode(email, code));
+    if (a.length !== c.length || !crypto.timingSafeEqual(a, c)) return { ok: false, error: "Kode salah.", code: 401 };
+    loginCodes.delete(email);
+    console.log(`[OK] Admin login: ${clip(b.name, 40)} <${email}>`);
+    return { ok: true, adminToken: newSession(clip(b.name, 40), email) };
   },
 
   async admin_list(b) {
@@ -177,7 +259,7 @@ const actions = {
         const lastHuman = [...t.messages].reverse().find((m) => m.from !== "bot");
         const waiting = t.status !== "closed" && lastHuman && lastHuman.from === "user";
         return { id: t.id, name: t.name, email: t.email, whatsapp: t.whatsapp, status: t.status, updated: t.updated, created: t.created,
-          last: last ? last.text.slice(0, 90) : "", lastFrom: last ? last.from : "", waiting, unread: t.messages.filter((m) => m.from === "user" && m.t > (t.lastAdminRead || 0)).length,
+          last: last ? preview(last).slice(0, 90) : "", lastFrom: last ? last.from : "", waiting, unread: t.messages.filter((m) => m.from === "user" && m.t > (t.lastAdminRead || 0)).length,
           lastAdmin: lastAdmin ? lastAdmin.name : "" };
       });
     return { ok: true, tickets: list, whatsapp: wa.ready };
@@ -205,6 +287,28 @@ const actions = {
     if (t.status === "confirming") { t.status = "open"; t.confirmAt = 0; }
     t.lastAdminRead = Date.now();
     return { ok: true, messages: store.publicMessages(t, Number(b.since) || 0), status: t.status };
+  },
+
+  async admin_send_image(b) {
+    const s = adminFrom(b);
+    if (!s) return { ok: false, error: "Sesi admin habis, login lagi.", code: 401 };
+    const t = store.getTicket(b.id);
+    if (!t) return { ok: false, error: "Tiket tidak ditemukan.", code: 404 };
+    if (t.status === "closed") return { ok: false, error: "Tiket sudah ditutup." };
+    const img = decodeImage(b.data);
+    if (img.error) return { ok: false, error: img.error };
+    const file = store.saveUpload(t, img.buf, img.kind.ext);
+    store.addMessage(t, "admin", s.name, clip(b.caption, 500), { file });
+    if (t.status === "confirming") { t.status = "open"; t.confirmAt = 0; }
+    t.lastAdminRead = Date.now();
+    return { ok: true, messages: store.publicMessages(t, Number(b.since) || 0), status: t.status };
+  },
+
+  async admin_file(b) {
+    if (!adminFrom(b)) return { ok: false, error: "Sesi admin habis, login lagi.", code: 401 };
+    const t = store.getTicket(b.id);
+    const p = t && store.uploadPath(t, b.file);
+    return p ? { __file: p } : { ok: false, error: "Foto tidak ditemukan.", code: 404 };
   },
 
   async admin_resolve(b) {
@@ -246,21 +350,29 @@ const server = http.createServer(async (req, res) => {
   };
   try {
     if (req.method === "GET" && req.url === "/health") {
-      return send(200, { ok: true, whatsapp: wa.ready, group: Boolean(cfg.groupJid), email: Boolean(cfg.gmailUser && cfg.gmailAppPassword) });
+      return send(200, { ok: true, whatsapp: wa.ready, group: Boolean(cfg.groupJid), email: Boolean(cfg.gmailUser && cfg.gmailAppPassword),
+        adminEmailLogin: cfg.adminEmails.length, adminPasswordLogin: Boolean(cfg.adminPassword) });
     }
     if (req.method !== "POST" || req.url !== "/api") return send(404, { ok: false });
     const sec = Buffer.from(String(req.headers["x-bot-secret"] || "")), want = Buffer.from(cfg.botSecret);
     if (sec.length !== want.length || !crypto.timingSafeEqual(sec, want)) return send(401, { ok: false, error: "secret" });
 
-    let raw = "";
+    const chunks = [];
+    let size = 0;
     for await (const c of req) {
-      raw += c;
-      if (raw.length > 30000) return send(413, { ok: false });
+      size += c.length;
+      if (size > 6 * 1024 * 1024) return send(413, { ok: false, error: "Data terlalu besar." });
+      chunks.push(c);
     }
-    const body = JSON.parse(raw || "{}");
+    const body = JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
     const fn = actions[body.action];
     if (!fn) return send(400, { ok: false, error: "action" });
     const out = await fn(body);
+    if (out.__file) {
+      const kind = store.detectImage(fs.readFileSync(out.__file).subarray(0, 16));
+      res.writeHead(200, { "Content-Type": kind ? kind.type : "application/octet-stream", "Cache-Control": "private, max-age=86400" });
+      return fs.createReadStream(out.__file).pipe(res);
+    }
     return send(out.code || (out.ok ? 200 : 400), out);
   } catch (e) {
     console.error("[!] Error API:", e);

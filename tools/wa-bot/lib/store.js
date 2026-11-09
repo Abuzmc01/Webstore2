@@ -73,8 +73,9 @@ export function checkToken(t, token) {
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
-export function addMessage(t, from, name, text) {
-  const m = { i: t.messages.length + 1, from, name: String(name || "").slice(0, 40), text: String(text).slice(0, 2000), t: Date.now() };
+export function addMessage(t, from, name, text, extra) {
+  const m = { i: t.messages.length + 1, from, name: String(name || "").slice(0, 40), text: String(text || "").slice(0, 2000), t: Date.now() };
+  if (extra && extra.file) { m.kind = "image"; m.file = extra.file; }
   t.messages.push(m);
   t.updated = m.t;
   persist();
@@ -87,4 +88,30 @@ export function listTickets() {
 
 export function publicMessages(t, since = 0) {
   return t.messages.filter((m) => m.i > since);
+}
+
+// ---------------------------------------------------------------- foto
+const UPLOAD_DIR = path.join(cfg.dataDir, "uploads");
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+export function detectImage(buf) {
+  if (buf.length > 3 && buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return { ext: "jpg", type: "image/jpeg" };
+  if (buf.length > 8 && buf.slice(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return { ext: "png", type: "image/png" };
+  if (buf.length > 12 && buf.slice(0, 4).toString() === "RIFF" && buf.slice(8, 12).toString() === "WEBP") return { ext: "webp", type: "image/webp" };
+  return null;
+}
+
+export function saveUpload(t, buf, ext) {
+  const dir = path.join(UPLOAD_DIR, t.id);
+  fs.mkdirSync(dir, { recursive: true });
+  const name = `${t.messages.length + 1}-${crypto.randomBytes(5).toString("hex")}.${ext}`;
+  fs.writeFileSync(path.join(dir, name), buf);
+  return name;
+}
+
+export function uploadPath(t, file) {
+  if (!/^[0-9]+-[0-9a-f]{10}\.(jpg|png|webp)$/.test(String(file))) return null;
+  if (!t.messages.some((m) => m.file === file)) return null;
+  const p = path.join(UPLOAD_DIR, t.id, file);
+  return fs.existsSync(p) ? p : null;
 }

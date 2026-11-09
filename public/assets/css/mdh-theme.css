@@ -1,0 +1,66 @@
+/*
+ * Tema terang MineIDHost
+ * Semua halaman dirancang gelap. Tema terang dibuat dengan membalik warna halaman,
+ * lalu foto/video/gambar latar dibalik lagi supaya tetap berwarna asli.
+ * Pilihan disimpan di localStorage "mdh-theme" (dark/light) oleh /assets/js/mdh-theme.js
+ */
+html[data-theme="light"] {
+  filter: invert(1) hue-rotate(180deg);
+  background: #000;
+}
+
+/* kembalikan warna asli media */
+html[data-theme="light"] img,
+html[data-theme="light"] video,
+html[data-theme="light"] iframe,
+html[data-theme="light"] canvas,
+html[data-theme="light"] .mdh-ri {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* jangan dibalik dua kali kalau media ada di dalam elemen yang sudah dikembalikan */
+html[data-theme="light"] .mdh-ri img,
+html[data-theme="light"] .mdh-ri video,
+html[data-theme="light"] .mdh-ri iframe,
+html[data-theme="light"] .mdh-ri canvas,
+html[data-theme="light"] .mdh-ri .mdh-ri {
+  filter: none;
+}
+
+/* tombol pilihan tema */
+.mdh-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .04);
+  color: #e8e8ee;
+  font: 600 13px/1 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  flex: 0 0 auto;
+}
+.mdh-theme-btn:hover { border-color: rgba(255, 49, 80, .6); background: rgba(255, 49, 80, .1); }
+.mdh-theme-btn svg { width: 18px; height: 18px; }
+.mdh-theme-btn .lbl { display: none; }
+
+/* posisi di navbar halaman utama (Bootstrap) */
+.navbar > .container > .mdh-theme-btn { margin-left: auto; margin-right: 10px; }
+@media (min-width: 992px) {
+  .navbar > .container > .mdh-theme-btn { order: 5; margin-left: 14px; margin-right: 0; }
+}
+
+/* cadangan: tombol melayang kiri bawah kalau halaman tidak punya header yang dikenali */
+.mdh-theme-btn.float {
+  position: fixed;
+  left: 16px;
+  bottom: 18px;
+  z-index: 99980;
+  background: #111116;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .5);
+}

@@ -198,6 +198,8 @@ def page(title, desc, canonical, body, active=None, jsonld=None, og_type="websit
 <meta property="og:url" content="{canonical}">
 <meta property="og:locale" content="id_ID">
 <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">{ld}
+<script>(function(){{try{{var t=localStorage.getItem("mdh-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}}})()</script>
+<link rel="stylesheet" href="/assets/css/mdh-theme.css">
 <style>
 {CSS}
 </style>
@@ -240,6 +242,7 @@ def page(title, desc, canonical, body, active=None, jsonld=None, og_type="websit
 }})();
 </script>
 <script src="/assets/js/mdh-assistant.js" defer></script>
+<script src="/assets/js/mdh-theme.js" defer></script>
 </body>
 </html>
 """
