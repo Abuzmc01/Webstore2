@@ -51,8 +51,8 @@ module.exports = async function handler(req, res) {
   }
 
   // kompatibel dengan pengaturan lama (WA_BOT_URL=http://ip:port/ticket, WA_BOT_SECRET)
-  const base = (process.env.BOT_URL || process.env.WA_BOT_URL || "").replace(/\/ticket\/?$/, "").replace(/\/$/, "");
-  const secret = process.env.BOT_SECRET || process.env.WA_BOT_SECRET;
+  const base = String(process.env.BOT_URL || process.env.WA_BOT_URL || "").trim().replace(/\/ticket\/?$/, "").replace(/\/$/, "");
+  const secret = String(process.env.BOT_SECRET || process.env.WA_BOT_SECRET || "").trim();
   if (!base || !secret) return res.status(503).json({ ok: false, error: "Live chat belum dikonfigurasi." });
 
   body.ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
@@ -69,6 +69,10 @@ module.exports = async function handler(req, res) {
     });
     clearTimeout(timer);
     const data = await r.json().catch(() => ({ ok: false, error: "Respon bot tidak valid." }));
+    if (r.status === 401 && data.error === "secret") {
+      console.error("BOT_SECRET di Vercel tidak sama dengan BOT_SECRET di .env bot");
+      return res.status(502).json({ ok: false, error: "Konfigurasi live chat belum cocok (BOT_SECRET berbeda antara Vercel dan bot)." });
+    }
     return res.status(r.status).json(data);
   } catch (e) {
     console.error("livechat forward failed:", e && e.message);
