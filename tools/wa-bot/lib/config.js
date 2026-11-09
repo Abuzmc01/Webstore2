@@ -16,8 +16,8 @@ if (fs.existsSync(envFile)) {
 const e = process.env;
 export const cfg = {
   port: Number(e.SERVER_PORT || e.PORT || 3000), // SERVER_PORT otomatis di Pterodactyl
-  botSecret: e.BOT_SECRET || "",
-  adminPassword: e.ADMIN_PASSWORD || "",
+  botSecret: (e.BOT_SECRET || "").trim(),
+  adminPassword: (e.ADMIN_PASSWORD || "").trim(),
   groupJid: e.GROUP_JID || "",
   pairingNumber: (e.PAIRING_NUMBER || "").replace(/\D/g, ""),
   siteUrl: (e.SITE_URL || "https://mineidhost.com").replace(/\/$/, ""),
@@ -36,8 +36,8 @@ export const cfg = {
 
 export function checkConfig() {
   const errs = [];
-  if (cfg.botSecret.length < 16) errs.push("BOT_SECRET wajib diisi minimal 16 karakter acak.");
-  if (cfg.adminPassword.length < 8) errs.push("ADMIN_PASSWORD wajib diisi minimal 8 karakter (password halaman admin chat).");
+  if (cfg.botSecret.length < 16 || cfg.botSecret.startsWith("ganti-")) errs.push("BOT_SECRET wajib diisi minimal 16 karakter acak (bukan teks contoh).");
+  if (cfg.adminPassword.length < 8 || cfg.adminPassword.startsWith("ganti-")) errs.push("ADMIN_PASSWORD wajib diisi minimal 8 karakter (password halaman admin chat).");
   if (!cfg.gmailUser || !cfg.gmailAppPassword) console.warn("[i] GMAIL_USER / GMAIL_APP_PASSWORD belum diisi: transkrip email tidak akan dikirim.");
   if (errs.length) {
     errs.forEach((x) => console.error("[!] " + x));
