@@ -32,25 +32,30 @@ export async function startWhatsApp() {
     auth: state,
     logger: pino({ level: cfg.logLevel }),
     version,
-    browser: Browsers.ubuntu("MineIDHost Bot"),
+    // Nama browser harus dikenali WhatsApp (Chrome), kalau tidak login kode pairing selalu ditolak
+    browser: Browsers.macOS("Chrome"),
     markOnlineOnConnect: false,
     syncFullHistory: false,
   });
   sock.ev.on("creds.update", saveCreds);
 
-  if (cfg.pairingNumber && !state.creds.registered) {
-    setTimeout(async () => {
-      try {
-        const code = await sock.requestPairingCode(cfg.pairingNumber);
-        console.log(`\n[PAIRING] WhatsApp nomor bot → Perangkat tertaut → Tautkan dengan nomor telepon → kode: ${code}\n`);
-      } catch (e) {
-        console.error("[PAIRING] Gagal meminta kode. Kosongkan PAIRING_NUMBER untuk memakai QR.", e?.message);
-      }
-    }, 3000);
-  }
+  let pairingAsked = false;
 
   sock.ev.on("connection.update", ({ connection, lastDisconnect, qr }) => {
-    if (qr && !cfg.pairingNumber) {
+    if (qr && cfg.pairingNumber && !state.creds.registered) {
+      // minta kode pairing saat socket sudah siap (event qr pertama), cukup sekali per start
+      if (!pairingAsked) {
+        pairingAsked = true;
+        sock.requestPairingCode(cfg.pairingNumber).then((code) => {
+          const c = String(code).match(/.{1,4}/g).join("-");
+          console.log(`\n[PAIRING] Kode untuk ${cfg.pairingNumber}: ${c}`);
+          console.log("[PAIRING] HP nomor bot → WhatsApp → Perangkat tertaut → Tautkan perangkat → Tautkan dengan nomor telepon saja → masukkan kode.");
+          console.log("[PAIRING] Kode berlaku sekitar 1 menit. Kalau gagal, hapus folder auth/ lalu Restart.\n");
+        }).catch((e) => {
+          console.error("[PAIRING] Gagal meminta kode:", e?.message, "→ kosongkan PAIRING_NUMBER untuk memakai QR.");
+        });
+      }
+    } else if (qr) {
       console.log("\n[QR] Scan dari WhatsApp nomor bot → Perangkat tertaut → Tautkan perangkat:\n");
       qrcode.generate(qr, { small: true });
     }
