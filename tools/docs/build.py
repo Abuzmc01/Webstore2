@@ -18,6 +18,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from content import A  # noqa: E402
+import assistant_data  # noqa: E402
 
 SITE = "https://mineidhost.com"
 TODAY = datetime.date.today().isoformat()
@@ -238,6 +239,7 @@ def page(title, desc, canonical, body, active=None, jsonld=None, og_type="websit
     if (act && act.scrollIntoView) {{ act.scrollIntoView({{ block: "center" }}); window.scrollTo(0, 0); }}
 }})();
 </script>
+<script src="/assets/js/mdh-assistant.js" defer></script>
 </body>
 </html>
 """
@@ -368,7 +370,10 @@ def main():
     for aid in ORDER:
         (out / f"{ITEMS[aid]['slug']}.html").write_text(build_article(aid), encoding="utf-8")
     update_sitemap()
-    print(f"OK: {len(ORDER)} artikel + index -> public/docs/")
+    data_dir = ROOT / "public" / "assets" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "assistant-index.json").write_text(assistant_data.build(A, ITEMS, ORDER, url), encoding="utf-8")
+    print(f"OK: {len(ORDER)} artikel + index -> public/docs/, assistant-index.json diperbarui")
 
 
 if __name__ == "__main__":
