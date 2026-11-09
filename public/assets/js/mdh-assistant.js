@@ -1,8 +1,9 @@
 /*
  * Asisten MineIDHost
  * - Mencari jawaban di data paket + semua tutorial /docs (assets/data/assistant-index.json)
- * - Kalau tidak ketemu: buat tiket -> /api/ticket -> bot WhatsApp -> grup admin (tag semua)
- * - Kalau server tiket tidak tersedia: buka WhatsApp support dengan pesan siap kirim
+ * - Kalau tidak ketemu: live chat dengan admin (tiket) lewat /api/livechat -> bot di VPS
+ *   (notifikasi grup WhatsApp admin, admin membalas di /admin-chat, transkrip ke email saat ditutup)
+ * - Kalau server live chat tidak tersedia: buka WhatsApp support dengan pesan siap kirim
  */
 (function () {
   "use strict";
@@ -10,7 +11,6 @@
   window.__mdhAssistant = true;
 
   var INDEX_URL = "/assets/data/assistant-index.json";
-  var TICKET_URL = "/api/ticket";
   var STORE_KEY = "mdh-assistant-v1";
   var DATA = null, loading = null;
   var history = [];
@@ -51,6 +51,8 @@
     "#mdhA .t button[disabled]{opacity:.6;cursor:wait}" +
     "#mdhA .dots span{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:#888;animation:mdhAd 1s infinite}" +
     "#mdhA .dots span:nth-child(2){animation-delay:.15s}#mdhA .dots span:nth-child(3){animation-delay:.3s}" +
+    "#mdhA-btn .bd{position:absolute;top:-2px;right:-2px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#fff;color:#ff173f;font-size:11px;font-weight:800;display:none;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.4)}" +
+    "#mdhA .b.adm{border-color:rgba(255,49,80,.35)}#mdhA form.i input:disabled{opacity:.5}" +
     "@keyframes mdhAd{0%,80%,100%{opacity:.3}40%{opacity:1}}" +
     "@media(max-width:520px){#mdhA{right:8px;left:8px;width:auto;max-width:none;bottom:84px;height:calc(100vh - 168px)}#mdhA-btn{right:14px;bottom:14px}}";
   var st = document.createElement("style");
@@ -286,7 +288,27 @@
     });
   }
 
-  /* ---------------------------------------------------------- ticket */
+  /* ---------------------------------------------------------- live chat (tiket) */
+  var API = "/api/livechat";
+  var LIVE_KEY = "mdh-livechat-v1";
+  var live = null;          // { id, token, since, status, name }
+  var pollTimer = null, unread = 0;
+  var TRUSTPILOT = "https://www.trustpilot.com/evaluate/mineidhost.com";
+
+  function api(body) {
+    return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.json().catch(function () { return { ok: false, error: "Respon tidak valid" }; })
+          .then(function (j) { if (!r.ok && j.ok !== false) j.ok = false; j._status = r.status; return j; });
+      });
+  }
+  function saveLive() { try { live ? localStorage.setItem(LIVE_KEY, JSON.stringify(live)) : localStorage.removeItem(LIVE_KEY); } catch (e) {} }
+  function loadLive() { try { return JSON.parse(localStorage.getItem(LIVE_KEY) || "null"); } catch (e) { return null; } }
+
+  function linkify(s) {
+    return esc(s).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/\n/g, "<br>");
+  }
+
   function transcript() {
     return history.slice(-12).map(function (m) {
       var div = document.createElement("div");
@@ -302,17 +324,141 @@
     return "https://wa.me/" + wa + "?text=" + encodeURIComponent(txt);
   }
 
+  function setHeader(sub) { box.querySelector(".h small").textContent = sub; }
+
+  function renderLive(m) {
+    if (box.querySelector('[data-mi="' + m.i + '"]')) return;
+    var d = document.createElement("div");
+    if (m.from === "user") {
+      d.className = "b me";
+      d.innerHTML = linkify(m.text);
+    } else if (m.from === "admin") {
+      d.className = "b bot adm";
+      d.innerHTML = '<div style="font-size:11.5px;color:#ff8b9c;margin-bottom:3px;font-weight:600">' + esc(m.name || "Admin") + " · MineIDHost</div>" + linkify(m.text);
+    } else {
+      d.className = "b bot";
+      d.innerHTML = linkify(m.text);
+    }
+    d.setAttribute("data-mi", m.i);
+    msgs.appendChild(d);
+  }
+
+  function applyLive(res) {
+    if (!live || !res) return;
+    var list = res.messages || [];
+    var newAdmin = 0;
+    list.forEach(function (m) {
+      if (m.i > live.since) {
+        renderLive(m);
+        live.since = m.i;
+        if (m.from !== "user") newAdmin++;
+      }
+    });
+    if (res.status) live.status = res.status;
+    saveLive();
+    if (list.length) scroll();
+    if (newAdmin && !box.classList.contains("open")) { unread += newAdmin; badge(); }
+    liveControls();
+  }
+
+  function badge() {
+    var b = btn.querySelector(".bd");
+    if (!b) { b = document.createElement("span"); b.className = "bd"; btn.appendChild(b); }
+    b.textContent = unread > 9 ? "9+" : String(unread);
+    b.style.display = unread ? "flex" : "none";
+  }
+
+  function liveControls() {
+    chips.innerHTML = "";
+    if (!live) { setChips(["Harga paket", "Cara bayar", "Setup Geyser", "Server lag", "Hubungi admin"]); return; }
+    if (live.status === "confirming") {
+      setHeader("Tiket " + live.id + " · menunggu konfirmasi kamu");
+      [["Sudah selesai, terima kasih", "Sudah selesai ✅"], ["Masih ada pertanyaan", "Masih ada pertanyaan"]].forEach(function (c) {
+        var b = document.createElement("button"); b.type = "button"; b.textContent = c[1];
+        b.addEventListener("click", function () { liveSend(c[0]); });
+        chips.appendChild(b);
+      });
+      input.disabled = false;
+    } else if (live.status === "closed") {
+      setHeader("Tiket " + live.id + " · ditutup");
+      var a = document.createElement("button"); a.type = "button"; a.textContent = "⭐ Beri rating di Trustpilot";
+      a.addEventListener("click", function () { window.open(TRUSTPILOT, "_blank", "noopener"); });
+      var n = document.createElement("button"); n.type = "button"; n.textContent = "Mulai chat baru";
+      n.addEventListener("click", resetLive);
+      chips.appendChild(a); chips.appendChild(n);
+      input.disabled = true;
+      input.placeholder = "Tiket sudah ditutup";
+      stopPoll();
+    } else {
+      setHeader("Live chat · Tiket " + live.id);
+      input.disabled = false;
+      input.placeholder = "Tulis pesan ke tim MineIDHost...";
+    }
+  }
+
+  function resetLive() {
+    live = null; saveLive(); stopPoll();
+    input.disabled = false; input.placeholder = "Tulis pertanyaan...";
+    setHeader("Jawab dari tutorial & info layanan");
+    msgs.innerHTML = ""; history = []; save();
+    addBubble("bot", "Ada lagi yang bisa dibantu? Tanyakan saja di sini 😊", true);
+    liveControls();
+  }
+
+  function poll() {
+    if (!live || live.status === "closed") return;
+    api({ action: "poll", id: live.id, token: live.token, since: live.since }).then(function (r) {
+      if (r.ok) applyLive(r);
+      else if (r._status === 404) { live.status = "closed"; saveLive(); liveControls(); }
+    }).catch(function () {});
+  }
+  function startPoll() {
+    stopPoll();
+    if (!live || live.status === "closed") return;
+    var ms = box.classList.contains("open") ? 3000 : 20000;
+    pollTimer = setInterval(poll, ms);
+  }
+  function stopPoll() { if (pollTimer) clearInterval(pollTimer); pollTimer = null; }
+
+  function liveSend(text) {
+    text = String(text || "").trim();
+    if (!text || !live) return;
+    input.value = "";
+    var tmp = addBubble("me", text, false, false);
+    tmp.style.opacity = ".6";
+    api({ action: "send", id: live.id, token: live.token, text: text, since: live.since }).then(function (r) {
+      tmp.remove();
+      if (r.messages) applyLive(r);
+      if (!r.ok && r.error) addBubble("bot", esc(r.error), true, false);
+    }).catch(function () {
+      tmp.style.opacity = "1";
+      addBubble("bot", "Pesan gagal terkirim, cek koneksi lalu coba lagi.", true, false);
+    });
+  }
+
+  function enterLive(res, name) {
+    live = { id: res.id, token: res.token, since: 0, status: res.status || "open", name: name };
+    saveLive();
+    msgs.querySelectorAll(".t").forEach(function (n) { n.remove(); });
+    addBubble("bot", "<b>Terhubung ke live chat MineIDHost</b> · Tiket " + esc(res.id), true, false);
+    applyLive(res);
+    startPoll();
+  }
+
   function ticketForm(question) {
+    if (live && live.status !== "closed") { input.focus(); return; }
     var d = document.createElement("div");
     d.className = "b bot t";
     d.innerHTML =
-      "<b>Hubungi tim teknis</b>" +
-      '<form novalidate>' +
-      '<input name="name" maxlength="60" placeholder="Nama kamu" required autocomplete="name">' +
-      '<input name="contact" maxlength="80" placeholder="Nomor WhatsApp atau email" required autocomplete="tel">' +
-      '<textarea name="message" maxlength="1500" placeholder="Jelaskan masalahnya" required></textarea>' +
+      "<b>Chat dengan tim teknis</b>" +
+      '<div style="font-size:12.5px;color:#9a9aa4;margin-top:2px">Admin akan membalas langsung di chat ini. Transkrip dikirim ke email kamu setelah selesai.</div>' +
+      "<form novalidate>" +
+      '<input name="name" maxlength="60" placeholder="Nama kamu" autocomplete="name">' +
+      '<input name="email" type="email" maxlength="120" placeholder="Email (untuk transkrip)" autocomplete="email">' +
+      '<input name="whatsapp" maxlength="30" placeholder="No. WhatsApp (opsional)" autocomplete="tel">' +
+      '<textarea name="message" maxlength="1500" placeholder="Jelaskan masalahnya"></textarea>' +
       '<input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-      '<button type="submit">Kirim ke tim teknis</button>' +
+      '<button type="submit">Mulai live chat</button>' +
       '<div class="e" style="color:#ff8b9c;font-size:12.5px;margin-top:6px"></div>' +
       "</form>";
     msgs.appendChild(d);
@@ -321,46 +467,33 @@
     try {
       var saved = JSON.parse(localStorage.getItem(STORE_KEY + "-me") || "{}");
       if (saved.n) f.name.value = saved.n;
-      if (saved.c) f.contact.value = saved.c;
+      if (saved.e) f.email.value = saved.e;
+      if (saved.w) f.whatsapp.value = saved.w;
     } catch (e) {}
     scroll();
 
     f.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var err = f.querySelector(".e");
-      var name = f.name.value.trim(), contact = f.contact.value.trim(), message = f.message.value.trim();
-      var isMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
-      var digits = contact.replace(/[^\d]/g, "");
+      var name = f.name.value.trim(), email = f.email.value.trim(), wa = f.whatsapp.value.trim(), message = f.message.value.trim();
       if (name.length < 2) { err.textContent = "Isi nama kamu."; return; }
-      if (!isMail && digits.length < 9) { err.textContent = "Isi nomor WhatsApp (contoh 0812xxxx) atau email yang valid."; return; }
-      if (message.length < 5) { err.textContent = "Jelaskan masalahnya sedikit lebih detail."; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = "Isi email yang valid, transkrip chat dikirim ke sini."; return; }
+      if (wa && wa.replace(/\D/g, "").length < 9) { err.textContent = "Nomor WhatsApp belum lengkap (boleh dikosongkan)."; return; }
+      if (message.length < 3) { err.textContent = "Tulis pertanyaan kamu."; return; }
       err.textContent = "";
-      try { localStorage.setItem(STORE_KEY + "-me", JSON.stringify({ n: name, c: contact })); } catch (e) {}
-
+      try { localStorage.setItem(STORE_KEY + "-me", JSON.stringify({ n: name, e: email, w: wa })); } catch (e) {}
       var b = f.querySelector("button");
-      b.disabled = true; b.textContent = "Mengirim...";
-      fetch(TICKET_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name, contact: contact, message: message,
-          transcript: transcript(), page: location.href, website: f.website.value
-        })
-      }).then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; });
-      }).then(function (res) {
-        if (!res.ok) throw new Error(res.j && res.j.error || "gagal");
-        d.innerHTML = "<b>Tiket " + esc(res.j.id || "") + " terkirim ✅</b><br>" +
-          "Pertanyaan kamu sudah diteruskan ke tim teknis MineIDHost. Tim kami akan <b>segera merespon</b> lewat " +
-          (isMail ? "email" : "WhatsApp") + " <b>" + esc(contact) + "</b>.";
-        history.push({ w: "bot", h: d.innerHTML }); save();
-        scroll();
-      }).catch(function () {
-        b.disabled = false; b.textContent = "Kirim ke tim teknis";
-        err.innerHTML = 'Server tiket sedang tidak tersedia. <a href="' + waFallback(name, contact, message) +
-          '" target="_blank" rel="noopener" style="color:#ff5a72">Kirim lewat WhatsApp</a> saja, pesannya sudah disiapkan.';
-        scroll();
-      });
+      b.disabled = true; b.textContent = "Menghubungkan...";
+      api({ action: "create", name: name, email: email, whatsapp: wa, message: message, transcript: transcript(), page: location.href, website: f.website.value })
+        .then(function (r) {
+          if (!r.ok) throw new Error(r.error || "gagal");
+          enterLive(r, name);
+        }).catch(function (e) {
+          b.disabled = false; b.textContent = "Mulai live chat";
+          var msg = e && e.message && !/fetch|network/i.test(e.message) && !/tersedia|dikonfigurasi/i.test(e.message) ? esc(e.message) + " " : "Live chat sedang tidak tersedia. ";
+          err.innerHTML = msg + '<a href="' + waFallback(name, email, message) + '" target="_blank" rel="noopener" style="color:#ff5a72">Kirim lewat WhatsApp</a> saja, pesannya sudah disiapkan.';
+          scroll();
+        });
     });
   }
 
@@ -374,29 +507,53 @@
   function open() {
     box.classList.add("open");
     btn.setAttribute("aria-expanded", "true");
+    unread = 0; badge();
     if (!started) {
       started = true;
-      var old = [];
-      try { old = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch (e) {}
-      if (old.length) {
-        old.forEach(function (m) { addBubble(m.w, m.h, true, false); history.push(m); });
+      live = loadLive();
+      if (live) {
+        msgs.innerHTML = "";
+        addBubble("bot", "<b>Live chat MineIDHost</b> · Tiket " + esc(live.id), true, false);
+        var since = 0; live.since = 0;
+        api({ action: "poll", id: live.id, token: live.token, since: since }).then(function (r) {
+          if (r.ok) applyLive(r); else { live = null; saveLive(); resetLive(); }
+        }).catch(function () {});
       } else {
-        addBubble("bot", "Hai! 👋 Saya asisten MineIDHost. Tanyakan soal paket, pembayaran, atau masalah server. " +
-          "Saya carikan jawabannya dari tutorial kami, dan kalau tidak ketemu saya teruskan ke tim teknis.", true);
+        var old = [];
+        try { old = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch (e) {}
+        if (old.length) {
+          old.forEach(function (m) { addBubble(m.w, m.h, true, false); history.push(m); });
+        } else {
+          addBubble("bot", "Hai! 👋 Saya asisten MineIDHost. Tanyakan soal paket, pembayaran, atau masalah server. " +
+            "Saya carikan jawabannya dari tutorial kami, dan kalau tidak ketemu kamu bisa langsung live chat dengan tim teknis.", true);
+        }
       }
-      setChips(["Harga paket", "Cara bayar", "Setup Geyser", "Server lag", "Hubungi admin"]);
+      liveControls();
       load().catch(function () {});
+    } else if (live) {
+      poll();
     }
-    setTimeout(function () { input.focus(); }, 50);
+    startPoll();
+    setTimeout(function () { if (!input.disabled) input.focus(); }, 50);
   }
   function close() {
     box.classList.remove("open");
     btn.setAttribute("aria-expanded", "false");
+    startPoll();
   }
   btn.addEventListener("click", function () { box.classList.contains("open") ? close() : open(); });
   box.querySelector(".h button").addEventListener("click", close);
-  form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (live && live.status !== "closed") liveSend(input.value); else ask(input.value);
+  });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+  // lanjutkan polling di latar belakang kalau ada tiket aktif (untuk badge balasan admin)
+  (function () {
+    var l = loadLive();
+    if (l && l.status !== "closed") { live = l; startPoll(); }
+  })();
 
   window.MDHAssistant = { open: open, ask: function (q) { open(); ask(q); } };
 })();
