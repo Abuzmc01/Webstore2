@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Penyebab Server Minecraft Lag dan Cara Mengatasinya | MineIDHost Docs</title>
+<meta name="description" content="Cara mengetahui penyebab server Minecraft lag: cek TPS dan MSPT, cari chunk bermasalah, profiling Spark, dan penyebab umum lag.">
+<link rel="canonical" href="https://mineidhost.com/docs/server-minecraft-lag">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MineIDHost">
+<meta property="og:title" content="Penyebab Server Minecraft Lag dan Cara Mengatasinya | MineIDHost Docs">
+<meta property="og:description" content="Cara mengetahui penyebab server Minecraft lag: cek TPS dan MSPT, cari chunk bermasalah, profiling Spark, dan penyebab umum lag.">
+<meta property="og:url" content="https://mineidhost.com/docs/server-minecraft-lag">
+<meta property="og:locale" content="id_ID">
+<link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Penyebab Server Minecraft Lag dan Cara Mengatasinya", "description": "Cara mengetahui penyebab server Minecraft lag: cek TPS dan MSPT, cari chunk bermasalah, profiling Spark, dan penyebab umum lag.", "inLanguage": "id-ID", "url": "https://mineidhost.com/docs/server-minecraft-lag", "dateModified": "2026-11-10", "author": {"@type": "Organization", "name": "MineIDHost", "url": "https://mineidhost.com/"}, "publisher": {"@type": "Organization", "name": "MineIDHost", "logo": {"@type": "ImageObject", "url": "https://mineidhost.com/assets/images/logo.svg"}}, "articleSection": "Troubleshooting", "about": ["1. Cek TPS dan MSPT", "2. Cari chunk bermasalah", "3. Profiling", "4. Penyebab umum"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Docs", "item": "https://mineidhost.com/docs"}, {"@type": "ListItem", "position": 2, "name": "Server Lag", "item": "https://mineidhost.com/docs/server-minecraft-lag"}]}</script>
+<style>
+/* =====================================================
+   MINEIDHOST DOCS
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(220, 20, 55, .10),
+            transparent 35%
+        ),
+        #08080b;
+
+    color: #e9e9ed;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.mdh-doc-topbar {
+
+    height: 70px;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 28px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+    background:
+        rgba(8,8,11,.88);
+
+    backdrop-filter: blur(18px);
+}
+
+.mdh-doc-logo {
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-weight: 800;
+}
+
+.mdh-doc-logo-mark {
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff173f,
+            #8d001b
+        );
+
+    box-shadow:
+        0 0 22px rgba(255,20,55,.25);
+}
+
+.mdh-doc-logo small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+.mdh-doc-top-actions {
+
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.mdh-doc-top-actions a {
+
+    padding: 9px 14px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 8px;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-size: 13px;
+}
+
+.mdh-doc-top-actions a:hover {
+    color: #fff;
+    border-color: rgba(255,30,60,.35);
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.mdh-doc-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        270px minmax(0, 1fr);
+
+    min-height: 100vh;
+
+    padding-top: 70px;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.mdh-doc-sidebar {
+
+    position: fixed;
+
+    top: 70px;
+    bottom: 0;
+
+    width: 270px;
+
+    overflow-y: auto;
+
+    padding: 30px 20px;
+
+    border-right:
+        1px solid rgba(255,255,255,.07);
+
+    background:
+        rgba(8,8,11,.72);
+}
+
+.mdh-doc-sidebar-title {
+
+    margin: 0 10px 14px;
+
+    color: #555;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.mdh-doc-nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    margin-bottom: 28px;
+}
+
+.mdh-doc-nav a {
+
+    display: block;
+
+    padding: 9px 11px;
+
+    border-radius: 7px;
+
+    color: #888;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: .2s ease;
+}
+
+.mdh-doc-nav a:hover,
+.mdh-doc-nav a.active {
+
+    color: #fff;
+
+    background:
+        rgba(255,25,55,.08);
+}
+
+.mdh-doc-nav a.active {
+
+    border-left:
+        2px solid #ff3150;
+
+    padding-left: 9px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.mdh-doc-main {
+
+    grid-column: 2;
+
+    max-width: 1050px;
+
+    width: 100%;
+
+    margin: 0 auto;
+
+    padding: 70px 55px 120px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.mdh-doc-hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 55px 45px;
+
+    margin-bottom: 65px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,20,50,.10),
+            rgba(255,255,255,.015)
+        );
+}
+
+.mdh-doc-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    right: -80px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,25,55,.10);
+
+    filter: blur(50px);
+}
+
+.mdh-doc-eyebrow {
+
+    position: relative;
+    z-index: 2;
+
+    color: #ff3150;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.mdh-doc-hero h1 {
+
+    position: relative;
+    z-index: 2;
+
+    margin: 14px 0;
+
+    max-width: 700px;
+
+    color: #fff;
+
+    font-size:
+        clamp(34px, 5vw, 58px);
+
+    line-height: 1.05;
+}
+
+.mdh-doc-hero p {
+
+    position: relative;
+    z-index: 2;
+
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #999;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.mdh-doc-search {
+
+    position: relative;
+
+    margin-top: 30px;
+
+    z-index: 5;
+}
+
+.mdh-doc-search input {
+
+    width: 100%;
+
+    padding: 15px 18px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    color: #fff;
+
+    background:
+        rgba(0,0,0,.3);
+
+    font-size: 14px;
+}
+
+.mdh-doc-search input:focus {
+
+    border-color:
+        rgba(255,40,65,.5);
+
+    box-shadow:
+        0 0 25px rgba(255,20,50,.08);
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.mdh-doc-category {
+
+    margin-bottom: 55px;
+}
+
+.mdh-doc-category-title {
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.mdh-doc-category-title span {
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    color: #ff3150;
+
+    background:
+        rgba(255,25,50,.08);
+
+    font-size: 13px;
+}
+
+.mdh-doc-category-title h2 {
+
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 23px;
+}
+
+
+/* =====================================================
+   DOC CARDS
+===================================================== */
+
+.mdh-doc-cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+}
+
+.mdh-doc-card {
+
+    display: block;
+
+    padding: 22px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 13px;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    background:
+        rgba(255,255,255,.018);
+
+    transition: .3s ease;
+}
+
+.mdh-doc-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(255,35,60,.3);
+
+    background:
+        rgba(255,25,50,.025);
+}
+
+.mdh-doc-card-icon {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 10px;
+
+    color: #ff3150;
+
+    background:
+        rgba(255,25,50,.08);
+
+    font-size: 18px;
+}
+
+.mdh-doc-card h3 {
+
+    margin: 0 0 7px;
+
+    color: #eee;
+
+    font-size: 15px;
+}
+
+.mdh-doc-card p {
+
+    margin: 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   ARTICLE
+===================================================== */
+
+.mdh-doc-article {
+
+    display: none;
+
+    animation:
+        mdhDocFade .3s ease;
+}
+
+.mdh-doc-article.active {
+    display: block;
+}
+
+@keyframes mdhDocFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.mdh-doc-back {
+
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+    color: #888;
+
+    text-decoration: none;
+
+    font-size: 13px;
+}
+
+.mdh-doc-back:hover {
+    color: #ff3150;
+}
+
+.mdh-doc-article h1 {
+
+    margin: 0 0 15px;
+
+    color: #fff;
+
+    font-size:
+        clamp(30px, 5vw, 46px);
+}
+
+.mdh-doc-article-lead {
+
+    color: #888;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+.mdh-doc-step {
+
+    margin-top: 35px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+}
+
+.mdh-doc-step h2 {
+
+    color: #fff;
+
+    font-size: 21px;
+}
+
+.mdh-doc-step h3 {
+
+    color: #ddd;
+
+    font-size: 17px;
+}
+
+.mdh-doc-step p,
+.mdh-doc-step li {
+
+    color: #999;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+.mdh-doc-step ol,
+.mdh-doc-step ul {
+
+    padding-left: 22px;
+}
+
+.mdh-doc-code {
+
+    margin: 18px 0;
+
+    padding: 17px;
+
+    overflow-x: auto;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 10px;
+
+    background: #050507;
+
+    color: #ff8b9c;
+
+    font-family:
+        monospace;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+.mdh-doc-note {
+
+    margin: 20px 0;
+
+    padding: 17px 20px;
+
+    border-left:
+        3px solid #ff3150;
+
+    background:
+        rgba(255,25,50,.05);
+
+    color: #999;
+
+    line-height: 1.7;
+}
+
+.mdh-doc-note strong {
+    color: #fff;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .mdh-doc-top-actions a:not(:last-child) {
+        display: none;
+    }
+
+    .mdh-doc-layout {
+        display: block;
+    }
+
+    .mdh-doc-sidebar {
+
+        position: fixed;
+
+        left: -280px;
+
+        z-index: 900;
+
+        transition: .3s ease;
+    }
+
+    .mdh-doc-sidebar.open {
+        left: 0;
+    }
+
+    .mdh-doc-main {
+
+        padding:
+            35px 18px 80px;
+    }
+
+    .mdh-doc-menu {
+
+        display: flex !important;
+
+    }
+
+    .mdh-doc-cards {
+
+        grid-template-columns: 1fr;
+    }
+
+    .mdh-doc-hero {
+
+        padding: 35px 25px;
+    }
+
+}
+
+.mdh-doc-menu {
+
+    display: none;
+
+    width: 38px;
+    height: 38px;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 8px;
+
+    color: #fff;
+
+    background: transparent;
+}
+
+
+/* ===== Tambahan: tabel, kode multi-baris, inline code ===== */
+.mdh-doc-code { white-space: pre; }
+.mdh-doc-step code, .mdh-doc-note code, .mdh-doc-table code {
+    padding: 2px 6px; border-radius: 5px;
+    background: rgba(255,255,255,.06); color: #ff8b9c;
+    font-family: monospace; font-size: .9em; word-break: break-word;
+}
+.mdh-doc-step a, .mdh-doc-note a { color: #ff3150; }
+.mdh-doc-table { margin: 18px 0; overflow-x: auto; border: 1px solid rgba(255,255,255,.07); border-radius: 10px; }
+.mdh-doc-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.mdh-doc-table th { background: rgba(255,49,80,.08); color: #fff; text-align: left; font-weight: 600; }
+.mdh-doc-table th, .mdh-doc-table td { padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.06); vertical-align: top; }
+.mdh-doc-table td { color: #aaa; line-height: 1.6; }
+.mdh-doc-table tr:last-child td { border-bottom: 0; }
+.mdh-doc-table table { min-width: 560px; }
+.mdh-doc-table code { word-break: normal; white-space: normal; }
+.mdh-doc-table td:first-child { min-width: 170px; }
+
+/* ===== Halaman per artikel & perbaikan menu ===== */
+.mdh-doc-article { display: block; }
+.mdh-doc-code { white-space: pre; }
+.mdh-doc-logo-mark { padding: 4px; background: #0d0d10; border: 1px solid rgba(255,255,255,.08); }
+.mdh-doc-logo-mark img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 6px rgba(255,0,0,.6)); }
+.mdh-doc-sidebar { background: #08080b; }
+.mdh-doc-sidebar-title { margin-top: 6px; color: #8a8a93; }
+.mdh-doc-nav { margin-bottom: 22px; }
+.mdh-doc-nav a { color: #b5b5bd; }
+.mdh-doc-overlay { display: none; }
+.mdh-doc-crumb { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 18px; color: #666; font-size: 13px; }
+.mdh-doc-crumb a { color: #888; text-decoration: none; }
+.mdh-doc-crumb a:hover { color: #ff3150; }
+.mdh-doc-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 45px; }
+.mdh-doc-pager a { display: block; padding: 16px 18px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: #0b0b0e; color: #fff; text-decoration: none; }
+.mdh-doc-pager a:hover { border-color: rgba(255,49,80,.45); }
+.mdh-doc-pager small { display: block; margin-bottom: 4px; color: #777; font-size: 12px; }
+.mdh-doc-pager .next { text-align: right; grid-column: 2; }
+.mdh-doc-cta { margin-top: 40px; padding: 22px 24px; border: 1px solid rgba(255,49,80,.25); border-radius: 14px; background: linear-gradient(135deg, rgba(255,23,63,.10), rgba(10,10,13,.9)); }
+.mdh-doc-cta h3 { margin: 0 0 6px; color: #fff; font-size: 18px; }
+.mdh-doc-cta p { margin: 0 0 14px; color: #aaa; line-height: 1.6; }
+.mdh-doc-cta a { display: inline-block; padding: 10px 18px; border-radius: 9px; background: #ff173f; color: #fff; font-weight: 700; text-decoration: none; }
+.mdh-doc-empty { display: none; color: #888; padding: 20px 0; }
+@media (max-width: 850px) {
+  .mdh-doc-sidebar { width: 280px; left: -290px; background: #08080b; box-shadow: 10px 0 40px rgba(0,0,0,.7); padding-bottom: 60px; }
+  .mdh-doc-sidebar.open { left: 0; }
+  .mdh-doc-overlay.open { display: block; position: fixed; inset: 70px 0 0 0; z-index: 800; background: rgba(0,0,0,.6); }
+  .mdh-doc-nav a { padding: 11px 12px; font-size: 14px; }
+  .mdh-doc-pager { grid-template-columns: 1fr; }
+  .mdh-doc-pager .next { grid-column: 1; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="mdh-doc-topbar">
+    <button class="mdh-doc-menu" id="mdhDocMenu" aria-label="Buka menu">☰</button>
+    <a href="/" class="mdh-doc-logo">
+        <span class="mdh-doc-logo-mark"><img src="/assets/images/logo.svg" alt="MineIDHost"></span>
+        <span>MineIDHost<small>Documentation</small></span>
+    </a>
+    <div class="mdh-doc-top-actions">
+        <a href="/minecraft-hosting">Hosting</a>
+        <a href="https://panel.mineidhost.com" target="_blank" rel="noopener">Panel</a>
+        <a href="https://dsc.gg/mineidhost" target="_blank" rel="noopener">Discord</a>
+    </div>
+</header>
+
+<div class="mdh-doc-overlay" id="mdhDocOverlay"></div>
+
+<div class="mdh-doc-layout">
+<aside class="mdh-doc-sidebar" id="mdhDocSidebar">
+    <nav class="mdh-doc-nav"><a href="/docs">Semua Dokumentasi</a></nav>
+    <div class="mdh-doc-sidebar-title">Getting Started</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/cara-akses-panel">Cara Akses Panel</a>
+        <a href="/docs/cara-membuat-server-minecraft">Membuat Server Minecraft</a>
+    </nav>
+    <div class="mdh-doc-sidebar-title">Minecraft Java</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/cara-install-plugin-minecraft">Install Plugin</a>
+        <a href="/docs/cara-upload-world-minecraft">Upload World</a>
+        <a href="/docs/cara-ganti-versi-server-minecraft">Ganti Versi Server</a>
+        <a href="/docs/cara-op-server-minecraft">Menjadi Operator</a>
+        <a href="/docs/cara-whitelist-server-minecraft">Whitelist Server</a>
+        <a href="/docs/cara-optimasi-server-minecraft">Optimasi Server</a>
+        <a href="/docs/cara-setup-velocity-proxy">Setup Velocity Proxy</a>
+    </nav>
+    <div class="mdh-doc-sidebar-title">Crossplay Bedrock</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/crossplay-minecraft-java-bedrock">Java + Bedrock</a>
+        <a href="/docs/cara-setup-geysermc">Setup GeyserMC</a>
+        <a href="/docs/setup-geyser-velocity-bungeecord">Geyser di Velocity</a>
+        <a href="/docs/cara-setup-floodgate">Setup Floodgate</a>
+        <a href="/docs/cara-pasang-viaversion">Multi Version</a>
+        <a href="/docs/bedrock-disconnect-item-custom-geyser">Item Custom Bedrock</a>
+    </nav>
+    <div class="mdh-doc-sidebar-title">Plugin Populer</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/tutorial-luckperms">LuckPerms</a>
+        <a href="/docs/tutorial-essentialsx">EssentialsX</a>
+        <a href="/docs/cara-setup-vulcan-anticheat">Vulcan Anticheat</a>
+        <a href="/docs/cara-setup-simple-voice-chat">Simple Voice Chat</a>
+        <a href="/docs/cara-pakai-spark-profiler">Spark Profiler</a>
+    </nav>
+    <div class="mdh-doc-sidebar-title">Plugin MineIDHost</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/plugin-mdhsecurity">MDHSecurity</a>
+        <a href="/docs/plugin-mdhoptimized">MDHOptimized</a>
+        <a href="/docs/plugin-mdhantimalware">MDHAntiMalware</a>
+    </nav>
+    <div class="mdh-doc-sidebar-title">Panel</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/file-manager-panel">File Manager</a>
+        <a href="/docs/console-server-minecraft">Console</a>
+        <a href="/docs/cara-menambah-port-allocation">Allocation / Port</a>
+        <a href="/docs/cara-backup-server-minecraft">Backup</a>
+        <a href="/docs/cara-sftp-server-minecraft">SFTP</a>
+    </nav>
+    <div class="mdh-doc-sidebar-title">Troubleshooting</div>
+    <nav class="mdh-doc-nav">
+        <a href="/docs/server-minecraft-tidak-bisa-start">Server Tidak Start</a>
+        <a href="/docs/server-minecraft-lag" class="active">Server Lag</a>
+        <a href="/docs/tidak-bisa-join-server-minecraft">Tidak Bisa Join</a>
+        <a href="/docs/cara-memperbaiki-plugin-error">Plugin Error</a>
+        <a href="/docs/versi-java-server-minecraft">Versi Java Server</a>
+    </nav>
+</aside>
+
+<main class="mdh-doc-main">
+
+<article class="mdh-doc-article" id="lag">
+    <nav class="mdh-doc-crumb"><a href="/docs">Docs</a><span>/</span><span>Troubleshooting</span></nav>
+    <h1>Server Lag</h1>
+    <p class="mdh-doc-article-lead">Cara mengetahui apakah lag berasal dari server, dan menemukan penyebabnya.</p>
+    <div class="mdh-doc-step">
+        <h2>1. Cek TPS dan MSPT</h2>
+        <p>Ketik <code>tps</code> (Paper) atau <code>spark tps</code>. TPS normal adalah <strong>20</strong>. MSPT di atas <strong>50 ms</strong> berarti server tidak sanggup memproses tick dan pemain akan merasakan lag.</p><div class="mdh-doc-note"><strong>TPS 20 tapi tetap lag?</strong> masalahnya kemungkinan ping/internet pemain, bukan server.</div>
+    </div>
+    <div class="mdh-doc-step">
+        <h2>2. Cari chunk bermasalah</h2>
+        <p>Dengan <a href="/docs/plugin-mdhoptimized">MDHOptimized</a>:</p><div class="mdh-doc-code">mdho status
+mdho scan 10
+mdho alerts</div><p>Perintah ini menunjukkan chunk dengan entity terbanyak dan lokasi farm atau redstone yang berlebihan.</p>
+    </div>
+    <div class="mdh-doc-step">
+        <h2>3. Profiling</h2>
+        <p>Jalankan <code>spark profiler start</code> saat lag terjadi, tunggu beberapa menit, lalu <code>spark profiler stop</code>. Buka link yang diberikan untuk melihat plugin atau proses paling berat.</p>
+    </div>
+    <div class="mdh-doc-step">
+        <h2>4. Penyebab umum</h2>
+        <ul><li>Pemain menjelajah chunk baru: pre-generate world dan pasang world border.</li><li>Item dan mob menumpuk: pakai clear lag terjadwal dan limit entity per chunk.</li><li>Mesin redstone/hopper besar: batasi dengan redstone limiter.</li><li>View/simulation distance terlalu tinggi.</li><li>Plugin yang menjalankan task terlalu sering.</li></ul><p>Lihat juga <a href="/docs/cara-optimasi-server-minecraft">Optimasi Server</a>.</p>
+    </div>
+<div class="mdh-doc-cta">
+    <h3>Butuh server Minecraft yang siap pakai?</h3>
+    <p>Hosting Minecraft MineIDHost mulai Rp10.000/bulan dengan AMD EPYC, anti DDoS, panel lengkap, dan support bahasa Indonesia.</p>
+    <a href="/minecraft-hosting">Lihat Paket Hosting</a>
+</div>
+<nav class="mdh-doc-pager"><a href="/docs/server-minecraft-tidak-bisa-start"><small>← Sebelumnya</small>Server Tidak Start</a><a class="next" href="/docs/tidak-bisa-join-server-minecraft"><small>Selanjutnya →</small>Tidak Bisa Join</a></nav>
+</article>
+
+</main>
+</div>
+
+<script>
+(function () {
+    var sb = document.getElementById("mdhDocSidebar");
+    var ov = document.getElementById("mdhDocOverlay");
+    function toggle(open) { sb.classList.toggle("open", open); ov.classList.toggle("open", open); }
+    document.getElementById("mdhDocMenu").addEventListener("click", function () { toggle(!sb.classList.contains("open")); });
+    ov.addEventListener("click", function () { toggle(false); });
+    var act = sb.querySelector("a.active");
+    if (act && act.scrollIntoView) { act.scrollIntoView({ block: "center" }); window.scrollTo(0, 0); }
+})();
+</script>
+</body>
+</html>
