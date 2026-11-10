@@ -42,7 +42,10 @@ h1{margin:12px 0 8px;font-size:clamp(28px,5vw,40px);line-height:1.2;color:#fff}
 .stats div{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .stats small{display:block;color:var(--dim);font-size:12px}
 .stats b{font-size:24px;color:#fff}
-.group{margin:26px 0 10px;color:#fff;font-size:17px;display:flex;align-items:center;gap:8px}
+.tier{margin-top:30px;padding-top:6px}
+.tierh{margin:0 0 4px;padding-bottom:10px;border-bottom:1px solid var(--line);color:#fff;font-size:22px;display:flex;align-items:center;gap:10px}
+.tierh span{color:var(--dim);font-size:13px;font-weight:400}
+.group{margin:18px 0 10px;color:#fff;font-size:17px;display:flex;align-items:center;gap:8px}
 .group span{color:var(--dim);font-size:13px;font-weight:400}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
 .node{padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
@@ -152,15 +155,28 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
     else banner("ok", "Semua sistem normal", upd);
 
     if (!nodes.length) { $("list").innerHTML = '<div class="empty" style="margin-top:20px">Belum ada node publik.</div>'; return; }
-    var groups = {}, order = [];
-    nodes.forEach(function (n) { var k = n.location || "Lainnya"; if (!groups[k]) { groups[k] = []; order.push(k); } groups[k].push(n); });
-    $("list").innerHTML = order.map(function (k) {
-      var g = groups[k], on = g.filter(function (n) { return n.status === "online"; }).length;
-      return '<h2 class="group">' + esc(k) + " <span>" + on + "/" + g.length + " online</span></h2><div class=\"grid\">" +
-        g.map(function (n) {
-          return '<div class="node"><div class="hd"><span class="dot ' + n.status + '"></span><b title="' + esc(n.name) + '">' + esc(n.name) +
-            '</b><span class="badge ' + n.status + '">' + LABEL[n.status] + "</span></div>" + bar("RAM", n.memory) + bar("Disk", n.disk) + "</div>";
-        }).join("") + "</div>";
+    // kelompok: paket (Basic, Medium, Private Node) -> lokasi
+    var tiers = [], byTier = {};
+    nodes.forEach(function (n) {
+      var t = n.tier || "other";
+      if (!byTier[t]) { byTier[t] = { label: n.tierLabel || "Node", locs: [], byLoc: {} }; tiers.push(t); }
+      var T = byTier[t], k = n.location || "Lainnya";
+      if (!T.byLoc[k]) { T.byLoc[k] = []; T.locs.push(k); }
+      T.byLoc[k].push(n);
+    });
+    function card(n) {
+      return '<div class="node"><div class="hd"><span class="dot ' + n.status + '"></span><b title="' + esc(n.name) + '">' + esc(n.name) +
+        '</b><span class="badge ' + n.status + '">' + LABEL[n.status] + "</span></div>" + bar("RAM", n.memory) + bar("Disk", n.disk) + "</div>";
+    }
+    function onl(list) { return list.filter(function (n) { return n.status === "online"; }).length; }
+    $("list").innerHTML = tiers.map(function (t) {
+      var T = byTier[t], all = [];
+      T.locs.forEach(function (k) { all = all.concat(T.byLoc[k]); });
+      return '<section class="tier"><h2 class="tierh">' + esc(T.label) + " <span>" + onl(all) + "/" + all.length + " online</span></h2>" +
+        T.locs.map(function (k) {
+          var g = T.byLoc[k];
+          return '<h3 class="group">' + esc(k) + " <span>" + onl(g) + "/" + g.length + ' online</span></h3><div class="grid">' + g.map(card).join("") + "</div>";
+        }).join("") + "</section>";
     }).join("");
   }
 

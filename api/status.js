@@ -67,6 +67,30 @@ async function pingNode(n) {
 
 function num(v) { v = Number(v); return isFinite(v) ? v : 0; }
 
+// Paket dibaca dari nama node: "private"/"pvn" -> Private Node, "medium" -> Medium, "basic" -> Basic
+const TIERS = [
+  { key: "basic", label: "Basic", re: /basic/i },
+  { key: "medium", label: "Medium", re: /medium/i },
+  { key: "private", label: "Private Node", re: /private|pvn|pv-?node/i }
+];
+function tierOf(name) {
+  if (TIERS[2].re.test(name)) return TIERS[2];
+  for (const t of TIERS.slice(0, 2)) if (t.re.test(name)) return t;
+  return { key: "other", label: "Lainnya" };
+}
+// Lokasi dibaca dari nama node:
+//   sgp-basic-1, sgp-medium-1  -> Singapore
+//   basic-1, medium-1 (tanpa awalan) -> Singapore South (AP-1)
+//   selain itu pakai lokasi dari panel
+function locationOf(name, tier, panelLoc) {
+  if (/^sgp[-_ ]/i.test(name)) return "Singapore";
+  if ((tier.key === "basic" || tier.key === "medium") && /^(basic|medium)\b/i.test(name)) return "Singapore South (AP-1)";
+  return panelLoc || "Lainnya";
+}
+const TIER_ORDER = { basic: 1, medium: 2, private: 3, other: 9 };
+const LOC_ORDER = { "Singapore South (AP-1)": 1, "Singapore": 2 };
+const natural = (a, b) => a.localeCompare(b, "en", { numeric: true, sensitivity: "base" });
+
 module.exports = async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   if (req.method !== "GET" && req.method !== "HEAD") {
@@ -95,15 +119,23 @@ module.exports = async (req, res) => {
       const loc = n.relationships && n.relationships.location && n.relationships.location.attributes;
       const alloc = n.allocated_resources || {};
       const maintenance = !!n.maintenance_mode;
+      const name = n.name || "Node " + n.id;
+      const tier = tierOf(name);
       return {
         id: n.id,
-        name: n.name || "Node " + n.id,
-        location: loc ? (loc.long || loc.short || "") : "",
+        name,
+        tier: tier.key,
+        tierLabel: tier.label,
+        location: locationOf(name, tier, loc ? (loc.long || loc.short || "") : ""),
         status: maintenance ? "maintenance" : online[i] ? "online" : "offline",
         memory: { total: num(n.memory), used: num(alloc.memory) },
         disk: { total: num(n.disk), used: num(alloc.disk) }
       };
-    }).sort((a, b) => (a.location + a.name).localeCompare(b.location + b.name));
+    }).sort((a, b) =>
+      (TIER_ORDER[a.tier] - TIER_ORDER[b.tier]) ||
+      ((LOC_ORDER[a.location] || 5) - (LOC_ORDER[b.location] || 5)) ||
+      natural(a.location, b.location) || natural(a.name, b.name)
+    );
 
     const count = (s) => nodes.filter((n) => n.status === s).length;
     res.statusCode = 200;
