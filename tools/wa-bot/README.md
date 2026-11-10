@@ -69,6 +69,10 @@ Cek bot: buka `http://IP_SERVER_BOT:PORT/health` → harus `"whatsapp":true,"gro
 - Tiket yang menunggu balasan ditandai **Menunggu**. Halaman admin berbunyi saat ada pesan baru.
 - Tombol cepat tersedia untuk sapaan dan balasan umum.
 
+## Pengumuman status
+
+Di mineidhost.com/admin-chat klik **📢 Pengumuman** untuk menerbitkan info, maintenance, atau gangguan. Pengumuman tampil di **mineidhost.com/status**. Klik **Tandai selesai** kalau sudah beres: pengumuman tetap tampil 3 hari sebagai riwayat. Setiap pengumuman baru dikirim juga ke grup WhatsApp admin. Data tersimpan di `data/announcements.json`.
+
 ## Perintah di grup WhatsApp
 
 | Perintah | Fungsi |

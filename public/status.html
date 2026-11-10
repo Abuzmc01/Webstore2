@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Status Server & Node | MineIDHost</title>
+<title>Status Nodes | MineIDHost</title>
 <meta name="description" content="Status real-time node hosting MineIDHost: online, offline, atau maintenance, lengkap dengan lokasi dan pemakaian RAM serta disk. Diperbarui otomatis setiap 30 detik.">
 <link rel="canonical" href="https://mineidhost.com/status">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MineIDHost">
-<meta property="og:title" content="Status Server MineIDHost">
+<meta property="og:title" content="Status Nodes MineIDHost">
 <meta property="og:description" content="Cek apakah node MineIDHost sedang online, offline, atau maintenance.">
 <meta property="og:url" content="https://mineidhost.com/status">
 <meta property="og:locale" content="id_ID">
@@ -38,6 +38,19 @@ h1{margin:12px 0 8px;font-size:clamp(28px,5vw,40px);line-height:1.2;color:#fff}
 .banner.warn{border-color:rgba(245,158,11,.45)}
 .banner button{margin-left:auto;padding:8px 14px;border:1px solid var(--line);border-radius:9px;background:transparent;color:#ddd;font:600 13px Inter,system-ui,sans-serif;cursor:pointer}
 .banner button:hover{border-color:var(--red2)}
+.anns{margin:0 0 16px;display:flex;flex-direction:column;gap:10px}
+.ann{padding:14px 16px;border:1px solid var(--line);border-left:4px solid #5b9bff;border-radius:12px;background:var(--panel)}
+.ann.maintenance{border-left-color:var(--warn)}
+.ann.gangguan{border-left-color:var(--red2);background:linear-gradient(90deg,rgba(255,49,80,.08),var(--panel) 60%)}
+.ann.selesai{border-left-color:var(--ok);opacity:.85}
+.ann .h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ann .h b{color:#fff;font-size:15px}
+.ann .k{padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;background:rgba(91,155,255,.14);color:#7fb2ff}
+.ann.maintenance .k{background:rgba(245,158,11,.14);color:var(--warn)}
+.ann.gangguan .k{background:rgba(255,49,80,.14);color:var(--red2)}
+.ann.selesai .k{background:rgba(34,197,94,.14);color:var(--ok)}
+.ann p{margin:6px 0 0;color:var(--muted);font-size:14px;white-space:pre-wrap}
+.ann small{display:block;margin-top:6px;color:var(--dim);font-size:12px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 28px}
 .stats div{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .stats small{display:block;color:var(--dim);font-size:12px}
@@ -90,9 +103,12 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
 </header>
 
 <main>
-<div class="crumb"><a href="/">Home</a> / Status</div>
-<h1>Status Server MineIDHost</h1>
+<div class="crumb"><a href="/">Home</a> / Status Nodes</div>
+<h1>Status Nodes MineIDHost</h1>
 <p class="lead">Kondisi setiap node hosting secara langsung. Halaman ini memperbarui diri setiap 30 detik.</p>
+
+<h2 class="sr" id="annH" hidden style="margin:0 0 10px;font-size:17px;color:#fff">Pengumuman</h2>
+<div class="anns" id="anns" hidden></div>
 
 <div class="banner" id="banner" aria-live="polite">
   <span class="dot" id="bdot"></span>
@@ -180,7 +196,27 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
     }).join("");
   }
 
+  // pengumuman dari tim (dikelola di halaman admin)
+  var ANN_T = { info: "Info", maintenance: "Maintenance", gangguan: "Gangguan", selesai: "Selesai" };
+  function dt(t) { try { return new Date(t).toLocaleString("id-ID", { timeZone: "Asia/Jakarta", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }) + " WIB"; } catch (e) { return ""; } }
+  function loadAnn() {
+    fetch("/api/livechat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "announcements" }) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var items = (d && d.ok && d.items) || [];
+        $("anns").hidden = $("annH").hidden = !items.length;
+        $("anns").innerHTML = items.map(function (a) {
+          var t = ANN_T[a.type] ? a.type : "info";
+          return '<div class="ann ' + t + '"><div class="h"><span class="k">' + ANN_T[t] + "</span><b>" + esc(a.title) + "</b></div>" +
+            (a.body ? "<p>" + esc(a.body) + "</p>" : "") +
+            "<small>" + (a.nodes ? "Node: " + esc(a.nodes) + " · " : "") + dt(a.updatedAt) + (a.by ? " · " + esc(a.by) + " | MineIDHost" : "") + "</small></div>";
+        }).join("");
+      })
+      .catch(function () {});
+  }
+
   function load() {
+    loadAnn();
     clearTimeout(timer);
     fetch("/api/status", { headers: { Accept: "application/json" } })
       .then(function (r) { return r.json().catch(function () { return { ok: false, error: "Respon tidak valid (HTTP " + r.status + ")" }; }); })
