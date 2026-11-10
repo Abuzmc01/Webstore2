@@ -1,0 +1,17 @@
+{
+  "_catatan": "Data mitra penitipan mesin untuk /kerjasama-mesin. Gmail WAJIB ditulis sudah disensor (contoh ang***@gmail.com), jangan tulis lengkap. Tanggal format YYYY-MM-DD. node = nama node di panel (untuk status online).",
+  "mitra": [
+    {
+      "nama": "Aja Wahyu Ryansyah",
+      "gmail": "ang***@gmail.com",
+      "mesin": ["SGP Medium-1"],
+      "node": ["sgp-medium-1"],
+      "nilai": 3200000,
+      "bagiHasilMin": 4500000,
+      "bagiHasilMax": 8000000,
+      "bulan": 10,
+      "mulai": "2026-11-10",
+      "berakhir": "2027-09-10"
+    }
+  ]
+}
