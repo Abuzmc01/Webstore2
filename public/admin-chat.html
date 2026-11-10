@@ -86,6 +86,34 @@ form.send button{width:56px;border:0;border-radius:10px;background:var(--red);co
 form.send textarea:disabled,form.send button:disabled{opacity:.45}
 .nochat{margin:auto;color:var(--muted);text-align:center;padding:20px}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:#222;color:#fff;font-size:13.5px;display:none;z-index:50}
+.annp{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.7);display:flex;align-items:flex-start;justify-content:center;padding:5vh 14px;overflow-y:auto}
+.annp .box{width:100%;max-width:640px;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.annp h2{margin:0 0 4px;font-size:19px;display:flex;align-items:center}
+.annp h2 button{margin-left:auto;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:#ccc;cursor:pointer}
+.annp p.s{margin:0 0 14px;color:var(--muted);font-size:13px}
+.annp label{display:block;margin:10px 0 4px;font-size:12.5px;color:var(--muted)}
+.annp input,.annp select,.annp textarea{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
+.annp textarea{min-height:90px;resize:vertical}
+.annp .row{display:flex;gap:10px;flex-wrap:wrap}
+.annp .row>div{flex:1;min-width:150px}
+.annp .ck{display:flex;gap:16px;margin-top:12px;font-size:13px;color:var(--muted)}
+.annp .ck label{display:flex;align-items:center;gap:6px;margin:0;color:var(--text)}
+.annp .ck input{width:auto}
+.annp .acts{display:flex;gap:8px;margin-top:14px}
+.annp .acts button{padding:10px 16px;border-radius:9px;border:1px solid var(--line);background:transparent;color:#ddd;cursor:pointer;font-weight:600}
+.annp .acts .pri{background:var(--red);border-color:var(--red);color:#fff}
+.annp .it{margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+.annp .it .h{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.annp .it b{font-size:14px}
+.annp .it .meta{font-size:11.5px;color:var(--muted);margin-top:3px}
+.annp .it .tx{font-size:13px;color:#ccc;margin-top:6px;white-space:pre-wrap}
+.annp .it .ia{margin-top:8px;display:flex;gap:6px}
+.annp .it .ia button{padding:5px 10px;border-radius:7px;border:1px solid var(--line);background:transparent;color:#ccc;cursor:pointer;font-size:12px}
+.tag.t-info{background:rgba(80,150,255,.15);color:#7fb2ff}
+.tag.t-maintenance{background:rgba(245,176,65,.15);color:var(--warn)}
+.tag.t-gangguan{background:rgba(255,49,80,.18);color:#ff8b9c}
+.tag.t-selesai{background:rgba(46,204,113,.15);color:var(--ok)}
+.tag.off{background:rgba(255,255,255,.07);color:#888}
 @media(max-width:800px){
   #app.on{grid-template-columns:1fr}
   #app.on.chatting #list{display:none}
@@ -107,6 +135,7 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
   <div class="st" id="status" hidden>
     <span><span class="dot" id="waDot"></span>WhatsApp</span>
     <span id="me"></span>
+    <button type="button" id="annBtn">📢 Pengumuman</button>
     <button type="button" id="logout">Keluar</button>
   </div>
 </header>
@@ -151,6 +180,26 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
     <div id="tickets"><div class="empty">Memuat...</div></div>
   </aside>
   <section id="chat"><div class="nochat">Pilih tiket di sebelah kiri untuk mulai membalas.</div></section>
+</div>
+
+<div class="annp" id="annp" hidden>
+  <div class="box">
+    <h2>Pengumuman status <button type="button" id="annX">Tutup</button></h2>
+    <p class="s">Tampil di <a href="/status" target="_blank" rel="noopener">mineidhost.com/status</a>. Pengumuman "Selesai" tetap tampil 3 hari sebagai riwayat.</p>
+    <form id="annF">
+      <input type="hidden" id="aId">
+      <div class="row">
+        <div><label for="aType">Jenis</label>
+          <select id="aType"><option value="info">Info</option><option value="maintenance">Maintenance</option><option value="gangguan">Gangguan</option><option value="selesai">Selesai</option></select></div>
+        <div><label for="aNodes">Node terdampak (opsional)</label><input id="aNodes" maxlength="200" placeholder="contoh: sgp-basic-1, medium-2"></div>
+      </div>
+      <label for="aTitle">Judul</label><input id="aTitle" maxlength="120" placeholder="contoh: Maintenance node sgp-basic-1 pukul 23.00 WIB">
+      <label for="aBody">Isi</label><textarea id="aBody" maxlength="2000" placeholder="Detail, perkiraan waktu, dampak ke pelanggan..."></textarea>
+      <div class="ck"><label><input type="checkbox" id="aActive" checked> Aktif</label><label><input type="checkbox" id="aPin"> Sematkan di atas</label></div>
+      <div class="acts"><button type="submit" class="pri" id="aSave">Terbitkan</button><button type="button" id="aReset">Baru</button></div>
+    </form>
+    <div id="annL"><div class="empty">Memuat...</div></div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -477,6 +526,59 @@ form.send textarea:disabled,form.send button:disabled{opacity:.45}
       appendMsgs(r.messages); setState("closed"); toast("Tiket ditutup. Email: " + (r.mail || "-")); loadList();
     });
   }
+
+  // ---------------------------------------------------------------- pengumuman
+  var ANN_T = { info: "Info", maintenance: "Maintenance", gangguan: "Gangguan", selesai: "Selesai" }, annItems = [];
+  function annReset() {
+    $("aId").value = ""; $("aType").value = "info"; $("aNodes").value = ""; $("aTitle").value = ""; $("aBody").value = "";
+    $("aActive").checked = true; $("aPin").checked = false; $("aSave").textContent = "Terbitkan";
+  }
+  function annLoad() {
+    api({ action: "admin_ann_list" }).then(function (r) {
+      if (!r.ok) { $("annL").innerHTML = '<div class="empty">' + esc(r.error || "Gagal memuat") + "</div>"; return; }
+      annItems = r.items || [];
+      $("annL").innerHTML = annItems.length ? annItems.map(function (a) {
+        return '<div class="it"><div class="h"><span class="tag t-' + esc(a.type) + '">' + esc(ANN_T[a.type] || a.type) + "</span>" +
+          (a.active ? "" : '<span class="tag off">Tidak aktif</span>') + (a.pinned ? '<span class="tag off">📌</span>' : "") + "<b>" + esc(a.title) + "</b></div>" +
+          '<div class="meta">' + esc(a.by || "") + " · " + time(a.updatedAt) + (a.nodes ? " · " + esc(a.nodes) : "") + "</div>" +
+          (a.body ? '<div class="tx">' + esc(a.body) + "</div>" : "") +
+          '<div class="ia"><button type="button" data-e="' + esc(a.id) + '">Edit</button>' +
+          (a.type !== "selesai" ? '<button type="button" data-done="' + esc(a.id) + '">Tandai selesai</button>' : "") +
+          '<button type="button" data-d="' + esc(a.id) + '">Hapus</button></div></div>';
+      }).join("") : '<div class="empty">Belum ada pengumuman.</div>';
+    }).catch(function () { $("annL").innerHTML = '<div class="empty">Server live chat tidak bisa dihubungi.</div>'; });
+  }
+  function annSave(data, msg) {
+    data.action = "admin_ann_save";
+    return api(data).then(function (r) { if (!r.ok) { toast(r.error || "Gagal menyimpan"); return; } toast(msg); annReset(); annLoad(); })
+      .catch(function () { toast("Server live chat tidak bisa dihubungi."); });
+  }
+  $("annBtn").addEventListener("click", function () { $("annp").hidden = false; annReset(); annLoad(); });
+  $("annX").addEventListener("click", function () { $("annp").hidden = true; });
+  $("annp").addEventListener("click", function (e) { if (e.target === $("annp")) $("annp").hidden = true; });
+  $("aReset").addEventListener("click", annReset);
+  $("annF").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!$("aTitle").value.trim()) { toast("Judul wajib diisi"); return; }
+    annSave({ id: $("aId").value || undefined, type: $("aType").value, nodes: $("aNodes").value, title: $("aTitle").value, body: $("aBody").value,
+      active: $("aActive").checked, pinned: $("aPin").checked }, $("aId").value ? "Pengumuman diperbarui" : "Pengumuman diterbitkan");
+  });
+  $("annL").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var id = b.getAttribute("data-e") || b.getAttribute("data-done") || b.getAttribute("data-d");
+    var a = annItems.filter(function (x) { return x.id === id; })[0]; if (!a) return;
+    if (b.hasAttribute("data-e")) {
+      $("aId").value = a.id; $("aType").value = a.type; $("aNodes").value = a.nodes || ""; $("aTitle").value = a.title; $("aBody").value = a.body || "";
+      $("aActive").checked = !!a.active; $("aPin").checked = !!a.pinned; $("aSave").textContent = "Simpan perubahan";
+      $("aTitle").focus();
+    } else if (b.hasAttribute("data-done")) {
+      annSave({ id: a.id, type: "selesai", nodes: a.nodes, title: a.title, body: a.body, active: false, pinned: false }, "Ditandai selesai");
+    } else if (b.getAttribute("data-c") === "1") {
+      api({ action: "admin_ann_delete", id: a.id }).then(function (r) { toast(r.ok ? "Dihapus" : (r.error || "Gagal menghapus")); annLoad(); });
+    } else {
+      b.setAttribute("data-c", "1"); b.textContent = "Yakin hapus?";
+    }
+  });
 
   window.addEventListener("hashchange", function () {
     var h = location.hash.slice(1);

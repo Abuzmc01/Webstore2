@@ -13,6 +13,7 @@ import { cfg, checkConfig } from "./lib/config.js";
 import * as store from "./lib/store.js";
 import { startWhatsApp, notifyGroup, wa } from "./lib/wa.js";
 import { sendTranscript, sendLoginCode } from "./lib/mail.js";
+import * as announce from "./lib/announce.js";
 
 checkConfig();
 
@@ -329,6 +330,32 @@ const actions = {
     if (!t) return { ok: false, error: "Tiket tidak ditemukan." };
     await closeTicket(t, s.name);
     return { ok: true, status: t.status, mail: t.mail, messages: store.publicMessages(t, Number(b.since) || 0) };
+  },
+  // ------------------------------------------------ pengumuman (halaman /status)
+  async announcements() {
+    return { ok: true, items: announce.publicList() };
+  },
+
+  async admin_ann_list(b) {
+    if (!adminFrom(b)) return { ok: false, error: "Sesi admin habis, login lagi.", code: 401 };
+    return { ok: true, items: announce.adminList() };
+  },
+
+  async admin_ann_save(b) {
+    const s = adminFrom(b);
+    if (!s) return { ok: false, error: "Sesi admin habis, login lagi.", code: 401 };
+    const isNew = !b.id;
+    const out = announce.upsert(b, s.name);
+    if (out.ok) {
+      const a = out.item;
+      notifyGroup(`📢 Pengumuman ${isNew ? "baru" : "diperbarui"} oleh ${s.name} [${a.type}]: *${a.title}*\nmineidhost.com/status`);
+    }
+    return out;
+  },
+
+  async admin_ann_delete(b) {
+    if (!adminFrom(b)) return { ok: false, error: "Sesi admin habis, login lagi.", code: 401 };
+    return announce.remove(String(b.id || ""));
   },
 };
 

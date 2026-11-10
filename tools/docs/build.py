@@ -170,7 +170,7 @@ def fix_links(h):
 def sidebar(active=None):
     out = ['<aside class="mdh-doc-sidebar" id="mdhDocSidebar">',
            '    <nav class="mdh-doc-nav"><a href="/docs"' + (' class="active"' if active is None else "") + '>Semua Dokumentasi</a>'
-           '<a href="/hosting-minecraft-terbaik">Host Comparison</a><a href="/status">Status</a></nav>']
+           '<a href="/hosting-minecraft-terbaik">Host Comparison</a><a href="/status">Status Nodes</a></nav>']
     for cat, items in CATEGORIES:
         out.append(f'    <div class="mdh-doc-sidebar-title">{esc(cat)}</div>\n    <nav class="mdh-doc-nav">')
         for it in items:
@@ -215,7 +215,7 @@ def page(title, desc, canonical, body, active=None, jsonld=None, og_type="websit
     <div class="mdh-doc-top-actions">
         <a href="/minecraft-hosting">Hosting</a>
         <a href="/hosting-minecraft-terbaik">Host Comparison</a>
-        <a href="/status">Status</a>
+        <a href="/status">Status Nodes</a>
         <a href="https://panel.mineidhost.com" target="_blank" rel="noopener">Panel</a>
         <a href="https://dsc.gg/mineidhost" target="_blank" rel="noopener">Discord</a>
     </div>

@@ -11,6 +11,7 @@ const ACTIONS = new Set([
   "create", "poll", "send", "send_image", "file",
   "admin_methods", "admin_login", "admin_request_code", "admin_verify_code",
   "admin_list", "admin_get", "admin_send", "admin_send_image", "admin_file", "admin_resolve", "admin_close",
+  "announcements", "admin_ann_list", "admin_ann_save", "admin_ann_delete",
 ]);
 
 // Foto dikirim sebagai base64 di JSON; Vercel membatasi body ±4,5 MB
