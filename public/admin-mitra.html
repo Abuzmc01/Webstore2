@@ -54,7 +54,7 @@ tr:hover td{background:var(--panel2)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid .full{grid-column:1/-1}
 .modal label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
-.modal input,.modal textarea{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
+.modal input,.modal textarea,.modal select{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
 .modal textarea{min-height:70px;resize:vertical}
 .modal .ck{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13.5px}
 .modal .ck input{width:auto}
@@ -114,6 +114,7 @@ tr:hover td{background:var(--panel2)}
       <div><label for="bhMax">Estimasi bagi hasil maksimum (Rp)</label><input id="bhMax" inputmode="numeric" placeholder="8000000"></div>
       <div><label for="mulai">Mulai penitipan *</label><input id="mulai" type="date" required></div>
       <div><label for="berakhir">Periode bagi hasil berakhir *</label><input id="berakhir" type="date" required></div>
+      <div class="full"><label for="bayar">Jadwal pembayaran</label><select id="bayar"><option value="bulanan">Setiap bulan (tgl 29–5)</option><option value="5bulan">Sekaligus setiap 5 bulan</option></select></div>
     </div>
     <h3>Khusus admin <span>(tidak pernah tampil di publik)</span></h3>
     <div class="grid">
@@ -186,7 +187,7 @@ tr:hover td{background:var(--panel2)}
         "<td>" + (wa(m.wa) || "-") + (m.waKeluarga ? "<small>Keluarga: " + wa(m.waKeluarga) + "</small>" : "") + "</td>" +
         "<td>" + (m.rekNomor ? esc(m.rekBank) + "<br>" + esc(m.rekNomor) + "<small>a.n. " + esc(m.rekNama) + "</small>" : "-") + "</td>" +
         "<td>" + esc((m.mesin || []).join(", ") || "-") + "<small>" + (m.mesin || []).length + " mesin</small></td>" +
-        "<td>" + rp(m.nilai) + "<small>" + rp(m.bagiHasilMin) + (m.bagiHasilMax && m.bagiHasilMax !== m.bagiHasilMin ? " – " + rp(m.bagiHasilMax) : "") + (m.bulan ? " / " + m.bulan + " bln" : "") + "</small></td>" +
+        "<td>" + rp(m.nilai) + "<small>" + rp(m.bagiHasilMin) + (m.bagiHasilMax && m.bagiHasilMax !== m.bagiHasilMin ? " – " + rp(m.bagiHasilMax) : "") + (m.bulan ? " / " + m.bulan + " bln" : "") + "<br>" + (m.bayar === "5bulan" ? "Dibayar per 5 bulan" : "Dibayar bulanan") + "</small></td>" +
         "<td>" + tgl(m.mulai) + " – " + tgl(m.berakhir) + '<br><span class="tag ' + s[0] + '">' + s[1] + "</span></td>" +
         '<td><button type="button" class="btn" data-id="' + esc(m.id) + '">Edit</button></td></tr>';
     }).join("") : '<tr><td colspan="7" class="empty">' + (data.length ? "Tidak ada yang cocok." : "Belum ada mitra. Klik + Tambah mitra.") + "</td></tr>";
@@ -199,11 +200,12 @@ tr:hover td{background:var(--panel2)}
   });
 
   var F = { nama: "nama", gmail: "gmail", nilai: "nilai", bulan: "bulan", bhMin: "bagiHasilMin", bhMax: "bagiHasilMax", mulai: "mulai", berakhir: "berakhir",
-    wa: "wa", waK: "waKeluarga", rekNama: "rekNama", rekBank: "rekBank", rekNomor: "rekNomor", catatan: "catatan" };
+    wa: "wa", waK: "waKeluarga", rekNama: "rekNama", rekBank: "rekBank", rekNomor: "rekNomor", catatan: "catatan", bayar: "bayar" };
   function openForm(m) {
     editId = m ? m.id : null;
     $("fTitle").textContent = m ? "Edit mitra" : "Tambah mitra";
     Object.keys(F).forEach(function (k) { var v = m ? m[F[k]] : ""; $(k).value = v == null || v === 0 ? "" : v; });
+    $("bayar").value = (m && m.bayar) || "bulanan";
     $("mesin").value = m ? (m.mesin || []).join(", ") : "";
     $("tampil").checked = m ? m.tampil !== false : true;
     $("fDel").hidden = !m; $("fDel").textContent = "Hapus mitra"; $("fDel").removeAttribute("data-c");
