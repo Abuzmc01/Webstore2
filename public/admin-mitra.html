@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin Mitra Mesin | MineIDHost</title>
+<link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+<style>
+:root{--bg:#07070a;--panel:#0d0d11;--panel2:#121217;--line:rgba(255,255,255,.08);--text:#e8e8ee;--muted:#9a9aa4;--red:#ff173f;--red2:#ff3150;--ok:#2ecc71;--warn:#f5b041}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,textarea,select{font-family:inherit}
+a{color:var(--red2)}
+.top{display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;border-bottom:1px solid var(--line);background:#09090c}
+.top img{width:28px;height:28px}
+.top b{font-size:15px}
+.top .st{margin-left:auto;font-size:12.5px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.top button{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:#ccc;cursor:pointer;font-size:12px}
+.top .mdh-theme-btn{margin-left:10px}
+.top .st[hidden] + .mdh-theme-btn{margin-left:auto}
+#login{max-width:360px;margin:12vh auto;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+#login h1{margin:0 0 6px;font-size:22px}
+#login p{margin:0 0 16px;color:var(--muted);font-size:14px}
+#login input{width:100%;margin-bottom:10px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:15px}
+#login button{width:100%;padding:12px;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.e{color:#ff8b9c;font-size:13px;margin-top:8px;min-height:18px}
+main{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.bar h1{margin:0;font-size:21px}
+.bar input{flex:1;min-width:180px;max-width:320px;margin-left:auto;padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff}
+.btn{padding:9px 15px;border-radius:9px;border:1px solid var(--line);background:transparent;color:#ddd;cursor:pointer;font-weight:600;font-size:13.5px}
+.btn.pri{background:var(--red);border-color:var(--red);color:#fff}
+.btn.del{border-color:rgba(255,49,80,.5);color:#ff8b9c}
+.warn{padding:10px 14px;margin-bottom:14px;border:1px solid rgba(245,176,65,.35);border-radius:10px;background:rgba(245,176,65,.06);color:var(--muted);font-size:13px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{width:100%;min-width:900px;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;padding:10px 12px;background:rgba(255,49,80,.08);color:#fff;font-weight:600;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top;color:#ddd}
+td small{display:block;color:var(--muted);font-size:12px}
+tr:hover td{background:var(--panel2)}
+.tag{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:999px;font-weight:700}
+.tag.aktif{background:rgba(46,204,113,.15);color:var(--ok)}
+.tag.belum{background:rgba(80,150,255,.15);color:#7fb2ff}
+.tag.selesai{background:rgba(255,255,255,.07);color:#888}
+.tag.hide{background:rgba(245,176,65,.15);color:var(--warn)}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+.modal{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.72);display:flex;align-items:flex-start;justify-content:center;padding:4vh 14px;overflow-y:auto}
+.modal form{width:100%;max-width:720px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.modal h2{margin:0 0 4px;font-size:19px}
+.modal h3{margin:18px 0 6px;font-size:13px;color:var(--red2);text-transform:uppercase;letter-spacing:.5px}
+.modal h3 span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:400}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid .full{grid-column:1/-1}
+.modal label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
+.modal input,.modal textarea{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
+.modal textarea{min-height:70px;resize:vertical}
+.modal .ck{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13.5px}
+.modal .ck input{width:auto}
+.modal .acts{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.modal .acts .del{margin-left:auto}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:#222;color:#fff;font-size:13.5px;display:none;z-index:60}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.bar input{max-width:none;margin-left:0}}
+</style>
+<script>(function(){try{var t=localStorage.getItem("mdh-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()</script>
+<link rel="stylesheet" href="/assets/css/mdh-theme.css">
+</head>
+<body>
+
+<header class="top">
+  <img src="/assets/images/logo.svg" alt="">
+  <b>Admin Mitra Mesin</b>
+  <div class="st" id="st" hidden>
+    <span id="me"></span>
+    <button type="button" id="logout">Keluar</button>
+  </div>
+</header>
+
+<form id="login" hidden>
+  <h1>Masuk admin mitra</h1>
+  <p>Data pribadi mitra (WhatsApp, rekening, Gmail lengkap) hanya terlihat di halaman ini.</p>
+  <input id="luser" placeholder="Username kamu" maxlength="20" autocomplete="username">
+  <input id="lpass" type="password" placeholder="Password admin mitra" autocomplete="current-password">
+  <button type="submit">Masuk</button>
+  <div class="e" id="lerr"></div>
+</form>
+
+<main id="app" hidden>
+  <div class="bar">
+    <h1>Mitra penitipan mesin</h1>
+    <button type="button" class="btn pri" id="add">+ Tambah mitra</button>
+    <a class="btn" href="/kerjasama-mesin" target="_blank" rel="noopener" style="text-decoration:none">Lihat halaman publik</a>
+    <input id="q" type="search" placeholder="Cari nama, Gmail, mesin...">
+  </div>
+  <div class="warn">Halaman publik hanya menampilkan nama, Gmail tersensor, mesin, nilai, estimasi bagi hasil, dan tanggal. WhatsApp, rekening, dan catatan internal <strong>tidak pernah</strong> ditampilkan ke publik.</div>
+  <div class="tbl"><table>
+    <thead><tr><th>Mitra</th><th>Kontak</th><th>Rekening</th><th>Mesin</th><th>Nilai / Bagi hasil</th><th>Periode</th><th></th></tr></thead>
+    <tbody id="rows"><tr><td colspan="7" class="empty">Memuat...</td></tr></tbody>
+  </table></div>
+</main>
+
+<div class="modal" id="modal" hidden>
+  <form id="f" autocomplete="off">
+    <h2 id="fTitle">Tambah mitra</h2>
+    <h3>Ditampilkan di publik <span>(Gmail otomatis disensor)</span></h3>
+    <div class="grid">
+      <div><label for="nama">Nama lengkap *</label><input id="nama" maxlength="80" required></div>
+      <div><label for="gmail">Gmail</label><input id="gmail" type="email" maxlength="120"></div>
+      <div class="full"><label for="mesin">Mesin dititipkan (pisahkan koma, sama dengan nama node di panel)</label><input id="mesin" maxlength="300" placeholder="contoh: SGP Medium-1, SGP Basic-2"></div>
+      <div><label for="nilai">Nilai mesin (Rp)</label><input id="nilai" inputmode="numeric" placeholder="3200000"></div>
+      <div><label for="bulan">Lama bagi hasil (bulan)</label><input id="bulan" inputmode="numeric" placeholder="10"></div>
+      <div><label for="bhMin">Estimasi bagi hasil minimum (Rp)</label><input id="bhMin" inputmode="numeric" placeholder="4500000"></div>
+      <div><label for="bhMax">Estimasi bagi hasil maksimum (Rp)</label><input id="bhMax" inputmode="numeric" placeholder="8000000"></div>
+      <div><label for="mulai">Mulai penitipan *</label><input id="mulai" type="date" required></div>
+      <div><label for="berakhir">Periode bagi hasil berakhir *</label><input id="berakhir" type="date" required></div>
+    </div>
+    <h3>Khusus admin <span>(tidak pernah tampil di publik)</span></h3>
+    <div class="grid">
+      <div><label for="wa">Nomor WhatsApp</label><input id="wa" inputmode="tel" maxlength="30"></div>
+      <div><label for="waK">Nomor WhatsApp keluarga</label><input id="waK" inputmode="tel" maxlength="30"></div>
+      <div class="full"><label for="rekNama">Nama pemilik rekening</label><input id="rekNama" maxlength="80"></div>
+      <div><label for="rekBank">Bank</label><input id="rekBank" maxlength="40" placeholder="Bank Mandiri"></div>
+      <div><label for="rekNomor">Nomor rekening</label><input id="rekNomor" inputmode="numeric" maxlength="40"></div>
+      <div class="full"><label for="catatan">Catatan internal</label><textarea id="catatan" maxlength="1000"></textarea></div>
+    </div>
+    <label class="ck"><input type="checkbox" id="tampil" checked> Tampilkan di halaman publik Kerja Sama Mesin</label>
+    <div class="e" id="ferr"></div>
+    <div class="acts">
+      <button type="submit" class="btn pri" id="fSave">Simpan</button>
+      <button type="button" class="btn" id="fCancel">Batal</button>
+      <button type="button" class="btn del" id="fDel" hidden>Hapus mitra</button>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var data = [], editId = null;
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function rp(n) { return "Rp" + Number(n || 0).toLocaleString("id-ID"); }
+  function tgl(s) { if (!s) return "-"; var p = s.split("-"); return p[2] + "/" + p[1] + "/" + p[0]; }
+  function toast(m) { var t = $("toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toast.h); toast.h = setTimeout(function () { t.style.display = "none"; }, 2600); }
+  function wa(n) { var d = String(n || "").replace(/\D/g, "").replace(/^0/, "62"); return d ? '<a href="https://wa.me/' + d + '" target="_blank" rel="noopener">' + esc(n) + "</a>" : ""; }
+  function stat(m) {
+    var n = new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10);
+    return n < m.mulai ? ["belum", "Akan mulai"] : n > m.berakhir ? ["selesai", "Selesai"] : ["aktif", "Aktif"];
+  }
+
+  function api(body) {
+    return fetch("/api/mitra", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: "Respon tidak valid (HTTP " + r.status + ")" }; }).then(function (j) { j._s = r.status; return j; }); });
+  }
+
+  function showLogin(msg) { $("app").hidden = true; $("st").hidden = true; $("login").hidden = false; $("lerr").textContent = msg || ""; }
+  function showApp(user) { $("login").hidden = true; $("app").hidden = false; $("st").hidden = false; $("me").textContent = user + " | MineIDHost"; load(); }
+
+  $("login").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("lerr").textContent = "";
+    api({ action: "login", user: $("luser").value.trim(), password: $("lpass").value }).then(function (r) {
+      if (!r.ok) { $("lerr").textContent = r.error || "Gagal masuk"; return; }
+      $("lpass").value = ""; showApp(r.user);
+    }).catch(function () { $("lerr").textContent = "Server tidak bisa dihubungi."; });
+  });
+  $("logout").addEventListener("click", function () { api({ action: "logout" }).then(function () { data = []; showLogin(""); }); });
+
+  function load() {
+    api({ action: "list" }).then(function (r) {
+      if (r._s === 401) return showLogin("Sesi habis, silakan masuk lagi.");
+      if (!r.ok) { $("rows").innerHTML = '<tr><td colspan="7" class="empty">' + esc(r.error) + "</td></tr>"; return; }
+      data = r.mitra || []; render();
+    });
+  }
+
+  function render() {
+    var q = $("q").value.trim().toLowerCase();
+    var list = data.filter(function (m) { return !q || [m.nama, m.gmail, (m.mesin || []).join(" "), m.wa].join(" ").toLowerCase().indexOf(q) > -1; });
+    $("rows").innerHTML = list.length ? list.map(function (m) {
+      var s = stat(m);
+      return '<tr><td><b>' + esc(m.nama) + "</b><small>" + esc(m.gmail || "-") + "</small>" + (m.tampil === false ? ' <span class="tag hide">Disembunyikan</span>' : "") + "</td>" +
+        "<td>" + (wa(m.wa) || "-") + (m.waKeluarga ? "<small>Keluarga: " + wa(m.waKeluarga) + "</small>" : "") + "</td>" +
+        "<td>" + (m.rekNomor ? esc(m.rekBank) + "<br>" + esc(m.rekNomor) + "<small>a.n. " + esc(m.rekNama) + "</small>" : "-") + "</td>" +
+        "<td>" + esc((m.mesin || []).join(", ") || "-") + "<small>" + (m.mesin || []).length + " mesin</small></td>" +
+        "<td>" + rp(m.nilai) + "<small>" + rp(m.bagiHasilMin) + (m.bagiHasilMax && m.bagiHasilMax !== m.bagiHasilMin ? " – " + rp(m.bagiHasilMax) : "") + (m.bulan ? " / " + m.bulan + " bln" : "") + "</small></td>" +
+        "<td>" + tgl(m.mulai) + " – " + tgl(m.berakhir) + '<br><span class="tag ' + s[0] + '">' + s[1] + "</span></td>" +
+        '<td><button type="button" class="btn" data-id="' + esc(m.id) + '">Edit</button></td></tr>';
+    }).join("") : '<tr><td colspan="7" class="empty">' + (data.length ? "Tidak ada yang cocok." : "Belum ada mitra. Klik + Tambah mitra.") + "</td></tr>";
+  }
+  $("q").addEventListener("input", render);
+  $("rows").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-id]"); if (!b) return;
+    var m = data.filter(function (x) { return x.id === b.getAttribute("data-id"); })[0];
+    if (m) openForm(m);
+  });
+
+  var F = { nama: "nama", gmail: "gmail", nilai: "nilai", bulan: "bulan", bhMin: "bagiHasilMin", bhMax: "bagiHasilMax", mulai: "mulai", berakhir: "berakhir",
+    wa: "wa", waK: "waKeluarga", rekNama: "rekNama", rekBank: "rekBank", rekNomor: "rekNomor", catatan: "catatan" };
+  function openForm(m) {
+    editId = m ? m.id : null;
+    $("fTitle").textContent = m ? "Edit mitra" : "Tambah mitra";
+    Object.keys(F).forEach(function (k) { var v = m ? m[F[k]] : ""; $(k).value = v == null || v === 0 ? "" : v; });
+    $("mesin").value = m ? (m.mesin || []).join(", ") : "";
+    $("tampil").checked = m ? m.tampil !== false : true;
+    $("fDel").hidden = !m; $("fDel").textContent = "Hapus mitra"; $("fDel").removeAttribute("data-c");
+    $("ferr").textContent = "";
+    $("modal").hidden = false; $("nama").focus();
+  }
+  function closeForm() { $("modal").hidden = true; }
+  $("add").addEventListener("click", function () { openForm(null); });
+  $("fCancel").addEventListener("click", closeForm);
+  $("modal").addEventListener("click", function (e) { if (e.target === $("modal")) closeForm(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("modal").hidden) closeForm(); });
+
+  // isi otomatis tanggal berakhir dari tanggal mulai + lama bulan
+  function autoEnd() {
+    if ($("berakhir").value || !$("mulai").value || !$("bulan").value) return;
+    var p = $("mulai").value.split("-"), d = new Date(Date.UTC(+p[0], +p[1] - 1 + Number($("bulan").value), +p[2]));
+    $("berakhir").value = d.toISOString().slice(0, 10);
+  }
+  $("mulai").addEventListener("change", autoEnd);
+  $("bulan").addEventListener("change", autoEnd);
+
+  $("f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var d = {};
+    Object.keys(F).forEach(function (k) { d[F[k]] = $(k).value; });
+    d.mesin = $("mesin").value; d.tampil = $("tampil").checked;
+    $("fSave").disabled = true; $("ferr").textContent = "";
+    api({ action: "save", id: editId, data: d }).then(function (r) {
+      $("fSave").disabled = false;
+      if (r._s === 401) { closeForm(); return showLogin("Sesi habis, silakan masuk lagi."); }
+      if (!r.ok) { $("ferr").textContent = r.error || "Gagal menyimpan"; return; }
+      data = r.mitra; render(); closeForm(); toast("Tersimpan. Halaman publik diperbarui dalam ±1 menit.");
+    }).catch(function () { $("fSave").disabled = false; $("ferr").textContent = "Server tidak bisa dihubungi."; });
+  });
+  $("fDel").addEventListener("click", function () {
+    var b = $("fDel");
+    if (!b.getAttribute("data-c")) { b.setAttribute("data-c", "1"); b.textContent = "Yakin hapus? Klik lagi"; return; }
+    api({ action: "delete", id: editId }).then(function (r) {
+      if (!r.ok) { toast(r.error || "Gagal menghapus"); return; }
+      data = r.mitra; render(); closeForm(); toast("Mitra dihapus.");
+    });
+  });
+
+  api({ action: "me" }).then(function (r) {
+    if (r.ok) showApp(r.user);
+    else showLogin(r._s === 503 ? r.error : "");
+  }).catch(function () { showLogin("Server tidak bisa dihubungi."); });
+})();
+</script>
+<script src="/assets/js/mdh-theme.js" defer></script>
+</body>
+</html>

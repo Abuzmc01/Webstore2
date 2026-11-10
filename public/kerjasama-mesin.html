@@ -185,8 +185,11 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
   }
 
   var data = [];
-  fetch("/assets/data/mitra-mesin.json", { cache: "no-cache" })
+  // data utama dari database admin (/api/mitra); file JSON hanya cadangan kalau database belum siap
+  fetch("/api/mitra")
     .then(function (r) { return r.json(); })
+    .then(function (j) { if (!j || !j.ok) throw 0; return j; })
+    .catch(function () { return fetch("/assets/data/mitra-mesin.json", { cache: "no-cache" }).then(function (r) { return r.json(); }); })
     .then(function (j) { data = j.mitra || []; render(data); loadStatus(); })
     .catch(function () { $("cards").innerHTML = '<div class="empty">Data mitra belum bisa dimuat.</div>'; });
 

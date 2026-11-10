@@ -1,8 +1,8 @@
 {
-  "_catatan": "Data mitra penitipan mesin untuk /kerjasama-mesin. Gmail WAJIB ditulis sudah disensor (contoh ang***@gmail.com), jangan tulis lengkap. Tanggal format YYYY-MM-DD. node = nama node di panel (untuk status online).",
+  "_catatan": "CADANGAN saja: data utama dikelola di /admin-mitra (database terenkripsi). File ini publik di GitHub, JANGAN tulis WhatsApp, rekening, atau Gmail lengkap. Data mitra penitipan mesin untuk /kerjasama-mesin. Gmail WAJIB ditulis sudah disensor (contoh ang***@gmail.com), jangan tulis lengkap. Tanggal format YYYY-MM-DD. node = nama node di panel (untuk status online).",
   "mitra": [
     {
-      "nama": "Aja Wahyu Ryansyah",
+      "nama": "Aja Wahyu Riyansyah",
       "gmail": "ang***@gmail.com",
       "mesin": ["SGP Medium-1"],
       "node": ["sgp-medium-1"],
