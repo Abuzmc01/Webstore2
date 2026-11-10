@@ -210,6 +210,7 @@ module.exports = async (req, res) => {
     if (b.action === "save") {
       const d = clean(b.data || {});
       if (!d.nama) return send(res, 400, { ok: false, error: "Nama wajib diisi." });
+      if (d.nilai && (d.nilai < 1500000 || d.nilai > 50000000)) return send(res, 400, { ok: false, error: "Nilai mesin harus antara Rp1.500.000 dan Rp50.000.000." });
       if (!d.mulai || !d.berakhir) return send(res, 400, { ok: false, error: "Tanggal mulai dan berakhir wajib diisi." });
       if (d.berakhir <= d.mulai) return send(res, 400, { ok: false, error: "Tanggal berakhir harus setelah tanggal mulai." });
       const now = Date.now();

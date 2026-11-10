@@ -108,7 +108,7 @@ tr:hover td{background:var(--panel2)}
       <div><label for="nama">Nama lengkap *</label><input id="nama" maxlength="80" required></div>
       <div><label for="gmail">Gmail</label><input id="gmail" type="email" maxlength="120"></div>
       <div class="full"><label for="mesin">Mesin dititipkan (pisahkan koma, sama dengan nama node di panel)</label><input id="mesin" maxlength="300" placeholder="contoh: SGP Medium-1, SGP Basic-2"></div>
-      <div><label for="nilai">Nilai mesin (Rp)</label><input id="nilai" inputmode="numeric" placeholder="3200000"></div>
+      <div><label for="nilai">Nilai mesin / dana disetor (Rp1,5 jt – Rp50 jt)</label><input id="nilai" inputmode="numeric" placeholder="3200000"></div>
       <div><label for="bulan">Lama bagi hasil (bulan)</label><input id="bulan" inputmode="numeric" placeholder="10"></div>
       <div><label for="bhMin">Estimasi bagi hasil minimum (Rp)</label><input id="bhMin" inputmode="numeric" placeholder="4500000"></div>
       <div><label for="bhMax">Estimasi bagi hasil maksimum (Rp)</label><input id="bhMax" inputmode="numeric" placeholder="8000000"></div>
@@ -224,6 +224,15 @@ tr:hover td{background:var(--panel2)}
     var p = $("mulai").value.split("-"), d = new Date(Date.UTC(+p[0], +p[1] - 1 + Number($("bulan").value), +p[2]));
     $("berakhir").value = d.toISOString().slice(0, 10);
   }
+  // estimasi bagi hasil otomatis, sebanding dengan patokan Medium (Rp3.200.000 = Rp450 rb – Rp800 rb per bulan)
+  function autoBH() {
+    var v = Number(String($("nilai").value).replace(/\D/g, "")), b = Number($("bulan").value) || 10, f = v / 3200000;
+    if (!v) return;
+    $("bhMin").value = Math.round(450000 * f * b / 1000) * 1000;
+    $("bhMax").value = Math.round(800000 * f * b / 1000) * 1000;
+  }
+  $("nilai").addEventListener("change", autoBH);
+  $("bulan").addEventListener("change", autoBH);
   $("mulai").addEventListener("change", autoEnd);
   $("bulan").addEventListener("change", autoEnd);
 

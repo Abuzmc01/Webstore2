@@ -93,11 +93,18 @@ h2{margin:40px 0 12px;font-size:22px;color:#fff}
 .tiers b{display:block;color:#fff;font-size:19px;margin:2px 0}
 .tiers span{color:var(--muted);font-size:13px}
 .rf input{display:block;width:100%;margin-top:4px;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:#09090c;color:#fff;font-size:15px;font-family:inherit}
+.in2{display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px}
+.in2 label{font-size:12.5px;color:var(--dim)}
+.in2 input:not([type=range]){display:block;width:100%;margin-top:4px;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:#09090c;color:#fff;font-size:16px;font-weight:600;font-family:inherit}
+.in2 input[type=range],.sim input[type=range]{width:100%;margin:10px 0 4px;accent-color:#ff3150}
+.sim .tiers{margin:14px 0 0}
+.tiers i{font-style:normal;opacity:.75}
+.tbl.wrap table{min-width:0}
 .ul{margin:0;padding-left:20px;color:var(--muted)}
 .ul li{margin:4px 0}
 .ul b{color:#fff}
 @media(max-width:900px){.tiers{grid-template-columns:1fr 1fr}}
-@media(max-width:700px){.sim .out,.tiers,.rf .in{grid-template-columns:1fr}}
+@media(max-width:700px){.sim .out,.rf .in{grid-template-columns:1fr}.tiers b{font-size:16px}}
 .note{margin:30px 0 0;padding:16px 18px;border-left:3px solid var(--red2);background:rgba(255,25,50,.06);color:var(--muted);border-radius:0 10px 10px 0;font-size:14px}
 .note strong{color:#fff}
 .empty{padding:26px;border:1px dashed var(--line);border-radius:14px;text-align:center;color:var(--muted)}
@@ -153,24 +160,31 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
 </tbody></table></div>
 
 <h2 id="sistem-stok">Cara menghitung pendapatan: sistem stok</h2>
-<p style="color:var(--muted);margin-top:0">Pendapatan <b style="color:#fff">tidak memakai persentase</b>. Besarnya ditentukan MineIDHost berdasarkan <b style="color:#fff">stok RAM mesin yang terjual</b> ke pelanggan pada bulan itu. Contoh untuk mesin Medium 128 GB (Rp3.200.000):</p>
-<div class="tiers" id="tiers">
-  <div data-t="0"><small>RAM terjual di bawah 20 GB</small><b>Rp0</b><span>bulan itu tidak ada bagi hasil</span></div>
-  <div data-t="1"><small>RAM terjual 20–50 GB / 128 GB</small><b>Rp450.000</b><span>per bulan</span></div>
-  <div data-t="2"><small>RAM terjual ± 80 GB / 128 GB</small><b>Rp500.000 – Rp600.000</b><span>per bulan</span></div>
-  <div data-t="3"><small>Stok habis (128 GB / 128 GB)</small><b>Rp800.000</b><span>per bulan (maksimum)</span></div>
-</div>
+<p style="color:var(--muted);margin-top:0">Pendapatan <b style="color:#fff">tidak memakai persentase keuntungan</b>. Besarnya ditentukan MineIDHost berdasarkan <b style="color:#fff">stok RAM yang terjual</b> ke pelanggan pada bulan itu. Patokannya mesin Medium 128 GB seharga Rp3.200.000, dan berlaku <b style="color:#fff">sebanding</b> untuk dana penitipan berapa pun dari Rp1.500.000 sampai Rp50.000.000.</p>
 
 <div class="sim">
-  <div class="hd"><b>Simulasi mesin Medium 128 GB</b><span>RAM terjual: <b id="simGb">80</b> GB / 128 GB</span></div>
-  <input type="range" id="simRange" min="0" max="128" step="1" value="80" aria-label="RAM terjual (GB)">
-  <div class="scale"><span>0 GB</span><span>64 GB</span><span>128 GB (habis)</span></div>
+  <div class="hd"><b>Simulasi pendapatan</b><span>Dana disetor: <b id="simDanaTxt">Rp3.200.000</b></span></div>
+  <div class="in2">
+    <label>Dana penitipan (Rp1,5 juta – Rp50 juta)<input id="simDana" inputmode="numeric" value="3.200.000"></label>
+    <input type="range" id="simDanaR" min="1500000" max="50000000" step="100000" value="3200000" aria-label="Dana penitipan">
+  </div>
+  <div class="hd" style="margin-top:16px"><b>Stok terjual bulan ini</b><span><b id="simPct">63</b>% <span id="simGbEq" style="color:var(--dim)">(setara 80 / 128 GB)</span></span></div>
+  <input type="range" id="simRange" min="0" max="100" step="1" value="63" aria-label="Stok terjual (persen)">
+  <div class="scale"><span>0%</span><span>50%</span><span>100%</span></div>
+
+  <div class="tiers" id="tiers">
+    <div data-t="0"><small>Terjual di bawah 16% <i>(&lt; 20 GB)</i></small><b data-v="0">Rp0</b><span>bulan itu tidak ada bagi hasil</span></div>
+    <div data-t="1"><small>Terjual 16–39% <i>(20–50 GB)</i></small><b data-v="1">-</b><span>per bulan</span></div>
+    <div data-t="2"><small>Terjual 40–81% <i>(± 80 GB)</i></small><b data-v="2">-</b><span>per bulan</span></div>
+    <div data-t="3"><small>Stok habis, 82% ke atas <i>(105 GB ke atas)</i></small><b data-v="3">-</b><span>per bulan (maksimum)</span></div>
+  </div>
+
   <div class="out">
     <div><small>Pendapatan bulan ini</small><b id="simMonth">-</b></div>
     <div><small>Kalau stabil 5 bulan</small><b id="sim5">-</b></div>
     <div><small>Kalau stabil 10 bulan</small><b id="sim10">-</b></div>
   </div>
-  <p style="margin:12px 0 0;color:var(--dim);font-size:12.5px">Simulasi hanya gambaran. Stok yang terjual berubah setiap bulan mengikuti pesanan pelanggan, jadi pendapatan bisa naik atau turun.</p>
+  <p style="margin:12px 0 0;color:var(--dim);font-size:12.5px">GB dalam kurung adalah contoh untuk mesin 128 GB. Simulasi hanya gambaran: stok yang terjual berubah setiap bulan mengikuti pesanan pelanggan, jadi pendapatan bisa naik atau turun.</p>
 </div>
 
 <h2 id="pembayaran">Jadwal pembayaran & bukti stok</h2>
@@ -183,7 +197,7 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
 
 <h2 id="ketentuan">Ketentuan & tanggung jawab</h2>
 <p style="color:var(--muted);margin-top:0">Mitra cukup <b style="color:#fff">bayar sekali</b> di awal. Urusan teknis sehari-hari ditangani MineIDHost.</p>
-<div class="tbl"><table>
+<div class="tbl wrap"><table>
 <thead><tr><th>Hal</th><th>Ditanggung mitra?</th></tr></thead>
 <tbody>
 <tr><td>Biaya listrik & jaringan</td><td class="yes">Tidak, ditanggung MineIDHost</td></tr>
@@ -197,19 +211,19 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
 
 <h3 style="margin:26px 0 8px;color:#fff;font-size:18px" id="berhenti">Kalau suspend/terminate dan mitra memilih berhenti</h3>
 <p style="color:var(--muted);margin-top:0;font-size:14.5px">Mitra yang tidak ingin membayar 30% untuk melanjutkan akan mendapat pengembalian dana dengan rumus:</p>
-<div class="tbl" style="margin-bottom:12px"><table><tbody>
+<div class="tbl wrap" style="margin-bottom:12px"><table><tbody>
 <tr><td><b>Pengembalian</b> = harga penitipan awal − potongan 30% − total bagi hasil yang sudah diterima</td></tr>
 <tr><td>Kalau total bagi hasil yang sudah diterima sama dengan atau lebih besar dari sisa itu (sudah balik modal atau untung), <b>tidak ada pengembalian</b>. Setelah berhenti, bagi hasil bulan berikutnya juga tidak dibayarkan.</td></tr>
 </tbody></table></div>
 <div class="sim rf">
-  <div class="hd"><b>Hitung pengembalian</b></div>
+  <div class="hd"><b>Hitung pengembalian</b><span>ikut dana & stok di simulasi atas</span></div>
   <div class="in" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
     <label style="font-size:12.5px;color:var(--dim)">Harga penitipan awal (Rp)<input id="rfModal" inputmode="numeric" value="3.200.000"></label>
-    <label style="font-size:12.5px;color:var(--dim)">Total bagi hasil yang sudah diterima (Rp)<input id="rfTerima" inputmode="numeric" value="1.500.000"></label>
+    <label style="font-size:12.5px;color:var(--dim)">Sudah berjalan (bulan)<input id="rfBulan" inputmode="numeric" value="3"></label>
   </div>
   <div class="out">
     <div><small>Potongan 30%</small><b id="rfPot">-</b></div>
-    <div><small>Sudah diterima</small><b id="rfDit">-</b></div>
+    <div><small>Bagi hasil sudah diterima</small><b id="rfDit">-</b></div>
     <div><small>Dana dikembalikan</small><b id="rfHasil" style="color:var(--ok)">-</b></div>
   </div>
 </div>
@@ -284,36 +298,52 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
     $("sMitra").textContent = list.length; $("sMesin").textContent = mesin; $("sAktif").textContent = aktif;
   }
 
-  // simulasi sistem stok (Medium 128 GB)
-  function tierOf(gb) { return gb >= 128 ? 3 : gb > 50 ? 2 : gb >= 20 ? 1 : 0; }
+  // simulasi sistem stok: patokan Medium 128 GB = Rp3.200.000, sebanding untuk Rp1,5 jt – Rp50 jt
+  var BASE = 3200000, MIN = 1500000, MAX = 50000000;
   var RANGE = [[0, 0], [450000, 450000], [500000, 600000], [800000, 800000]];
-  function fmt(a, b, n) { return a === b ? rp(a * n) : rp(a * n) + " – " + rp(b * n); }
+  function num(v) { return Number(String(v).replace(/\D/g, "")) || 0; }
+  function tierOf(pct) { var gb = Math.round(pct * 128 / 100); return gb >= 105 ? 3 : gb > 50 ? 2 : gb >= 20 ? 1 : 0; }
+  function scaled(t, dana) { var f = dana / BASE; return [Math.round(RANGE[t][0] * f / 1000) * 1000, Math.round(RANGE[t][1] * f / 1000) * 1000]; }
+  function fmt(r, n) { return r[0] === r[1] ? rp(r[0] * n) : rp(r[0] * n) + " – " + rp(r[1] * n); }
+  function dana() { return Math.min(MAX, Math.max(MIN, num($("simDana").value) || BASE)); }
+  var cur = { dana: BASE, r: [0, 0] };
   function sim() {
-    var gb = +$("simRange").value, t = tierOf(gb), r = RANGE[t];
-    $("simGb").textContent = gb;
-    $("simMonth").textContent = fmt(r[0], r[1], 1);
-    $("sim5").textContent = fmt(r[0], r[1], 5);
-    $("sim10").textContent = fmt(r[0], r[1], 10);
-    document.querySelectorAll("#tiers [data-t]").forEach(function (d) { d.classList.toggle("on", +d.getAttribute("data-t") === t); });
+    var d = dana(), pct = +$("simRange").value, t = tierOf(pct), r = scaled(t, d);
+    cur = { dana: d, r: r };
+    $("simDanaTxt").textContent = rp(d);
+    $("simPct").textContent = pct;
+    $("simGbEq").textContent = "(setara " + Math.round(pct * 128 / 100) + " / 128 GB)";
+    $("simMonth").textContent = fmt(r, 1);
+    $("sim5").textContent = fmt(r, 5);
+    $("sim10").textContent = fmt(r, 10);
+    document.querySelectorAll("#tiers [data-t]").forEach(function (el) {
+      var i = +el.getAttribute("data-t");
+      el.classList.toggle("on", i === t);
+      el.querySelector("b").textContent = fmt(scaled(i, d), 1);
+    });
+    $("rfModal").value = d.toLocaleString("id-ID");
+    rf();
   }
   $("simRange").addEventListener("input", sim);
-  sim();
-
-  // hitung pengembalian kalau berhenti saat suspend/terminate
-  function num(v) { return Number(String(v).replace(/\D/g, "")) || 0; }
-  function rf() {
-    var modal = num($("rfModal").value), terima = num($("rfTerima").value);
-    var pot = Math.round(modal * 0.3), hasil = Math.max(0, modal - pot - terima);
-    $("rfPot").textContent = "− " + rp(pot);
-    $("rfDit").textContent = "− " + rp(terima);
-    $("rfHasil").textContent = rp(hasil);
-  }
-  ["rfModal", "rfTerima"].forEach(function (id) {
-    $(id).addEventListener("input", function () {
-      var n = num(this.value); this.value = n ? n.toLocaleString("id-ID") : ""; rf();
-    });
+  $("simDanaR").addEventListener("input", function () { $("simDana").value = (+this.value).toLocaleString("id-ID"); sim(); });
+  $("simDana").addEventListener("input", function () {
+    var n = num(this.value); this.value = n ? n.toLocaleString("id-ID") : "";
+    if (n >= MIN && n <= MAX) { $("simDanaR").value = n; sim(); }
   });
-  rf();
+  $("simDana").addEventListener("blur", function () { var d = dana(); this.value = d.toLocaleString("id-ID"); $("simDanaR").value = d; sim(); });
+
+  // hitung pengembalian kalau berhenti saat suspend/terminate (otomatis dari simulasi)
+  function rf() {
+    var modal = num($("rfModal").value), bln = Math.min(120, num($("rfBulan").value));
+    var pot = Math.round(modal * 0.3), terima = [cur.r[0] * bln, cur.r[1] * bln];
+    var back = [Math.max(0, modal - pot - terima[1]), Math.max(0, modal - pot - terima[0])];
+    $("rfPot").textContent = "− " + rp(pot);
+    $("rfDit").textContent = "− " + fmt(terima, 1);
+    $("rfHasil").textContent = back[0] === back[1] ? rp(back[0]) : rp(back[0]) + " – " + rp(back[1]);
+  }
+  $("rfModal").addEventListener("input", function () { var n = num(this.value); this.value = n ? n.toLocaleString("id-ID") : ""; rf(); });
+  $("rfBulan").addEventListener("input", function () { this.value = String(num(this.value) || "").slice(0, 3); rf(); });
+  sim();
 
   var data = [];
   // data utama dari database admin (/api/mitra); file JSON hanya cadangan kalau database belum siap
