@@ -83,7 +83,7 @@ function publicView(list) {
   return list.filter((m) => m.tampil !== false).map((m) => ({
     nama: m.nama, gmail: sensor(m.gmail), mesin: m.mesin || [], node: m.node || [],
     nilai: m.nilai, bagiHasilMin: m.bagiHasilMin, bagiHasilMax: m.bagiHasilMax, bulan: m.bulan,
-    mulai: m.mulai, berakhir: m.berakhir
+    mulai: m.mulai, berakhir: m.berakhir, bayar: m.bayar || "bulanan"
   }));
 }
 
@@ -134,6 +134,7 @@ function clean(b) {
     bulan: Math.min(120, money(b.bulan)),
     mulai: date(b.mulai),
     berakhir: date(b.berakhir),
+    bayar: b.bayar === "5bulan" ? "5bulan" : "bulanan",
     catatan: clip(b.catatan, 1000),
     tampil: b.tampil !== false
   };

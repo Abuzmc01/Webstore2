@@ -70,6 +70,32 @@ h2{margin:40px 0 12px;font-size:22px;color:#fff}
 .prog .lb{display:flex;justify-content:space-between;font-size:12px;color:var(--dim)}
 .prog .tr{height:6px;margin-top:5px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
 .prog .fl{height:100%;border-radius:99px;background:linear-gradient(90deg,#ff3150,#ff6a3d)}
+.tbl{margin:0;overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.tbl table{width:100%;min-width:560px;border-collapse:collapse;font-size:14px}
+.tbl th{background:rgba(255,49,80,.09);color:#fff;text-align:left;font-weight:600;padding:11px 13px}
+.tbl td{padding:11px 13px;border-top:1px solid var(--line);color:var(--muted)}
+.tbl td b{color:#fff;font-weight:600}
+.yes{color:var(--ok)!important;font-weight:600}
+.part{color:var(--warn)!important;font-weight:600}
+.sim{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.sim .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.sim .hd b{color:#fff;font-size:15px}
+.sim input[type=range]{width:100%;margin:14px 0 6px;accent-color:#ff3150}
+.sim .scale{display:flex;justify-content:space-between;color:var(--dim);font-size:12px}
+.sim .out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.sim .out div{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#09090c}
+.sim .out small{display:block;color:var(--dim);font-size:12px}
+.sim .out b{color:#fff;font-size:18px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 12px}
+.tiers div{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.tiers div.on{border-color:rgba(255,49,80,.55);background:linear-gradient(135deg,rgba(255,23,63,.10),var(--panel))}
+.tiers small{display:block;color:var(--dim);font-size:12.5px}
+.tiers b{display:block;color:#fff;font-size:19px;margin:2px 0}
+.tiers span{color:var(--muted);font-size:13px}
+.ul{margin:0;padding-left:20px;color:var(--muted)}
+.ul li{margin:4px 0}
+.ul b{color:#fff}
+@media(max-width:700px){.sim .out,.tiers{grid-template-columns:1fr}}
 .note{margin:30px 0 0;padding:16px 18px;border-left:3px solid var(--red2);background:rgba(255,25,50,.06);color:var(--muted);border-radius:0 10px 10px 0;font-size:14px}
 .note strong{color:#fff}
 .empty{padding:26px;border:1px dashed var(--line);border-radius:14px;text-align:center;color:var(--muted)}
@@ -110,20 +136,72 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
 <h2>Cara kerjanya</h2>
 <ol class="steps">
   <li><b>Hubungi kami</b><br>lewat WhatsApp atau email untuk memilih jenis mesin dan periode.</li>
-  <li><b>Kesepakatan</b><br>nilai mesin, periode, dan estimasi bagi hasil ditulis dalam perjanjian.</li>
+  <li><b>Bayar sekali</b><br>sesuai paket mesin. Tidak ada biaya bulanan setelahnya.</li>
   <li><b>Mesin dipasang</b><br>di jaringan MineIDHost dan bisa dipantau di <a href="/status">Status Nodes</a>.</li>
-  <li><b>Bagi hasil</b><br>dibayarkan selama periode kerja sama sesuai perjanjian.</li>
+  <li><b>Bagi hasil sesuai stok</b><br>dibayar tiap bulan, disertai bukti stok RAM langsung dari mesin.</li>
 </ol>
+
+<h2 id="paket">Paket penitipan</h2>
+<div class="tbl"><table>
+<thead><tr><th>Jenis mesin</th><th>Harga penitipan (sekali bayar)</th><th>Pendapatan per bulan</th><th>Estimasi keuntungan</th></tr></thead>
+<tbody>
+<tr><td><b>Basic / Medium</b></td><td>Rp1.500.000</td><td>± Rp500.000</td><td>Rp1.500.000 – Rp4.500.000</td></tr>
+<tr><td><b>Basic – Medium</b></td><td>Rp2.000.000 – Rp2.500.000</td><td>± Rp500.000</td><td>Rp1.500.000 – Rp4.500.000</td></tr>
+<tr><td><b>Medium (RAM 128 GB)</b></td><td>Rp3.200.000</td><td>Rp450.000 – Rp800.000</td><td>Rp1.000.000 – Rp3.000.000</td></tr>
+</tbody></table></div>
+
+<h2 id="sistem-stok">Cara menghitung pendapatan: sistem stok</h2>
+<p style="color:var(--muted);margin-top:0">Pendapatan <b style="color:#fff">tidak memakai persentase</b>. Besarnya ditentukan MineIDHost berdasarkan <b style="color:#fff">stok RAM mesin yang terjual</b> ke pelanggan pada bulan itu. Contoh untuk mesin Medium 128 GB (Rp3.200.000):</p>
+<div class="tiers" id="tiers">
+  <div data-t="0"><small>RAM terjual 20–50 GB / 128 GB</small><b>Rp450.000</b><span>per bulan (minimum)</span></div>
+  <div data-t="1"><small>RAM terjual ± 80 GB / 128 GB</small><b>Rp500.000 – Rp600.000</b><span>per bulan</span></div>
+  <div data-t="2"><small>Stok habis (128 GB / 128 GB)</small><b>Rp800.000</b><span>per bulan (maksimum)</span></div>
+</div>
+
+<div class="sim">
+  <div class="hd"><b>Simulasi mesin Medium 128 GB</b><span>RAM terjual: <b id="simGb">80</b> GB / 128 GB</span></div>
+  <input type="range" id="simRange" min="0" max="128" step="1" value="80" aria-label="RAM terjual (GB)">
+  <div class="scale"><span>0 GB</span><span>64 GB</span><span>128 GB (habis)</span></div>
+  <div class="out">
+    <div><small>Pendapatan bulan ini</small><b id="simMonth">-</b></div>
+    <div><small>Kalau stabil 5 bulan</small><b id="sim5">-</b></div>
+    <div><small>Kalau stabil 10 bulan</small><b id="sim10">-</b></div>
+  </div>
+  <p style="margin:12px 0 0;color:var(--dim);font-size:12.5px">Simulasi hanya gambaran. Stok yang terjual berubah setiap bulan mengikuti pesanan pelanggan, jadi pendapatan bisa naik atau turun.</p>
+</div>
+
+<h2 id="pembayaran">Jadwal pembayaran & bukti stok</h2>
+<ul class="ul">
+  <li>Dibayar <b>setiap bulan</b> pada <b>tanggal 29 sampai tanggal 5</b> bulan berikutnya, lewat transfer ke rekening mitra.</li>
+  <li>Bisa juga memilih dibayar <b>sekaligus setiap 5 bulan</b> (2 kali dalam 10 bulan).</li>
+  <li>Setiap pembayaran disertai <b>bukti stok RAM</b> yang diambil langsung dari mesin lewat SSH. Mitra bisa mengecek sendiri apakah stok sedang habis atau masih banyak, dan apakah uang yang diterima sudah sesuai.</li>
+  <li>Status online mesin bisa dipantau kapan saja di <a href="/status">Status Nodes</a>.</li>
+</ul>
+
+<h2 id="ketentuan">Ketentuan & tanggung jawab</h2>
+<p style="color:var(--muted);margin-top:0">Mitra cukup <b style="color:#fff">bayar sekali</b> di awal. Urusan teknis sehari-hari ditangani MineIDHost.</p>
+<div class="tbl"><table>
+<thead><tr><th>Hal</th><th>Ditanggung mitra?</th></tr></thead>
+<tbody>
+<tr><td>Biaya listrik & jaringan</td><td class="yes">Tidak, ditanggung MineIDHost</td></tr>
+<tr><td>Maintenance & perawatan</td><td class="yes">Tidak, ditanggung MineIDHost</td></tr>
+<tr><td>Pengiriman & pengambilan mesin</td><td class="yes">Tidak, ditanggung MineIDHost</td></tr>
+<tr><td>Kerusakan hardware</td><td class="part">Ikut membantu 30% dari harga penitipan</td></tr>
+<tr><td>Kehilangan atau kerusakan perangkat</td><td class="part">Ikut menanggung 30% dari harga penitipan</td></tr>
+<tr><td>Suspend dari provider utama</td><td class="part">Ikut membantu 30% dari harga penitipan</td></tr>
+<tr><td>Diputus permanen (terminate) oleh provider utama</td><td>Harga penitipan awal dikembalikan</td></tr>
+</tbody></table></div>
+<p style="color:var(--muted);font-size:14px">Kalau terjadi kerusakan, kehilangan, atau suspend dan mitra <b style="color:#fff">tidak ingin ikut menanggung 30%</b>, mitra boleh berhenti kapan saja. Setelah berhenti, bagi hasil bulan berikutnya tidak dibayarkan lagi.</p>
 
 <h2>Daftar mitra</h2>
 <div class="sum" id="sum" hidden>
-  <div><small>Mitra</small><b id="sMitra">0</b></div>
-  <div><small>Mesin dititipkan</small><b id="sMesin">0</b></div>
-  <div><small>Kerja sama aktif</small><b id="sAktif" style="color:var(--ok)">0</b></div>
+  <div><small>Mitra</small><b id="sMitra">–</b></div>
+  <div><small>Mesin dititipkan</small><b id="sMesin">–</b></div>
+  <div><small>Kerja sama aktif</small><b id="sAktif" style="color:var(--ok)">–</b></div>
 </div>
 <div class="cards" id="cards"><div class="empty">Memuat...</div></div>
 
-<div class="note"><strong>Catatan:</strong> angka bagi hasil adalah <strong>estimasi</strong> yang bergantung pada pemakaian mesin oleh pelanggan, dan tidak dijamin. Ketentuan lengkap mengikuti perjanjian tertulis antara MineIDHost dan setiap mitra. Email mitra disensor untuk menjaga privasi.</div>
+<div class="note"><strong>Catatan:</strong> angka bagi hasil adalah <strong>estimasi</strong> yang bergantung pada stok RAM yang terjual ke pelanggan setiap bulan, dan tidak dijamin. Ketentuan lengkap mengikuti perjanjian tertulis antara MineIDHost dan setiap mitra. Email mitra disensor untuk menjaga privasi.</div>
 </main>
 
 <footer>
@@ -176,6 +254,7 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
         "<div><small>Estimasi bagi hasil" + (m.bulan ? " (" + m.bulan + " bulan)" : "") + "</small><span>" + bh + "</span></div>" +
         "<div><small>Mulai penitipan</small><span>" + tgl(m.mulai) + "</span></div>" +
         "<div><small>Periode bagi hasil berakhir</small><span>" + tgl(m.berakhir) + "</span></div>" +
+        '<div class="full"><small>Jadwal pembayaran</small><span>' + (m.bayar === "5bulan" ? "Sekaligus setiap 5 bulan" : "Setiap bulan, tanggal 29–5") + "</span></div>" +
         "</div>" +
         '<div class="prog"><div class="lb"><span>Periode berjalan ' + pct + "%</span><span>" + (st === "selesai" ? "Selesai" : st === "belum" ? "Belum dimulai" : sisa + " hari lagi") + "</span></div>" +
         '<div class="tr"><div class="fl" style="width:' + pct + '%"></div></div></div></div>';
@@ -183,6 +262,21 @@ footer a{color:var(--muted);margin:0 8px;text-decoration:none}
     $("sum").hidden = !list.length;
     $("sMitra").textContent = list.length; $("sMesin").textContent = mesin; $("sAktif").textContent = aktif;
   }
+
+  // simulasi sistem stok (Medium 128 GB)
+  function tierOf(gb) { return gb >= 128 ? 2 : gb > 50 ? 1 : 0; }
+  var RANGE = [[450000, 450000], [500000, 600000], [800000, 800000]];
+  function fmt(a, b, n) { return a === b ? rp(a * n) : rp(a * n) + " – " + rp(b * n); }
+  function sim() {
+    var gb = +$("simRange").value, t = tierOf(gb), r = RANGE[t];
+    $("simGb").textContent = gb;
+    $("simMonth").textContent = fmt(r[0], r[1], 1);
+    $("sim5").textContent = fmt(r[0], r[1], 5);
+    $("sim10").textContent = fmt(r[0], r[1], 10);
+    document.querySelectorAll("#tiers [data-t]").forEach(function (d) { d.classList.toggle("on", +d.getAttribute("data-t") === t); });
+  }
+  $("simRange").addEventListener("input", sim);
+  sim();
 
   var data = [];
   // data utama dari database admin (/api/mitra); file JSON hanya cadangan kalau database belum siap
