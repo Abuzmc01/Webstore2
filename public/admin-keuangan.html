@@ -250,7 +250,7 @@ tr:hover td{background:var(--panel2)}
         '<button type="button" class="btn sm" data-lunas="' + t.id + '">Lunas</button></div>';
     }).join("") : '<div class="empty">Semua dana talang sudah diganti ✅</div>';
     renderRows();
-    $("hint").innerHTML = "Catat cepat dari WhatsApp bot keuangan: <code>!wd 1.500.000</code> · <code>!baremetal sgp-medium-1 Ryzen 1,2jt</code> · <code>!talang domain mineidhost.net 3.330</code> · <code>!lunas ID</code> · <code>!rekap</code>. Laporan otomatis dikirim ke grup setiap tanggal " + D.cutoff + ". Dana talang mengurangi total dana setelah ditandai lunas.";
+    $("hint").innerHTML = "📲 Setiap catatan baru, perubahan, hapus, dan dana talang lunas otomatis dikirim ke grup WhatsApp keuangan. Rekap total dikirim tanggal " + D.cutoff + " pukul 23.29 WIB, lalu tanggal " + (D.cutoff + 1) + " mulai periode baru (data lama tetap bisa dilihat lewat pilihan periode). Dana talang mengurangi total dana setelah ditandai lunas.";
   }
 
   function renderRows() {
@@ -268,7 +268,7 @@ tr:hover td{background:var(--panel2)}
         "<td>" + esc(t.nama || "") + (t.tipe ? " <small>" + esc(t.tipe) + "</small>" : "") + (t.ket ? "<small>" + esc(t.ket) + "</small>" : "") +
         (t.jenis === "keluar" && !isTal(t.kategori) ? "<small>Sumber: " + ({ midtrans: "Midtrans", voucher: "refund voucher" }[t.sumber] || "dana bisnis") + "</small>" : "") +
         (t.lunas ? "<small>Diganti " + tgl(t.lunasTgl) + " dari " + (t.lunasDari === "midtrans" ? "Midtrans" : "bisnis") + "</small>" : "") + "</td>" +
-        "<td>" + esc(t.admin) + ' <span class="tag via">' + (t.via === "bot" ? "WA" : "web") + "</span></td>" +
+        "<td>" + esc(t.admin) + '' + (t.diubahOleh ? '<small>diubah ' + esc(t.diubahOleh) + "</small>" : "") + "</td>" +
         '<td class="num ' + (k.jenis === "masuk" ? "pos" : "") + '">' + (k.jenis === "masuk" ? "+" : "−") + rp(t.nominal) + "</td>" +
         '<td><button type="button" class="btn sm" data-edit="' + t.id + '">Edit</button></td></tr>';
     }).join("") : '<tr><td colspan="7" class="empty">Tidak ada transaksi.</td></tr>';
