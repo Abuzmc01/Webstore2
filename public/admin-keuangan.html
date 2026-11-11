@@ -169,7 +169,7 @@ tr:hover td{background:var(--panel2)}
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var D = null, me = "", editId = null;
-  var KAT_COLOR = { midtrans: "#2ecc71", bisnis: "#6aa8ff", refund: "#34d399", cloud: "#a78bfa", baremetal: "#ff3150", endorse: "#f472b6", jasa: "#22d3ee", talang_domain: "#f5b041", talang_lain: "#fb923c", lain: "#9ca3af" };
+  var KAT_COLOR = { midtrans: "#2ecc71", bisnis: "#6aa8ff", refund: "#34d399", cloud: "#a78bfa", baremetal: "#ff3150", endorse: "#f472b6", jasa: "#22d3ee", gaji: "#facc15", talang_domain: "#f5b041", talang_lain: "#fb923c", lain: "#9ca3af" };
   var FIELDS = {
     midtrans: { nama: null, tipe: null },
     bisnis: { nama: null, tipe: null },
@@ -178,6 +178,7 @@ tr:hover td{background:var(--panel2)}
     baremetal: { nama: "Nama node", tipe: "Tipe mesin" },
     endorse: { nama: "Nama yang di-endorse", tipe: null },
     jasa: { nama: "Jenis jasa (misal: setup panel)", tipe: null },
+    gaji: { nama: "Nama karyawan", tipe: "Jabatan (misal: CS, Technical)" },
     talang_domain: { nama: "Domain", tipe: "Tipe domain (.com, .net, ...)" },
     talang_lain: { nama: null, tipe: null },
     lain: { nama: null, tipe: null }

@@ -34,6 +34,7 @@ const KATEGORI = {
   baremetal: { jenis: "keluar", label: "Baremetal" },
   endorse: { jenis: "keluar", label: "Endorse" },
   jasa: { jenis: "keluar", label: "Jasa developer" },
+  gaji: { jenis: "keluar", label: "Gaji karyawan" },
   talang_domain: { jenis: "keluar", label: "Dana talang: domain" },
   talang_lain: { jenis: "keluar", label: "Dana talang: lainnya" },
   lain: { jenis: "keluar", label: "Pengeluaran lainnya" }
@@ -160,7 +161,7 @@ function reportText(r) {
   if (k.refund) L.push("• Refund dari provider: " + rp(k.refund));
   L.push("");
   L.push("💸 *Pengeluaran: " + rp(r.pengeluaran) + "*");
-  ["cloud", "baremetal", "endorse", "jasa", "talang_domain", "talang_lain", "lain"].forEach((x) => {
+  ["cloud", "baremetal", "endorse", "jasa", "gaji", "talang_domain", "talang_lain", "lain"].forEach((x) => {
     if (k[x]) L.push("• " + KATEGORI[x].label + ": " + rp(k[x]));
   });
   if (!r.pengeluaran) L.push("• (tidak ada)");

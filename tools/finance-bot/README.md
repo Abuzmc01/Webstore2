@@ -46,6 +46,7 @@ Database Upstash yang dipakai admin mitra ikut dipakai di sini, tidak perlu buat
 | Akun cloud | `!cloud Vultr akun utama 250rb` |
 | Baremetal | `!baremetal sgp-medium-1 Ryzen 9 7950X 1.200.000` |
 | Endorse | `!endorse NamaKreator 300rb` |
+| Gaji karyawan | `!gaji Rizz CS 1,5jt` |
 | Jasa developer | `!jasa setup panel 250rb` (atau `!setup panel 250rb`) |
 | Dana talang domain | `!talang domain mineidhost.net 3.330` |
 | Dana talang lainnya | `!talang beli kabel LAN 50rb` |

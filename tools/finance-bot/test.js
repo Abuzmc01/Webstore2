@@ -13,6 +13,7 @@ const cases = [
   ["!baremetal sgp-medium-1 Ryzen 9 7950X 1.200.000 tgl 5 nov", { kategori: "baremetal", nama: "sgp-medium-1", tipe: "Ryzen 9 7950X", nominal: 1200000, tanggal: Y + "-11-05" }],
   ["!bm basic-2 128GB Rp850.000 dari midtrans", { kategori: "baremetal", nama: "basic-2", tipe: "128GB", nominal: 850000, sumber: "midtrans" }],
   ["!refund Vultr 450rb kelebihan tagihan", { kategori: "refund", nama: "Vultr", ket: "kelebihan tagihan", nominal: 450000 }],
+  ["!gaji Rizz CS 1,5jt 28/11/2026", { kategori: "gaji", nama: "Rizz", tipe: "CS", nominal: 1500000, tanggal: "2026-11-28" }],
   ["!cloud Vultr akun utama 250rb", { kategori: "cloud", nama: "Vultr akun utama", nominal: 250000 }],
   ["!endorse Windah Basudara 1jt", { kategori: "endorse", nama: "Windah Basudara", nominal: 1000000 }],
   ["!jasa setup panel 250k", { kategori: "jasa", nama: "setup panel", nominal: 250000 }],
