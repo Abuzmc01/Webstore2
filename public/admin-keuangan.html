@@ -169,10 +169,11 @@ tr:hover td{background:var(--panel2)}
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var D = null, me = "", editId = null;
-  var KAT_COLOR = { midtrans: "#2ecc71", bisnis: "#6aa8ff", cloud: "#a78bfa", baremetal: "#ff3150", endorse: "#f472b6", jasa: "#22d3ee", talang_domain: "#f5b041", talang_lain: "#fb923c", lain: "#9ca3af" };
+  var KAT_COLOR = { midtrans: "#2ecc71", bisnis: "#6aa8ff", refund: "#34d399", cloud: "#a78bfa", baremetal: "#ff3150", endorse: "#f472b6", jasa: "#22d3ee", talang_domain: "#f5b041", talang_lain: "#fb923c", lain: "#9ca3af" };
   var FIELDS = {
     midtrans: { nama: null, tipe: null },
     bisnis: { nama: null, tipe: null },
+    refund: { nama: "Provider (misal: Vultr, OVH)", tipe: null },
     cloud: { nama: "Nama / isi akun cloud", tipe: null },
     baremetal: { nama: "Nama node", tipe: "Tipe mesin" },
     endorse: { nama: "Nama yang di-endorse", tipe: null },
@@ -226,7 +227,7 @@ tr:hover td{background:var(--panel2)}
     }
     // kartu
     $("cIn").textContent = rp(R.pendapatan);
-    $("cInD").textContent = "Midtrans " + rp(R.perKategori.midtrans) + " · bisnis " + rp(R.perKategori.bisnis);
+    $("cInD").textContent = "Midtrans " + rp(R.perKategori.midtrans) + " · bisnis " + rp(R.perKategori.bisnis) + (R.perKategori.refund ? " · refund " + rp(R.perKategori.refund) : "");
     $("cOut").textContent = rp(R.pengeluaran);
     $("cOutD").textContent = R.jumlahTransaksi + " transaksi" + (R.voucher ? " · " + rp(R.voucher) + " pakai refund voucher" : " di periode ini");
     $("cNet").textContent = rp(R.bersih); $("cNet").className = R.bersih >= 0 ? "pos" : "neg";

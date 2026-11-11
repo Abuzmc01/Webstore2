@@ -97,7 +97,7 @@ function takeMoney(words) {
 
 const CMD = {
   wd: "midtrans", withdraw: "midtrans", midtrans: "midtrans",
-  masuk: "masuk", pemasukan: "masuk",
+  masuk: "masuk", pemasukan: "masuk", refund: "refund",
   cloud: "cloud", akun: "cloud",
   baremetal: "baremetal", bm: "baremetal", node: "baremetal",
   endorse: "endorse",
@@ -152,6 +152,10 @@ export function parseCommand(text) {
     if (/^mid/.test(first)) { words.shift(); kind = "midtrans"; }
     else { if (/^(bisnis|kas|lain|lainnya)$/.test(first)) words.shift(); kind = "bisnis"; }
     tx.kategori = kind;
+    tx.ket = words.join(" ");
+  } else if (kind === "refund") {
+    tx.kategori = "refund";
+    tx.nama = words.shift() || "";
     tx.ket = words.join(" ");
   } else if (kind === "midtrans") {
     tx.kategori = "midtrans";
@@ -213,6 +217,7 @@ export const HELP = `📒 *Bot Keuangan MineIDHost*
 *Pemasukan*
 • !wd 1.500.000 _(withdraw Midtrans)_
 • !masuk bisnis 500rb catatan
+• !refund <provider> <nominal> _(uang refund masuk rekening)_
 
 *Pengeluaran*
 • !cloud <nama akun> <nominal>

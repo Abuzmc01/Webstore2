@@ -29,6 +29,7 @@ const CUTOFF = () => Math.min(28, Math.max(1, Number(env("FIN_CUTOFF_DAY")) || 2
 const KATEGORI = {
   midtrans: { jenis: "masuk", label: "Withdraw Midtrans" },
   bisnis: { jenis: "masuk", label: "Dana bisnis / pemasukan lain" },
+  refund: { jenis: "masuk", label: "Refund dari provider" },
   cloud: { jenis: "keluar", label: "Akun cloud" },
   baremetal: { jenis: "keluar", label: "Baremetal" },
   endorse: { jenis: "keluar", label: "Endorse" },
@@ -113,7 +114,7 @@ function report(all, p) {
   const sum = (arr) => arr.reduce((s, t) => s + t.nominal, 0);
   const byKat = {};
   Object.keys(KATEGORI).forEach((k) => { byKat[k] = sum(inP.filter((t) => t.kategori === k)); });
-  const pendapatan = byKat.midtrans + byKat.bisnis;
+  const pendapatan = byKat.midtrans + byKat.bisnis + byKat.refund;
   const pengeluaran = sum(inP.filter((t) => t.jenis === "keluar"));
   const voucher = sum(inP.filter((t) => t.jenis === "keluar" && t.sumber === "voucher"));
 
@@ -122,7 +123,7 @@ function report(all, p) {
   const saldo = { midtrans: 0, bisnis: 0 };
   upto.forEach((t) => {
     if (t.kategori === "midtrans") saldo.midtrans += t.nominal;
-    else if (t.kategori === "bisnis") saldo.bisnis += t.nominal;
+    else if (t.kategori === "bisnis" || t.kategori === "refund") saldo.bisnis += t.nominal; // refund masuk ke rekening bisnis
     else if (isTalang(t.kategori)) {
       // dana talang memakai uang pribadi admin; saldo bisnis baru berkurang saat diganti (lunas)
       if (t.lunas && t.lunasTgl && t.lunasTgl <= end) saldo[t.lunasDari === "midtrans" ? "midtrans" : "bisnis"] -= t.nominal;
@@ -156,6 +157,7 @@ function reportText(r) {
   L.push("💰 *Pendapatan: " + rp(r.pendapatan) + "*");
   L.push("• Withdraw Midtrans: " + rp(k.midtrans));
   L.push("• Dana bisnis/lainnya: " + rp(k.bisnis));
+  if (k.refund) L.push("• Refund dari provider: " + rp(k.refund));
   L.push("");
   L.push("💸 *Pengeluaran: " + rp(r.pengeluaran) + "*");
   ["cloud", "baremetal", "endorse", "jasa", "talang_domain", "talang_lain", "lain"].forEach((x) => {
