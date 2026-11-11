@@ -6,9 +6,13 @@ import { fileURLToPath } from "node:url";
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const envFile = path.join(ROOT, ".env");
-if (fs.existsSync(envFile)) {
-  for (const line of fs.readFileSync(envFile, "utf8").split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
+export const envInfo = { exists: fs.existsSync(envFile), others: [] };
+try { envInfo.others = fs.readdirSync(ROOT).filter((f) => /^\.?env/i.test(f) && f !== ".env"); } catch { /* abaikan */ }
+if (envInfo.exists) {
+  // tahan BOM, CRLF, "export ", spasi di sekitar "=", dan tanda kutip
+  const text = fs.readFileSync(envFile, "utf8").replace(/^\uFEFF/, "");
+  for (const line of text.split(/\r?\n/)) {
+    const m = line.match(/^\s*(?:export\s+)?([A-Za-z0-9_]+)\s*=\s*(.*?)\s*$/);
     if (m && !(m[1] in process.env)) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
   }
 }
@@ -31,7 +35,15 @@ export const cfg = {
 
 export function checkConfig() {
   if (cfg.botSecret.length < 24) {
-    console.error("[!] FIN_BOT_SECRET wajib diisi (minimal 24 karakter, sama dengan di Vercel).");
+    console.error("[!] FIN_BOT_SECRET belum benar (minimal 24 karakter, sama dengan di Vercel).");
+    if (!envInfo.exists) {
+      console.error("    → File .env TIDAK ditemukan di folder utama bot.");
+      if (envInfo.others.length) console.error("    → Yang ada: " + envInfo.others.join(", ") + "  (ganti namanya jadi persis .env)");
+    } else if (!cfg.botSecret) {
+      console.error("    → File .env ada, tapi baris FIN_BOT_SECRET=... kosong atau tidak ditemukan.");
+    } else {
+      console.error("    → FIN_BOT_SECRET terbaca " + cfg.botSecret.length + " karakter. Minimal 24: perpanjang di Vercel (lalu Redeploy) dan samakan di .env.");
+    }
     process.exit(1);
   }
   if (!cfg.groupJid) console.warn('[i] FIN_GROUP_JID belum diisi. Ketik "!idgrup" di grup keuangan, salin ke .env, lalu restart.');
