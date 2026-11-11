@@ -67,8 +67,10 @@ function takeDate(words) {
 
 function takeSource(words) {
   for (let i = 0; i < words.length - 1; i++) {
-    if (words[i].toLowerCase() === "dari" && /^(midtrans|midtran|midrans|midrants|bisnis|kas)$/i.test(words[i + 1])) {
-      const v = /^mid/i.test(words[i + 1]) ? "midtrans" : "bisnis";
+    if (/^(dari|pakai|pake)$/i.test(words[i]) && /^(midtrans|midtran|midrans|midrants|bisnis|kas|voucher|vocer|refund)$/i.test(words[i + 1])) {
+      const v = /^mid/i.test(words[i + 1]) ? "midtrans" : /^(voucher|vocer|refund)$/i.test(words[i + 1]) ? "voucher" : "bisnis";
+      // "pakai refund voucher" -> buang juga kata "voucher" setelah "refund"
+      if (/^refund$/i.test(words[i + 1]) && /^(voucher|vocer)$/i.test(words[i + 2] || "")) words.splice(i + 2, 1);
       words.splice(i, 2);
       return v;
     }
@@ -231,5 +233,5 @@ export const HELP = `📒 *Bot Keuangan MineIDHost*
 • !hapus <ID>
 
 Tanggal opsional: _kemarin_, _10/11_, _10 nov_. Default hari ini.
-Sumber dana opsional: _dari midtrans_ / _dari bisnis_ (default bisnis).
+Sumber dana opsional: _dari midtrans_ / _dari bisnis_ / _pakai voucher_ (default bisnis).
 Nominal: 3.330 · 1.500.000 · 1,5jt · 500rb`;

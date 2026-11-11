@@ -149,7 +149,7 @@ tr:hover td{background:var(--panel2)}
       <div class="full" id="wTipe"><label for="fTipe" id="lTipe">Tipe</label><input id="fTipe" maxlength="60"></div>
       <div><label for="fNom">Nominal (Rp)</label><input id="fNom" inputmode="numeric" required></div>
       <div><label for="fTgl">Tanggal</label><input id="fTgl" type="date" required></div>
-      <div id="wSumber"><label for="fSumber">Sumber dana</label><select id="fSumber"><option value="bisnis">Dana bisnis</option><option value="midtrans">Midtrans</option></select></div>
+      <div id="wSumber"><label for="fSumber">Sumber dana</label><select id="fSumber"><option value="bisnis">Dana bisnis</option><option value="midtrans">Midtrans</option><option value="voucher">Refund voucher</option></select></div>
       <div id="wAdmin"><label for="fAdmin" id="lAdmin">Admin</label><input id="fAdmin" maxlength="40"></div>
       <div class="full"><label for="fKet">Catatan</label><input id="fKet" maxlength="300"></div>
     </div>
@@ -228,7 +228,7 @@ tr:hover td{background:var(--panel2)}
     $("cIn").textContent = rp(R.pendapatan);
     $("cInD").textContent = "Midtrans " + rp(R.perKategori.midtrans) + " · bisnis " + rp(R.perKategori.bisnis);
     $("cOut").textContent = rp(R.pengeluaran);
-    $("cOutD").textContent = R.jumlahTransaksi + " transaksi di periode ini";
+    $("cOutD").textContent = R.jumlahTransaksi + " transaksi" + (R.voucher ? " · " + rp(R.voucher) + " pakai refund voucher" : " di periode ini");
     $("cNet").textContent = rp(R.bersih); $("cNet").className = R.bersih >= 0 ? "pos" : "neg";
     $("cNetD").textContent = R.label;
     $("cSaldo").textContent = rp(R.saldo.total); $("cSaldo").className = R.saldo.total >= 0 ? "" : "neg";
@@ -264,7 +264,7 @@ tr:hover td{background:var(--panel2)}
       return "<tr><td>" + tgl(t.tanggal) + '</td><td><small style="font-family:monospace;font-size:12.5px;color:#ccc">' + t.id + "</small></td>" +
         '<td><span class="tag ' + (k.jenis === "masuk" ? "in" : "out") + '">' + esc(k.label) + "</span> " + tag + "</td>" +
         "<td>" + esc(t.nama || "") + (t.tipe ? " <small>" + esc(t.tipe) + "</small>" : "") + (t.ket ? "<small>" + esc(t.ket) + "</small>" : "") +
-        (t.jenis === "keluar" && !isTal(t.kategori) ? "<small>Sumber: " + (t.sumber === "midtrans" ? "Midtrans" : "dana bisnis") + "</small>" : "") +
+        (t.jenis === "keluar" && !isTal(t.kategori) ? "<small>Sumber: " + ({ midtrans: "Midtrans", voucher: "refund voucher" }[t.sumber] || "dana bisnis") + "</small>" : "") +
         (t.lunas ? "<small>Diganti " + tgl(t.lunasTgl) + " dari " + (t.lunasDari === "midtrans" ? "Midtrans" : "bisnis") + "</small>" : "") + "</td>" +
         "<td>" + esc(t.admin) + ' <span class="tag via">' + (t.via === "bot" ? "WA" : "web") + "</span></td>" +
         '<td class="num ' + (k.jenis === "masuk" ? "pos" : "") + '">' + (k.jenis === "masuk" ? "+" : "−") + rp(t.nominal) + "</td>" +
@@ -304,7 +304,7 @@ tr:hover td{background:var(--panel2)}
     $("fNama").value = t ? t.nama || "" : ""; $("fTipe").value = t ? t.tipe || "" : "";
     $("fNom").value = t ? t.nominal.toLocaleString("id-ID") : "";
     $("fTgl").value = t ? t.tanggal : today();
-    $("fSumber").value = t && t.sumber === "midtrans" ? "midtrans" : "bisnis";
+    $("fSumber").value = t && (t.sumber === "midtrans" || t.sumber === "voucher") ? t.sumber : "bisnis";
     $("fAdmin").value = t ? t.admin : me;
     $("fKet").value = t ? t.ket || "" : "";
     $("fDel").hidden = !t; $("fDel").textContent = "Hapus"; $("fDel").removeAttribute("data-c");

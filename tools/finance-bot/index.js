@@ -75,7 +75,7 @@ async function handle(msg) {
       `✅ Tercatat *#${t.id}*`,
       describe(t, r.label),
       `*${rp(t.nominal)}* · ${tgl(t.tanggal)}`,
-      t.jenis === "keluar" && !t.kategori.startsWith("talang") ? `Sumber dana: ${t.sumber === "midtrans" ? "Midtrans" : "dana bisnis"}` : null,
+      t.jenis === "keluar" && !t.kategori.startsWith("talang") ? `Sumber dana: ${{ midtrans: "Midtrans", voucher: "refund voucher (tidak mengurangi dana)" }[t.sumber] || "dana bisnis"}` : null,
       `Oleh: ${t.admin}`,
       `Periode: ${r.periode}`,
       t.kategori.startsWith("talang") ? `\n🧾 Dana talang *belum diganti*. Kalau sudah diganti ke ${t.admin}, ketik *!lunas ${t.id}*` : null,

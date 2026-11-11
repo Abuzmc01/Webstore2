@@ -51,7 +51,7 @@ Database Upstash yang dipakai admin mitra ikut dipakai di sini, tidak perlu buat
 | Pengeluaran lain | `!keluar sewa tools 100rb` |
 
 - **Tanggal** opsional: `kemarin`, `10/11`, `10 nov`, `2026-11-10`. Default hari ini.
-- **Sumber dana** pengeluaran opsional: `dari midtrans` / `dari bisnis` (default bisnis).
+- **Sumber dana** pengeluaran opsional: `dari midtrans` / `dari bisnis` / `pakai voucher` (default bisnis). Pengeluaran pakai **refund voucher** tetap tercatat, tapi tidak mengurangi total dana.
 - **Nominal**: `3.330`, `1.500.000`, `1,5jt`, `500rb`, `250k`.
 - Bot membalas dengan **ID** (contoh `#K7Q2PA`). Salah catat? `!hapus K7Q2PA`, atau edit di website.
 
