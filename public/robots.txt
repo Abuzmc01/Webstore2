@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /admin-chat
 Disallow: /admin-mitra
+Disallow: /admin-keuangan
 
 Sitemap: https://mineidhost.com/sitemap.xml

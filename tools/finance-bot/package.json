@@ -1,0 +1,22 @@
+{
+  "name": "mineidhost-finance-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bot WhatsApp laporan keuangan MineIDHost: catat pemasukan/pengeluaran ke mineidhost.com/admin-keuangan, laporan otomatis tiap tanggal 28",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^7.0.0-rc.9",
+    "link-preview-js": "^3.0.0",
+    "pino": "^9.0.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
