@@ -32,6 +32,7 @@ main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
 select,.inp{padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
 .btn{padding:9px 14px;border-radius:9px;border:1px solid var(--line);background:transparent;color:#ddd;cursor:pointer;font-weight:600;font-size:13.5px;white-space:nowrap}
 .btn.pri{background:var(--red);border-color:var(--red);color:#fff}
+.btn.in{background:rgba(46,204,113,.14);border-color:rgba(46,204,113,.5);color:var(--ok)}
 .btn.sm{padding:5px 10px;font-size:12px}
 .btn.del{border-color:rgba(255,49,80,.5);color:#ff8b9c}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
@@ -109,7 +110,8 @@ tr:hover td{background:var(--panel2)}
     <select id="per" aria-label="Periode"></select>
     <button type="button" class="btn" id="copy">Salin laporan</button>
     <button type="button" class="btn" id="csv">Unduh CSV</button>
-    <button type="button" class="btn pri" id="add">+ Catat</button>
+    <button type="button" class="btn in" id="addIn">+ Pemasukan</button>
+    <button type="button" class="btn pri" id="add">+ Pengeluaran</button>
   </div>
 
   <div class="cards">
@@ -219,7 +221,8 @@ tr:hover td{background:var(--panel2)}
     $("per").innerHTML = D.periods.map(function (p) { return '<option value="' + p.id + '"' + (p.id === cur ? " selected" : "") + ">" + esc(p.label) + (p.ditutup ? " ✓" : "") + "</option>"; }).join("");
     if (!$("fk").options.length || $("fk").options.length < 2) {
       $("fk").innerHTML = '<option value="">Semua kategori</option>' + Object.keys(K).map(function (k) { return '<option value="' + k + '">' + esc(K[k].label) + "</option>"; }).join("");
-      $("fKat").innerHTML = Object.keys(K).map(function (k) { return '<option value="' + k + '">' + (K[k].jenis === "masuk" ? "➕ " : "➖ ") + esc(K[k].label) + "</option>"; }).join("");
+      var grp = function (j, l) { return '<optgroup label="' + l + '">' + Object.keys(K).filter(function (k) { return K[k].jenis === j; }).map(function (k) { return '<option value="' + k + '">' + (j === "masuk" ? "➕ " : "➖ ") + esc(K[k].label) + "</option>"; }).join("") + "</optgroup>"; };
+      $("fKat").innerHTML = grp("masuk", "Pemasukan") + grp("keluar", "Pengeluaran");
     }
     // kartu
     $("cIn").textContent = rp(R.pendapatan);
@@ -294,10 +297,10 @@ tr:hover td{background:var(--panel2)}
     $("wSumber").hidden = D.kategori[k].jenis === "masuk" || isTal(k);
     $("lAdmin").textContent = isTal(k) ? "Admin yang menalangi" : "Dicatat oleh";
   }
-  function openForm(t) {
+  function openForm(t, jenis) {
     editId = t ? t.id : null;
-    $("fTitle").textContent = t ? "Edit #" + t.id : "Catat transaksi";
-    $("fKat").value = t ? t.kategori : "baremetal";
+    $("fTitle").textContent = t ? "Edit #" + t.id : jenis === "masuk" ? "Catat pemasukan" : "Catat pengeluaran";
+    $("fKat").value = t ? t.kategori : jenis === "masuk" ? "midtrans" : "baremetal";
     $("fNama").value = t ? t.nama || "" : ""; $("fTipe").value = t ? t.tipe || "" : "";
     $("fNom").value = t ? t.nominal.toLocaleString("id-ID") : "";
     $("fTgl").value = t ? t.tanggal : today();
@@ -309,7 +312,8 @@ tr:hover td{background:var(--panel2)}
     syncFields(); $("modal").hidden = false;
   }
   function closeForm() { $("modal").hidden = true; }
-  $("add").addEventListener("click", function () { openForm(null); });
+  $("add").addEventListener("click", function () { openForm(null, "keluar"); });
+  $("addIn").addEventListener("click", function () { openForm(null, "masuk"); });
   $("fKat").addEventListener("change", syncFields);
   $("fCancel").addEventListener("click", closeForm);
   $("modal").addEventListener("click", function (e) { if (e.target === $("modal")) closeForm(); });
