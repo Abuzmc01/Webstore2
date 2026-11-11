@@ -101,6 +101,7 @@ const CMD = {
   cloud: "cloud", akun: "cloud",
   baremetal: "baremetal", bm: "baremetal", node: "baremetal",
   endorse: "endorse",
+  gaji: "gaji", salary: "gaji",
   jasa: "jasa", dev: "jasa", developer: "jasa", setup: "jasa_setup",
   talang: "talang", domain: "talang_domain",
   keluar: "lain", pengeluaran: "lain", lain: "lain"
@@ -173,6 +174,11 @@ export function parseCommand(text) {
     tx.kategori = "endorse";
     tx.nama = rest;
     if (!tx.nama) return { error: "Tulis nama yang di-endorse. Contoh: *!endorse NamaYoutuber 300rb*" };
+  } else if (kind === "gaji") {
+    tx.kategori = "gaji";
+    tx.nama = words.shift() || "";
+    tx.tipe = words.join(" ");
+    if (!tx.nama) return { error: "Tulis nama karyawan. Contoh: *!gaji Rizz CS 1,5jt*" };
   } else if (kind === "jasa" || kind === "jasa_setup") {
     tx.kategori = "jasa";
     tx.nama = kind === "jasa_setup" ? ("setup " + rest).trim() : rest;
@@ -223,6 +229,7 @@ export const HELP = `📒 *Bot Keuangan MineIDHost*
 • !cloud <nama akun> <nominal>
 • !baremetal <node> <tipe> <nominal>
 • !endorse <nama> <nominal>
+• !gaji <nama> <jabatan> <nominal>  _(contoh: !gaji Rizz CS 1,5jt)_
 • !jasa <jenis jasa> <nominal>  _(contoh: !jasa setup panel 250rb)_
 • !keluar <catatan> <nominal>
 
