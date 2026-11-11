@@ -115,6 +115,7 @@ function report(all, p) {
   Object.keys(KATEGORI).forEach((k) => { byKat[k] = sum(inP.filter((t) => t.kategori === k)); });
   const pendapatan = byKat.midtrans + byKat.bisnis;
   const pengeluaran = sum(inP.filter((t) => t.jenis === "keluar"));
+  const voucher = sum(inP.filter((t) => t.jenis === "keluar" && t.sumber === "voucher"));
 
   // saldo kumulatif sampai akhir periode
   const upto = all.filter((t) => t.tanggal <= end);
@@ -125,7 +126,8 @@ function report(all, p) {
     else if (isTalang(t.kategori)) {
       // dana talang memakai uang pribadi admin; saldo bisnis baru berkurang saat diganti (lunas)
       if (t.lunas && t.lunasTgl && t.lunasTgl <= end) saldo[t.lunasDari === "midtrans" ? "midtrans" : "bisnis"] -= t.nominal;
-    } else saldo[t.sumber === "midtrans" ? "midtrans" : "bisnis"] -= t.nominal;
+    } else if (t.sumber !== "voucher") saldo[t.sumber === "midtrans" ? "midtrans" : "bisnis"] -= t.nominal;
+    // dibayar pakai refund voucher: tercatat sebagai pengeluaran, tapi tidak mengurangi kas
   });
 
   const talang = {};
@@ -136,7 +138,7 @@ function report(all, p) {
   return {
     periode: p,
     label: periodLabel(p),
-    pendapatan, pengeluaran, bersih: pendapatan - pengeluaran,
+    pendapatan, pengeluaran, bersih: pendapatan - pengeluaran, voucher,
     perKategori: byKat,
     saldo: Object.assign(saldo, { total: saldo.midtrans + saldo.bisnis }),
     talangBelumLunas: talang,
@@ -160,6 +162,7 @@ function reportText(r) {
     if (k[x]) L.push("• " + KATEGORI[x].label + ": " + rp(k[x]));
   });
   if (!r.pengeluaran) L.push("• (tidak ada)");
+  if (r.voucher) L.push("  _(" + rp(r.voucher) + " dibayar pakai refund voucher, tidak mengurangi dana)_");
   L.push("");
   L.push((r.bersih >= 0 ? "✅" : "⚠️") + " *Bersih periode ini: " + rp(r.bersih) + "*");
   L.push("");
@@ -198,7 +201,7 @@ function cleanTx(b, oleh, via) {
     nama: clip(b.nama, 80),      // akun cloud / nama node / nama endorse / jenis jasa / domain
     tipe: clip(b.tipe, 60),      // tipe node baremetal / tipe domain
     ket: clip(b.ket, 300),
-    sumber: kategori === "midtrans" ? "midtrans" : isTalang(kategori) ? "talang" : (b.sumber === "midtrans" ? "midtrans" : "bisnis"),
+    sumber: kategori === "midtrans" ? "midtrans" : isTalang(kategori) ? "talang" : (b.sumber === "midtrans" || b.sumber === "voucher" ? b.sumber : "bisnis"),
     admin: clip(b.admin || oleh, 40) || "admin",
     via: via
   };

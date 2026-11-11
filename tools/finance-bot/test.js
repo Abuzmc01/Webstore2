@@ -26,6 +26,9 @@ for (const [text, want] of cases) {
   for (const k of Object.keys(want)) assert.equal(r.tx[k], want[k], `${text} [${k}] → ${JSON.stringify(r.tx)}`);
   n++;
 }
+assert.equal(parseCommand("!baremetal basic-1 Xeon 900rb pakai refund voucher").tx.sumber, "voucher");
+assert.equal(parseCommand("!baremetal basic-1 Xeon 900rb pakai refund voucher").tx.tipe, "Xeon");
+assert.equal(parseCommand("!cloud Vultr 100rb dari voucher").tx.sumber, "voucher");
 assert.deepEqual(parseCommand("!lunas k7q2pa"), { action: "lunas", id: "K7Q2PA", dari: "bisnis" });
 assert.equal(parseCommand("!lunas K7Q2PA dari midtrans").dari, "midtrans");
 assert.equal(parseCommand("!talang").action, "talang");
