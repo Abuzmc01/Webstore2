@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin Keuangan | MineIDHost</title>
+<link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml">
+<style>
+:root{--bg:#07070a;--panel:#0d0d11;--panel2:#121217;--line:rgba(255,255,255,.08);--text:#e8e8ee;--muted:#9a9aa4;--red:#ff173f;--red2:#ff3150;--ok:#2ecc71;--warn:#f5b041;--blue:#6aa8ff}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,textarea,select{font-family:inherit}
+a{color:var(--red2)}
+.top{display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;border-bottom:1px solid var(--line);background:#09090c;position:sticky;top:0;z-index:20}
+.top img{width:28px;height:28px}
+.top b{font-size:15px}
+.top .st{margin-left:auto;font-size:12.5px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.top button{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:#ccc;cursor:pointer;font-size:12px}
+.top .mdh-theme-btn{margin-left:10px}
+.top .st[hidden] + .mdh-theme-btn{margin-left:auto}
+#login{max-width:360px;margin:12vh auto;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+#login h1{margin:0 0 6px;font-size:22px}
+#login p{margin:0 0 16px;color:var(--muted);font-size:14px}
+#login input{width:100%;margin-bottom:10px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:15px}
+#login button{width:100%;padding:12px;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.e{color:#ff8b9c;font-size:13px;margin-top:8px;min-height:18px}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bar h1{margin:0;font-size:21px;margin-right:auto}
+select,.inp{padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
+.btn{padding:9px 14px;border-radius:9px;border:1px solid var(--line);background:transparent;color:#ddd;cursor:pointer;font-weight:600;font-size:13.5px;white-space:nowrap}
+.btn.pri{background:var(--red);border-color:var(--red);color:#fff}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn.del{border-color:rgba(255,49,80,.5);color:#ff8b9c}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.card{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.card small{display:block;color:var(--muted);font-size:12px}
+.card b{display:block;font-size:22px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.pos{color:var(--ok)}.neg{color:#ff8b9c}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:12px;margin-bottom:12px}
+.box{padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.box h2{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
+.box h2 .btn{margin-left:auto}
+.kat{display:grid;grid-template-columns:150px 1fr auto;gap:10px;align-items:center;margin:8px 0;font-size:13.5px}
+.kat .tr{height:8px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}
+.kat .fl{height:100%;border-radius:99px}
+.kat b{font-weight:600;white-space:nowrap}
+.tl{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.tl:first-of-type{border-top:0}
+.tl .w{flex:1;min-width:0}
+.tl small{display:block;color:var(--muted);font-size:12px}
+.empty{padding:22px;text-align:center;color:var(--muted);font-size:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.filters .inp{flex:1;min-width:160px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{width:100%;min-width:860px;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;padding:10px 12px;background:rgba(255,49,80,.08);color:#fff;font-weight:600;white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top;color:#ddd}
+td small{display:block;color:var(--muted);font-size:12px}
+td.num{text-align:right;white-space:nowrap;font-weight:600}
+tr:hover td{background:var(--panel2)}
+.tag{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:999px;font-weight:700;white-space:nowrap}
+.tag.in{background:rgba(46,204,113,.15);color:var(--ok)}
+.tag.out{background:rgba(255,49,80,.14);color:#ff8b9c}
+.tag.tal{background:rgba(245,176,65,.15);color:var(--warn)}
+.tag.ok{background:rgba(46,204,113,.15);color:var(--ok)}
+.tag.via{background:rgba(255,255,255,.07);color:#999}
+.modal{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.72);display:flex;align-items:flex-start;justify-content:center;padding:5vh 14px;overflow-y:auto}
+.modal form{width:100%;max-width:560px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.modal h2{margin:0 0 14px;font-size:19px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg .full{grid-column:1/-1}
+.modal label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
+.modal input,.modal select,.modal textarea{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:#fff;font-size:14px}
+.modal .acts{display:flex;gap:8px;margin-top:16px}
+.modal .acts .del{margin-left:auto}
+.hint{margin:14px 0 0;padding:12px 14px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);font-size:12.5px;line-height:1.6}
+.hint code{background:rgba(255,255,255,.06);padding:1px 5px;border-radius:5px;color:#fff}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);padding:10px 16px;border-radius:10px;background:#222;color:#fff;font-size:13.5px;display:none;z-index:60}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.kat{grid-template-columns:110px 1fr auto}.fg{grid-template-columns:1fr}}
+</style>
+<script>(function(){try{var t=localStorage.getItem("mdh-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()</script>
+<link rel="stylesheet" href="/assets/css/mdh-theme.css">
+</head>
+<body>
+
+<header class="top">
+  <img src="/assets/images/logo.svg" alt="">
+  <b>Admin Keuangan</b>
+  <div class="st" id="st" hidden><span id="me"></span><button type="button" id="logout">Keluar</button></div>
+</header>
+
+<form id="login" hidden>
+  <h1>Masuk admin keuangan</h1>
+  <p>Halaman internal. Tidak bisa diakses publik.</p>
+  <input id="luser" placeholder="Username kamu" maxlength="20" autocomplete="username">
+  <input id="lpass" type="password" placeholder="Password admin keuangan" autocomplete="current-password">
+  <button type="submit">Masuk</button>
+  <div class="e" id="lerr"></div>
+</form>
+
+<main id="app" hidden>
+  <div class="bar">
+    <h1>Laporan keuangan</h1>
+    <select id="per" aria-label="Periode"></select>
+    <button type="button" class="btn" id="copy">Salin laporan</button>
+    <button type="button" class="btn" id="csv">Unduh CSV</button>
+    <button type="button" class="btn pri" id="add">+ Catat</button>
+  </div>
+
+  <div class="cards">
+    <div class="card"><small>Pendapatan</small><b id="cIn" class="pos">-</b><span id="cInD"></span></div>
+    <div class="card"><small>Pengeluaran</small><b id="cOut" class="neg">-</b><span id="cOutD"></span></div>
+    <div class="card"><small>Bersih periode ini</small><b id="cNet">-</b><span id="cNetD"></span></div>
+    <div class="card"><small>Total dana (Midtrans + bisnis)</small><b id="cSaldo">-</b><span id="cSaldoD"></span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="box"><h2>Rincian per kategori</h2><div id="kat"></div></div>
+    <div class="box"><h2>Dana talang belum diganti <span id="talTot" style="color:var(--warn);font-weight:700"></span></h2><div id="tal"></div></div>
+  </div>
+
+  <div class="box" style="padding-bottom:12px">
+    <h2>Transaksi <span id="cnt" style="color:var(--muted);font-weight:400;font-size:13px"></span></h2>
+    <div class="filters">
+      <input class="inp" id="q" type="search" placeholder="Cari nama, catatan, admin, ID...">
+      <select id="fk"><option value="">Semua kategori</option></select>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th>Tanggal</th><th>ID</th><th>Kategori</th><th>Keterangan</th><th>Admin</th><th style="text-align:right">Nominal</th><th></th></tr></thead>
+      <tbody id="rows"><tr><td colspan="7" class="empty">Memuat...</td></tr></tbody>
+    </table></div>
+    <div class="hint" id="hint"></div>
+  </div>
+</main>
+
+<div class="modal" id="modal" hidden>
+  <form id="f" autocomplete="off">
+    <h2 id="fTitle">Catat transaksi</h2>
+    <div class="fg">
+      <div class="full"><label for="fKat">Kategori</label><select id="fKat"></select></div>
+      <div class="full" id="wNama"><label for="fNama" id="lNama">Nama</label><input id="fNama" maxlength="80"></div>
+      <div class="full" id="wTipe"><label for="fTipe" id="lTipe">Tipe</label><input id="fTipe" maxlength="60"></div>
+      <div><label for="fNom">Nominal (Rp)</label><input id="fNom" inputmode="numeric" required></div>
+      <div><label for="fTgl">Tanggal</label><input id="fTgl" type="date" required></div>
+      <div id="wSumber"><label for="fSumber">Sumber dana</label><select id="fSumber"><option value="bisnis">Dana bisnis</option><option value="midtrans">Midtrans</option></select></div>
+      <div id="wAdmin"><label for="fAdmin" id="lAdmin">Admin</label><input id="fAdmin" maxlength="40"></div>
+      <div class="full"><label for="fKet">Catatan</label><input id="fKet" maxlength="300"></div>
+    </div>
+    <div class="e" id="ferr"></div>
+    <div class="acts">
+      <button type="submit" class="btn pri" id="fSave">Simpan</button>
+      <button type="button" class="btn" id="fCancel">Batal</button>
+      <button type="button" class="btn del" id="fDel" hidden>Hapus</button>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var D = null, me = "", editId = null;
+  var KAT_COLOR = { midtrans: "#2ecc71", bisnis: "#6aa8ff", cloud: "#a78bfa", baremetal: "#ff3150", endorse: "#f472b6", jasa: "#22d3ee", talang_domain: "#f5b041", talang_lain: "#fb923c", lain: "#9ca3af" };
+  var FIELDS = {
+    midtrans: { nama: null, tipe: null },
+    bisnis: { nama: null, tipe: null },
+    cloud: { nama: "Nama / isi akun cloud", tipe: null },
+    baremetal: { nama: "Nama node", tipe: "Tipe mesin" },
+    endorse: { nama: "Nama yang di-endorse", tipe: null },
+    jasa: { nama: "Jenis jasa (misal: setup panel)", tipe: null },
+    talang_domain: { nama: "Domain", tipe: "Tipe domain (.com, .net, ...)" },
+    talang_lain: { nama: null, tipe: null },
+    lain: { nama: null, tipe: null }
+  };
+  var BLN = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function rp(n) { return (n < 0 ? "-Rp" : "Rp") + Math.abs(Math.round(n || 0)).toLocaleString("id-ID"); }
+  function tgl(s) { if (!s) return "-"; var p = s.split("-"); return +p[2] + " " + BLN[+p[1] - 1] + " " + p[0]; }
+  function today() { return new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10); }
+  function toast(m) { var t = $("toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toast.h); toast.h = setTimeout(function () { t.style.display = "none"; }, 2600); }
+  function isTal(k) { return k === "talang_domain" || k === "talang_lain"; }
+  function periodOf(s) { var p = s.split("-").map(Number); return new Date(Date.UTC(p[0], p[1] - 1 + (p[2] >= D.cutoff ? 1 : 0), 1)).toISOString().slice(0, 7); }
+
+  function api(body) {
+    return fetch("/api/keuangan", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: "Respon tidak valid (HTTP " + r.status + ")" }; }).then(function (j) { j._s = r.status; return j; }); });
+  }
+  function showLogin(msg) { $("app").hidden = true; $("st").hidden = true; $("login").hidden = false; $("lerr").textContent = msg || ""; }
+  function showApp(u) { me = u; $("login").hidden = true; $("app").hidden = false; $("st").hidden = false; $("me").textContent = u + " | MineIDHost"; load(); }
+
+  $("login").addEventListener("submit", function (e) {
+    e.preventDefault(); $("lerr").textContent = "";
+    api({ action: "login", user: $("luser").value.trim(), password: $("lpass").value }).then(function (r) {
+      if (!r.ok) { $("lerr").textContent = r.error || "Gagal masuk"; return; }
+      $("lpass").value = ""; showApp(r.user);
+    }).catch(function () { $("lerr").textContent = "Server tidak bisa dihubungi."; });
+  });
+  $("logout").addEventListener("click", function () { api({ action: "logout" }).then(function () { D = null; showLogin(""); }); });
+
+  function load(periode) {
+    api({ action: "data", periode: periode || $("per").value || undefined }).then(function (r) {
+      if (r._s === 401) return showLogin("Sesi habis, silakan masuk lagi.");
+      if (!r.ok) { $("rows").innerHTML = '<tr><td colspan="7" class="empty">' + esc(r.error) + "</td></tr>"; return; }
+      D = r; render();
+    });
+  }
+
+  function render() {
+    var R = D.report, K = D.kategori;
+    // periode
+    var cur = R.periode;
+    $("per").innerHTML = D.periods.map(function (p) { return '<option value="' + p.id + '"' + (p.id === cur ? " selected" : "") + ">" + esc(p.label) + (p.ditutup ? " ✓" : "") + "</option>"; }).join("");
+    if (!$("fk").options.length || $("fk").options.length < 2) {
+      $("fk").innerHTML = '<option value="">Semua kategori</option>' + Object.keys(K).map(function (k) { return '<option value="' + k + '">' + esc(K[k].label) + "</option>"; }).join("");
+      $("fKat").innerHTML = Object.keys(K).map(function (k) { return '<option value="' + k + '">' + (K[k].jenis === "masuk" ? "➕ " : "➖ ") + esc(K[k].label) + "</option>"; }).join("");
+    }
+    // kartu
+    $("cIn").textContent = rp(R.pendapatan);
+    $("cInD").textContent = "Midtrans " + rp(R.perKategori.midtrans) + " · bisnis " + rp(R.perKategori.bisnis);
+    $("cOut").textContent = rp(R.pengeluaran);
+    $("cOutD").textContent = R.jumlahTransaksi + " transaksi di periode ini";
+    $("cNet").textContent = rp(R.bersih); $("cNet").className = R.bersih >= 0 ? "pos" : "neg";
+    $("cNetD").textContent = R.label;
+    $("cSaldo").textContent = rp(R.saldo.total); $("cSaldo").className = R.saldo.total >= 0 ? "" : "neg";
+    $("cSaldoD").textContent = "Midtrans " + rp(R.saldo.midtrans) + " · bisnis " + rp(R.saldo.bisnis);
+    // kategori
+    var max = Math.max.apply(null, Object.keys(R.perKategori).map(function (k) { return R.perKategori[k]; }).concat([1]));
+    var ks = Object.keys(K).filter(function (k) { return R.perKategori[k]; });
+    $("kat").innerHTML = ks.length ? ks.map(function (k) {
+      return '<div class="kat"><span>' + esc(K[k].label) + '</span><div class="tr"><div class="fl" style="width:' + Math.max(2, R.perKategori[k] / max * 100) + "%;background:" + KAT_COLOR[k] + '"></div></div><b class="' + (K[k].jenis === "masuk" ? "pos" : "") + '">' + rp(R.perKategori[k]) + "</b></div>";
+    }).join("") : '<div class="empty">Belum ada transaksi di periode ini.</div>';
+    // talang
+    var open = D.tx.filter(function (t) { return isTal(t.kategori) && !t.lunas; });
+    $("talTot").textContent = open.length ? rp(open.reduce(function (s, t) { return s + t.nominal; }, 0)) : "";
+    $("tal").innerHTML = open.length ? open.map(function (t) {
+      return '<div class="tl"><div class="w"><b>' + esc(t.admin) + "</b> · " + rp(t.nominal) + "<small>#" + t.id + " · " + esc(t.nama || t.ket) + " · " + tgl(t.tanggal) + "</small></div>" +
+        '<select data-src="' + t.id + '" class="inp" style="padding:5px 8px;font-size:12px"><option value="bisnis">dari bisnis</option><option value="midtrans">dari Midtrans</option></select>' +
+        '<button type="button" class="btn sm" data-lunas="' + t.id + '">Lunas</button></div>';
+    }).join("") : '<div class="empty">Semua dana talang sudah diganti ✅</div>';
+    renderRows();
+    $("hint").innerHTML = "Catat cepat dari WhatsApp bot keuangan: <code>!wd 1.500.000</code> · <code>!baremetal sgp-medium-1 Ryzen 1,2jt</code> · <code>!talang domain mineidhost.net 3.330</code> · <code>!lunas ID</code> · <code>!rekap</code>. Laporan otomatis dikirim ke grup setiap tanggal " + D.cutoff + ". Dana talang mengurangi total dana setelah ditandai lunas.";
+  }
+
+  function renderRows() {
+    var p = D.report.periode, q = $("q").value.trim().toLowerCase(), fk = $("fk").value;
+    var list = D.tx.filter(function (t) {
+      if (periodOf(t.tanggal) !== p) return false;
+      if (fk && t.kategori !== fk) return false;
+      return !q || [t.id, t.nama, t.tipe, t.ket, t.admin, D.kategori[t.kategori].label].join(" ").toLowerCase().indexOf(q) > -1;
+    });
+    $("cnt").textContent = list.length + " catatan";
+    $("rows").innerHTML = list.length ? list.map(function (t) {
+      var k = D.kategori[t.kategori], tag = isTal(t.kategori) ? (t.lunas ? '<span class="tag ok">Lunas</span>' : '<span class="tag tal">Belum diganti</span>') : "";
+      return "<tr><td>" + tgl(t.tanggal) + '</td><td><small style="font-family:monospace;font-size:12.5px;color:#ccc">' + t.id + "</small></td>" +
+        '<td><span class="tag ' + (k.jenis === "masuk" ? "in" : "out") + '">' + esc(k.label) + "</span> " + tag + "</td>" +
+        "<td>" + esc(t.nama || "") + (t.tipe ? " <small>" + esc(t.tipe) + "</small>" : "") + (t.ket ? "<small>" + esc(t.ket) + "</small>" : "") +
+        (t.jenis === "keluar" && !isTal(t.kategori) ? "<small>Sumber: " + (t.sumber === "midtrans" ? "Midtrans" : "dana bisnis") + "</small>" : "") +
+        (t.lunas ? "<small>Diganti " + tgl(t.lunasTgl) + " dari " + (t.lunasDari === "midtrans" ? "Midtrans" : "bisnis") + "</small>" : "") + "</td>" +
+        "<td>" + esc(t.admin) + ' <span class="tag via">' + (t.via === "bot" ? "WA" : "web") + "</span></td>" +
+        '<td class="num ' + (k.jenis === "masuk" ? "pos" : "") + '">' + (k.jenis === "masuk" ? "+" : "−") + rp(t.nominal) + "</td>" +
+        '<td><button type="button" class="btn sm" data-edit="' + t.id + '">Edit</button></td></tr>';
+    }).join("") : '<tr><td colspan="7" class="empty">Tidak ada transaksi.</td></tr>';
+  }
+
+  $("per").addEventListener("change", function () { load(this.value); });
+  $("q").addEventListener("input", renderRows);
+  $("fk").addEventListener("change", renderRows);
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var id = b.getAttribute("data-lunas");
+    if (id) {
+      var src = document.querySelector('select[data-src="' + id + '"]').value;
+      b.disabled = true;
+      api({ action: "lunas", id: id, dari: src }).then(function (r) { toast(r.ok ? "Ditandai lunas" : (r.error || "Gagal")); load(); });
+      return;
+    }
+    id = b.getAttribute("data-edit");
+    if (id) { var t = D.tx.filter(function (x) { return x.id === id; })[0]; if (t) openForm(t); }
+  });
+
+  // ---------------------------------------------------------------- form
+  function syncFields() {
+    var k = $("fKat").value, f = FIELDS[k] || {};
+    $("wNama").hidden = !f.nama; $("lNama").textContent = f.nama || "";
+    $("wTipe").hidden = !f.tipe; $("lTipe").textContent = f.tipe || "";
+    $("wSumber").hidden = D.kategori[k].jenis === "masuk" || isTal(k);
+    $("lAdmin").textContent = isTal(k) ? "Admin yang menalangi" : "Dicatat oleh";
+  }
+  function openForm(t) {
+    editId = t ? t.id : null;
+    $("fTitle").textContent = t ? "Edit #" + t.id : "Catat transaksi";
+    $("fKat").value = t ? t.kategori : "baremetal";
+    $("fNama").value = t ? t.nama || "" : ""; $("fTipe").value = t ? t.tipe || "" : "";
+    $("fNom").value = t ? t.nominal.toLocaleString("id-ID") : "";
+    $("fTgl").value = t ? t.tanggal : today();
+    $("fSumber").value = t && t.sumber === "midtrans" ? "midtrans" : "bisnis";
+    $("fAdmin").value = t ? t.admin : me;
+    $("fKet").value = t ? t.ket || "" : "";
+    $("fDel").hidden = !t; $("fDel").textContent = "Hapus"; $("fDel").removeAttribute("data-c");
+    $("ferr").textContent = "";
+    syncFields(); $("modal").hidden = false;
+  }
+  function closeForm() { $("modal").hidden = true; }
+  $("add").addEventListener("click", function () { openForm(null); });
+  $("fKat").addEventListener("change", syncFields);
+  $("fCancel").addEventListener("click", closeForm);
+  $("modal").addEventListener("click", function (e) { if (e.target === $("modal")) closeForm(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("modal").hidden) closeForm(); });
+  $("fNom").addEventListener("input", function () { var n = Number(this.value.replace(/\D/g, "")); this.value = n ? n.toLocaleString("id-ID") : ""; });
+  $("f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var k = $("fKat").value, f = FIELDS[k];
+    var tx = { kategori: k, nominal: Number($("fNom").value.replace(/\D/g, "")), tanggal: $("fTgl").value, sumber: $("fSumber").value,
+      nama: f.nama ? $("fNama").value : "", tipe: f.tipe ? $("fTipe").value : "", ket: $("fKet").value, admin: $("fAdmin").value };
+    if (!tx.nominal) { $("ferr").textContent = "Isi nominal."; return; }
+    $("fSave").disabled = true;
+    api(editId ? { action: "update", id: editId, tx: tx } : { action: "add", tx: tx }).then(function (r) {
+      $("fSave").disabled = false;
+      if (r._s === 401) { closeForm(); return showLogin("Sesi habis, silakan masuk lagi."); }
+      if (!r.ok) { $("ferr").textContent = r.error || "Gagal menyimpan"; return; }
+      closeForm(); toast(editId ? "Diperbarui" : "Tercatat #" + r.tx.id); load(periodOf(r.tx.tanggal));
+    }).catch(function () { $("fSave").disabled = false; $("ferr").textContent = "Server tidak bisa dihubungi."; });
+  });
+  $("fDel").addEventListener("click", function () {
+    var b = $("fDel");
+    if (!b.getAttribute("data-c")) { b.setAttribute("data-c", "1"); b.textContent = "Yakin hapus? Klik lagi"; return; }
+    api({ action: "hapus", id: editId }).then(function (r) { toast(r.ok ? "Dihapus" : (r.error || "Gagal")); closeForm(); load(); });
+  });
+
+  // ---------------------------------------------------------------- salin & CSV
+  $("copy").addEventListener("click", function () {
+    api({ action: "rekap", periode: D.report.periode }).then(function (r) {
+      if (!r.ok) return toast(r.error || "Gagal");
+      var text = r.text.replace(/\*/g, "");
+      (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { toast("Laporan disalin"); }, function () { prompt("Salin laporan:", text); });
+    });
+  });
+  $("csv").addEventListener("click", function () {
+    var p = D.report.periode;
+    var rows = [["tanggal", "id", "jenis", "kategori", "nama", "tipe", "catatan", "sumber", "admin", "nominal", "lunas", "tgl_lunas", "via"]];
+    D.tx.filter(function (t) { return periodOf(t.tanggal) === p; }).forEach(function (t) {
+      rows.push([t.tanggal, t.id, t.jenis, D.kategori[t.kategori].label, t.nama || "", t.tipe || "", t.ket || "", t.sumber, t.admin, t.nominal, isTal(t.kategori) ? (t.lunas ? "ya" : "belum") : "", t.lunasTgl || "", t.via]);
+    });
+    var csv = rows.map(function (r) { return r.map(function (v) { v = String(v); return /[",;\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); }).join("\n");
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
+    a.download = "keuangan-mineidhost-" + p + ".csv"; a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+
+  api({ action: "me" }).then(function (r) {
+    if (r.ok) showApp(r.user); else showLogin(r._s === 503 ? r.error : "");
+  }).catch(function () { showLogin("Server tidak bisa dihubungi."); });
+})();
+</script>
+<script src="/assets/js/mdh-theme.js" defer></script>
+</body>
+</html>
