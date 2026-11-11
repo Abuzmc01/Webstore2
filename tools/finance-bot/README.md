@@ -42,6 +42,7 @@ Database Upstash yang dipakai admin mitra ikut dipakai di sini, tidak perlu buat
 |---|---|
 | Withdraw Midtrans | `!wd 1.500.000` |
 | Pemasukan lain (dana bisnis) | `!masuk bisnis 500rb setoran mitra` |
+| Refund dari provider (uang masuk rekening) | `!refund Vultr 450rb kelebihan tagihan` |
 | Akun cloud | `!cloud Vultr akun utama 250rb` |
 | Baremetal | `!baremetal sgp-medium-1 Ryzen 9 7950X 1.200.000` |
 | Endorse | `!endorse NamaKreator 300rb` |
