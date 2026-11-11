@@ -1,8 +1,9 @@
 /*
  * Laporan keuangan internal MineIDHost: POST /api/keuangan
  * TIDAK ADA akses publik. Dua jalur masuk:
- *   - bot WhatsApp keuangan: header X-Fin-Secret = FIN_BOT_SECRET
- *   - halaman /admin-keuangan: login password FIN_ADMIN_PASSWORD (cookie bertanda tangan)
+ *   - halaman /admin-keuangan: login password FIN_ADMIN_PASSWORD (cookie bertanda tangan). Semua pencatatan lewat sini.
+ *   - bot WhatsApp keuangan: header X-Fin-Secret = FIN_BOT_SECRET. Bot HANYA membaca: notifikasi catatan baru
+ *     (mengambil "events" tiap beberapa detik) dan rekap otomatis tanggal 28 pukul 23.29 WIB.
  *
  * Data disimpan TERENKRIPSI (AES-256-GCM) di Upstash Redis (Vercel Storage), bukan di GitHub.
  *
@@ -11,13 +12,15 @@
  *   FIN_ADMIN_PASSWORD   password halaman /admin-keuangan (minimal 10 karakter)
  *   FIN_BOT_SECRET       kode acak minimal 24 karakter, sama dengan di .env bot keuangan
  *   FIN_SECRET           kode acak minimal 32 karakter untuk enkripsi. JANGAN diganti setelah dipakai.
- *   FIN_CUTOFF_DAY       opsional, tanggal tutup buku (default 28)
+ *   FIN_CUTOFF_DAY       opsional, tanggal terakhir periode (default 28 -> periode tgl 29 s/d tgl 28)
  */
 "use strict";
 const crypto = require("crypto");
 
 const TX_KEY = "mdh:fin:tx";
 const REPORT_KEY = "mdh:fin:reports";
+const EVENT_KEY = "mdh:fin:events";
+const SEQ_KEY = "mdh:fin:seq";
 const SESSION_HOURS = 12;
 
 const env = (k) => String(process.env[k] || "").trim();
@@ -91,17 +94,19 @@ async function getTx(id) {
 
 // ---------------------------------------------------------------- tanggal & periode (WIB)
 function todayWIB() { return new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10); }
-// periode diberi nama bulan penutupnya: cutoff 28 -> "2026-11" = 28 Okt s/d 27 Nov
+// periode diberi nama bulan penutupnya. Default tanggal akhir 28:
+//   "2026-11" = 29 Okt s/d 28 Nov. Rekap dikirim tgl 28 pukul 23.29 WIB, tgl 29 mulai periode baru.
+//   Februari: 29 Jan s/d 28 Feb, lalu periode Maret mulai 1 Mar (atau 29 Feb saat tahun kabisat).
 function periodOf(dateStr) {
   const [y, m, d] = dateStr.split("-").map(Number);
-  const dt = new Date(Date.UTC(y, m - 1 + (d >= CUTOFF() ? 1 : 0), 1));
+  const dt = new Date(Date.UTC(y, m - 1 + (d > CUTOFF() ? 1 : 0), 1));
   return dt.toISOString().slice(0, 7);
 }
 function periodRange(p) {
   const [y, m] = p.split("-").map(Number);
   const c = CUTOFF();
-  const start = new Date(Date.UTC(y, m - 2, c)).toISOString().slice(0, 10);
-  const end = new Date(Date.UTC(y, m - 1, c - 1)).toISOString().slice(0, 10);
+  const start = new Date(Date.UTC(y, m - 2, c + 1)).toISOString().slice(0, 10);
+  const end = new Date(Date.UTC(y, m - 1, c)).toISOString().slice(0, 10);
   return { start, end };
 }
 const BLN = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
@@ -258,7 +263,23 @@ function readBody(req) {
   });
 }
 
-// ---------------------------------------------------------------- aksi bersama (bot & web)
+// ---------------------------------------------------------------- notifikasi untuk bot
+// Setiap perubahan dari website dicatat sebagai "event". Bot mengambilnya lalu mengirim ke grup WhatsApp.
+async function pushEvent(jenis, tx, oleh, extra) {
+  try {
+    const seq = await redis(["INCR", SEQ_KEY]);
+    const all = await loadAll();
+    const r = report(all, periodOf(todayWIB()));
+    const ev = Object.assign({ seq, jenis, oleh, waktu: Date.now(), tx, label: KATEGORI[tx.kategori] ? KATEGORI[tx.kategori].label : tx.kategori,
+      ringkas: { label: r.label, pendapatan: r.pendapatan, pengeluaran: r.pengeluaran, bersih: r.bersih, saldo: r.saldo.total, talang: r.talangTotal } }, extra || {});
+    await redis(["LPUSH", EVENT_KEY, encrypt(ev)]);
+    await redis(["LTRIM", EVENT_KEY, 0, 299]);
+  } catch (e) {
+    console.error("[fin] event gagal:", e.message); // pencatatan tetap berhasil walau notifikasi gagal
+  }
+}
+
+// ---------------------------------------------------------------- aksi
 async function doLunas(id, oleh, dari, batal) {
   const t = await getTx(String(id || "").toUpperCase());
   if (!t) return [404, { ok: false, error: "Transaksi " + id + " tidak ditemukan." }];
@@ -316,26 +337,23 @@ module.exports = async (req, res) => {
     }
     const via = isBot ? "bot" : "web";
 
+    // bot hanya boleh membaca
+    if (isBot && !["events", "rekap", "tutup", "talang"].includes(b.action)) {
+      return send(res, 403, { ok: false, error: "Pencatatan hanya lewat website mineidhost.com/admin-keuangan." });
+    }
+
     switch (b.action) {
       case "add": {
         const c = cleanTx(b.tx || {}, oleh, via);
         if (c.error) return send(res, 400, { ok: false, error: c.error });
-        // kunci = ID pesan WhatsApp; kalau bot mengirim ulang, jangan dicatat dua kali
-        const kunci = isBot && b.kunci ? "mdh:fin:kunci:" + crypto.createHash("sha256").update(String(b.kunci)).digest("hex").slice(0, 32) : "";
-        if (kunci) {
-          const prev = await redis(["GET", kunci]);
-          const old = prev && (await getTx(prev));
-          if (old) return send(res, 200, { ok: true, tx: old, label: KATEGORI[old.kategori].label, periode: periodLabel(periodOf(old.tanggal)), duplikat: true });
-        }
         let id;
         for (let i = 0; i < 5; i++) { id = newId(); if (!(await redis(["HEXISTS", TX_KEY, id]))) break; }
         const t = Object.assign({ id }, c.tx, { dibuat: Date.now(), oleh });
         await saveTx(t);
-        if (kunci) await redis(["SET", kunci, id, "EX", 1209600]);
+        await pushEvent("tambah", t, oleh);
         return send(res, 200, { ok: true, tx: t, label: KATEGORI[t.kategori].label, periode: periodLabel(periodOf(t.tanggal)) });
       }
       case "update": {
-        if (isBot) return send(res, 403, { ok: false, error: "Ubah data lewat halaman admin." });
         const old = await getTx(String(b.id || ""));
         if (!old) return send(res, 404, { ok: false, error: "Transaksi tidak ditemukan." });
         const c = cleanTx(b.tx || {}, old.admin, old.via);
@@ -344,6 +362,7 @@ module.exports = async (req, res) => {
         if (!isTalang(t.kategori)) { delete t.lunas; delete t.lunasTgl; delete t.lunasOleh; delete t.lunasDari; }
         else if (old.lunas && isTalang(old.kategori)) t.lunas = true;
         await saveTx(t);
+        await pushEvent("ubah", t, oleh, { sebelum: { nominal: old.nominal, tanggal: old.tanggal, kategori: old.kategori } });
         return send(res, 200, { ok: true, tx: t });
       }
       case "hapus": {
@@ -351,12 +370,25 @@ module.exports = async (req, res) => {
         const t = await getTx(id);
         if (!t) return send(res, 404, { ok: false, error: "Transaksi " + id + " tidak ditemukan." });
         await redis(["HDEL", TX_KEY, id]);
+        await pushEvent("hapus", t, oleh);
         return send(res, 200, { ok: true, tx: t });
       }
       case "lunas":
       case "batal_lunas": {
         const [code, out] = await doLunas(b.id, oleh, b.dari, b.action === "batal_lunas");
+        if (out.ok) await pushEvent(b.action, out.tx, oleh);
         return send(res, code, out);
+      }
+      case "events": {
+        // bot: ambil event setelah nomor "since". Tanpa "since" -> hanya nomor terakhir (bot baru tidak membanjiri grup).
+        const cur = Number(await redis(["GET", SEQ_KEY])) || 0;
+        const since = Number(b.since);
+        if (!(since >= 0) || b.since == null) return send(res, 200, { ok: true, seq: cur, events: [] });
+        const raw = (await redis(["LRANGE", EVENT_KEY, 0, 299])) || [];
+        const evs = [];
+        raw.forEach((x) => { try { const e = decrypt(x); if (e.seq > since) evs.push(e); } catch (e) { /* lewati */ } });
+        evs.sort((x, y) => x.seq - y.seq);
+        return send(res, 200, { ok: true, seq: cur, events: evs.slice(0, 30) });
       }
       case "rekap":
       case "tutup": {
