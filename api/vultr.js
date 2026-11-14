@@ -18,7 +18,7 @@ const crypto = require("crypto");
 const ACC_KEY = "mdh:vultr:accounts";
 const PW_KEY = "mdh:vultr:pw";
 const LOG_KEY = "mdh:vultr:log";
-const CAT_KEY = "mdh:vultr:catalog";
+const CAT_KEY = "mdh:vultr:catalog:v2";
 const SESSION_HOURS = 12;
 const VULTR = "https://api.vultr.com/v2";
 
@@ -106,34 +106,41 @@ async function account(id) {
 const safeAcc = (a) => ({ id: a.id, nama: a.nama, mitra: a.mitra || "", catatan: a.catatan || "", aktif: a.aktif !== false, keyAkhir: a.apiKey.slice(-4), dibuat: a.dibuat, creditAwal: Number(a.creditAwal) || 0, tanggal: a.tanggal || "" });
 const r2 = (n) => Math.round(n * 100) / 100;
 
-// Hitungan credit (permintaan founder):
+// Hitungan credit sama seperti spreadsheet "Data Akun Vultr" (BUKAN tagihan per jam Vultr):
 //   Credit Awal     = diisi manual per akun (misal $305)
-//   Credit Terpakai = total semua tagihan Vultr di menu Billing: jumlah invoice + tagihan bulan berjalan (pending charges)
+//   Credit Terpakai = jumlah Biaya/Bulan PENUH semua server di akun itu (harga bulanan plan Vultr, misal $96)
 //   Sisa Credit     = Credit Awal - Credit Terpakai
 async function accountInfo(a) {
   try {
-    const [j, invoices, list] = await Promise.all([
-      vultr(a.apiKey, "GET", "/account"),
-      vultrAll(a.apiKey, "/billing/invoices", "billing_invoices"),
-      vultrAll(a.apiKey, "/instances", "instances")
-    ]);
+    const [j, list, cat] = await Promise.all([vultr(a.apiKey, "GET", "/account"), vultrAll(a.apiKey, "/instances", "instances"), catalog()]);
     const acc = j.account || {};
-    const bulanIni = r2(Number(acc.pending_charges) || 0);
-    const totalInvoice = r2(invoices.reduce((s, x) => s + (Number(x.amount) || 0), 0));
-    const terpakai = r2(totalInvoice + bulanIni);
+    const price = {};
+    cat.plans.forEach((p) => { price[p.id] = p.bulanan; });
+    const terpakai = r2(list.reduce((s, v) => s + (price[v.plan] || 0), 0));
     const awal = Number(a.creditAwal) || 0;
-    const last = invoices.slice().sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
     return {
       ok: true, email: acc.email || "", creditAwal: awal, terpakai, kredit: r2(awal - terpakai), jumlahServer: list.length,
-      bulanIni, totalInvoice, jumlahInvoice: invoices.length,
-      invoiceTerakhir: last ? { tanggal: String(last.date).slice(0, 10), jumlah: r2(Number(last.amount) || 0) } : null
+      server: list.map((v) => ({ label: v.label, plan: v.plan, biaya: price[v.plan] || 0 })),
+      tanpaHarga: list.filter((v) => !(v.plan in price)).map((v) => v.plan)
     };
   } catch (e) {
     return { ok: false, error: e.message };
   }
 }
 
-// ---------------------------------------------------------------- katalog (publik di Vultr, di-cache 6 jam)
+// ---------------------------------------------------------------- katalog
+// merek processor: dari data Vultr (cpu_vendor) kalau ada, kalau tidak dari ID plan ("...-amd", "...-intel")
+function cpuVendor(p) {
+  const v = String(p.cpu_vendor || "").toLowerCase();
+  if (v.includes("amd")) return "AMD";
+  if (v.includes("intel")) return "Intel";
+  const id = String(p.id).toLowerCase();
+  if (/(^|-)amd($|-)/.test(id)) return "AMD";
+  if (/(^|-)intel($|-)/.test(id)) return "Intel";
+  if (/^(vc2|vhf)-/.test(id)) return "Intel";
+  return "Lainnya";
+}
+// katalog publik di Vultr, di-cache 6 jam
 async function catalog(force) {
   if (!force) {
     const c = await redis(["GET", CAT_KEY]);
@@ -146,7 +153,7 @@ async function catalog(force) {
   ]);
   const cat = {
     regions: regions.map((r) => ({ id: r.id, kota: r.city, negara: r.country, benua: r.continent })),
-    plans: plans.filter((p) => p.monthly_cost > 0).map((p) => ({ id: p.id, tipe: p.type, vcpu: p.vcpu_count, ram: p.ram, disk: p.disk, diskCount: p.disk_count, bw: p.bandwidth, bulanan: p.monthly_cost, jam: p.hourly_cost, lokasi: p.locations })),
+    plans: plans.filter((p) => p.monthly_cost > 0).map((p) => ({ id: p.id, tipe: p.type, cpu: cpuVendor(p), vcpu: p.vcpu_count, ram: p.ram, disk: p.disk, diskCount: p.disk_count, bw: p.bandwidth, bulanan: p.monthly_cost, jam: p.hourly_cost, lokasi: p.locations })),
     os: os.filter((o) => o.family !== "iso" && o.family !== "snapshot" && o.family !== "backup" && o.family !== "application").map((o) => ({ id: o.id, nama: o.name, arch: o.arch, family: o.family })),
     waktu: Date.now()
   };
@@ -324,12 +331,12 @@ module.exports = async (req, res) => {
         } else {
           const all = (await accounts()).filter((a) => a.aktif !== false);
           const infos = await Promise.all(all.map(accountInfo));
-          const ok = all.map((a, i) => ({ a, info: infos[i] })).filter((x) => x.info.ok && x.info.kredit > 0).sort((x, y) => y.info.kredit - x.info.kredit);
-          if (!ok.length) return send(res, 400, { ok: false, error: "Tidak ada akun mitra aktif yang sisa credit-nya masih ada (Credit Awal − tagihan Vultr)." });
+          const ok = all.map((a, i) => ({ a, info: infos[i] })).filter((x) => x.info.ok && x.info.kredit >= plan.bulanan).sort((x, y) => y.info.kredit - x.info.kredit);
+          if (!ok.length) return send(res, 400, { ok: false, error: `Tidak ada akun mitra aktif dengan sisa credit minimal $${plan.bulanan} (Biaya/Bulan plan ini).` });
           acc = ok[0].a; info = ok[0].info;
         }
-        if (b.akun && b.akun !== "auto" && info.kredit <= 0 && !b.paksa) {
-          return send(res, 400, { ok: false, perluKonfirmasi: true, error: `Sisa credit ${acc.nama} sudah $${info.kredit} (Credit Awal $${info.creditAwal} − tagihan Vultr $${info.terpakai}). Centang "tetap buat" kalau yakin.` });
+        if (b.akun && b.akun !== "auto" && info.kredit < plan.bulanan && !b.paksa) {
+          return send(res, 400, { ok: false, perluKonfirmasi: true, error: `Sisa credit ${acc.nama} $${info.kredit}, kurang dari Biaya/Bulan plan ini ($${plan.bulanan}). Setelah dibuat sisa jadi $${r2(info.kredit - plan.bulanan)}. Centang "tetap buat" kalau yakin.` });
         }
 
         const body = { region: b.region, plan: b.plan, os_id: osId, label, hostname, enable_ipv6: b.ipv6 !== false, backups: "disabled", tags: ["mineidhost"] }; // auto backup selalu mati
