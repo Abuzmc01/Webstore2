@@ -76,6 +76,7 @@ async function vultr(key, method, path, body) {
     let msg = j.error || ("HTTP " + r.status);
     if (r.status === 401 && /ip/i.test(msg)) msg = "IP ditolak. Mitra perlu mengizinkan \"Any IPv4/IPv6\" di Vultr → Account → API → Access Control.";
     else if (r.status === 401) msg = "API key ditolak (salah, dihapus, atau API belum diaktifkan di akun itu).";
+    else if (/locked/i.test(msg)) msg = "VPS sedang dikunci Vultr karena masih ada proses berjalan (baru dibuat/instalasi OS, reinstall, atau aksi lain). Tunggu ±5 menit, klik Muat ulang, lalu coba lagi. Kalau lebih dari 30 menit masih terkunci, cek di dashboard Vultr atau hubungi support Vultr.";
     const e = new Error(msg); e.status = r.status; throw e;
   }
   return j;
