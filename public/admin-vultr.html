@@ -138,6 +138,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
         <div class="full"><label class="l" for="cAkun">Akun mitra</label><select id="cAkun"></select></div>
         <div><label class="l" for="cRegion">Region</label><select id="cRegion"></select></div>
         <div><label class="l" for="cTipe">Jenis plan</label><select id="cTipe"></select></div>
+        <div><label class="l" for="cCpu">Processor</label><select id="cCpu"></select></div>
         <div class="full"><label class="l" for="cPlan">Plan</label><select id="cPlan"></select></div>
         <div class="full"><label class="l" for="cOs">Sistem operasi</label><select id="cOs"></select></div>
         <div><label class="l" for="cLabel">Label</label><input class="inp" id="cLabel" maxlength="60" placeholder="contoh: sgp-medium-2"></div>
@@ -179,7 +180,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var CAT = null, ACC = [], VPS = [], me = "", refreshTimer = null;
-  var TIPE = { vc2: "Cloud Compute (Regular)", vhf: "High Frequency", vhp: "High Performance", voc: "Optimized Cloud", vcg: "Cloud GPU", vdc: "Dedicated Cloud" };
+  var TIPE = { vc2: "Regular Performance", vhf: "High Frequency", vhp: "High Performance", voc: "Optimized Cloud", vcg: "Cloud GPU", vdc: "Dedicated Cloud" };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function usd(n) { return "$" + Number(n || 0).toFixed(2).replace(/\.00$/, ""); }
   function gb(mb) { return mb >= 1024 ? (mb / 1024).toFixed(mb % 1024 ? 1 : 0) + " GB" : mb + " MB"; }
@@ -222,8 +223,8 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
         return '<div class="acc"><div class="h"><b>' + esc(a.nama) + "</b>" + (a.aktif ? (i.ok ? '<span class="tag ok">OK</span>' : '<span class="tag bad">Error</span>') : '<span class="tag off">Nonaktif</span>') + "</div>" +
           (i.ok ? '<div class="k" style="color:' + (i.kredit < 0 ? "#ff8b9c" : i.kredit < 20 ? "var(--warn)" : "#fff") + '">' + usd(i.kredit) + '</div><small>sisa credit</small>' +
             '<div class="cr"><span>Credit awal<b>' + usd(i.creditAwal) + '</b></span><span>Terpakai<b>' + usd(i.terpakai) + '</b></span><span>Server<b>' + i.jumlahServer + "</b></span></div>" +
-            "<small>Tagihan Vultr: bulan ini " + usd(i.bulanIni) + " · invoice " + i.jumlahInvoice + "x total " + usd(i.totalInvoice) +
-            (i.invoiceTerakhir ? " (terakhir " + esc(i.invoiceTerakhir.tanggal.split("-").reverse().join("/")) + " " + usd(i.invoiceTerakhir.jumlah) + ")" : "") + "</small>" +
+            (i.server && i.server.length ? "<small>" + i.server.map(function (s) { return esc(s.label || s.plan) + " " + usd(s.biaya) + "/bln"; }).join(" · ") + "</small>" : "") +
+            (i.tanpaHarga && i.tanpaHarga.length ? '<small style="color:var(--warn)">Harga plan tidak dikenal: ' + esc(i.tanpaHarga.join(", ")) + "</small>" : "") +
             "<small>" + esc(i.email) + (a.tanggal ? " · dibuat " + esc(a.tanggal.split("-").reverse().join("/")) : "") + "</small>" +
             (!a.creditAwal ? '<small style="color:var(--warn)">Credit awal belum diisi (klik Edit)</small>' : "") +
             ""
@@ -389,11 +390,18 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     }
     fillPlans(); loadSsh();
   }
+  function fillCpu() {
+    var reg = $("cRegion").value, t = $("cTipe").value, cur = $("cCpu").value;
+    var vs = Array.from(new Set(CAT.plans.filter(function (p) { return p.tipe === t && (p.lokasi || []).indexOf(reg) > -1; }).map(function (p) { return p.cpu || "Lainnya"; }))).sort();
+    $("cCpu").innerHTML = (vs.length > 1 ? '<option value="">Semua (' + vs.join(" / ") + ")</option>" : "") + vs.map(function (v) { return '<option value="' + v + '">' + v + "</option>"; }).join("");
+    if (cur && vs.indexOf(cur) > -1) $("cCpu").value = cur;
+  }
   function fillPlans() {
-    var reg = $("cRegion").value, t = $("cTipe").value, cur = $("cPlan").value;
-    var ps = CAT.plans.filter(function (p) { return p.tipe === t && (p.lokasi || []).indexOf(reg) > -1; }).sort(function (a, b) { return a.bulanan - b.bulanan; });
+    fillCpu();
+    var reg = $("cRegion").value, t = $("cTipe").value, cpu = $("cCpu").value, cur = $("cPlan").value;
+    var ps = CAT.plans.filter(function (p) { return p.tipe === t && (p.lokasi || []).indexOf(reg) > -1 && (!cpu || (p.cpu || "Lainnya") === cpu); }).sort(function (a, b) { return a.bulanan - b.bulanan; });
     $("cPlan").innerHTML = ps.length ? ps.map(function (p) {
-      return '<option value="' + p.id + '">' + p.vcpu + " vCPU · " + gb(p.ram) + " RAM · " + p.disk + " GB · " + (p.bw / 1000 >= 1 ? (p.bw / 1000) + " TB" : p.bw + " GB") + " bw — " + usd(p.bulanan) + "/bln</option>";
+      return '<option value="' + p.id + '">' + (p.cpu && p.cpu !== "Lainnya" ? p.cpu + " · " : "") + p.vcpu + " vCPU · " + gb(p.ram) + " RAM · " + p.disk + " GB · " + (p.bw / 1000 >= 1 ? (p.bw / 1000) + " TB" : p.bw + " GB") + " bw — " + usd(p.bulanan) + "/bln</option>";
     }).join("") : '<option value="">Tidak ada plan jenis ini di region ini</option>';
     if (cur && ps.some(function (p) { return p.id === cur; })) $("cPlan").value = cur;
     summary();
@@ -403,9 +411,9 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     if (!p) { $("cSum").innerHTML = "Pilih plan."; return; }
     var m = p.bulanan;
     var a = ACC.filter(function (x) { return x.id === $("cAkun").value; })[0];
-    $("cSum").innerHTML = a && a.info && a.info.ok
-      ? "Akun <b>" + esc(a.nama) + "</b>: sisa credit <b style='color:" + (a.info.kredit <= 0 ? "#ff8b9c" : "var(--ok)") + "'>" + usd(a.info.kredit) + "</b> · tagihan Vultr bulan ini " + usd(a.info.bulanIni) + " · " + a.info.jumlahServer + " server"
-      : "Akun dipilih otomatis: akun aktif dengan sisa credit terbesar.";
+    $("cSum").innerHTML = "Biaya/Bulan: <b>" + usd(m) + "</b> (langsung mengurangi sisa credit penuh)" + (a && a.info && a.info.ok
+      ? " · Sisa credit " + esc(a.nama) + ": <b>" + usd(a.info.kredit) + "</b> → setelah dibuat <b style='color:" + (a.info.kredit - m < 0 ? "#ff8b9c" : "var(--ok)") + "'>" + usd(a.info.kredit - m) + "</b>"
+      : " · akun dipilih otomatis (sisa credit terbesar yang cukup)");
   }
   function loadSsh() {
     var akun = $("cAkun").value;
@@ -418,6 +426,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   }
   $("cRegion").addEventListener("change", fillPlans);
   $("cTipe").addEventListener("change", fillPlans);
+  $("cCpu").addEventListener("change", fillPlans);
   $("cPlan").addEventListener("change", summary);
   $("cAkun").addEventListener("change", function () { summary(); loadSsh(); $("wPaksa").hidden = true; });
   $("cLabel").addEventListener("input", function () { $("cHost").placeholder = this.value ? this.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/^-+|-+$/g, "") : "otomatis dari label"; });
