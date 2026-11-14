@@ -180,7 +180,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var CAT = null, ACC = [], VPS = [], me = "", refreshTimer = null;
-  var TIPE = { vc2: "Regular Performance", vhf: "High Frequency", vhp: "High Performance", voc: "Optimized Cloud", vcg: "Cloud GPU", vdc: "Dedicated Cloud" };
+  var TIPE = { metal: "Bare Metal (server fisik)", vc2: "Regular Performance", vhf: "High Frequency", vhp: "High Performance", voc: "Optimized Cloud", vcg: "Cloud GPU", vdc: "Dedicated Cloud" };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function usd(n) { return "$" + Number(n || 0).toFixed(2).replace(/\.00$/, ""); }
   function gb(mb) { return mb >= 1024 ? (mb / 1024).toFixed(mb % 1024 ? 1 : 0) + " GB" : mb + " MB"; }
@@ -292,13 +292,13 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     $("vCnt").textContent = list.length + " VPS";
     $("vRows").innerHTML = list.length ? list.map(function (v) {
       var running = v.power === "running";
-      return "<tr><td><b>" + esc(v.label || "(tanpa label)") + "</b><small>" + esc(v.hostname) + "</small><small>" + esc(v.os) + "</small></td>" +
+      return "<tr><td><b>" + esc(v.label || "(tanpa label)") + "</b>" + (v.metal ? ' <span class="tag warn">Bare Metal</span>' : "") + "<small>" + esc(v.hostname) + "</small><small>" + esc(v.os) + "</small></td>" +
         "<td>" + esc(v.akunNama) + "<small>" + esc(String(v.region).toUpperCase()) + "</small></td>" +
         '<td class="mono">' + (v.ip && v.ip !== "0.0.0.0" ? esc(v.ip) + ' <button type="button" class="btn sm" data-copy="' + esc(v.ip) + '">Salin</button>' : '<span style="color:var(--muted)">menunggu IP...</span>') + (v.ipv6 ? "<small>" + esc(v.ipv6) + "</small>" : "") + "</td>" +
         '<td class="mono">' + (v.password
             ? '<span class="pwv" data-show="0" data-pw="' + esc(v.password) + '">••••••••</span> <button type="button" class="btn sm" data-eye="' + v.id + '">Lihat</button> <button type="button" class="btn sm" data-copy="' + esc(v.password) + '">Salin</button> <button type="button" class="btn sm" data-setpw="' + v.id + '">Ubah</button>'
             : '<span style="color:var(--muted)">belum ada</span> <button type="button" class="btn sm" data-setpw="' + v.id + '">Isi</button>') + "<small>user root</small></td>" +
-        "<td>" + v.vcpu + " vCPU · " + gb(v.ram) + "<small>" + v.disk + " GB · " + esc(v.plan) + "</small></td>" +
+        "<td>" + v.vcpu + (v.metal ? " core · " : " vCPU · ") + gb(v.ram) + "<small>" + esc(v.disk) + (v.metal ? "" : " GB") + " · " + esc(v.plan) + "</small></td>" +
         "<td>" + statusTag(v) + "<small>dibuat " + esc(String(v.dibuat).slice(0, 10)) + "</small></td>" +
         '<td><div class="acts">' +
         (running ? '<button type="button" class="btn sm" data-p="reboot" data-id="' + v.id + '">Reboot</button><button type="button" class="btn sm" data-p="stop" data-id="' + v.id + '">Stop</button>'
@@ -323,7 +323,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     if (b.dataset.p) {
       if (b.dataset.p !== "start" && !confirm((b.dataset.p === "stop" ? "Matikan" : "Reboot") + " VPS " + v.label + "?")) return;
       b.disabled = true;
-      api({ action: "power", akun: v.akun, id: v.id, aksi: b.dataset.p, label: v.label }).then(function (r) { toast(r.ok ? "Perintah " + b.dataset.p + " dikirim" : r.error); setTimeout(loadVps, 4000); });
+      api({ action: "power", akun: v.akun, id: v.id, metal: !!v.metal, aksi: b.dataset.p, label: v.label }).then(function (r) { toast(r.ok ? "Perintah " + b.dataset.p + " dikirim" : r.error); setTimeout(loadVps, 4000); });
     } else if (b.dataset.setpw) {
       openModal("<h3>Password root " + esc(v.label) + "</h3><p>Untuk VPS yang dibuat di luar website ini, atau kalau password sudah diganti di dalam VPS. Disimpan terenkripsi.</p>" +
         '<input class="inp mono" id="mPw" autocomplete="off" value="' + esc(v.password || "") + '" placeholder="password root">' +
@@ -344,11 +344,11 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     } else if (b.dataset.re) {
       var osOpts = '<option value="">OS sama seperti sekarang (' + esc(v.os) + ")</option>" + (CAT ? CAT.os.map(function (o) { return '<option value="' + o.id + '">' + esc(o.nama) + "</option>"; }).join("") : "");
       confirmForm("Reinstall " + esc(v.label), "Semua data di VPS akan <b>terhapus</b> dan OS dipasang ulang. IP tetap sama.", v, '<select id="mOs">' + osOpts + "</select>", "Reinstall", function (konf) {
-        return api({ action: "reinstall", akun: v.akun, id: v.id, label: v.label, konfirmasi: konf, os_id: $("mOs").value || undefined });
+        return api({ action: "reinstall", akun: v.akun, id: v.id, metal: !!v.metal, label: v.label, konfirmasi: konf, os_id: $("mOs").value || undefined });
       }, "Reinstall dimulai. Password root baru muncul di tombol Password setelah selesai.");
     } else if (b.dataset.del) {
       confirmForm("Hapus VPS " + esc(v.label), "VPS <b>" + esc(v.label) + "</b> (" + esc(v.ip) + ") di akun <b>" + esc(v.akunNama) + "</b> akan dihapus permanen dari Vultr beserta seluruh datanya.", v, "", "Hapus permanen", function (konf) {
-        return api({ action: "delete", akun: v.akun, id: v.id, label: v.label, ip: v.ip, konfirmasi: konf });
+        return api({ action: "delete", akun: v.akun, id: v.id, metal: !!v.metal, label: v.label, ip: v.ip, konfirmasi: konf });
       }, "VPS dihapus");
     }
   });
@@ -401,6 +401,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     var reg = $("cRegion").value, t = $("cTipe").value, cpu = $("cCpu").value, cur = $("cPlan").value;
     var ps = CAT.plans.filter(function (p) { return p.tipe === t && (p.lokasi || []).indexOf(reg) > -1 && (!cpu || (p.cpu || "Lainnya") === cpu); }).sort(function (a, b) { return a.bulanan - b.bulanan; });
     $("cPlan").innerHTML = ps.length ? ps.map(function (p) {
+      if (p.metal) return '<option value="' + p.id + '">' + esc(p.cpuModel || p.cpu) + " · " + p.vcpu + " core/" + (p.threads || p.vcpu * 2) + " thread · " + gb(p.ram) + " RAM · " + (p.diskCount > 1 ? p.diskCount + "× " : "") + p.disk + " GB " + esc(p.diskType) + " — " + usd(p.bulanan) + "/bln</option>";
       return '<option value="' + p.id + '">' + (p.cpu && p.cpu !== "Lainnya" ? p.cpu + " · " : "") + p.vcpu + " vCPU · " + gb(p.ram) + " RAM · " + p.disk + " GB · " + (p.bw / 1000 >= 1 ? (p.bw / 1000) + " TB" : p.bw + " GB") + " bw — " + usd(p.bulanan) + "/bln</option>";
     }).join("") : '<option value="">Tidak ada plan jenis ini di region ini</option>';
     if (cur && ps.some(function (p) { return p.id === cur; })) $("cPlan").value = cur;
@@ -411,7 +412,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     if (!p) { $("cSum").innerHTML = "Pilih plan."; return; }
     var m = p.bulanan;
     var a = ACC.filter(function (x) { return x.id === $("cAkun").value; })[0];
-    $("cSum").innerHTML = "Biaya/Bulan: <b>" + usd(m) + "</b> (langsung mengurangi sisa credit penuh)" + (a && a.info && a.info.ok
+    $("cSum").innerHTML = (p.metal ? "🖥️ <b>Bare Metal</b>: server fisik, instalasi 10–30 menit. " : "") + "Biaya/Bulan: <b>" + usd(m) + "</b> (langsung mengurangi sisa credit penuh)" + (a && a.info && a.info.ok
       ? " · Sisa credit " + esc(a.nama) + ": <b>" + usd(a.info.kredit) + "</b> → setelah dibuat <b style='color:" + (a.info.kredit - m < 0 ? "#ff8b9c" : "var(--ok)") + "'>" + usd(a.info.kredit - m) + "</b>"
       : " · akun dipilih otomatis (sisa credit terbesar yang cukup)");
   }
@@ -438,8 +439,8 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       sshKeyId: $("cSshSel").value || undefined, sshPublic: $("cSsh").value.trim() || undefined, ipv6: $("cV6").checked, paksa: $("cPaksa").checked }).then(function (r) {
       $("cGo").disabled = false; $("cGo").textContent = "Buat VPS";
       if (!r.ok) { $("cErr").textContent = r.error; if (r.perluKonfirmasi) $("wPaksa").hidden = false; return; }
-      $("cRes").innerHTML = '<div class="res"><b>✅ VPS dibuat di akun ' + esc(r.akun) + (r.otomatis ? " (dipilih otomatis)" : "") + "</b>" +
-        "<div style='margin-top:6px;color:var(--muted);font-size:14px'>" + esc(r.instance.label) + " · " + esc(r.instance.region.toUpperCase()) + " · IP muncul 1–3 menit lagi di tab VPS.</div>" +
+      $("cRes").innerHTML = '<div class="res"><b>✅ ' + (r.metal ? "Bare Metal" : "VPS") + ' dibuat di akun ' + esc(r.akun) + (r.otomatis ? " (dipilih otomatis)" : "") + "</b>" +
+        "<div style='margin-top:6px;color:var(--muted);font-size:14px'>" + esc(r.instance.label) + " · " + esc(r.instance.region.toUpperCase()) + " · IP muncul " + (r.metal ? "10–30" : "1–3") + " menit lagi di tab VPS.</div>" +
         (r.password ? '<div class="pw"><span>Password root:</span><code>' + esc(r.password) + '</code><button type="button" class="btn sm" id="cCopy">Salin</button></div><small style="color:var(--muted)">Juga tersimpan terenkripsi, bisa dilihat lagi lewat tombol Password di tab VPS.</small>' : "") + "</div>";
       if (r.password) $("cCopy").onclick = function () { copy(r.password); };
       $("cLabel").value = ""; $("cHost").value = ""; $("cSsh").value = ""; $("cPaksa").checked = false; $("wPaksa").hidden = true;

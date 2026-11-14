@@ -18,7 +18,7 @@ const crypto = require("crypto");
 const ACC_KEY = "mdh:vultr:accounts";
 const PW_KEY = "mdh:vultr:pw";
 const LOG_KEY = "mdh:vultr:log";
-const CAT_KEY = "mdh:vultr:catalog:v2";
+const CAT_KEY = "mdh:vultr:catalog:v3";
 const SESSION_HOURS = 12;
 const VULTR = "https://api.vultr.com/v2";
 
@@ -113,7 +113,13 @@ const r2 = (n) => Math.round(n * 100) / 100;
 //   Sisa Credit     = Credit Awal - Credit Terpakai
 async function accountInfo(a) {
   try {
-    const [j, list, cat] = await Promise.all([vultr(a.apiKey, "GET", "/account"), vultrAll(a.apiKey, "/instances", "instances"), catalog()]);
+    const [j, vps, metal, cat] = await Promise.all([
+      vultr(a.apiKey, "GET", "/account"),
+      vultrAll(a.apiKey, "/instances", "instances"),
+      vultrAll(a.apiKey, "/bare-metals", "bare_metals").catch(() => []),
+      catalog()
+    ]);
+    const list = vps.concat(metal);
     const acc = j.account || {};
     const price = {};
     cat.plans.forEach((p) => { price[p.id] = p.bulanan; });
@@ -133,8 +139,8 @@ async function accountInfo(a) {
 // merek processor: dari data Vultr (cpu_vendor) kalau ada, kalau tidak dari ID plan ("...-amd", "...-intel")
 function cpuVendor(p) {
   const v = String(p.cpu_vendor || "").toLowerCase();
-  if (v.includes("amd")) return "AMD";
-  if (v.includes("intel")) return "Intel";
+  if (/amd|epyc|ryzen|threadripper/.test(v)) return "AMD";
+  if (/intel|xeon|^e-?\d|^e[357]-|core|^i[3579]-/.test(v)) return "Intel"; // contoh model bare metal: "E-2388G" = Intel Xeon
   const id = String(p.id).toLowerCase();
   if (/(^|-)amd($|-)/.test(id)) return "AMD";
   if (/(^|-)intel($|-)/.test(id)) return "Intel";
@@ -147,14 +153,20 @@ async function catalog(force) {
     const c = await redis(["GET", CAT_KEY]);
     if (c) return JSON.parse(c);
   }
-  const [regions, plans, os] = await Promise.all([
+  const [regions, plans, metal, os] = await Promise.all([
     vultrAll(null, "/regions", "regions"),
     vultrAll(null, "/plans", "plans"),
+    vultrAll(null, "/plans-metal", "plans_metal").catch(() => []),
     vultrAll(null, "/os", "os")
   ]);
   const cat = {
     regions: regions.map((r) => ({ id: r.id, kota: r.city, negara: r.country, benua: r.continent })),
-    plans: plans.filter((p) => p.monthly_cost > 0).map((p) => ({ id: p.id, tipe: p.type, cpu: cpuVendor(p), vcpu: p.vcpu_count, ram: p.ram, disk: p.disk, diskCount: p.disk_count, bw: p.bandwidth, bulanan: p.monthly_cost, jam: p.hourly_cost, lokasi: p.locations })),
+    plans: plans.filter((p) => p.monthly_cost > 0).map((p) => ({ id: p.id, tipe: p.type, cpu: cpuVendor(p), vcpu: p.vcpu_count, ram: p.ram, disk: p.disk, diskCount: p.disk_count, bw: p.bandwidth, bulanan: p.monthly_cost, jam: p.hourly_cost, lokasi: p.locations }))
+      .concat(metal.filter((p) => p.monthly_cost > 0).map((p) => ({
+        id: p.id, tipe: "metal", metal: true, cpu: cpuVendor({ cpu_vendor: p.cpu_model, id: p.id }), cpuModel: p.cpu_model || "",
+        vcpu: p.cpu_count, threads: p.cpu_threads, ram: p.ram, disk: p.disk, diskCount: p.disk_count || 1, diskType: p.type || "",
+        bw: p.bandwidth, bulanan: p.monthly_cost, jam: p.hourly_cost, lokasi: p.locations
+      }))),
     os: os.filter((o) => o.family !== "iso" && o.family !== "snapshot" && o.family !== "backup" && o.family !== "application").map((o) => ({ id: o.id, nama: o.name, arch: o.arch, family: o.family })),
     waktu: Date.now()
   };
@@ -170,10 +182,24 @@ function slimInstance(v, acc) {
     status: v.status, power: v.power_status, server: v.server_status, dibuat: v.date_created, tag: (v.tags || []).join(", ")
   };
 }
-async function instancesOf(a) {
-  const list = await vultrAll(a.apiKey, "/instances", "instances");
-  return list.map((v) => slimInstance(v, a));
+// Bare Metal: ram berupa teks ("32768 MB"), tidak ada power_status
+function slimMetal(v, acc) {
+  const ram = parseInt(String(v.ram || "").replace(/[^\d]/g, ""), 10) || 0;
+  return {
+    id: v.id, metal: true, akun: acc.id, akunNama: acc.nama, label: v.label, hostname: v.label, ip: v.main_ip, ipv6: v.v6_main_ip,
+    region: v.region, plan: v.plan, os: v.os, osId: v.os_id, vcpu: v.cpu_count, ram, disk: v.disk,
+    status: v.status, power: v.power_status || (v.status === "active" ? "running" : v.status), server: v.server_status || "", dibuat: v.date_created, tag: (v.tags || []).join(", ")
+  };
 }
+async function instancesOf(a) {
+  const [vps, metal] = await Promise.all([
+    vultrAll(a.apiKey, "/instances", "instances"),
+    vultrAll(a.apiKey, "/bare-metals", "bare_metals").catch(() => [])
+  ]);
+  return vps.map((v) => slimInstance(v, a)).concat(metal.map((v) => slimMetal(v, a)));
+}
+// path API: VPS di /instances, Bare Metal di /bare-metals
+const base = (b) => (b.metal === true || b.metal === "1" || b.jenis === "metal" ? "/bare-metals/" : "/instances/");
 
 // ---------------------------------------------------------------- log aktivitas
 async function log(oleh, aksi, detail) {
@@ -340,18 +366,20 @@ module.exports = async (req, res) => {
           return send(res, 400, { ok: false, perluKonfirmasi: true, error: `Sisa credit ${acc.nama} $${info.kredit}, kurang dari Biaya/Bulan plan ini ($${plan.bulanan}). Setelah dibuat sisa jadi $${r2(info.kredit - plan.bulanan)}. Centang "tetap buat" kalau yakin.` });
         }
 
-        const body = { region: b.region, plan: b.plan, os_id: osId, label, hostname, enable_ipv6: b.ipv6 !== false, backups: "disabled", tags: ["mineidhost"] }; // auto backup selalu mati
+        const body = plan.metal
+          ? { region: b.region, plan: b.plan, os_id: osId, label, hostname, enable_ipv6: b.ipv6 !== false, tags: ["mineidhost"] }
+          : { region: b.region, plan: b.plan, os_id: osId, label, hostname, enable_ipv6: b.ipv6 !== false, backups: "disabled", tags: ["mineidhost"] }; // auto backup selalu mati
         // SSH key: pilih yang sudah ada di akun itu, atau tempel public key baru
         if (b.sshKeyId) body.sshkey_id = [String(b.sshKeyId)];
         else if (b.sshPublic && /^(ssh-(rsa|ed25519)|ecdsa-sha2-)/.test(String(b.sshPublic).trim())) {
           const k = await vultr(acc.apiKey, "POST", "/ssh-keys", { name: "mineidhost-" + Date.now().toString(36), ssh_key: String(b.sshPublic).trim() });
           body.sshkey_id = [k.ssh_key.id];
         }
-        const r = await vultr(acc.apiKey, "POST", "/instances", body);
-        const v = r.instance || {};
+        const r = await vultr(acc.apiKey, "POST", plan.metal ? "/bare-metals" : "/instances", body);
+        const v = (plan.metal ? r.bare_metal : r.instance) || {};
         if (v.default_password) await redis(["HSET", PW_KEY, v.id, encrypt({ password: v.default_password, akun: acc.id, waktu: Date.now() })]);
-        await log(oleh, "buat VPS", `${label} · ${plan.id} · ${b.region} · akun ${acc.nama}`);
-        return send(res, 200, { ok: true, akun: acc.nama, otomatis: !b.akun || b.akun === "auto", password: v.default_password || "", instance: slimInstance(v, acc) });
+        await log(oleh, plan.metal ? "buat Bare Metal" : "buat VPS", `${label} · ${plan.id} · ${b.region} · akun ${acc.nama}`);
+        return send(res, 200, { ok: true, akun: acc.nama, metal: !!plan.metal, otomatis: !b.akun || b.akun === "auto", password: v.default_password || "", instance: plan.metal ? slimMetal(v, acc) : slimInstance(v, acc) });
       }
 
       case "power": {
@@ -359,8 +387,8 @@ module.exports = async (req, res) => {
         if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
         const map = { start: "start", stop: "halt", reboot: "reboot" };
         if (!map[b.aksi]) return send(res, 400, { ok: false, error: "Aksi tidak dikenal." });
-        await vultr(a.apiKey, "POST", "/instances/" + encodeURIComponent(b.id) + "/" + map[b.aksi]);
-        await log(oleh, b.aksi + " VPS", (b.label || b.id) + " · akun " + a.nama);
+        await vultr(a.apiKey, "POST", base(b) + encodeURIComponent(b.id) + "/" + map[b.aksi]);
+        await log(oleh, b.aksi + (base(b) === "/bare-metals/" ? " Bare Metal" : " VPS"), (b.label || b.id) + " · akun " + a.nama);
         return send(res, 200, { ok: true });
       }
 
@@ -369,10 +397,10 @@ module.exports = async (req, res) => {
         if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
         if (String(b.konfirmasi || "") !== String(b.label || "")) return send(res, 400, { ok: false, error: "Ketik label VPS persis untuk konfirmasi." });
         const osId = Number(b.os_id);
-        if (osId) await vultr(a.apiKey, "PATCH", "/instances/" + encodeURIComponent(b.id), { os_id: osId }); // ganti OS (ikut reinstall)
+        if (osId) await vultr(a.apiKey, "PATCH", base(b) + encodeURIComponent(b.id), { os_id: osId }); // ganti OS (ikut reinstall)
         else {
-          const r = await vultr(a.apiKey, "POST", "/instances/" + encodeURIComponent(b.id) + "/reinstall", {});
-          const pw = r.instance && r.instance.default_password;
+          const r = await vultr(a.apiKey, "POST", base(b) + encodeURIComponent(b.id) + "/reinstall", {});
+          const pw = (r.instance && r.instance.default_password) || (r.bare_metal && r.bare_metal.default_password);
           if (pw) await redis(["HSET", PW_KEY, b.id, encrypt({ password: pw, akun: a.id, waktu: Date.now() })]);
         }
         await log(oleh, "reinstall VPS", (b.label || b.id) + (osId ? " (OS baru " + osId + ")" : "") + " · akun " + a.nama);
@@ -383,9 +411,9 @@ module.exports = async (req, res) => {
         const a = await account(b.akun);
         if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
         if (!b.label || String(b.konfirmasi || "") !== String(b.label)) return send(res, 400, { ok: false, error: "Ketik label VPS persis untuk konfirmasi hapus." });
-        await vultr(a.apiKey, "DELETE", "/instances/" + encodeURIComponent(b.id));
+        await vultr(a.apiKey, "DELETE", base(b) + encodeURIComponent(b.id));
         await redis(["HDEL", PW_KEY, String(b.id)]);
-        await log(oleh, "HAPUS VPS", b.label + " · " + (b.ip || "") + " · akun " + a.nama);
+        await log(oleh, base(b) === "/bare-metals/" ? "HAPUS Bare Metal" : "HAPUS VPS", b.label + " · " + (b.ip || "") + " · akun " + a.nama);
         return send(res, 200, { ok: true });
       }
 
