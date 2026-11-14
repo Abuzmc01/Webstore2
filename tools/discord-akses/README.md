@@ -54,8 +54,8 @@ Semua pemberian dan pencabutan tercatat di channel staf (siapa, server apa, Gmai
 `PTERODACTYL_URL` dan database Upstash sudah ada dari halaman Status Nodes / admin mitra. **Redeploy**.
 
 ### 4. Sambungkan ke Discord
-1. Buka sekali: **https://mineidhost.com/api/discord?setup=1** → harus muncul `"ok":true` (perintah slash terdaftar).
-2. Discord Developer Portal → **General Information → Interactions Endpoint URL** isi `https://mineidhost.com/api/discord` → **Save** (Discord akan mengetes, harus berhasil).
+1. Buka sekali: **https://mineidhost.com/api/discord?setup=1** → harus muncul `"ok":true`. Ini mendaftarkan perintah slash **dan** mengisi Interactions Endpoint URL otomatis.
+2. Kalau bagian `endpoint` bilang gagal: Discord Developer Portal → **General Information → Interactions Endpoint URL** isi `https://mineidhost.com/api/discord` → **Save**.
 3. Di channel staf ketik `/akses` → coba dengan server uji.
 
 ## Pencabutan otomatis

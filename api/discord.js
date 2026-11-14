@@ -305,7 +305,12 @@ module.exports = async (req, res) => {
       if (q.has("setup")) {
         // daftar perintah slash di server Discord (aman dijalankan berkali-kali)
         await discord("PUT", `/applications/${env("DISCORD_APP_ID")}/guilds/${env("DISCORD_GUILD_ID")}/commands`, COMMANDS);
-        return json(res, 200, { ok: true, message: "Perintah /akses, /cabut, /akses-aktif sudah terdaftar di server Discord." });
+        // isi otomatis "Interactions Endpoint URL" (Discord langsung mengetes alamat ini)
+        const url = "https://" + String(req.headers["x-forwarded-host"] || req.headers.host || "mineidhost.com").split(",")[0].trim() + "/api/discord";
+        let endpoint = "Interactions Endpoint URL terpasang: " + url;
+        try { await discord("PATCH", "/applications/@me", { interactions_endpoint_url: url }); }
+        catch (e) { endpoint = "Perintah sudah terdaftar, tapi Interactions Endpoint URL gagal dipasang otomatis. Isi manual di Developer Portal: " + url + " (" + e.message.slice(0, 120) + ")"; }
+        return json(res, 200, { ok: true, message: "Perintah /akses, /cabut, /akses-aktif sudah terdaftar di server Discord.", endpoint });
       }
       if (q.has("sweep")) return json(res, 200, Object.assign({ ok: true }, await sweep()));
       return json(res, 200, { ok: true });
