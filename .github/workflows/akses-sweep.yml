@@ -1,0 +1,14 @@
+# Cabut otomatis akses subuser yang diberikan bot Discord /akses setelah waktunya habis.
+name: Cabut akses server kedaluwarsa
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+permissions: {}
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Panggil /api/discord?sweep=1
+        run: curl -fsS --max-time 60 "https://mineidhost.com/api/discord?sweep=1" || echo "sweep gagal (akan dicoba lagi 15 menit lagi)"
