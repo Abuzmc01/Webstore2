@@ -61,6 +61,8 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
 .ck label{display:flex;gap:6px;align-items:center}
 .sum{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px;padding:12px 14px;border:1px dashed var(--line);border-radius:10px;font-size:14px;color:var(--muted)}
 .sum b{color:#fff}
+.other{margin-top:6px;font-size:12.5px;color:var(--muted);line-height:1.7}
+.other a{color:var(--blue);cursor:pointer;text-decoration:underline}
 .note{padding:12px 14px;border-left:3px solid var(--warn);background:rgba(245,176,65,.06);border-radius:0 10px 10px 0;color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px}
 .note b{color:#fff}
 .res{padding:16px;border:1px solid rgba(46,204,113,.45);border-radius:12px;background:rgba(46,204,113,.06);margin-top:14px}
@@ -139,7 +141,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
         <div><label class="l" for="cRegion">Region</label><select id="cRegion"></select></div>
         <div><label class="l" for="cTipe">Jenis plan</label><select id="cTipe"></select></div>
         <div><label class="l" for="cCpu">Processor</label><select id="cCpu"></select></div>
-        <div class="full"><label class="l" for="cPlan">Plan</label><select id="cPlan"></select></div>
+        <div class="full"><label class="l" for="cPlan">Plan</label><select id="cPlan"></select><div id="cOther" class="other"></div><div class="other"><a id="cRefCat">Perbarui daftar plan dari Vultr</a> <span id="cCatTime"></span></div></div>
         <div class="full"><label class="l" for="cOs">Sistem operasi</label><select id="cOs"></select></div>
         <div><label class="l" for="cLabel">Label</label><input class="inp" id="cLabel" maxlength="60" placeholder="contoh: sgp-medium-2"></div>
         <div><label class="l" for="cHost">Hostname (opsional)</label><input class="inp" id="cHost" maxlength="63" placeholder="otomatis dari label"></div>
@@ -405,6 +407,14 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       return '<option value="' + p.id + '">' + (p.cpu && p.cpu !== "Lainnya" ? p.cpu + " · " : "") + p.vcpu + " vCPU · " + gb(p.ram) + " RAM · " + p.disk + " GB · " + (p.bw / 1000 >= 1 ? (p.bw / 1000) + " TB" : p.bw + " GB") + " bw — " + usd(p.bulanan) + "/bln</option>";
     }).join("") : '<option value="">Tidak ada plan jenis ini di region ini</option>';
     if (cur && ps.some(function (p) { return p.id === cur; })) $("cPlan").value = cur;
+    // plan jenis ini yang TIDAK ada di region terpilih -> tampilkan di region mana tersedia
+    var kota = {}; CAT.regions.forEach(function (r) { kota[r.id] = r.kota; });
+    var other = CAT.plans.filter(function (p) { return p.tipe === t && (!cpu || (p.cpu || "Lainnya") === cpu) && (p.lokasi || []).length && (p.lokasi || []).indexOf(reg) < 0; })
+      .sort(function (a, b) { return a.bulanan - b.bulanan; });
+    $("cOther").innerHTML = other.length ? "<b>Tidak tersedia di " + esc(kota[reg] || reg) + ":</b><br>" + other.slice(0, 12).map(function (p) {
+      var name = p.metal ? (p.cpuModel || p.cpu) + " · " + gb(p.ram) : (p.cpu && p.cpu !== "Lainnya" ? p.cpu + " · " : "") + p.vcpu + " vCPU · " + gb(p.ram);
+      return esc(name) + " (" + usd(p.bulanan) + "/bln) → " + p.lokasi.map(function (l) { return '<a data-reg="' + esc(l) + '">' + esc(kota[l] || l) + "</a>"; }).join(", ");
+    }).join("<br>") + (other.length > 12 ? "<br>… dan " + (other.length - 12) + " plan lain" : "") : "";
     summary();
   }
   function summary() {
@@ -426,8 +436,16 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     });
   }
   $("cRegion").addEventListener("change", fillPlans);
-  $("cTipe").addEventListener("change", fillPlans);
+  $("cTipe").addEventListener("change", function () { $("cCpu").innerHTML = ""; fillPlans(); }); // processor kembali ke "Semua"
   $("cCpu").addEventListener("change", fillPlans);
+  $("cRefCat").addEventListener("click", function () {
+    $("cCatTime").textContent = "memuat…";
+    loadCatalog(true).then(function () { $("cCatTime").textContent = "diperbarui " + when(Date.now()); });
+  });
+  $("cOther").addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-reg]"); if (!a) return;
+    $("cRegion").value = a.dataset.reg; fillPlans(); loadSsh();
+  });
   $("cPlan").addEventListener("change", summary);
   $("cAkun").addEventListener("change", function () { summary(); loadSsh(); $("wPaksa").hidden = true; });
   $("cLabel").addEventListener("input", function () { $("cHost").placeholder = this.value ? this.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/^-+|-+$/g, "") : "otomatis dari label"; });
