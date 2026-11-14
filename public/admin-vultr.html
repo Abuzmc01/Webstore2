@@ -73,6 +73,9 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
 .acc .k{font-size:22px;font-weight:700;margin:8px 0 2px}
 .acc small{display:block;color:var(--muted);font-size:12.5px}
 .acc .ft{display:flex;gap:6px;margin-top:10px}
+.acc .cr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 6px}
+.acc .cr span{padding:6px 8px;border:1px solid var(--line);border-radius:8px;font-size:11.5px;color:var(--muted)}
+.acc .cr b{display:block;color:#fff;font-size:14px}
 .modal{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.72);display:flex;align-items:flex-start;justify-content:center;padding:6vh 14px;overflow-y:auto}
 .modal .in{width:100%;max-width:520px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
 .modal h3{margin:0 0 12px;font-size:18px}
@@ -123,8 +126,8 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     </div>
     <div class="e" id="vErr"></div>
     <div class="tbl"><table>
-      <thead><tr><th>VPS</th><th>Akun mitra</th><th>IP</th><th>Spesifikasi</th><th>Status</th><th>Aksi</th></tr></thead>
-      <tbody id="vRows"><tr><td colspan="6" class="empty">Memuat...</td></tr></tbody>
+      <thead><tr><th>VPS</th><th>Akun mitra</th><th>IP</th><th>Password root</th><th>Spesifikasi</th><th>Status</th><th>Aksi</th></tr></thead>
+      <tbody id="vRows"><tr><td colspan="7" class="empty">Memuat...</td></tr></tbody>
     </table></div>
   </section>
 
@@ -144,8 +147,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       </div>
       <div class="ck">
         <label><input type="checkbox" id="cV6" checked> IPv6</label>
-        <label><input type="checkbox" id="cBak"> Auto backup (+20% biaya)</label>
-        <label id="wPaksa" hidden><input type="checkbox" id="cPaksa"> Tetap buat walau kredit tipis</label>
+        <label id="wPaksa" hidden><input type="checkbox" id="cPaksa"> Tetap buat walau sisa credit kurang</label>
       </div>
       <div class="sum" id="cSum"></div>
       <div class="e" id="cErr"></div>
@@ -156,7 +158,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
 
   <!-- akun mitra -->
   <section id="t-akun" hidden>
-    <div class="bar"><h2>Akun Vultr mitra</h2><button type="button" class="btn" id="aRef">Muat ulang saldo</button><button type="button" class="btn pri" id="aAdd">+ Tambah akun</button></div>
+    <div class="bar"><h2>Akun Vultr mitra</h2><button type="button" class="btn" id="aRef">Muat ulang</button><button type="button" class="btn pri" id="aAdd">+ Tambah akun</button></div>
     <div class="note"><b>Cara mitra membuat API key:</b> login Vultr → <b>Account → API</b> → <b>Enable API</b> → salin API key. Di bagian <b>Access Control</b> klik <b>Allow All IPv4</b> dan <b>Allow All IPv6</b> (server website tidak punya IP tetap). API key disimpan terenkripsi dan tidak pernah ditampilkan lagi.</div>
     <div class="cards" id="aList"><div class="empty">Memuat...</div></div>
   </section>
@@ -218,7 +220,14 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       $("aList").innerHTML = ACC.length ? ACC.map(function (a) {
         var i = a.info || {};
         return '<div class="acc"><div class="h"><b>' + esc(a.nama) + "</b>" + (a.aktif ? (i.ok ? '<span class="tag ok">OK</span>' : '<span class="tag bad">Error</span>') : '<span class="tag off">Nonaktif</span>') + "</div>" +
-          (i.ok ? '<div class="k" style="color:' + (i.kredit < 10 ? "var(--warn)" : "#fff") + '">' + usd(i.kredit) + '</div><small>sisa kredit · tagihan berjalan ' + usd(i.tagihanBerjalan) + "</small><small>" + esc(i.email) + "</small>" : '<small style="color:#ff8b9c;margin-top:8px">' + esc(i.error || "") + "</small>") +
+          (i.ok ? '<div class="k" style="color:' + (i.kredit < 0 ? "#ff8b9c" : i.kredit < 20 ? "var(--warn)" : "#fff") + '">' + usd(i.kredit) + '</div><small>sisa credit</small>' +
+            '<div class="cr"><span>Credit awal<b>' + usd(i.creditAwal) + '</b></span><span>Terpakai<b>' + usd(i.terpakai) + '</b></span><span>Server<b>' + i.jumlahServer + "</b></span></div>" +
+            "<small>Tagihan Vultr: bulan ini " + usd(i.bulanIni) + " · invoice " + i.jumlahInvoice + "x total " + usd(i.totalInvoice) +
+            (i.invoiceTerakhir ? " (terakhir " + esc(i.invoiceTerakhir.tanggal.split("-").reverse().join("/")) + " " + usd(i.invoiceTerakhir.jumlah) + ")" : "") + "</small>" +
+            "<small>" + esc(i.email) + (a.tanggal ? " · dibuat " + esc(a.tanggal.split("-").reverse().join("/")) : "") + "</small>" +
+            (!a.creditAwal ? '<small style="color:var(--warn)">Credit awal belum diisi (klik Edit)</small>' : "") +
+            ""
+          : '<small style="color:#ff8b9c;margin-top:8px">' + esc(i.error || "") + "</small>") +
           "<small>Mitra: " + esc(a.mitra || "-") + " · key ••••" + esc(a.keyAkhir) + "</small>" + (a.catatan ? "<small>" + esc(a.catatan) + "</small>" : "") +
           '<div class="ft"><button type="button" class="btn sm" data-aedit="' + a.id + '">Edit</button></div></div>';
       }).join("") : '<div class="empty">Belum ada akun. Klik + Tambah akun.</div>';
@@ -236,13 +245,15 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       '<label class="l">Nama akun (bebas)</label><input class="inp" id="fNama" maxlength="60" value="' + esc(a ? a.nama : "") + '" placeholder="contoh: Vultr Aja #1">' +
       '<label class="l">Nama mitra</label><input class="inp" id="fMitra" maxlength="80" value="' + esc(a ? a.mitra : "") + '">' +
       '<label class="l">API key Vultr' + (a ? " (kosongkan kalau tidak diganti)" : "") + '</label><input class="inp mono" id="fKey" maxlength="120" autocomplete="off" placeholder="' + (a ? "••••" + esc(a.keyAkhir) : "36 karakter huruf besar + angka") + '">' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label class="l">Credit awal ($)</label><input class="inp" id="fCredit" inputmode="decimal" value="' + (a && a.creditAwal ? a.creditAwal : "") + '" placeholder="305"></div>' +
+      '<div><label class="l">Tanggal dibuat</label><input class="inp" id="fTgl" type="date" value="' + esc(a && a.tanggal ? a.tanggal : new Date(Date.now() + 7 * 3600e3).toISOString().slice(0, 10)) + '"></div></div>' +
       '<label class="l">Catatan</label><input class="inp" id="fCat" maxlength="300" value="' + esc(a ? a.catatan : "") + '">' +
       '<label style="display:flex;gap:6px;align-items:center;font-size:13.5px"><input type="checkbox" id="fAktif"' + (!a || a.aktif ? " checked" : "") + "> Aktif (dipakai untuk membuat VPS)</label>" +
       '<div class="e" id="fErr"></div><div class="row"><button type="button" class="btn pri" id="fSave">Simpan</button><button type="button" class="btn" data-close>Batal</button>' +
       (a ? '<button type="button" class="btn del" id="fDel" style="margin-left:auto">Hapus akun</button>' : "") + "</div>");
     $("fSave").onclick = function () {
       this.disabled = true; $("fErr").textContent = "Mengecek API key ke Vultr...";
-      api({ action: "account_save", id: a && a.id, nama: $("fNama").value, mitra: $("fMitra").value, apiKey: $("fKey").value.trim(), catatan: $("fCat").value, aktif: $("fAktif").checked }).then(function (r) {
+      api({ action: "account_save", id: a && a.id, nama: $("fNama").value, mitra: $("fMitra").value, apiKey: $("fKey").value.trim(), creditAwal: $("fCredit").value, tanggal: $("fTgl").value, catatan: $("fCat").value, aktif: $("fAktif").checked }).then(function (r) {
         $("fSave").disabled = false;
         if (!r.ok) { $("fErr").textContent = r.error; return; }
         closeModal(); toast("Akun tersimpan" + (r.account.info.email ? " (" + r.account.info.email + ")" : "")); loadAccounts();
@@ -266,7 +277,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     clearTimeout(refreshTimer);
     $("vErr").textContent = "";
     return api({ action: "instances", akun: $("vAkun").value || undefined }).then(function (r) {
-      if (!r.ok) { $("vRows").innerHTML = '<tr><td colspan="6" class="empty">' + esc(r.error) + "</td></tr>"; return; }
+      if (!r.ok) { $("vRows").innerHTML = '<tr><td colspan="7" class="empty">' + esc(r.error) + "</td></tr>"; return; }
       VPS = r.instances;
       if (r.errors.length) $("vErr").textContent = "Gagal membaca: " + r.errors.join(" · ");
       renderVps();
@@ -283,15 +294,17 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       return "<tr><td><b>" + esc(v.label || "(tanpa label)") + "</b><small>" + esc(v.hostname) + "</small><small>" + esc(v.os) + "</small></td>" +
         "<td>" + esc(v.akunNama) + "<small>" + esc(String(v.region).toUpperCase()) + "</small></td>" +
         '<td class="mono">' + (v.ip && v.ip !== "0.0.0.0" ? esc(v.ip) + ' <button type="button" class="btn sm" data-copy="' + esc(v.ip) + '">Salin</button>' : '<span style="color:var(--muted)">menunggu IP...</span>') + (v.ipv6 ? "<small>" + esc(v.ipv6) + "</small>" : "") + "</td>" +
+        '<td class="mono">' + (v.password
+            ? '<span class="pwv" data-show="0" data-pw="' + esc(v.password) + '">••••••••</span> <button type="button" class="btn sm" data-eye="' + v.id + '">Lihat</button> <button type="button" class="btn sm" data-copy="' + esc(v.password) + '">Salin</button> <button type="button" class="btn sm" data-setpw="' + v.id + '">Ubah</button>'
+            : '<span style="color:var(--muted)">belum ada</span> <button type="button" class="btn sm" data-setpw="' + v.id + '">Isi</button>') + "<small>user root</small></td>" +
         "<td>" + v.vcpu + " vCPU · " + gb(v.ram) + "<small>" + v.disk + " GB · " + esc(v.plan) + "</small></td>" +
         "<td>" + statusTag(v) + "<small>dibuat " + esc(String(v.dibuat).slice(0, 10)) + "</small></td>" +
         '<td><div class="acts">' +
         (running ? '<button type="button" class="btn sm" data-p="reboot" data-id="' + v.id + '">Reboot</button><button type="button" class="btn sm" data-p="stop" data-id="' + v.id + '">Stop</button>'
                  : '<button type="button" class="btn sm" data-p="start" data-id="' + v.id + '">Start</button>') +
-        (v.adaPassword ? '<button type="button" class="btn sm" data-pw="' + v.id + '">Password</button>' : "") +
         '<button type="button" class="btn sm" data-re="' + v.id + '">Reinstall</button>' +
         '<button type="button" class="btn sm del" data-del="' + v.id + '">Hapus</button></div></td></tr>';
-    }).join("") : '<tr><td colspan="6" class="empty">' + (ACC.length ? "Tidak ada VPS." : "Tambahkan akun mitra dulu di tab Akun mitra.") + "</td></tr>";
+    }).join("") : '<tr><td colspan="7" class="empty">' + (ACC.length ? "Tidak ada VPS." : "Tambahkan akun mitra dulu di tab Akun mitra.") + "</td></tr>";
   }
   $("vRef").addEventListener("click", loadVps);
   $("vAkun").addEventListener("change", loadVps);
@@ -299,13 +312,29 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   $("vRows").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     if (b.dataset.copy) return copy(b.dataset.copy);
-    var id = b.dataset.id || b.dataset.pw || b.dataset.re || b.dataset.del;
+    if (b.dataset.eye) {
+      var sp = b.parentNode.querySelector(".pwv"), show = sp.dataset.show !== "1";
+      sp.textContent = show ? sp.dataset.pw : "••••••••"; sp.dataset.show = show ? "1" : "0"; b.textContent = show ? "Sembunyikan" : "Lihat";
+      return;
+    }
+    var id = b.dataset.id || b.dataset.setpw || b.dataset.re || b.dataset.del;
     var v = VPS.filter(function (x) { return x.id === id; })[0]; if (!v) return;
     if (b.dataset.p) {
       if (b.dataset.p !== "start" && !confirm((b.dataset.p === "stop" ? "Matikan" : "Reboot") + " VPS " + v.label + "?")) return;
       b.disabled = true;
       api({ action: "power", akun: v.akun, id: v.id, aksi: b.dataset.p, label: v.label }).then(function (r) { toast(r.ok ? "Perintah " + b.dataset.p + " dikirim" : r.error); setTimeout(loadVps, 4000); });
-    } else if (b.dataset.pw) {
+    } else if (b.dataset.setpw) {
+      openModal("<h3>Password root " + esc(v.label) + "</h3><p>Untuk VPS yang dibuat di luar website ini, atau kalau password sudah diganti di dalam VPS. Disimpan terenkripsi.</p>" +
+        '<input class="inp mono" id="mPw" autocomplete="off" value="' + esc(v.password || "") + '" placeholder="password root">' +
+        '<div class="e" id="mErr"></div><div class="row"><button type="button" class="btn pri" id="mSave">Simpan</button><button type="button" class="btn" data-close>Batal</button></div>');
+      $("mSave").onclick = function () {
+        this.disabled = true;
+        api({ action: "set_password", akun: v.akun, id: v.id, label: v.label, password: $("mPw").value }).then(function (r) {
+          if (!r.ok) { $("mErr").textContent = r.error; $("mSave").disabled = false; return; }
+          closeModal(); toast("Password disimpan"); loadVps();
+        });
+      };
+    } else if (b.dataset.pwOld) {
       api({ action: "password", id: v.id, label: v.label }).then(function (r) {
         if (!r.ok) return toast(r.error);
         openModal("<h3>Password root " + esc(v.label) + '</h3><p>IP <code>' + esc(v.ip) + '</code> · user <code>root</code></p><div class="res" style="margin:0"><div class="pw"><code>' + esc(r.password) + '</code><button type="button" class="btn sm" id="mCopy">Salin</button></div><small style="color:var(--muted)">Disimpan ' + when(r.waktu) + '. Kalau password sudah diganti di dalam VPS, yang ini tidak berlaku lagi.</small></div><div class="row"><button type="button" class="btn" data-close>Tutup</button></div>');
@@ -339,8 +368,8 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   function fillCreate() {
     if (!CAT) return;
     var akunSel = $("cAkun").value;
-    $("cAkun").innerHTML = '<option value="auto">Otomatis: akun aktif dengan kredit terbesar</option>' + ACC.filter(function (a) { return a.aktif; }).map(function (a) {
-      return '<option value="' + a.id + '">' + esc(a.nama) + (a.info && a.info.ok ? " — kredit " + usd(a.info.kredit) : " — error") + "</option>";
+    $("cAkun").innerHTML = '<option value="auto">Otomatis: akun aktif dengan sisa credit terbesar</option>' + ACC.filter(function (a) { return a.aktif; }).map(function (a) {
+      return '<option value="' + a.id + '">' + esc(a.nama) + (a.info && a.info.ok ? " — sisa credit " + usd(a.info.kredit) + " · " + a.info.jumlahServer + " server" : " — error") + "</option>";
     }).join("");
     if (akunSel) $("cAkun").value = akunSel;
     if (!filled) {
@@ -372,10 +401,11 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   function summary() {
     var p = CAT && CAT.plans.filter(function (x) { return x.id === $("cPlan").value; })[0];
     if (!p) { $("cSum").innerHTML = "Pilih plan."; return; }
-    var m = p.bulanan * ($("cBak").checked ? 1.2 : 1);
+    var m = p.bulanan;
     var a = ACC.filter(function (x) { return x.id === $("cAkun").value; })[0];
-    $("cSum").innerHTML = "Biaya: <b>" + usd(m) + "/bulan</b> (± " + usd(m / 730) + "/jam, ditagih per jam ke akun mitra)" +
-      (a && a.info && a.info.ok ? " · Kredit " + esc(a.nama) + ": <b style='color:" + (a.info.kredit < m ? "var(--warn)" : "var(--ok)") + "'>" + usd(a.info.kredit) + "</b>" : "");
+    $("cSum").innerHTML = a && a.info && a.info.ok
+      ? "Akun <b>" + esc(a.nama) + "</b>: sisa credit <b style='color:" + (a.info.kredit <= 0 ? "#ff8b9c" : "var(--ok)") + "'>" + usd(a.info.kredit) + "</b> · tagihan Vultr bulan ini " + usd(a.info.bulanIni) + " · " + a.info.jumlahServer + " server"
+      : "Akun dipilih otomatis: akun aktif dengan sisa credit terbesar.";
   }
   function loadSsh() {
     var akun = $("cAkun").value;
@@ -389,7 +419,6 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
   $("cRegion").addEventListener("change", fillPlans);
   $("cTipe").addEventListener("change", fillPlans);
   $("cPlan").addEventListener("change", summary);
-  $("cBak").addEventListener("change", summary);
   $("cAkun").addEventListener("change", function () { summary(); loadSsh(); $("wPaksa").hidden = true; });
   $("cLabel").addEventListener("input", function () { $("cHost").placeholder = this.value ? this.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/^-+|-+$/g, "") : "otomatis dari label"; });
   $("cf").addEventListener("submit", function (e) {
@@ -397,7 +426,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     if (!$("cPlan").value) { $("cErr").textContent = "Pilih plan."; return; }
     $("cErr").textContent = ""; $("cRes").innerHTML = ""; $("cGo").disabled = true; $("cGo").textContent = "Membuat VPS...";
     api({ action: "create", akun: $("cAkun").value, region: $("cRegion").value, plan: $("cPlan").value, os_id: $("cOs").value, label: $("cLabel").value, hostname: $("cHost").value,
-      sshKeyId: $("cSshSel").value || undefined, sshPublic: $("cSsh").value.trim() || undefined, ipv6: $("cV6").checked, backups: $("cBak").checked, paksa: $("cPaksa").checked }).then(function (r) {
+      sshKeyId: $("cSshSel").value || undefined, sshPublic: $("cSsh").value.trim() || undefined, ipv6: $("cV6").checked, paksa: $("cPaksa").checked }).then(function (r) {
       $("cGo").disabled = false; $("cGo").textContent = "Buat VPS";
       if (!r.ok) { $("cErr").textContent = r.error; if (r.perluKonfirmasi) $("wPaksa").hidden = false; return; }
       $("cRes").innerHTML = '<div class="res"><b>✅ VPS dibuat di akun ' + esc(r.akun) + (r.otomatis ? " (dipilih otomatis)" : "") + "</b>" +

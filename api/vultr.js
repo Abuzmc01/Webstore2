@@ -103,14 +103,31 @@ async function account(id) {
   const raw = await redis(["HGET", ACC_KEY, String(id || "")]);
   return raw ? decrypt(raw) : null;
 }
-const safeAcc = (a) => ({ id: a.id, nama: a.nama, mitra: a.mitra || "", catatan: a.catatan || "", aktif: a.aktif !== false, keyAkhir: a.apiKey.slice(-4), dibuat: a.dibuat });
+const safeAcc = (a) => ({ id: a.id, nama: a.nama, mitra: a.mitra || "", catatan: a.catatan || "", aktif: a.aktif !== false, keyAkhir: a.apiKey.slice(-4), dibuat: a.dibuat, creditAwal: Number(a.creditAwal) || 0, tanggal: a.tanggal || "" });
+const r2 = (n) => Math.round(n * 100) / 100;
 
-// Vultr: balance negatif = kredit. Sisa kredit = -(balance) - pending_charges
+// Hitungan credit (permintaan founder):
+//   Credit Awal     = diisi manual per akun (misal $305)
+//   Credit Terpakai = total semua tagihan Vultr di menu Billing: jumlah invoice + tagihan bulan berjalan (pending charges)
+//   Sisa Credit     = Credit Awal - Credit Terpakai
 async function accountInfo(a) {
   try {
-    const j = await vultr(a.apiKey, "GET", "/account");
+    const [j, invoices, list] = await Promise.all([
+      vultr(a.apiKey, "GET", "/account"),
+      vultrAll(a.apiKey, "/billing/invoices", "billing_invoices"),
+      vultrAll(a.apiKey, "/instances", "instances")
+    ]);
     const acc = j.account || {};
-    return { ok: true, email: acc.email || "", nama: acc.name || "", kredit: Math.round((-(Number(acc.balance) || 0) - (Number(acc.pending_charges) || 0)) * 100) / 100, tagihanBerjalan: Number(acc.pending_charges) || 0 };
+    const bulanIni = r2(Number(acc.pending_charges) || 0);
+    const totalInvoice = r2(invoices.reduce((s, x) => s + (Number(x.amount) || 0), 0));
+    const terpakai = r2(totalInvoice + bulanIni);
+    const awal = Number(a.creditAwal) || 0;
+    const last = invoices.slice().sort((x, y) => String(y.date).localeCompare(String(x.date)))[0];
+    return {
+      ok: true, email: acc.email || "", creditAwal: awal, terpakai, kredit: r2(awal - terpakai), jumlahServer: list.length,
+      bulanIni, totalInvoice, jumlahInvoice: invoices.length,
+      invoiceTerakhir: last ? { tanggal: String(last.date).slice(0, 10), jumlah: r2(Number(last.amount) || 0) } : null
+    };
   } catch (e) {
     return { ok: false, error: e.message };
   }
@@ -244,8 +261,10 @@ module.exports = async (req, res) => {
         if (b.id && !old) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
         const apiKey = clip(b.apiKey, 120) || (old && old.apiKey);
         if (!apiKey || !/^[A-Z0-9]{20,}$/i.test(apiKey)) return send(res, 400, { ok: false, error: "API key Vultr tidak valid (huruf besar + angka, ±36 karakter)." });
+        const creditAwal = Math.max(0, Math.round(Number(String(b.creditAwal == null ? "" : b.creditAwal).replace(/[^\d.]/g, "")) * 100) / 100 || 0);
+        const tanggal = /^\d{4}-\d{2}-\d{2}$/.test(String(b.tanggal || "")) ? String(b.tanggal) : (old && old.tanggal) || "";
         const a = Object.assign({}, old || { id: crypto.randomBytes(6).toString("hex"), dibuat: Date.now() }, {
-          nama, mitra: clip(b.mitra, 80), catatan: clip(b.catatan, 300), aktif: b.aktif !== false, apiKey, diubah: Date.now(), diubahOleh: oleh
+          nama, mitra: clip(b.mitra, 80), catatan: clip(b.catatan, 300), aktif: b.aktif !== false, apiKey, creditAwal, tanggal, diubah: Date.now(), diubahOleh: oleh
         });
         const info = await accountInfo(a); // pastikan key berfungsi sebelum disimpan
         if (!info.ok) return send(res, 400, { ok: false, error: "Tidak tersimpan: " + info.error });
@@ -276,8 +295,10 @@ module.exports = async (req, res) => {
         const results = await Promise.all(all.map((a) => instancesOf(a).then((l) => ({ ok: true, l }), (e) => ({ ok: false, akun: a.nama, error: e.message }))));
         const list = [], errors = [];
         results.forEach((r) => (r.ok ? list.push(...r.l) : errors.push(r.akun + ": " + r.error)));
-        const pw = (await redis(["HKEYS", PW_KEY])) || [];
-        list.forEach((v) => { v.adaPassword = pw.includes(v.id); });
+        const raw = (await redis(["HGETALL", PW_KEY])) || [];
+        const pw = {};
+        for (let i = 0; i < raw.length; i += 2) { try { pw[raw[i]] = decrypt(raw[i + 1]).password; } catch (e) { /* lewati */ } }
+        list.forEach((v) => { v.password = pw[v.id] || ""; v.adaPassword = !!pw[v.id]; });
         list.sort((x, y) => String(y.dibuat).localeCompare(String(x.dibuat)));
         return send(res, 200, { ok: true, instances: list, errors });
       }
@@ -303,15 +324,15 @@ module.exports = async (req, res) => {
         } else {
           const all = (await accounts()).filter((a) => a.aktif !== false);
           const infos = await Promise.all(all.map(accountInfo));
-          const ok = all.map((a, i) => ({ a, info: infos[i] })).filter((x) => x.info.ok && x.info.kredit >= plan.bulanan).sort((x, y) => y.info.kredit - x.info.kredit);
-          if (!ok.length) return send(res, 400, { ok: false, error: `Tidak ada akun mitra aktif dengan kredit minimal $${plan.bulanan} (biaya 1 bulan plan ini).` });
+          const ok = all.map((a, i) => ({ a, info: infos[i] })).filter((x) => x.info.ok && x.info.kredit > 0).sort((x, y) => y.info.kredit - x.info.kredit);
+          if (!ok.length) return send(res, 400, { ok: false, error: "Tidak ada akun mitra aktif yang sisa credit-nya masih ada (Credit Awal − tagihan Vultr)." });
           acc = ok[0].a; info = ok[0].info;
         }
-        if (b.akun && b.akun !== "auto" && info.kredit < plan.jam * 24 && !b.paksa) {
-          return send(res, 400, { ok: false, perluKonfirmasi: true, error: `Kredit ${acc.nama} tinggal $${info.kredit}, kurang dari biaya 1 hari ($${(plan.jam * 24).toFixed(2)}). Centang "tetap buat" kalau yakin.` });
+        if (b.akun && b.akun !== "auto" && info.kredit <= 0 && !b.paksa) {
+          return send(res, 400, { ok: false, perluKonfirmasi: true, error: `Sisa credit ${acc.nama} sudah $${info.kredit} (Credit Awal $${info.creditAwal} − tagihan Vultr $${info.terpakai}). Centang "tetap buat" kalau yakin.` });
         }
 
-        const body = { region: b.region, plan: b.plan, os_id: osId, label, hostname, enable_ipv6: b.ipv6 !== false, backups: b.backups ? "enabled" : "disabled", tags: ["mineidhost"] };
+        const body = { region: b.region, plan: b.plan, os_id: osId, label, hostname, enable_ipv6: b.ipv6 !== false, backups: "disabled", tags: ["mineidhost"] }; // auto backup selalu mati
         // SSH key: pilih yang sudah ada di akun itu, atau tempel public key baru
         if (b.sshKeyId) body.sshkey_id = [String(b.sshKeyId)];
         else if (b.sshPublic && /^(ssh-(rsa|ed25519)|ecdsa-sha2-)/.test(String(b.sshPublic).trim())) {
@@ -366,6 +387,16 @@ module.exports = async (req, res) => {
         const p = decrypt(raw);
         await log(oleh, "lihat password", String(b.label || b.id));
         return send(res, 200, { ok: true, password: p.password, waktu: p.waktu });
+      }
+
+      case "set_password": {
+        const a = await account(b.akun);
+        if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
+        const pass = String(b.password || "").slice(0, 200);
+        if (!pass) { await redis(["HDEL", PW_KEY, String(b.id)]); await log(oleh, "hapus password", String(b.label || b.id)); return send(res, 200, { ok: true }); }
+        await redis(["HSET", PW_KEY, String(b.id), encrypt({ password: pass, akun: a.id, waktu: Date.now(), manual: true })]);
+        await log(oleh, "ubah password", String(b.label || b.id));
+        return send(res, 200, { ok: true });
       }
 
       case "log": {
