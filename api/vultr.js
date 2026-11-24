@@ -191,9 +191,9 @@ function slimMetal(v, acc) {
     status: v.status, power: v.power_status || (v.status === "active" ? "running" : v.status), server: v.server_status || "", dibuat: v.date_created, tag: (v.tags || []).join(", ")
   };
 }
-async function instancesOf(a) {
+async function instancesOf(a, onlyMetal) {
   const [vps, metal] = await Promise.all([
-    vultrAll(a.apiKey, "/instances", "instances"),
+    onlyMetal ? Promise.resolve([]) : vultrAll(a.apiKey, "/instances", "instances"),
     vultrAll(a.apiKey, "/bare-metals", "bare_metals").catch(() => [])
   ]);
   return vps.map((v) => slimInstance(v, a)).concat(metal.map((v) => slimMetal(v, a)));
@@ -326,7 +326,7 @@ module.exports = async (req, res) => {
       // ---------- VPS
       case "instances": {
         const all = (await accounts()).filter((a) => a.aktif !== false && (!b.akun || a.id === b.akun));
-        const results = await Promise.all(all.map((a) => instancesOf(a).then((l) => ({ ok: true, l }), (e) => ({ ok: false, akun: a.nama, error: e.message }))));
+        const results = await Promise.all(all.map((a) => instancesOf(a, b.jenis === "metal").then((l) => ({ ok: true, l }), (e) => ({ ok: false, akun: a.nama, error: e.message }))));
         const list = [], errors = [];
         results.forEach((r) => (r.ok ? list.push(...r.l) : errors.push(r.akun + ": " + r.error)));
         const raw = (await redis(["HGETALL", PW_KEY])) || [];
@@ -449,3 +449,10 @@ module.exports = async (req, res) => {
 };
 
 module.exports._test = { accountInfo, slimInstance };
+
+// Helper internal dipakai juga oleh /api/baremetal (console khusus Bare Metal). Tidak mengubah handler di atas.
+module.exports._lib = {
+  env, redis, encrypt, decrypt, vultr, vultrAll, accounts, account, accountInfo, catalog,
+  safeAcc, r2, slimMetal, log, clip, HOST_RE, send, readBody, safeEq, configError,
+  ACC_KEY, PW_KEY, LOG_KEY, SESSION_HOURS
+};
