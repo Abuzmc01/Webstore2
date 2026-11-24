@@ -5,5 +5,6 @@ Disallow: /admin-chat
 Disallow: /admin-mitra
 Disallow: /admin-keuangan
 Disallow: /admin-vultr
+Disallow: /admin-baremetal
 
 Sitemap: https://mineidhost.com/sitemap.xml
