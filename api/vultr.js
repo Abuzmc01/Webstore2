@@ -332,6 +332,22 @@ module.exports = async (req, res) => {
         const raw = (await redis(["HGETALL", PW_KEY])) || [];
         const pw = {};
         for (let i = 0; i < raw.length; i += 2) { try { pw[raw[i]] = decrypt(raw[i + 1]).password; } catch (e) { /* lewati */ } }
+        // Bare Metal yang passwordnya belum tersimpan: tanyakan ke Vultr (detail server kadang memuat default_password)
+        const missing = list.filter((v) => v.metal && !pw[v.id]).slice(0, 10);
+        if (missing.length) {
+          const accById = {};
+          all.forEach((a) => { accById[a.id] = a; });
+          await Promise.all(missing.map(async (v) => {
+            try {
+              const d = await vultr(accById[v.akun].apiKey, "GET", "/bare-metals/" + encodeURIComponent(v.id));
+              const pass = d.bare_metal && d.bare_metal.default_password;
+              if (pass) {
+                pw[v.id] = pass;
+                await redis(["HSET", PW_KEY, v.id, encrypt({ password: pass, akun: v.akun, waktu: Date.now(), dariVultr: true })]);
+              }
+            } catch (e) { /* biarkan "belum ada" */ }
+          }));
+        }
         list.forEach((v) => { v.password = pw[v.id] || ""; v.adaPassword = !!pw[v.id]; });
         list.sort((x, y) => String(y.dibuat).localeCompare(String(x.dibuat)));
         return send(res, 200, { ok: true, instances: list, errors });
