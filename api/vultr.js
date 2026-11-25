@@ -358,11 +358,12 @@ module.exports = async (req, res) => {
         } else {
           const all = (await accounts()).filter((a) => a.aktif !== false);
           const infos = await Promise.all(all.map(accountInfo));
-          const ok = all.map((a, i) => ({ a, info: infos[i] })).filter((x) => x.info.ok && x.info.kredit >= plan.bulanan).sort((x, y) => y.info.kredit - x.info.kredit);
-          if (!ok.length) return send(res, 400, { ok: false, error: `Tidak ada akun mitra aktif dengan sisa credit minimal $${plan.bulanan} (Biaya/Bulan plan ini).` });
+          // Bare Metal: tidak dibatasi credit (permintaan founder) -> tetap pilih akun dengan sisa credit terbesar
+          const ok = all.map((a, i) => ({ a, info: infos[i] })).filter((x) => x.info.ok && (plan.metal || x.info.kredit >= plan.bulanan)).sort((x, y) => y.info.kredit - x.info.kredit);
+          if (!ok.length) return send(res, 400, { ok: false, error: plan.metal ? "Tidak ada akun mitra aktif yang bisa dihubungi." : `Tidak ada akun mitra aktif dengan sisa credit minimal $${plan.bulanan} (Biaya/Bulan plan ini).` });
           acc = ok[0].a; info = ok[0].info;
         }
-        if (b.akun && b.akun !== "auto" && info.kredit < plan.bulanan && !b.paksa) {
+        if (!plan.metal && b.akun && b.akun !== "auto" && info.kredit < plan.bulanan && !b.paksa) {
           return send(res, 400, { ok: false, perluKonfirmasi: true, error: `Sisa credit ${acc.nama} $${info.kredit}, kurang dari Biaya/Bulan plan ini ($${plan.bulanan}). Setelah dibuat sisa jadi $${r2(info.kredit - plan.bulanan)}. Centang "tetap buat" kalau yakin.` });
         }
 

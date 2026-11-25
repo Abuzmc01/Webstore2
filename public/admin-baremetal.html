@@ -136,7 +136,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
 
   <!-- buat VPS -->
   <section id="t-buat" hidden>
-    <div class="note"><b>Bare Metal</b> = server fisik penuh (tanpa virtualisasi). Instalasi 10–30 menit, harga bulanan penuh langsung mengurangi sisa credit akun. Akun Vultr harus sudah diizinkan Vultr untuk Bare Metal; kalau ditolak, pesan dari Vultr muncul di bawah tombol.</div>
+    <div class="note"><b>Bare Metal</b> = server fisik penuh (tanpa virtualisasi). Instalasi 10–30 menit, estimasi credit hanya catatan (credit kurang tetap bisa membuat Bare Metal, estimasinya ditulis "-"). Akun Vultr harus sudah diizinkan Vultr untuk Bare Metal; kalau ditolak, pesan dari Vultr muncul di bawah tombol.</div>
     <form class="box" id="cf">
       <div class="fg">
         <div class="full"><label class="l" for="cAkun">Akun mitra</label><select id="cAkun"></select></div>
@@ -151,8 +151,12 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
         <div class="full"><label class="l" for="cSsh">atau tempel SSH public key baru (opsional)</label><textarea id="cSsh" rows="2" placeholder="ssh-ed25519 AAAA... nama@pc"></textarea></div>
       </div>
       <div class="ck">
-        <label><input type="checkbox" id="cV6" checked> IPv6</label>
-        <label id="wPaksa" hidden><input type="checkbox" id="cPaksa"> Tetap buat walau sisa credit kurang</label>
+        <label>IPv6
+          <select id="cV6sel" style="margin-left:6px">
+            <option value="1">Aktif (dapat alamat IPv6)</option>
+            <option value="0">Mati (hanya IPv4)</option>
+          </select>
+        </label>
       </div>
       <div class="sum" id="cSum"></div>
       <div class="e" id="cErr"></div>
@@ -225,7 +229,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       $("aList").innerHTML = ACC.length ? ACC.map(function (a) {
         var i = a.info || {};
         return '<div class="acc"><div class="h"><b>' + esc(a.nama) + "</b>" + (a.aktif ? (i.ok ? '<span class="tag ok">OK</span>' : '<span class="tag bad">Error</span>') : '<span class="tag off">Nonaktif</span>') + "</div>" +
-          (i.ok ? '<div class="k" style="color:' + (i.kredit < 0 ? "#ff8b9c" : i.kredit < 20 ? "var(--warn)" : "#fff") + '">' + usd(i.kredit) + '</div><small>sisa credit</small>' +
+          (i.ok ? '<div class="k" style="color:' + (i.kredit < 20 ? "var(--warn)" : "#fff") + '">' + (i.kredit >= 0 ? usd(i.kredit) : "-") + '</div><small>sisa credit</small>' +
             '<div class="cr"><span>Credit awal<b>' + usd(i.creditAwal) + '</b></span><span>Terpakai<b>' + usd(i.terpakai) + '</b></span><span>Server<b>' + i.jumlahServer + "</b></span></div>" +
             (i.server && i.server.length ? "<small>" + i.server.map(function (s) { return esc(s.label || s.plan) + " " + usd(s.biaya) + "/bln"; }).join(" · ") + "</small>" : "") +
             (i.tanpaHarga && i.tanpaHarga.length ? '<small style="color:var(--warn)">Harga plan tidak dikenal: ' + esc(i.tanpaHarga.join(", ")) + "</small>" : "") +
@@ -374,7 +378,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     if (!CAT) return;
     var akunSel = $("cAkun").value;
     $("cAkun").innerHTML = '<option value="auto">Otomatis: akun aktif dengan sisa credit terbesar</option>' + ACC.filter(function (a) { return a.aktif; }).map(function (a) {
-      return '<option value="' + a.id + '">' + esc(a.nama) + (a.info && a.info.ok ? " — sisa credit " + usd(a.info.kredit) + " · " + a.info.jumlahServer + " server" : " — error") + "</option>";
+      return '<option value="' + a.id + '">' + esc(a.nama) + (a.info && a.info.ok ? " — sisa credit " + (a.info.kredit >= 0 ? usd(a.info.kredit) : "-") + " · " + a.info.jumlahServer + " server" : " — error") + "</option>";
     }).join("");
     if (akunSel) $("cAkun").value = akunSel;
     if (!filled) {
@@ -422,9 +426,10 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     if (!p) { $("cSum").innerHTML = "Pilih plan."; return; }
     var m = p.bulanan;
     var a = ACC.filter(function (x) { return x.id === $("cAkun").value; })[0];
-    $("cSum").innerHTML = (p.metal ? "🖥️ <b>Bare Metal</b>: server fisik, instalasi 10–30 menit. " : "") + "Biaya/Bulan: <b>" + usd(m) + "</b> (langsung mengurangi sisa credit penuh)" + (a && a.info && a.info.ok
-      ? " · Sisa credit " + esc(a.nama) + ": <b>" + usd(a.info.kredit) + "</b> → setelah dibuat <b style='color:" + (a.info.kredit - m < 0 ? "#ff8b9c" : "var(--ok)") + "'>" + usd(a.info.kredit - m) + "</b>"
-      : " · akun dipilih otomatis (sisa credit terbesar yang cukup)");
+    var after = a && a.info && a.info.ok ? a.info.kredit - m : null;
+    $("cSum").innerHTML = "🖥️ <b>Bare Metal</b>: server fisik, instalasi 10–30 menit. Biaya/Bulan: <b>" + usd(m) + "</b>" + (a && a.info && a.info.ok
+      ? " · Sisa credit " + esc(a.nama) + ": <b>" + (a.info.kredit >= 0 ? usd(a.info.kredit) : "-") + "</b> → estimasi setelah dibuat <b>" + (after >= 0 ? usd(after) : "-") + "</b>"
+      : " · akun dipilih otomatis (sisa credit terbesar)");
   }
   function loadSsh() {
     var akun = $("cAkun").value;
@@ -447,21 +452,21 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
     $("cRegion").value = a.dataset.reg; fillPlans(); loadSsh();
   });
   $("cPlan").addEventListener("change", summary);
-  $("cAkun").addEventListener("change", function () { summary(); loadSsh(); $("wPaksa").hidden = true; });
+  $("cAkun").addEventListener("change", function () { summary(); loadSsh(); });
   $("cLabel").addEventListener("input", function () { $("cHost").placeholder = this.value ? this.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/^-+|-+$/g, "") : "otomatis dari label"; });
   $("cf").addEventListener("submit", function (e) {
     e.preventDefault();
     if (!$("cPlan").value) { $("cErr").textContent = "Pilih plan."; return; }
     $("cErr").textContent = ""; $("cRes").innerHTML = ""; $("cGo").disabled = true; $("cGo").textContent = "Membuat Bare Metal...";
     api({ action: "create", akun: $("cAkun").value, region: $("cRegion").value, plan: $("cPlan").value, os_id: $("cOs").value, label: $("cLabel").value, hostname: $("cHost").value,
-      sshKeyId: $("cSshSel").value || undefined, sshPublic: $("cSsh").value.trim() || undefined, ipv6: $("cV6").checked, paksa: $("cPaksa").checked }).then(function (r) {
+      sshKeyId: $("cSshSel").value || undefined, sshPublic: $("cSsh").value.trim() || undefined, ipv6: $("cV6sel").value === "1" }).then(function (r) {
       $("cGo").disabled = false; $("cGo").textContent = "Buat Bare Metal";
-      if (!r.ok) { $("cErr").textContent = r.error; if (r.perluKonfirmasi) $("wPaksa").hidden = false; return; }
+      if (!r.ok) { $("cErr").textContent = r.error; return; }
       $("cRes").innerHTML = '<div class="res"><b>✅ ' + (r.metal ? "Bare Metal" : "VPS") + ' dibuat di akun ' + esc(r.akun) + (r.otomatis ? " (dipilih otomatis)" : "") + "</b>" +
         "<div style='margin-top:6px;color:var(--muted);font-size:14px'>" + esc(r.instance.label) + " · " + esc(r.instance.region.toUpperCase()) + " · IP muncul " + (r.metal ? "10–30" : "1–3") + " menit lagi di tab Bare Metal.</div>" +
         (r.password ? '<div class="pw"><span>Password root:</span><code>' + esc(r.password) + '</code><button type="button" class="btn sm" id="cCopy">Salin</button></div><small style="color:var(--muted)">Juga tersimpan terenkripsi, bisa dilihat lagi di kolom Password root tab Bare Metal.</small>' : "") + "</div>";
       if (r.password) $("cCopy").onclick = function () { copy(r.password); };
-      $("cLabel").value = ""; $("cHost").value = ""; $("cSsh").value = ""; $("cPaksa").checked = false; $("wPaksa").hidden = true;
+      $("cLabel").value = ""; $("cHost").value = ""; $("cSsh").value = "";
       loadVps(); loadAccounts().then(fillCreate);
     });
   });
