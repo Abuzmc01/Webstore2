@@ -306,6 +306,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
         '<td><div class="acts">' +
         (running ? '<button type="button" class="btn sm" data-p="reboot" data-id="' + v.id + '">Reboot</button><button type="button" class="btn sm" data-p="stop" data-id="' + v.id + '">Stop</button>'
                  : '<button type="button" class="btn sm" data-p="start" data-id="' + v.id + '">Start</button>') +
+        (v.metal ? "" : '<button type="button" class="btn sm" data-up="' + v.id + '">Upgrade</button>') +
         '<button type="button" class="btn sm" data-re="' + v.id + '">Reinstall</button>' +
         '<button type="button" class="btn sm del" data-del="' + v.id + '">Hapus</button></div></td></tr>';
     }).join("") : '<tr><td colspan="7" class="empty">' + (ACC.length ? "Tidak ada VPS." : "Tambahkan akun mitra dulu di tab Akun mitra.") + "</td></tr>";
@@ -321,7 +322,7 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
       sp.textContent = show ? sp.dataset.pw : "••••••••"; sp.dataset.show = show ? "1" : "0"; b.textContent = show ? "Sembunyikan" : "Lihat";
       return;
     }
-    var id = b.dataset.id || b.dataset.setpw || b.dataset.re || b.dataset.del;
+    var id = b.dataset.id || b.dataset.setpw || b.dataset.up || b.dataset.re || b.dataset.del;
     var v = VPS.filter(function (x) { return x.id === id; })[0]; if (!v) return;
     if (b.dataset.p) {
       if (b.dataset.p !== "start" && !confirm((b.dataset.p === "stop" ? "Matikan" : "Reboot") + " VPS " + v.label + "?")) return;
@@ -343,6 +344,36 @@ label.l{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
         if (!r.ok) return toast(r.error);
         openModal("<h3>Password root " + esc(v.label) + '</h3><p>IP <code>' + esc(v.ip) + '</code> · user <code>root</code></p><div class="res" style="margin:0"><div class="pw"><code>' + esc(r.password) + '</code><button type="button" class="btn sm" id="mCopy">Salin</button></div><small style="color:var(--muted)">Disimpan ' + when(r.waktu) + '. Kalau password sudah diganti di dalam VPS, yang ini tidak berlaku lagi.</small></div><div class="row"><button type="button" class="btn" data-close>Tutup</button></div>');
         $("mCopy").onclick = function () { copy(r.password); };
+      });
+    } else if (b.dataset.up) {
+      openModal("<h3>Upgrade " + esc(v.label) + '</h3><div class="empty">Mengambil paket yang tersedia dari Vultr...</div>');
+      api({ action: "upgrades", akun: v.akun, id: v.id, plan: v.plan }).then(function (r) {
+        if (!r.ok) { $("mIn").innerHTML = "<h3>Upgrade " + esc(v.label) + '</h3><div class="e">' + esc(r.error) + '</div><div class="row"><button type="button" class="btn" data-close>Tutup</button></div>'; return; }
+        var cur = r.sekarang, curCost = cur ? cur.bulanan : 0;
+        function spec(p) { return (p.cpu && p.cpu !== "Lainnya" ? p.cpu + " · " : "") + p.vcpu + " vCPU · " + gb(p.ram) + " RAM · " + p.disk + " GB"; }
+        if (!r.plans.length) { $("mIn").innerHTML = "<h3>Upgrade " + esc(v.label) + "</h3><p>Vultr tidak menyediakan paket yang lebih tinggi untuk VPS ini di region " + esc(String(v.region).toUpperCase()) + ".</p>" + '<div class="row"><button type="button" class="btn" data-close>Tutup</button></div>'; return; }
+        $("mIn").innerHTML = "<h3>Upgrade " + esc(v.label) + "</h3>" +
+          "<p>Sekarang: <b>" + esc(cur ? spec(cur) : v.plan) + "</b>" + (cur ? " — " + usd(curCost) + "/bln" : "") + "</p>" +
+          '<label class="l">Upgrade ke (paket berikutnya sudah dipilih)</label><select id="mPlan">' + r.plans.map(function (p) {
+            return '<option value="' + esc(p.id) + '">' + esc(spec(p)) + " — " + usd(p.bulanan) + "/bln (+" + usd(p.bulanan - curCost) + ")</option>";
+          }).join("") + "</select>" +
+          '<div class="sum" id="mUpSum" style="margin-top:4px"></div>' +
+          '<p style="margin-top:10px">VPS akan <b>restart otomatis</b> beberapa menit. Data tidak hilang. Vultr <b>tidak bisa downgrade</b> setelah upgrade.</p>' +
+          '<div class="e" id="mErr"></div><div class="row"><button type="button" class="btn pri" id="mGo">Upgrade sekarang</button><button type="button" class="btn" data-close>Batal</button></div>';
+        function upSum() {
+          var p = r.plans.filter(function (x) { return x.id === $("mPlan").value; })[0];
+          var diff = p.bulanan - curCost;
+          $("mUpSum").innerHTML = "Biaya/bulan naik <b>" + usd(diff) + "</b> (" + usd(curCost) + " → " + usd(p.bulanan) + ")" +
+            (r.kredit != null ? " · sisa credit " + (r.kredit >= 0 ? usd(r.kredit) : "-") + " → <b>" + (r.kredit - diff >= 0 ? usd(r.kredit - diff) : "-") + "</b>" : "");
+        }
+        $("mPlan").onchange = upSum; upSum();
+        $("mGo").onclick = function () {
+          var btn = this; btn.disabled = true; btn.textContent = "Mengupgrade...";
+          api({ action: "upgrade", akun: v.akun, id: v.id, plan: $("mPlan").value, label: v.label, dari: v.plan }).then(function (x) {
+            if (!x.ok) { $("mErr").textContent = x.error; btn.disabled = false; btn.textContent = "Upgrade sekarang"; return; }
+            closeModal(); toast("Upgrade dimulai. VPS restart beberapa menit."); setTimeout(loadVps, 4000); loadAccounts();
+          });
+        };
       });
     } else if (b.dataset.re) {
       var osOpts = '<option value="">OS sama seperti sekarang (' + esc(v.os) + ")</option>" + (CAT ? CAT.os.map(function (o) { return '<option value="' + o.id + '">' + esc(o.nama) + "</option>"; }).join("") : "");

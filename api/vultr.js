@@ -399,6 +399,35 @@ module.exports = async (req, res) => {
         return send(res, 200, { ok: true, akun: acc.nama, metal: !!plan.metal, otomatis: !b.akun || b.akun === "auto", password: v.default_password || "", instance: plan.metal ? slimMetal(v, acc) : slimInstance(v, acc) });
       }
 
+      // ---------- upgrade paket VPS (Vultr hanya mengizinkan naik, tidak bisa turun)
+      case "upgrades": {
+        const a = await account(b.akun);
+        if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
+        const [j, cat, info] = await Promise.all([
+          vultr(a.apiKey, "GET", "/instances/" + encodeURIComponent(b.id) + "/upgrades?type=plans"),
+          catalog(),
+          accountInfo(a)
+        ]);
+        const ids = (j.upgrades && j.upgrades.plans) || [];
+        const byId = {};
+        cat.plans.forEach((p) => { byId[p.id] = p; });
+        const now = byId[b.plan] || null;
+        const plans = ids.map((id) => byId[id] || { id, tipe: "", vcpu: 0, ram: 0, disk: 0, bulanan: 0 })
+          .sort((x, y) => x.bulanan - y.bulanan || x.ram - y.ram);
+        return send(res, 200, { ok: true, sekarang: now, plans, kredit: info.ok ? info.kredit : null });
+      }
+      case "upgrade": {
+        const a = await account(b.akun);
+        if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
+        const plan = String(b.plan || "");
+        if (!plan) return send(res, 400, { ok: false, error: "Pilih paket tujuan." });
+        const j = await vultr(a.apiKey, "GET", "/instances/" + encodeURIComponent(b.id) + "/upgrades?type=plans");
+        if (!((j.upgrades && j.upgrades.plans) || []).includes(plan)) return send(res, 400, { ok: false, error: "Paket itu tidak tersedia untuk upgrade VPS ini." });
+        await vultr(a.apiKey, "PATCH", "/instances/" + encodeURIComponent(b.id), { plan });
+        await log(oleh, "upgrade VPS", (b.label || b.id) + " · " + (b.dari || "?") + " → " + plan + " · akun " + a.nama);
+        return send(res, 200, { ok: true });
+      }
+
       case "power": {
         const a = await account(b.akun);
         if (!a) return send(res, 404, { ok: false, error: "Akun tidak ditemukan." });
